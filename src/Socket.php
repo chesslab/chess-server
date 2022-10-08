@@ -5,7 +5,7 @@ namespace ChessServer;
 use Chess\Game;
 use Chess\Grandmaster;
 use Chess\Movetext;
-use Chess\Player;
+use Chess\Player\PgnPlayer;
 use Chess\Variant\Classical\FEN\BoardToStr;
 use Chess\Variant\Classical\FEN\StrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
@@ -279,7 +279,7 @@ class Socket implements MessageComponentInterface
                         new Game($variant, $mode),
                         [$from->resourceId]
                     );
-                    $player = (new Player($movetext))->play();
+                    $player = (new PgnPlayer($movetext))->play();
                     $game = $pgnMode->getGame()->setBoard($player->getBoard());
                     $pgnMode->setGame($game);
                     $this->gameModes[$from->resourceId] = $pgnMode;
