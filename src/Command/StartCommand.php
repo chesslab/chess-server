@@ -21,6 +21,8 @@ class StartCommand extends AbstractCommand
             // mandatory param
             'variant' => [
                 Game::VARIANT_960,
+                Game::VARIANT_CAPABLANCA_80,
+                Game::VARIANT_CAPABLANCA_100,
                 Game::VARIANT_CLASSICAL,
             ],
             // mandatory param

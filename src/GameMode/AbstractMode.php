@@ -5,6 +5,8 @@ namespace ChessServer\GameMode;
 use Chess\Game;
 use Chess\Heuristics;
 use Chess\HeuristicsByFenString;
+use Chess\Variant\Capablanca80\Board as Capablanca80Board;
+use Chess\Variant\Capablanca100\Board as Capablanca100Board;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use ChessServer\Command\HeuristicsCommand;
@@ -82,11 +84,15 @@ abstract class AbstractMode
                 case HeuristicsCommand::class:
                     $variant = $this->game->getVariant();
                     $movetext = $this->game->getBoard()->getMovetext();
-                    if ($variant === Game::VARIANT_CLASSICAL) {
-                        $board = new ClassicalBoard();
-                    } elseif ($variant === Game::VARIANT_960) {
+                    if ($variant === self::VARIANT_960) {
                         $startPos = $this->game->getBoard()->getStartPos();
                         $board = new Chess960Board($startPos);
+                    } elseif ($variant === self::VARIANT_CAPABLANCA_80) {
+                        $board = new Capablanca80Board();
+                    } elseif ($variant === self::VARIANT_CAPABLANCA_100) {
+                        $board = new Capablanca100Board();
+                    } elseif ($variant === self::VARIANT_CLASSICAL) {
+                        $board = new ClassicalBoard();
                     }
                     return [
                         $cmd->name => [
