@@ -59,7 +59,7 @@ Open a console in your favorite browser and run commands:
 
     const ws = new WebSocket('ws://127.0.0.1:8080');
     ws.onmessage = (res) => { console.log(res.data) };
-    ws.send('/start analysis');
+    ws.send('/start classical analysis');
 
 ### Secure WebSocket Server
 
@@ -73,7 +73,7 @@ Open a console in your favorite browser and run commands:
 
     const ws = new WebSocket('wss://pchess.net:8443');
     ws.onmessage = (res) => { console.log(res.data) };
-    ws.send('/start analysis');
+    ws.send('/start classical analysis');
 
 ### License
 
