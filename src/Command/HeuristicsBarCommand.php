@@ -10,6 +10,7 @@ class HeuristicsBarCommand extends AbstractCommand
         $this->description = "Takes an expanded heuristic picture of the current position.";
         $this->params = [
             'fen' => '<string>',
+            'variant' => '<string>',
         ];
         $this->dependsOn = [
             StartCommand::class,

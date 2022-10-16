@@ -84,14 +84,14 @@ abstract class AbstractMode
                 case HeuristicsCommand::class:
                     $variant = $this->game->getVariant();
                     $movetext = $this->game->getBoard()->getMovetext();
-                    if ($variant === self::VARIANT_960) {
+                    if ($variant === Game::VARIANT_960) {
                         $startPos = $this->game->getBoard()->getStartPos();
                         $board = new Chess960Board($startPos);
-                    } elseif ($variant === self::VARIANT_CAPABLANCA_80) {
+                    } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
                         $board = new Capablanca80Board();
-                    } elseif ($variant === self::VARIANT_CAPABLANCA_100) {
+                    } elseif ($variant === Game::VARIANT_CAPABLANCA_100) {
                         $board = new Capablanca100Board();
-                    } elseif ($variant === self::VARIANT_CLASSICAL) {
+                    } elseif ($variant === Game::VARIANT_CLASSICAL) {
                         $board = new ClassicalBoard();
                     }
                     return [
@@ -101,7 +101,7 @@ abstract class AbstractMode
                         ],
                     ];
                 case HeuristicsBarCommand::class:
-                    $balance = (new HeuristicsByFenString($argv[1]))->getBalance();
+                    $balance = (new HeuristicsByFenString($argv[1], $argv[2]))->getBalance();
                     return [
                         $cmd->name => [
                             'dimensions' => (new Heuristics())->getDimsNames(),
