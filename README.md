@@ -37,11 +37,11 @@ Commands available:
 /accept {"jwt":"<string>"} Accepts a request to play a game.
 /draw {"action":["accept","decline","propose"]} Allows to offer a draw.
 /heuristics Takes a balanced heuristic picture of the current game.
-/heuristics_bar {"fen":"<string>"} Takes an expanded heuristic picture of the current position.
+/heuristics_bar {"fen":"<string>","variant":"<string>"} Takes an expanded heuristic picture of the current position.
 /leave {"action":["accept"]} Allows to leave a game.
 /legal_sqs {"position":"<string>"} Returns the legal squares of a piece.
 /online_games Returns the online games waiting to be accepted.
-/play_fen {"fen":"<string>"} Plays a chess move in shortened FEN format.
+/play_uci {"color":"<string>","uci":"<string>"} Plays a chess move in UCI format.
 /randomizer {"turn":"<string>","items":"<string>"} Starts a random position.
 /rematch {"action":["accept","decline","propose"]} Allows to offer a rematch.
 /resign {"action":["accept"]} Allows to resign a game.

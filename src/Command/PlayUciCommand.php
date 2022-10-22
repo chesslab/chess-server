@@ -2,14 +2,15 @@
 
 namespace ChessServer\Command;
 
-class PlayFenCommand extends AbstractCommand
+class PlayUciCommand extends AbstractCommand
 {
     public function __construct()
     {
-        $this->name = '/play_fen';
-        $this->description = 'Plays a chess move in shortened FEN format.';
+        $this->name = '/play_uci';
+        $this->description = 'Plays a chess move in UCI format.';
         $this->params = [
-            'fen' => '<string>',
+            'color' => '<string>',
+            'uci' => '<string>',
         ];
         $this->dependsOn = [
             StartCommand::class,

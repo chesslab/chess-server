@@ -12,7 +12,7 @@ use Chess\Variant\Classical\Board as ClassicalBoard;
 use ChessServer\Command\HeuristicsCommand;
 use ChessServer\Command\HeuristicsBarCommand;
 use ChessServer\Command\LegalSqsCommand;
-use ChessServer\Command\PlayFenCommand;
+use ChessServer\Command\PlayUciCommand;
 use ChessServer\Command\GrandmasterCommand;
 use ChessServer\Command\StockfishCommand;
 use ChessServer\Command\UndoCommand;
@@ -112,11 +112,11 @@ abstract class AbstractMode
                     return [
                         $cmd->name => $this->game->getBoard()->legalSqs($argv[1]),
                     ];
-                case PlayFenCommand::class:
+                case PlayUciCommand::class:
                     return [
                         $cmd->name => [
                             'turn' => $this->game->state()->turn,
-                            'isLegal' => $this->game->playFen($argv[1]),
+                            'isLegal' => $this->game->playUci($argv[1], $argv[2]),
                             'isCheck' => $this->game->state()->isCheck,
                             'isMate' => $this->game->state()->isMate,
                             'movetext' => $this->game->state()->movetext,
