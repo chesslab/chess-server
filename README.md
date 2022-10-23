@@ -41,7 +41,7 @@ Commands available:
 /leave {"action":["accept"]} Allows to leave a game.
 /legal_sqs {"position":"<string>"} Returns the legal squares of a piece.
 /online_games Returns the online games waiting to be accepted.
-/play_uci {"color":"<string>","uci":"<string>"} Plays a chess move in UCI format.
+/play_lan {"color":"<string>","lan":"<string>"} Plays a chess move in long algebraic notation.
 /randomizer {"turn":"<string>","items":"<string>"} Starts a random position.
 /rematch {"action":["accept","decline","propose"]} Allows to offer a rematch.
 /resign {"action":["accept"]} Allows to resign a game.
