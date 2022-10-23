@@ -16,7 +16,7 @@ use ChessServer\Command\AcceptPlayRequestCommand;
 use ChessServer\Command\DrawCommand;
 use ChessServer\Command\LeaveCommand;
 use ChessServer\Command\OnlineGamesCommand;
-use ChessServer\Command\PlayUciCommand;
+use ChessServer\Command\PlayLanCommand;
 use ChessServer\Command\RandomizerCommand;
 use ChessServer\Command\RematchCommand;
 use ChessServer\Command\ResignCommand;
@@ -132,7 +132,7 @@ class Socket implements MessageComponentInterface
             return $this->sendToOne($from->resourceId, [
                 $cmd->name => $this->playModesArrayByState(PlayMode::STATE_PENDING),
             ]);
-        } elseif (is_a($cmd, PlayUciCommand::class)) {
+        } elseif (is_a($cmd, PlayLanCommand::class)) {
             if (is_a($gameMode, PlayMode::class)) {
                 return $this->sendToMany(
                     $gameMode->getResourceIds(),
