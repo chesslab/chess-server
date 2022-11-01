@@ -279,7 +279,14 @@ class Socket implements MessageComponentInterface
                         new Game($variant, $mode),
                         [$from->resourceId]
                     );
-                    $player = (new PgnPlayer($movetext))->play();
+                    if ($variant === Game::VARIANT_960) {
+                        $startPos = str_split($this->parser->argv[4]);
+                        $board = new \Chess\Variant\Chess960\Board($startPos);
+                        $player = (new PgnPlayer($movetext, $board))->play();
+
+                    } else {
+                        $player = (new PgnPlayer($movetext))->play();
+                    }
                     $game = $pgnMode->getGame()->setBoard($player->getBoard());
                     $pgnMode->setGame($game);
                     $this->gameModes[$from->resourceId] = $pgnMode;
