@@ -31,6 +31,7 @@ class CommandContainer
         $this->obj->attach(new DrawCommand());
         $this->obj->attach(new HeuristicsCommand());
         $this->obj->attach(new HeuristicsBarCommand());
+        $this->obj->attach(new GrandmasterCommand());
         $this->obj->attach(new LeaveCommand());
         $this->obj->attach(new LegalSqsCommand());
         $this->obj->attach(new OnlineGamesCommand());
@@ -38,7 +39,6 @@ class CommandContainer
         $this->obj->attach(new RandomizerCommand());
         $this->obj->attach(new RematchCommand());
         $this->obj->attach(new ResignCommand());
-        $this->obj->attach(new GrandmasterCommand());
         $this->obj->attach(new RestartCommand());
         $this->obj->attach(new StartCommand());
         $this->obj->attach(new StockfishCommand());
