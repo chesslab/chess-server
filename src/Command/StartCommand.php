@@ -34,25 +34,17 @@ class StartCommand extends AbstractCommand
                 PlayMode::NAME,
                 StockfishMode::NAME,
             ],
-            // FenMode
-            // optional param
-            // StockfishMode
-            // optional param
-            'fen' => '<string>',
-            // PgnMode
-            // optional param
-            'movetext' => '<string>',
-            // GmMode
-            // optional param
-            // StockfishMode
-            // optional param
-            'color' => [
-                Color::W,
-                Color::B,
+            // additional param
+            'add' => [
+                'color' => [
+                    Color::W,
+                    Color::B,
+                ],
+                'fen' => '<string>',
+                'movetext' => '<string>',
+                'settings' => '<string>',
+                'startPos' => '<string>',
             ],
-            // PlayMode
-            // mandatory param
-            'settings' => '<string>',
         ];
     }
 
@@ -64,11 +56,15 @@ class StartCommand extends AbstractCommand
                     case AnalysisMode::NAME:
                         return count($argv) - 1 === 2;
                     case GmMode::NAME:
-                        return count($argv) - 1 === 3;
+                        return count($argv) - 1 === 3 && in_array($argv[3], $this->params['add']['color']);
                     case FenMode::NAME:
                         return count($argv) - 1 === 3;
                     case PgnMode::NAME:
-                        return count($argv) - 1 === 3;
+                        if ($argv[1] === Game::VARIANT_960) {
+                            return count($argv) - 1 === 4;
+                        } else {
+                            return count($argv) - 1 === 3;
+                        }
                     case PlayMode::NAME:
                         return count($argv) - 1 === 3;
                     case StockfishMode::NAME:
