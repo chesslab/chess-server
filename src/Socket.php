@@ -283,7 +283,9 @@ class Socket implements MessageComponentInterface
                         $startPos = str_split($this->parser->argv[4]);
                         $board = new \Chess\Variant\Chess960\Board($startPos);
                         $player = (new PgnPlayer($movetext, $board))->play();
-
+                    } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
+                        $board = new \Chess\Variant\Capablanca80\Board();
+                        $player = (new PgnPlayer($movetext, $board))->play();
                     } else {
                         $player = (new PgnPlayer($movetext))->play();
                     }
