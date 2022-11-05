@@ -312,26 +312,27 @@ class Socket implements MessageComponentInterface
                     ];
                 }
             } elseif (PlayMode::NAME === $mode) {
+                $game = new Game($variant, $mode);
                 $settings = json_decode($this->parser->argv[3]);
                 $payload = [
                     'iss' => $_ENV['JWT_ISS'],
                     'iat' => time(),
+                    'exp' => time() + 3600, // one hour by default
+                    'variant' => $this->parser->argv[1],
+                    'submode' => $settings->submode,
                     'color' => $settings->color,
                     'min' => $settings->min,
                     'increment' => $settings->increment,
-                    'submode' => $settings->submode,
-                    'exp' => time() + 3600 // one hour by default
+                    'fen' => $game->getBoard()->toFen(),
                 ];
                 $jwt = JWT::encode($payload, $_ENV['JWT_SECRET']);
-                $this->gameModes[$from->resourceId] = new PlayMode(
-                    new Game($variant, $mode),
-                    [$from->resourceId],
-                    $jwt
-                );
+                $playMode = new PlayMode($game, [$from->resourceId], $jwt);
+                $this->gameModes[$from->resourceId] = $playMode;
                 $res = [
                     $cmd->name => [
                         'variant' => $variant,
                         'mode' => $mode,
+                        'fen' => $game->getBoard()->toFen(),
                         'jwt' => $jwt,
                         'hash' => md5($jwt),
                     ],
