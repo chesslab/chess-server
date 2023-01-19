@@ -113,15 +113,18 @@ abstract class AbstractMode
                         $cmd->name => $this->game->getBoard()->legalSqs($argv[1]),
                     ];
                 case PlayLanCommand::class:
+                    $turn = $this->game->state()->turn;
+                    $isLegal = $this->game->playLan($argv[1], $argv[2]);
+                    $state = $this->game->state();
                     return [
                         $cmd->name => [
-                            'turn' => $this->game->state()->turn,
-                            'isLegal' => $this->game->playLan($argv[1], $argv[2]),
-                            'isCheck' => $this->game->state()->isCheck,
-                            'isMate' => $this->game->state()->isMate,
-                            'movetext' => $this->game->state()->movetext,
-                            'fen' => $this->game->state()->fen,
-                            'pgn' => $this->game->state()->pgn
+                            'turn' => $turn,
+                            'isLegal' => $isLegal,
+                            'isCheck' => $state->isCheck,
+                            'isMate' => $state->isMate,
+                            'movetext' => $state->movetext,
+                            'fen' => $state->fen,
+                            'pgn' => $state->pgn,
                         ],
                     ];
                 case StockfishCommand::class:
