@@ -274,21 +274,23 @@ class Socket implements MessageComponentInterface
                 }
             } elseif (PgnMode::NAME === $mode) {
                 try {
-                    $movetext = (new Movetext($this->parser->argv[3]))->validate();
-                    $pgnMode = new PgnMode(
-                        new Game($variant, $mode),
-                        [$from->resourceId]
-                    );
                     if ($variant === Game::VARIANT_960) {
+                        $move = new \Chess\Variant\Classical\PGN\Move();
+                        $movetext = (new Movetext($move, $this->parser->argv[3]))->validate();
                         $startPos = str_split($this->parser->argv[4]);
                         $board = new \Chess\Variant\Chess960\Board($startPos);
                         $player = (new PgnPlayer($movetext, $board))->play();
                     } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
+                        $move = new \Chess\Variant\Capablanca80\PGN\Move();
+                        $movetext = (new Movetext($move, $this->parser->argv[3]))->validate();
                         $board = new \Chess\Variant\Capablanca80\Board();
                         $player = (new PgnPlayer($movetext, $board))->play();
                     } else {
+                        $move = new \Chess\Variant\Classical\PGN\Move();
+                        $movetext = (new Movetext($move, $this->parser->argv[3]))->validate();
                         $player = (new PgnPlayer($movetext))->play();
                     }
+                    $pgnMode = new PgnMode(new Game($variant, $mode), [$from->resourceId]);
                     $game = $pgnMode->getGame()->setBoard($player->getBoard());
                     $pgnMode->setGame($game);
                     $this->gameModes[$from->resourceId] = $pgnMode;
