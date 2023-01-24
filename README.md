@@ -77,7 +77,7 @@ Open a console in your favorite browser and run commands:
 
 ### License
 
-The MIT License.
+The GNU General Public License.
 
 ### Contributions
 
