@@ -13,7 +13,6 @@ use ChessServer\Command\PlayLanCommand;
 use ChessServer\Command\RandomizerCommand;
 use ChessServer\Command\RematchCommand;
 use ChessServer\Command\ResignCommand;
-use ChessServer\Command\GrandmasterCommand;
 use ChessServer\Command\RestartCommand;
 use ChessServer\Command\StartCommand;
 use ChessServer\Command\StockfishCommand;
@@ -31,7 +30,6 @@ class CommandContainer
         $this->obj->attach(new DrawCommand());
         $this->obj->attach(new HeuristicsCommand());
         $this->obj->attach(new HeuristicsBarCommand());
-        $this->obj->attach(new GrandmasterCommand());
         $this->obj->attach(new LeaveCommand());
         $this->obj->attach(new LegalSqsCommand());
         $this->obj->attach(new OnlineGamesCommand());
