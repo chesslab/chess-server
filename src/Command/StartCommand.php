@@ -58,7 +58,11 @@ class StartCommand extends AbstractCommand
                     case GmMode::NAME:
                         return count($argv) - 1 === 3 && in_array($argv[3], $this->params['add']['color']);
                     case FenMode::NAME:
-                        return count($argv) - 1 === 3;
+                        if ($argv[1] === Game::VARIANT_960) {
+                            return count($argv) - 1 === 4;
+                        } else {
+                            return count($argv) - 1 === 3;
+                        }
                     case PgnMode::NAME:
                         if ($argv[1] === Game::VARIANT_960) {
                             return count($argv) - 1 === 4;
