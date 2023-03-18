@@ -6,8 +6,10 @@ use Chess\Game;
 use Chess\Grandmaster;
 use Chess\Movetext;
 use Chess\Player\PgnPlayer;
+use Chess\Variant\Capablanca80\FEN\StrToBoard as Capablanca80FenStrToBoard;
+use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
+use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\FEN\BoardToStr;
-use Chess\Variant\Classical\FEN\StrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Classical\Randomizer\Randomizer;
 use Chess\Variant\Classical\Randomizer\Checkmate\TwoBishopsRandomizer;
@@ -247,14 +249,23 @@ class Socket implements MessageComponentInterface
                 ];
             } elseif (FenMode::NAME === $mode) {
                 try {
+                    if ($variant === Game::VARIANT_960) {
+                        $startPos = str_split($this->parser->argv[4]);
+                        $board = (new Chess960FenStrToBoard($this->parser->argv[3], $startPos))
+                            ->create();
+                    } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
+                        $board = (new Capablanca80FenStrToBoard($this->parser->argv[3]))
+                            ->create();
+                    } else {
+                        $board = (new ClassicalFenStrToBoard($this->parser->argv[3]))
+                            ->create();
+                    }
                     $fenMode = new FenMode(
                         new Game($variant, $mode),
                         [$from->resourceId],
                         $this->parser->argv[3]
                     );
-                    $game = $fenMode->getGame();
-                    $game->loadFen($this->parser->argv[3]);
-                    $fenMode->setGame($game);
+                    $fenMode->getGame()->setBoard($board);
                     $this->gameModes[$from->resourceId] = $fenMode;
                     $res = [
                         $cmd->name => [
