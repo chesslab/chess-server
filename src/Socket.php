@@ -228,12 +228,19 @@ class Socket implements MessageComponentInterface
                     [$from->resourceId]
                 );
                 $this->gameModes[$from->resourceId] = $analysisMode;
+                $body = [
+                    'variant' => $variant,
+                    'mode' => $mode,
+                    'fen' => $analysisMode->getGame()->getBoard()->toFen(),
+                ];
+                if ($variant === Game::VARIANT_960) {
+                    $body['startPos'] = implode(
+                      '',
+                      $analysisMode->getGame()->getBoard()->getStartPos()
+                    );
+                }
                 $res = [
-                    $cmd->name => [
-                        'variant' => $variant,
-                        'mode' => $mode,
-                        'fen' => $analysisMode->getGame()->getBoard()->toFen(),
-                    ],
+                    $cmd->name => $body,
                 ];
             } elseif (GmMode::NAME === $mode) {
                 $this->gameModes[$from->resourceId] = new GmMode(
@@ -267,12 +274,16 @@ class Socket implements MessageComponentInterface
                     );
                     $fenMode->getGame()->setBoard($board);
                     $this->gameModes[$from->resourceId] = $fenMode;
+                    $body = [
+                        'variant' => $variant,
+                        'mode' => $mode,
+                        'fen' => $this->parser->argv[3],
+                    ];
+                    if ($variant === Game::VARIANT_960) {
+                        $body['startPos'] = $this->parser->argv[4];
+                    }
                     $res = [
-                        $cmd->name => [
-                            'variant' => $variant,
-                            'mode' => $mode,
-                            'fen' => $this->parser->argv[3],
-                        ],
+                        $cmd->name => $body,
                     ];
                 } catch (\Throwable $e) {
                     $res = [
@@ -305,15 +316,19 @@ class Socket implements MessageComponentInterface
                     $game = $pgnMode->getGame()->setBoard($player->getBoard());
                     $pgnMode->setGame($game);
                     $this->gameModes[$from->resourceId] = $pgnMode;
+                    $body = [
+                        'variant' => $variant,
+                        'mode' => $mode,
+                        'turn' => $game->state()->turn,
+                        'movetext' => $movetext,
+                        'fen' => $game->state()->fen,
+                        'history' => $player->getHistory(),
+                    ];
+                    if ($variant === Game::VARIANT_960) {
+                        $body['startPos'] = $this->parser->argv[4];
+                    }
                     $res = [
-                        $cmd->name => [
-                            'variant' => $variant,
-                            'mode' => $mode,
-                            'turn' => $game->state()->turn,
-                            'movetext' => $movetext,
-                            'fen' => $game->state()->fen,
-                            'history' => $player->getHistory(),
-                        ],
+                        $cmd->name => $body,
                     ];
                 } catch (\Throwable $e) {
                     $res = [
