@@ -349,6 +349,10 @@ class Socket implements MessageComponentInterface
                     'min' => $settings->min,
                     'increment' => $settings->increment,
                     'fen' => $game->getBoard()->toFen(),
+                    ...($variant === Game::VARIANT_960
+                        ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
+                        : []
+                    ),
                 ];
                 $jwt = JWT::encode($payload, $_ENV['JWT_SECRET']);
                 $playMode = new PlayMode($game, [$from->resourceId], $jwt);
@@ -361,7 +365,7 @@ class Socket implements MessageComponentInterface
                         'jwt' => $jwt,
                         'hash' => md5($jwt),
                         ...($variant === Game::VARIANT_960
-                            ? ['startPos' =>  $game->getBoard()->getStartPos()
+                            ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
                             : []
                         ),
                     ],
