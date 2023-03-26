@@ -356,14 +356,18 @@ class Socket implements MessageComponentInterface
                 $jwt = JWT::encode($payload, $_ENV['JWT_SECRET']);
                 $playMode = new PlayMode($game, [$from->resourceId], $jwt);
                 $this->gameModes[$from->resourceId] = $playMode;
+                $body = [
+                    'variant' => $variant,
+                    'mode' => $mode,
+                    'fen' => $game->getBoard()->toFen(),
+                    'jwt' => $jwt,
+                    'hash' => md5($jwt),
+                ];
+                if ($variant === Game::VARIANT_960) {
+                    $body['startPos'] = $game->getBoard()->getStartPos();
+                }
                 $res = [
-                    $cmd->name => [
-                        'variant' => $variant,
-                        'mode' => $mode,
-                        'fen' => $game->getBoard()->toFen(),
-                        'jwt' => $jwt,
-                        'hash' => md5($jwt),
-                    ],
+                    $cmd->name => $body,
                 ];
             } elseif (StockfishMode::NAME === $mode) {
                 try {
