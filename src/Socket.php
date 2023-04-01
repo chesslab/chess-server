@@ -361,6 +361,15 @@ class Socket implements MessageComponentInterface
                             ],
                         ];
                     }
+                } else {
+                    if ($variant === Game::VARIANT_960) {
+                        $startPos = str_split($settings->startPos);
+                        $board = new \Chess\Variant\Chess960\Board($startPos);
+                    } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
+                        $board = new \Chess\Variant\Capablanca80\Board();
+                    } else {
+                        $board = new \Chess\Variant\Classical\Board();
+                    }
                 }
                 if (!$res) {
                     $game = (new Game($variant, $mode))->setBoard($board);
