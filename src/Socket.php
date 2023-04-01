@@ -339,10 +339,19 @@ class Socket implements MessageComponentInterface
             } elseif (PlayMode::NAME === $mode) {
                 $res = [];
                 $settings = (object) json_decode(stripslashes($this->parser->argv[3]), true);
-                $game = new Game($variant, $mode);
                 if (isset($settings->fen)) {
                     try {
-                        $game->loadFen($settings->fen);
+                        if ($variant === Game::VARIANT_960) {
+                            $startPos = str_split($settings->startPos);
+                            $board = (new Chess960FenStrToBoard($settings->fen, $startPos))
+                                ->create();
+                        } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
+                            $board = (new Capablanca80FenStrToBoard($settings->fen))
+                                ->create();
+                        } else {
+                            $board = (new ClassicalFenStrToBoard($settings->fen))
+                                ->create();
+                        }
                     } catch (\Throwable $e) {
                         $res = [
                             $cmd->name => [
@@ -354,6 +363,7 @@ class Socket implements MessageComponentInterface
                     }
                 }
                 if (!$res) {
+                    $game = (new Game($variant, $mode))->setBoard($board);
                     $payload = [
                         'iss' => $_ENV['JWT_ISS'],
                         'iat' => time(),
