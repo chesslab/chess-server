@@ -337,6 +337,7 @@ class Socket implements MessageComponentInterface
                     ];
                 }
             } elseif (PlayMode::NAME === $mode) {
+                $res = [];
                 $settings = (object) json_decode(stripslashes($this->parser->argv[3]), true);
                 $game = new Game($variant, $mode);
                 if (isset($settings->fen)) {
