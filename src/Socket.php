@@ -340,43 +340,55 @@ class Socket implements MessageComponentInterface
                 $settings = (object) json_decode(stripslashes($this->parser->argv[3]), true);
                 $game = new Game($variant, $mode);
                 if (isset($settings->fen)) {
-                    $game->loadFen($settings->fen);
+                    try {
+                        $game->loadFen($settings->fen);
+                    } catch (\Throwable $e) {
+                        $res = [
+                            $cmd->name => [
+                                'variant' => $variant,
+                                'mode' => $mode,
+                                'message' => 'This FEN string could not be loaded.',
+                            ],
+                        ];
+                    }
                 }
-                $payload = [
-                    'iss' => $_ENV['JWT_ISS'],
-                    'iat' => time(),
-                    'exp' => time() + 3600, // one hour by default
-                    'variant' => $this->parser->argv[1],
-                    'submode' => $settings->submode,
-                    'color' => $settings->color,
-                    'min' => $settings->min,
-                    'increment' => $settings->increment,
-                    'fen' => $game->getBoard()->toFen(),
-                    ...($variant === Game::VARIANT_960
-                        ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
-                        : []
-                    ),
-                    ...(isset($settings->fen)
-                        ? ['fen' => $settings->fen]
-                        : []
-                    ),
-                ];
-                $jwt = JWT::encode($payload, $_ENV['JWT_SECRET']);
-                $playMode = new PlayMode($game, [$from->resourceId], $jwt);
-                $this->gameModes[$from->resourceId] = $playMode;
-                $res = [
-                    $cmd->name => [
-                        'variant' => $variant,
-                        'mode' => $mode,
+                if (!$res) {
+                    $payload = [
+                        'iss' => $_ENV['JWT_ISS'],
+                        'iat' => time(),
+                        'exp' => time() + 3600, // one hour by default
+                        'variant' => $this->parser->argv[1],
+                        'submode' => $settings->submode,
+                        'color' => $settings->color,
+                        'min' => $settings->min,
+                        'increment' => $settings->increment,
                         'fen' => $game->getBoard()->toFen(),
-                        'jwt' => $jwt,
-                        'hash' => md5($jwt),
                         ...($variant === Game::VARIANT_960
-                            ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
+                            ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
                             : []
                         ),
-                    ],
-                ];
+                        ...(isset($settings->fen)
+                            ? ['fen' => $settings->fen]
+                            : []
+                        ),
+                    ];
+                    $jwt = JWT::encode($payload, $_ENV['JWT_SECRET']);
+                    $playMode = new PlayMode($game, [$from->resourceId], $jwt);
+                    $this->gameModes[$from->resourceId] = $playMode;
+                    $res = [
+                        $cmd->name => [
+                            'variant' => $variant,
+                            'mode' => $mode,
+                            'fen' => $game->getBoard()->toFen(),
+                            'jwt' => $jwt,
+                            'hash' => md5($jwt),
+                            ...($variant === Game::VARIANT_960
+                                ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
+                                : []
+                            ),
+                        ],
+                    ];
+                }
             } elseif (StockfishMode::NAME === $mode) {
                 try {
                     $stockfishMode = new StockfishMode(
