@@ -337,8 +337,11 @@ class Socket implements MessageComponentInterface
                     ];
                 }
             } elseif (PlayMode::NAME === $mode) {
+                $settings = (object) json_decode(stripslashes($this->parser->argv[3]), true);
                 $game = new Game($variant, $mode);
-                $settings = json_decode($this->parser->argv[3]);
+                if (isset($settings->fen)) {
+                    $game->loadFen($settings->fen);
+                }
                 $payload = [
                     'iss' => $_ENV['JWT_ISS'],
                     'iat' => time(),
@@ -350,7 +353,11 @@ class Socket implements MessageComponentInterface
                     'increment' => $settings->increment,
                     'fen' => $game->getBoard()->toFen(),
                     ...($variant === Game::VARIANT_960
-                        ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
+                        ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
+                        : []
+                    ),
+                    ...(isset($settings->fen)
+                        ? ['fen' => $settings->fen]
                         : []
                     ),
                 ];
