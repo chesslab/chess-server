@@ -8,6 +8,9 @@ class HeuristicsCommand extends AbstractCommand
     {
         $this->name = '/heuristics';
         $this->description = "Takes a balanced heuristic picture of the current game.";
+        $this->params = [
+            'movetext' => '<string>',
+        ];
         $this->dependsOn = [
             StartCommand::class,
         ];
@@ -15,6 +18,6 @@ class HeuristicsCommand extends AbstractCommand
 
     public function validate(array $argv)
     {
-        return count($argv) - 1 === 0;
+        return count($argv) - 1 === count($this->params);
     }
 }

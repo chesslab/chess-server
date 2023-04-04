@@ -65,7 +65,7 @@ abstract class AbstractMode
             switch (get_class($cmd)) {
                 case HeuristicsCommand::class:
                     $variant = $this->game->getVariant();
-                    $movetext = $this->game->getBoard()->getMovetext();
+                    $movetext = $argv[1];
                     if ($variant === Game::VARIANT_960) {
                         $startPos = $this->game->getBoard()->getStartPos();
                         $board = new Chess960Board($startPos);
