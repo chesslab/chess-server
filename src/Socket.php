@@ -605,7 +605,7 @@ class Socket implements MessageComponentInterface
 
             $this->log->info('Sent message', [
                 'id' => $resourceId,
-                'res' => $res,
+                'cmd' => array_keys($res),
             ]);
         }
     }
@@ -618,7 +618,7 @@ class Socket implements MessageComponentInterface
 
         $this->log->info('Sent message', [
             'ids' => $resourceIds,
-            'res' => $res,
+            'cmd' => array_keys($res),
         ]);
     }
 }
