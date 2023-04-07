@@ -11,6 +11,9 @@ class HeuristicsCommand extends AbstractCommand
         $this->params = [
             'movetext' => '<string>',
         ];
+        $this->dependsOn = [
+            StartCommand::class,
+        ];
     }
 
     public function validate(array $argv)
