@@ -624,4 +624,17 @@ class Socket implements MessageComponentInterface
             'cmd' => array_keys($res),
         ]);
     }
+
+    public function broadcast()
+    {
+        $message = [
+            'broadcast' => [
+                'onlineGames' => $this->playModesArrayByState(PlayMode::STATE_PENDING),
+            ],
+        ];
+
+        foreach ($this->clients as $client) {
+            $client->send(json_encode($message));
+        }
+    }
 }

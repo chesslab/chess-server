@@ -9,13 +9,17 @@ use Ratchet\WebSocket\WsServer;
 
 require __DIR__  . '/../vendor/autoload.php';
 
+$socket = new Socket();
+
 $server = IoServer::factory(
     new HttpServer(
-        new WsServer(
-            new Socket()
-        )
+        new WsServer($socket)
     ),
     8080
 );
+
+$server->loop->addPeriodicTimer(5, function () use ($socket) {
+    $socket->broadcast();
+});
 
 $server->run();
