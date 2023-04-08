@@ -7,6 +7,7 @@ use Chess\Grandmaster;
 use Chess\Movetext;
 use Chess\Player\PgnPlayer;
 use Chess\Variant\Capablanca80\FEN\StrToBoard as Capablanca80FenStrToBoard;
+use Chess\Variant\Chess960\StartPosition;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\FEN\BoardToStr;
@@ -363,7 +364,7 @@ class Socket implements MessageComponentInterface
                     }
                 } else {
                     if ($variant === Game::VARIANT_960) {
-                        $startPos = str_split($settings->startPos);
+                        $startPos = (new StartPosition())->create();
                         $board = new \Chess\Variant\Chess960\Board($startPos);
                     } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
                         $board = new \Chess\Variant\Capablanca80\Board();
