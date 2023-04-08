@@ -31,7 +31,7 @@ $httpServer = new HttpServer(
     new WsServer($socket)
 );
 
-$loop->addPeriodicTimer(5, function () use ($socket) {
+$loop->addPeriodicTimer(3, function () use ($socket) {
     $socket->broadcast();
 });
 

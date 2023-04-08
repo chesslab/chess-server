@@ -18,7 +18,7 @@ $server = IoServer::factory(
     8080
 );
 
-$server->loop->addPeriodicTimer(5, function () use ($socket) {
+$server->loop->addPeriodicTimer(3, function () use ($socket) {
     $socket->broadcast();
 });
 
