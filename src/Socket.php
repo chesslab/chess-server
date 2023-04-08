@@ -492,7 +492,10 @@ class Socket implements MessageComponentInterface
         $this->deleteGameModes($conn->resourceId);
         $this->deleteClient($conn->resourceId);
 
-        $this->log->info('Closed connection', ['id' => $conn->resourceId]);
+        $this->log->info('Closed connection', [
+            'id' => $conn->resourceId,
+            'n' => count($this->clients)
+        ]);
     }
 
     public function onError(ConnectionInterface $conn, \Exception $e)
