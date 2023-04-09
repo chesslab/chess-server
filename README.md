@@ -66,7 +66,7 @@ Open a console in your favorite browser and run commands:
 
 ### Secure WebSocket Server
 
-> Before starting the secure WebSocket server for the first time, make sure to copy the `certificate.crt` and `private.key` files into the `ssl` folder as explained in [A Simple Example of SSL/TLS WebSocket With ReactPHP and Ratchet](https://medium.com/geekculture/a-simple-example-of-ssl-tls-websocket-with-reactphp-and-ratchet-e03be973f521).
+> Before starting the secure WebSocket server for the first time, make sure to have created the `certificate.crt` and `private.key` files into the `ssl` folder.
 
 Start the server:
 
