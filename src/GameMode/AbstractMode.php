@@ -110,15 +110,17 @@ abstract class AbstractMode
                         ],
                     ];
                 case StockfishCommand::class:
-                    $options = json_decode(stripslashes($argv[1]), true);
-                    $params = json_decode(stripslashes($argv[2]), true);
-                    $ai = $this->game->ai($options, $params);
-                    if ($ai->move) {
-                        $this->game->play($this->game->state()->turn, $ai->move);
+                    if (!$this->game->state()->isMate && !$this->game->state()->isStalemate) {
+                        $options = json_decode(stripslashes($argv[1]), true);
+                        $params = json_decode(stripslashes($argv[2]), true);
+                        $ai = $this->game->ai($options, $params);
+                        if ($ai->move) {
+                            $this->game->play($this->game->state()->turn, $ai->move);
+                        }
                     }
                     return [
                         $cmd->name => [
-                            'move' => $ai->move,
+                            ...(isset($ai) ? ['move' => $ai->move] : []),
                             'state' => $this->game->state(),
                         ],
                     ];
