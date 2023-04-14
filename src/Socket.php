@@ -315,7 +315,6 @@ class Socket implements MessageComponentInterface
                             'mode' => $mode,
                             'turn' => $game->state()->turn,
                             'movetext' => $movetext,
-                            'history' => $player->getHistory(),
                             'fen' => $player->getFen(),
                             ...($variant === Game::VARIANT_960
                                 ? ['startPos' =>  $this->parser->argv[4]]
