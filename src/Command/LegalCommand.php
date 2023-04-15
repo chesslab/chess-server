@@ -2,12 +2,12 @@
 
 namespace ChessServer\Command;
 
-class LegalSqsCommand extends AbstractCommand
+class LegalCommand extends AbstractCommand
 {
     public function __construct()
     {
-        $this->name = '/legal_sqs';
-        $this->description = 'Returns the legal squares of a piece.';
+        $this->name = '/legal';
+        $this->description = 'Returns the legal FEN positions of a piece.';
         $this->params = [
             'position' => '<string>',
         ];

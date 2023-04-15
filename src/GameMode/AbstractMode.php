@@ -11,7 +11,7 @@ use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use ChessServer\Command\HeuristicsCommand;
 use ChessServer\Command\HeuristicsBarCommand;
-use ChessServer\Command\LegalSqsCommand;
+use ChessServer\Command\LegalCommand;
 use ChessServer\Command\PlayLanCommand;
 use ChessServer\Command\StockfishCommand;
 use ChessServer\Command\UndoCommand;
@@ -90,9 +90,9 @@ abstract class AbstractMode
                             'balance' => $balance,
                         ],
                     ];
-                case LegalSqsCommand::class:
+                case LegalCommand::class:
                     return [
-                        $cmd->name => $this->game->getBoard()->legalSqs($argv[1]),
+                        $cmd->name => $this->game->getBoard()->legal($argv[1]),
                     ];
                 case PlayLanCommand::class:
                     $turn = $this->game->state()->turn;

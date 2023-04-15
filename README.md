@@ -43,7 +43,7 @@ Commands available:
 /heuristics {"movetext":"<string>"} Takes a balanced heuristic picture of the given PGN movetext.
 /heuristics_bar {"fen":"<string>","variant":"<string>"} Takes an expanded heuristic picture of the current position.
 /leave {"action":["accept"]} Allows to leave a game.
-/legal_sqs {"position":"<string>"} Returns the legal squares of a piece.
+/legal {"position":"<string>"} Returns the legal FEN positions of a piece.
 /play_lan {"color":"<string>","lan":"<string>"} Plays a chess move in long algebraic notation.
 /randomizer {"turn":"<string>","items":"<string>"} Starts a random position.
 /rematch {"action":["accept","decline","propose"]} Allows to offer a rematch.
