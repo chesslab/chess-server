@@ -126,8 +126,9 @@ abstract class AbstractMode
                     ];
                 case UndoCommand::class:
                     $board = $this->game->getBoard();
+                    $board = $board->undo();
                     if ($board->getHistory()) {
-                        $this->game->setBoard($board->undo());
+                        $this->game->setBoard($board);
                     }
                     return [
                         $cmd->name => $this->game->state(),
