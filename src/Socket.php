@@ -18,6 +18,7 @@ use Chess\Variant\Classical\Randomizer\Endgame\PawnEndgameRandomizer;
 use ChessServer\Command\AcceptPlayRequestCommand;
 use ChessServer\Command\DrawCommand;
 use ChessServer\Command\LeaveCommand;
+use ChessServer\Command\OnlineGamesCommand;
 use ChessServer\Command\PlayLanCommand;
 use ChessServer\Command\RandomizerCommand;
 use ChessServer\Command\RematchCommand;
@@ -130,6 +131,10 @@ class Socket implements MessageComponentInterface
                     $gameMode->res($this->parser->argv, $cmd)
                 );
             }
+        } elseif (is_a($cmd, OnlineGamesCommand::class)) {
+            return $this->sendToOne($from->resourceId, [
+                $cmd->name => $this->playModesArrayByState(PlayMode::STATE_PENDING),
+            ]);
         } elseif (is_a($cmd, PlayLanCommand::class)) {
             if (is_a($gameMode, PlayMode::class)) {
                 return $this->sendToMany(

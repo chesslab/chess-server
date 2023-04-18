@@ -8,6 +8,7 @@ use ChessServer\Command\HeuristicsCommand;
 use ChessServer\Command\HeuristicsBarCommand;
 use ChessServer\Command\LeaveCommand;
 use ChessServer\Command\LegalCommand;
+use ChessServer\Command\OnlineGamesCommand;
 use ChessServer\Command\PlayLanCommand;
 use ChessServer\Command\RandomizerCommand;
 use ChessServer\Command\RematchCommand;
@@ -31,6 +32,7 @@ class CommandContainer
         $this->obj->attach(new HeuristicsBarCommand());
         $this->obj->attach(new LeaveCommand());
         $this->obj->attach(new LegalCommand());
+        $this->obj->attach(new OnlineGamesCommand());
         $this->obj->attach(new PlayLanCommand());
         $this->obj->attach(new RandomizerCommand());
         $this->obj->attach(new RematchCommand());
