@@ -13,8 +13,6 @@ use React\Socket\SecureServer;
 
 require __DIR__  . '/../vendor/autoload.php';
 
-$socket = new Socket();
-
 $loop = Factory::create();
 
 $server = new Server('0.0.0.0:8443', $loop);
@@ -28,12 +26,10 @@ $secureServer = new SecureServer($server, $loop, [
 $limitingServer = new LimitingServer($secureServer, 50);
 
 $httpServer = new HttpServer(
-    new WsServer($socket)
+    new WsServer(
+        new Socket()
+    )
 );
-
-$loop->addPeriodicTimer(3, function () use ($socket) {
-    $socket->broadcast();
-});
 
 $ioServer = new IoServer($httpServer, $limitingServer, $loop);
 

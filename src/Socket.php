@@ -408,6 +408,9 @@ class Socket implements MessageComponentInterface
                             ),
                         ],
                     ];
+                    if ($settings->submode === PlayMode::SUBMODE_ONLINE) {
+                        $this->broadcast();
+                    }
                 }
             } elseif (StockfishMode::NAME === $mode) {
                 try {
@@ -625,7 +628,7 @@ class Socket implements MessageComponentInterface
         ]);
     }
 
-    public function broadcast()
+    protected function broadcast()
     {
         $message = [
             'broadcast' => [
