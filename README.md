@@ -32,10 +32,12 @@ $ sudo apt-get install stockfish
 
 ### WebSocket Server
 
+> Before starting the secure WebSocket server for the first time, make sure to have created the `certificate.crt` and `private.key` files into the `ssl` folder.
+
 Start the server:
 
 ```
-$ php cli/ws-server.php
+$ php cli/wss-server.php
 Welcome to PHP Chess Server
 Commands available:
 /accept {"jwt":"<string>"} Accepts a request to play a game.
@@ -60,23 +62,11 @@ Listening to commands...
 
 Open a console in your favorite browser and run commands:
 
-    const ws = new WebSocket('ws://127.0.0.1:8080');
-    ws.onmessage = (res) => { console.log(res.data) };
-    ws.send('/start classical analysis');
-
-### Secure WebSocket Server
-
-> Before starting the secure WebSocket server for the first time, make sure to have created the `certificate.crt` and `private.key` files into the `ssl` folder.
-
-Start the server:
-
-	$ php cli/wss-server.php
-
-Open a console in your favorite browser and run commands:
-
-    const ws = new WebSocket('wss://pchess.net:8443');
-    ws.onmessage = (res) => { console.log(res.data) };
-    ws.send('/start classical analysis');
+```
+const ws = new WebSocket('wss://pchess.net:8443');
+ws.onmessage = (res) => { console.log(res.data) };
+ws.send('/start classical analysis');
+```
 
 ### License
 
