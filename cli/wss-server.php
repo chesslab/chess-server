@@ -4,6 +4,7 @@ namespace ChessServer;
 
 use ChessServer\Socket;
 use Ratchet\Http\HttpServer;
+use Ratchet\Http\OriginCheck;
 use Ratchet\Server\IoServer;
 use Ratchet\WebSocket\WsServer;
 use React\EventLoop\Factory;
@@ -12,6 +13,10 @@ use React\Socket\Server;
 use React\Socket\SecureServer;
 
 require __DIR__  . '/../vendor/autoload.php';
+
+$allowed = [
+    'www.chesslablab.com',
+];
 
 $loop = Factory::create();
 
@@ -26,8 +31,11 @@ $secureServer = new SecureServer($server, $loop, [
 $limitingServer = new LimitingServer($secureServer, 50);
 
 $httpServer = new HttpServer(
-    new WsServer(
-        new Socket()
+    new OriginCheck(
+      new WsServer(
+          new Socket()
+      ),
+      $allowed,
     )
 );
 
