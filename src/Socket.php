@@ -465,9 +465,9 @@ class Socket implements MessageComponentInterface
                 );
             }
         } elseif (is_a($cmd, UndoCommand::class)) {
-            if (is_a($gameMode, PlayMode::class)) {
-                return $this->sendToMany(
-                    $gameMode->getResourceIds(),
+            if (is_a($gameMode, AnalysisMode::class)) {
+                return $this->sendToOne(
+                    $from->resourceId,
                     $gameMode->res($this->parser->argv, $cmd)
                 );
             } elseif (is_a($gameMode, GmMode::class)) {
@@ -475,7 +475,12 @@ class Socket implements MessageComponentInterface
                     $from->resourceId,
                     $gameMode->res($this->parser->argv, $cmd)
                 );
-            } elseif (is_a($gameMode, AnalysisMode::class)) {
+            } elseif (is_a($gameMode, PlayMode::class)) {
+                return $this->sendToMany(
+                    $gameMode->getResourceIds(),
+                    $gameMode->res($this->parser->argv, $cmd)
+                );
+            } elseif (is_a($gameMode, StockfishMode::class)) {
                 return $this->sendToOne(
                     $from->resourceId,
                     $gameMode->res($this->parser->argv, $cmd)
