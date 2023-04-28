@@ -465,27 +465,17 @@ class Socket implements MessageComponentInterface
                 );
             }
         } elseif (is_a($cmd, UndoCommand::class)) {
-            if (is_a($gameMode, AnalysisMode::class)) {
-                return $this->sendToOne(
-                    $from->resourceId,
-                    $gameMode->res($this->parser->argv, $cmd)
-                );
-            } elseif (is_a($gameMode, GmMode::class)) {
-                return $this->sendToOne(
-                    $from->resourceId,
-                    $gameMode->res($this->parser->argv, $cmd)
-                );
-            } elseif (is_a($gameMode, PgnMode::class)) {
-                return $this->sendToOne(
-                    $from->resourceId,
-                    $gameMode->res($this->parser->argv, $cmd)
-                );
-            } elseif (is_a($gameMode, PlayMode::class)) {
+            if (is_a($gameMode, PlayMode::class)) {
                 return $this->sendToMany(
                     $gameMode->getResourceIds(),
                     $gameMode->res($this->parser->argv, $cmd)
                 );
-            } elseif (is_a($gameMode, StockfishMode::class)) {
+            } elseif (
+                is_a($gameMode, AnalysisMode::class) ||
+                is_a($gameMode, GmMode::class) ||
+                is_a($gameMode, PgnMode::class) ||
+                is_a($gameMode, StockfishMode::class)
+            ) {
                 return $this->sendToOne(
                     $from->resourceId,
                     $gameMode->res($this->parser->argv, $cmd)
