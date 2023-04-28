@@ -475,6 +475,11 @@ class Socket implements MessageComponentInterface
                     $from->resourceId,
                     $gameMode->res($this->parser->argv, $cmd)
                 );
+            } elseif (is_a($gameMode, PgnMode::class)) {
+                return $this->sendToOne(
+                    $from->resourceId,
+                    $gameMode->res($this->parser->argv, $cmd)
+                );
             } elseif (is_a($gameMode, PlayMode::class)) {
                 return $this->sendToMany(
                     $gameMode->getResourceIds(),
