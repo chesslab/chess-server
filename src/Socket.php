@@ -472,6 +472,7 @@ class Socket implements MessageComponentInterface
                 );
             } elseif (
                 is_a($gameMode, AnalysisMode::class) ||
+                is_a($gameMode, FenMode::class) ||
                 is_a($gameMode, GmMode::class) ||
                 is_a($gameMode, PgnMode::class) ||
                 is_a($gameMode, StockfishMode::class)
