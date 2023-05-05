@@ -9,5 +9,9 @@
 /ssl/*.crt
 /ssl/*.key
 
+/storage/correspondence/cache
+/storage/correspondence/data
+/storage/correspondence/*.sdb
 /storage/*.log
+
 /.phpunit.result.cache

@@ -285,28 +285,14 @@ class Socket implements MessageComponentInterface
                 }
                 if (!$res) {
                     $game = (new Game($variant, $mode))->setBoard($board);
-                    $payload = [
-                        'iss' => $_ENV['JWT_ISS'],
-                        'iat' => time(),
-                        'variant' => $this->parser->argv[1],
-                        'color' => $settings->color,
-                        'fen' => $game->getBoard()->toFen(),
-                        ...($variant === Game::VARIANT_960
-                            ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
-                            : []
-                        ),
-                        ...(isset($settings->fen)
-                            ? ['fen' => $settings->fen]
-                            : []
-                        ),
-                    ];
-                    $jwt = JWT::encode($payload, $_ENV['JWT_SECRET']);
-                    $correspondenceStore->insert([
-                        "hash" => md5($jwt),
-                        "game" => serialize($game),
+                    $this->correspondenceStore->insert([
+                        'hash' => md5($jwt),
+                        'game' => serialize($game),
                     ]);
                     $res = [
                         $cmd->name => [
+                          'variant' => $variant,
+                          'mode' => $mode,
                           'hash' => md5($jwt),
                         ],
                     ];
