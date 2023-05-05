@@ -5,6 +5,7 @@ namespace ChessServer\Command;
 use Chess\Game;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\GameMode\AnalysisMode;
+use ChessServer\GameMode\CorrespondenceMode;
 use ChessServer\GameMode\GmMode;
 use ChessServer\GameMode\FenMode;
 use ChessServer\GameMode\PgnMode;
@@ -28,6 +29,7 @@ class StartCommand extends AbstractCommand
             // mandatory param
             'mode' => [
                 AnalysisMode::NAME,
+                CorrespondenceMode::NAME,
                 GmMode::NAME,
                 FenMode::NAME,
                 PgnMode::NAME,
@@ -55,6 +57,8 @@ class StartCommand extends AbstractCommand
                 switch ($argv[2]) {
                     case AnalysisMode::NAME:
                         return count($argv) - 1 === 2;
+                    case CorrespondenceMode::NAME:
+                        return count($argv) - 1 === 3;
                     case GmMode::NAME:
                         return count($argv) - 1 === 3 && in_array($argv[3], $this->params['add']['color']);
                     case FenMode::NAME:
