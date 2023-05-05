@@ -41,6 +41,7 @@ $ php cli/wss-server.php
 Welcome to PHP Chess Server
 Commands available:
 /accept {"jwt":"<string>"} Accepts a request to play a game.
+/correspondence {"hash":"<string>","add":{"pgn":"<string>"}} Returns a correspondence game.
 /draw {"action":["accept","decline","propose"]} Allows to offer a draw.
 /heuristics {"movetext":"<string>"} Takes a balanced heuristic picture of the given PGN movetext.
 /heuristics_bar {"fen":"<string>","variant":"<string>"} Takes an expanded heuristic picture of the current position.
