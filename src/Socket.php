@@ -30,6 +30,7 @@ use ChessServer\Command\UndoCommand;
 use ChessServer\Exception\ParserException;
 use ChessServer\GameMode\AbstractMode;
 use ChessServer\GameMode\AnalysisMode;
+use ChessServer\GameMode\CorrespondenceMode;
 use ChessServer\GameMode\GmMode;
 use ChessServer\GameMode\FenMode;
 use ChessServer\GameMode\PgnMode;
@@ -47,11 +48,15 @@ class Socket implements MessageComponentInterface
 {
     const DATA_FOLDER = __DIR__.'/../data';
 
+    const STORAGE_FOLDER = __DIR__.'/../storage';
+
     private $log;
 
     private $parser;
 
     private $gm;
+
+    private $correspondenceStore;
 
     private $clients = [];
 
@@ -63,10 +68,13 @@ class Socket implements MessageComponentInterface
         $dotenv->load();
 
         $this->log = new Logger($_ENV['BASE_URL']);
-        $this->log->pushHandler(new StreamHandler(__DIR__.'/../storage/pchess.log', Logger::INFO));
+        $this->log->pushHandler(new StreamHandler(self::STORAGE_FOLDER.'/pchess.log', Logger::INFO));
 
         $this->parser = new CommandParser;
         $this->gm = new Grandmaster(self::DATA_FOLDER.'/players.json');
+
+        $databaseDirectory = self::STORAGE_FOLDER;
+        $this->correspondenceStore = new \SleekDB\Store("correspondence", self::STORAGE_FOLDER);
 
         echo "Welcome to PHP Chess Server" . PHP_EOL;
         echo "Commands available:" . PHP_EOL;
@@ -240,6 +248,69 @@ class Socket implements MessageComponentInterface
                         ),
                     ],
                 ];
+            } elseif (CorrespondenceMode::NAME === $mode) {
+                $res = [];
+                $settings = (object) json_decode(stripslashes($this->parser->argv[3]), true);
+                if (isset($settings->fen)) {
+                    try {
+                      if ($variant === Game::VARIANT_960) {
+                          $startPos = str_split($settings->startPos);
+                          $board = (new Chess960FenStrToBoard($settings->fen, $startPos))
+                              ->create();
+                      } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
+                          $board = (new Capablanca80FenStrToBoard($settings->fen))
+                              ->create();
+                      } else {
+                          $board = (new ClassicalFenStrToBoard($settings->fen))
+                              ->create();
+                      }
+                    } catch (\Throwable $e) {
+                      $res = [
+                          $cmd->name => [
+                              'variant' => $variant,
+                              'mode' => $mode,
+                              'message' => 'This FEN string could not be loaded.',
+                          ],
+                      ];
+                    }
+                } else {
+                    if ($variant === Game::VARIANT_960) {
+                        $startPos = (new StartPosition())->create();
+                        $board = new \Chess\Variant\Chess960\Board($startPos);
+                    } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
+                        $board = new \Chess\Variant\Capablanca80\Board();
+                    } else {
+                        $board = new \Chess\Variant\Classical\Board();
+                    }
+                }
+                if (!$res) {
+                    $game = (new Game($variant, $mode))->setBoard($board);
+                    $payload = [
+                        'iss' => $_ENV['JWT_ISS'],
+                        'iat' => time(),
+                        'variant' => $this->parser->argv[1],
+                        'color' => $settings->color,
+                        'fen' => $game->getBoard()->toFen(),
+                        ...($variant === Game::VARIANT_960
+                            ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
+                            : []
+                        ),
+                        ...(isset($settings->fen)
+                            ? ['fen' => $settings->fen]
+                            : []
+                        ),
+                    ];
+                    $jwt = JWT::encode($payload, $_ENV['JWT_SECRET']);
+                    $correspondenceStore->insert([
+                        "hash" => md5($jwt),
+                        "game" => serialize($game),
+                    ]);
+                    $res = [
+                        $cmd->name => [
+                          'hash' => md5($jwt),
+                        ],
+                    ];
+                }
             } elseif (GmMode::NAME === $mode) {
                 $this->gameModes[$from->resourceId] = new GmMode(
                     new Game($variant, $mode, $this->gm),
