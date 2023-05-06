@@ -133,12 +133,13 @@ class Socket implements MessageComponentInterface
             ]);
             if ($correspondence) {
                 $game = unserialize($correspondence['game']);
+                if (!empty($this->parser->argv[2])) {
+                    $game->play($game->getBoard()->getTurn(), $this->parser->argv[2]);
+                    $correspondence['game'] = serialize($game);
+                    $this->correspondenceStore->update($correspondence);
+                }
                 return $this->sendToOne($from->resourceId, [
-                    $cmd->name => [
-                        'color' => $game->getBoard()->getTurn(),
-                        'fen' => $game->getBoard()->toFen(),
-                        'movetext' => $game->getBoard()->getMovetext(),
-                    ],
+                    $cmd->name => $game->state()
                 ]);
             }
             return $this->sendToOne($from->resourceId, [
