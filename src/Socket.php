@@ -16,6 +16,7 @@ use Chess\Variant\Classical\Randomizer\Randomizer;
 use Chess\Variant\Classical\Randomizer\Checkmate\TwoBishopsRandomizer;
 use Chess\Variant\Classical\Randomizer\Endgame\PawnEndgameRandomizer;
 use ChessServer\Command\AcceptPlayRequestCommand;
+use ChessServer\Command\CorrespondenceCommand;
 use ChessServer\Command\DrawCommand;
 use ChessServer\Command\LeaveCommand;
 use ChessServer\Command\OnlineGamesCommand;
@@ -122,6 +123,27 @@ class Socket implements MessageComponentInterface
                 $cmd->name => [
                     'mode' => PlayMode::NAME,
                     'message' =>  'This friend request could not be accepted.',
+                ],
+            ]);
+        } elseif (is_a($cmd, CorrespondenceCommand::class)) {
+            $correspondence = $this->correspondenceStore->findOneBy([
+                'hash',
+                '=',
+                $this->parser->argv[1],
+            ]);
+            if ($correspondence) {
+                $game = unserialize($correspondence['game']);
+                return $this->sendToOne($from->resourceId, [
+                    $cmd->name => [
+                        'color' => $game->getBoard()->getTurn(),
+                        'fen' => $game->getBoard()->toFen(),
+                        'movetext' => $game->getBoard()->getMovetext(),
+                    ],
+                ]);
+            }
+            return $this->sendToOne($from->resourceId, [
+                $cmd->name => [
+                    'message' =>  'This correspondence code does not exist.',
                 ],
             ]);
         } elseif (is_a($cmd, DrawCommand::class)) {
@@ -285,6 +307,21 @@ class Socket implements MessageComponentInterface
                 }
                 if (!$res) {
                     $game = (new Game($variant, $mode))->setBoard($board);
+                    $payload = [
+                        'iss' => $_ENV['JWT_ISS'],
+                        'iat' => time(),
+                        'exp' => time() + 864000, // 10 days by default
+                        'fen' => $game->getBoard()->toFen(),
+                        ...($variant === Game::VARIANT_960
+                            ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
+                            : []
+                        ),
+                        ...(isset($settings->fen)
+                            ? ['fen' => $settings->fen]
+                            : []
+                        ),
+                    ];
+                    $jwt = JWT::encode($payload, $_ENV['JWT_SECRET']);
                     $this->correspondenceStore->insert([
                         'hash' => md5($jwt),
                         'game' => serialize($game),

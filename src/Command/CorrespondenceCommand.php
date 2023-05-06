@@ -9,12 +9,8 @@ class CorrespondenceCommand extends AbstractCommand
         $this->name = '/correspondence';
         $this->description = "Returns a correspondence game.";
         $this->params = [
-            // mandatory param
             'hash' => '<string>',
-            // additional param
-            'add' => [
-                'pgn' => '<string>',
-            ],
+            'pgn' => '<string>',
         ];
     }
 
