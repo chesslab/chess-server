@@ -6,9 +6,12 @@ use Chess\Game;
 use Chess\Grandmaster;
 use Chess\Movetext;
 use Chess\Player\PgnPlayer;
+use Chess\Variant\Capablanca80\Board as Capablanca80Board;
 use Chess\Variant\Capablanca80\FEN\StrToBoard as Capablanca80FenStrToBoard;
+use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\StartPosition;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
+use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\FEN\BoardToStr;
 use Chess\Variant\Classical\PGN\AN\Color;
@@ -133,23 +136,14 @@ class Socket implements MessageComponentInterface
                 try {
                     if ($variant === Game::VARIANT_960) {
                         $startPos = str_split($corresp['add']['startPos']);
-                        $fen = isset($add['fen'])
-                            ? $add['fen']
-                            : (new \Chess\Variant\Chess960\Board($startPos))->toFen();
-                        $board = (new Chess960FenStrToBoard($fen, $startPos))
-                            ->create();
+                        $fen = isset($add['fen']) ? $add['fen'] : (new Chess960Board($startPos))->toFen();
+                        $board = (new Chess960FenStrToBoard($fen, $startPos))->create();
                     } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
-                        $fen = isset($add['fen'])
-                            ? $add['fen']
-                            : (new \Chess\Variant\Capablanca80\Board())->toFen();
-                        $board = (new Capablanca80FenStrToBoard($fen))
-                            ->create();
+                        $fen = isset($add['fen']) ? $add['fen'] : (new Capablanca80Board())->toFen();
+                        $board = (new Capablanca80FenStrToBoard($fen))->create();
                     } else {
-                        $fen = isset($add['fen'])
-                            ? $add['fen']
-                            : (new \Chess\Variant\Classical\Board())->toFen();
-                        $board = (new ClassicalFenStrToBoard($fen))
-                            ->create();
+                        $fen = isset($add['fen']) ? $add['fen'] : (new ClassicalBoard())->toFen();
+                        $board = (new ClassicalFenStrToBoard($fen))->create();
                     }
                 } catch (\Exception $e) {
                     return $this->sendToOne($from->resourceId, [
@@ -207,11 +201,11 @@ class Socket implements MessageComponentInterface
                     } else {
                         if ($corresp['variant'] === Game::VARIANT_960) {
                             $startPos = (new StartPosition())->create();
-                            $board = new \Chess\Variant\Chess960\Board($startPos);
+                            $board = new Chess960Board($startPos);
                         } elseif ($corresp['variant'] === Game::VARIANT_CAPABLANCA_80) {
-                            $board = new \Chess\Variant\Capablanca80\Board();
+                            $board = new Capablanca80Board();
                         } else {
-                            $board = new \Chess\Variant\Classical\Board();
+                            $board = new ClassicalBoard();
                         }
                     }
                     try {
@@ -418,12 +412,12 @@ class Socket implements MessageComponentInterface
                         $move = new \Chess\Variant\Classical\PGN\Move();
                         $movetext = (new Movetext($move, $this->parser->argv[3]))->validate();
                         $startPos = str_split($this->parser->argv[4]);
-                        $board = new \Chess\Variant\Chess960\Board($startPos);
+                        $board = new Chess960Board($startPos);
                         $player = (new PgnPlayer($movetext, $board))->play();
                     } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
                         $move = new \Chess\Variant\Capablanca80\PGN\Move();
                         $movetext = (new Movetext($move, $this->parser->argv[3]))->validate();
-                        $board = new \Chess\Variant\Capablanca80\Board();
+                        $board = new Capablanca80Board();
                         $player = (new PgnPlayer($movetext, $board))->play();
                     } else {
                         $move = new \Chess\Variant\Classical\PGN\Move();
@@ -484,11 +478,11 @@ class Socket implements MessageComponentInterface
                 } else {
                     if ($variant === Game::VARIANT_960) {
                         $startPos = (new StartPosition())->create();
-                        $board = new \Chess\Variant\Chess960\Board($startPos);
+                        $board = new Chess960Board($startPos);
                     } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
-                        $board = new \Chess\Variant\Capablanca80\Board();
+                        $board = new Capablanca80Board();
                     } else {
-                        $board = new \Chess\Variant\Classical\Board();
+                        $board = new ClassicalBoard();
                     }
                 }
                 if (!$res) {
