@@ -31,7 +31,6 @@ use ChessServer\Command\UndoCommand;
 use ChessServer\Exception\ParserException;
 use ChessServer\GameMode\AbstractMode;
 use ChessServer\GameMode\AnalysisMode;
-use ChessServer\GameMode\CorrespondenceMode;
 use ChessServer\GameMode\GmMode;
 use ChessServer\GameMode\FenMode;
 use ChessServer\GameMode\PgnMode;
@@ -57,7 +56,7 @@ class Socket implements MessageComponentInterface
 
     private $gm;
 
-    private $correspondenceStore;
+    private $correspStore;
 
     private $clients = [];
 
@@ -75,7 +74,7 @@ class Socket implements MessageComponentInterface
         $this->gm = new Grandmaster(self::DATA_FOLDER.'/players.json');
 
         $databaseDirectory = self::STORAGE_FOLDER;
-        $this->correspondenceStore = new \SleekDB\Store("correspondence", self::STORAGE_FOLDER);
+        $this->correspStore = new \SleekDB\Store("corresp", self::STORAGE_FOLDER);
 
         echo "Welcome to PHP Chess Server" . PHP_EOL;
         echo "Commands available:" . PHP_EOL;
@@ -126,38 +125,82 @@ class Socket implements MessageComponentInterface
                 ],
             ]);
         } elseif (is_a($cmd, CorrespondenceCommand::class)) {
-            $correspondence = $this->correspondenceStore->findOneBy([
-                'hash',
-                '=',
-                $this->parser->argv[1],
-            ]);
-            if ($correspondence) {
-                $game = unserialize($correspondence['game']);
-                if (!empty($this->parser->argv[2])) {
-                    if ($game->play($game->getBoard()->getTurn(), $this->parser->argv[2])) {
-                        $correspondence['game'] = serialize($game);
-                        $this->correspondenceStore->update($correspondence);
-                        return $this->sendToOne($from->resourceId, [
-                            $cmd->name => $game->state()
-                        ]);
+            $action = $this->parser->argv[1];
+            if (CorrespondenceCommand::ACTION_CREATE === $action) {
+                $hash = md5(uniqid());
+                $this->correspStore->insert([
+                    'hash' => $hash,
+                    'variant' => $this->parser->argv[2],
+                    'add' => json_decode(stripslashes($this->parser->argv[3]), true),
+                    'movetext' => '',
+                ]);
+                $res = [
+                    $cmd->name => [
+                        'action' => CorrespondenceCommand::ACTION_CREATE,
+                        'hash' => $hash,
+                    ],
+                ];
+            } elseif (CorrespondenceCommand::ACTION_READ === $action) {
+                if ($corresp = $this->correspStore->findOneBy(['hash', '=', $this->parser->argv[2]])) {
+                    $res = [
+                        $cmd->name => [
+                            'action' => CorrespondenceCommand::ACTION_READ,
+                            'corresp' => $corresp,
+                        ],
+                    ];
+                } else {
+                    $res = [
+                        $cmd->name => [
+                            'action' => CorrespondenceCommand::ACTION_READ,
+                            'message' =>  'This correspondence code does not exist.',
+                        ],
+                    ];
+                }
+            } elseif (CorrespondenceCommand::ACTION_REPLY === $action) {
+                if ($corresp = $this->correspStore->findOneBy(['hash', '=', $this->parser->argv[2]])) {
+                    if (isset($corresp['add']['fen'])) {
+                      if ($corresp['variant'] === Game::VARIANT_960) {
+                          $startPos = str_split($corresp['add']['startPos']);
+                          $board = (new Chess960FenStrToBoard($corresp['add']['fen'], $startPos))
+                              ->create();
+                      } elseif ($corresp['variant'] === Game::VARIANT_CAPABLANCA_80) {
+                          $board = (new Capablanca80FenStrToBoard($corresp['add']['fen']))
+                              ->create();
+                      } else {
+                          $board = (new ClassicalFenStrToBoard($corresp['add']['fen']))
+                              ->create();
+                      }
                     } else {
-                        return $this->sendToOne($from->resourceId, [
+                        if ($corresp['variant'] === Game::VARIANT_960) {
+                            $startPos = (new StartPosition())->create();
+                            $board = new \Chess\Variant\Chess960\Board($startPos);
+                        } elseif ($corresp['variant'] === Game::VARIANT_CAPABLANCA_80) {
+                            $board = new \Chess\Variant\Capablanca80\Board();
+                        } else {
+                            $board = new \Chess\Variant\Classical\Board();
+                        }
+                    }
+                    try {
+                        $board = (new PgnPlayer($this->parser->argv[3], $board))->play()->getBoard();
+                        $corresp['movetext'] = $board->getMovetext();
+                        $this->correspStore->update($corresp);
+                        $res = [
                             $cmd->name => [
+                                'action' => CorrespondenceCommand::ACTION_REPLY,
+                                'corresp' =>  $corresp,
+                            ],
+                        ];
+                    } catch (\Exception $e) {
+                        $res = [
+                            $cmd->name => [
+                                'action' => CorrespondenceCommand::ACTION_REPLY,
                                 'message' =>  'This move is not valid.',
                             ],
-                        ]);
+                        ];
                     }
-                } else {
-                    return $this->sendToOne($from->resourceId, [
-                        $cmd->name => $game->state()
-                    ]);
                 }
             }
-            return $this->sendToOne($from->resourceId, [
-                $cmd->name => [
-                    'message' =>  'This correspondence code does not exist.',
-                ],
-            ]);
+            return $this->sendToOne($from->resourceId, $res);
         } elseif (is_a($cmd, DrawCommand::class)) {
             if (is_a($gameMode, PlayMode::class)) {
                 return $this->sendToMany(
@@ -281,70 +324,6 @@ class Socket implements MessageComponentInterface
                         ),
                     ],
                 ];
-            } elseif (CorrespondenceMode::NAME === $mode) {
-                $res = [];
-                $settings = (object) json_decode(stripslashes($this->parser->argv[3]), true);
-                if (isset($settings->fen)) {
-                    try {
-                      if ($variant === Game::VARIANT_960) {
-                          $startPos = str_split($settings->startPos);
-                          $board = (new Chess960FenStrToBoard($settings->fen, $startPos))
-                              ->create();
-                      } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
-                          $board = (new Capablanca80FenStrToBoard($settings->fen))
-                              ->create();
-                      } else {
-                          $board = (new ClassicalFenStrToBoard($settings->fen))
-                              ->create();
-                      }
-                    } catch (\Throwable $e) {
-                      $res = [
-                          $cmd->name => [
-                              'variant' => $variant,
-                              'mode' => $mode,
-                              'message' => 'This FEN string could not be loaded.',
-                          ],
-                      ];
-                    }
-                } else {
-                    if ($variant === Game::VARIANT_960) {
-                        $startPos = (new StartPosition())->create();
-                        $board = new \Chess\Variant\Chess960\Board($startPos);
-                    } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
-                        $board = new \Chess\Variant\Capablanca80\Board();
-                    } else {
-                        $board = new \Chess\Variant\Classical\Board();
-                    }
-                }
-                if (!$res) {
-                    $game = (new Game($variant, $mode))->setBoard($board);
-                    $payload = [
-                        'iss' => $_ENV['JWT_ISS'],
-                        'iat' => time(),
-                        'exp' => time() + 864000, // 10 days by default
-                        'fen' => $game->getBoard()->toFen(),
-                        ...($variant === Game::VARIANT_960
-                            ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
-                            : []
-                        ),
-                        ...(isset($settings->fen)
-                            ? ['fen' => $settings->fen]
-                            : []
-                        ),
-                    ];
-                    $jwt = JWT::encode($payload, $_ENV['JWT_SECRET']);
-                    $this->correspondenceStore->insert([
-                        'hash' => md5($jwt),
-                        'game' => serialize($game),
-                    ]);
-                    $res = [
-                        $cmd->name => [
-                          'variant' => $variant,
-                          'mode' => $mode,
-                          'hash' => md5($jwt),
-                        ],
-                    ];
-                }
             } elseif (GmMode::NAME === $mode) {
                 $this->gameModes[$from->resourceId] = new GmMode(
                     new Game($variant, $mode, $this->gm),
