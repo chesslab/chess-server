@@ -134,13 +134,24 @@ class Socket implements MessageComponentInterface
             if ($correspondence) {
                 $game = unserialize($correspondence['game']);
                 if (!empty($this->parser->argv[2])) {
-                    $game->play($game->getBoard()->getTurn(), $this->parser->argv[2]);
-                    $correspondence['game'] = serialize($game);
-                    $this->correspondenceStore->update($correspondence);
+                    if ($game->play($game->getBoard()->getTurn(), $this->parser->argv[2])) {
+                        $correspondence['game'] = serialize($game);
+                        $this->correspondenceStore->update($correspondence);
+                        return $this->sendToOne($from->resourceId, [
+                            $cmd->name => $game->state()
+                        ]);
+                    } else {
+                        return $this->sendToOne($from->resourceId, [
+                            $cmd->name => [
+                                'message' =>  'This move is not valid.',
+                            ],
+                        ]);
+                    }
+                } else {
+                    return $this->sendToOne($from->resourceId, [
+                        $cmd->name => $game->state()
+                    ]);
                 }
-                return $this->sendToOne($from->resourceId, [
-                    $cmd->name => $game->state()
-                ]);
             }
             return $this->sendToOne($from->resourceId, [
                 $cmd->name => [
@@ -206,7 +217,6 @@ class Socket implements MessageComponentInterface
                     ],
                 ];
             } catch (\Throwable $e) {
-                echo $e->getMessage();
                 $res = [
                     $cmd->name => [
                         'message' => 'A random puzzle could not be loaded.',
