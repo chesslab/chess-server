@@ -59,7 +59,7 @@ class Socket implements MessageComponentInterface
 
     private $gm;
 
-    private $correspStore;
+    private $inboxStore;
 
     private $clients = [];
 
@@ -77,7 +77,7 @@ class Socket implements MessageComponentInterface
         $this->gm = new Grandmaster(self::DATA_FOLDER.'/players.json');
 
         $databaseDirectory = self::STORAGE_FOLDER;
-        $this->correspStore = new \SleekDB\Store("corresp", self::STORAGE_FOLDER);
+        $this->inboxStore = new \SleekDB\Store("inbox", self::STORAGE_FOLDER);
 
         echo "Welcome to PHP Chess Server" . PHP_EOL;
         echo "Commands available:" . PHP_EOL;
@@ -135,7 +135,7 @@ class Socket implements MessageComponentInterface
                 $settings = json_decode(stripslashes($this->parser->argv[3]), true);
                 try {
                     if ($variant === Game::VARIANT_960) {
-                        $startPos = str_split($corresp['settings']['startPos']);
+                        $startPos = str_split($inbox['settings']['startPos']);
                         $fen = $settings['fen'] ?? (new Chess960Board($startPos))->toFen();
                         $board = (new Chess960FenStrToBoard($fen, $startPos))->create();
                     } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
@@ -153,67 +153,67 @@ class Socket implements MessageComponentInterface
                         ],
                     ]);
                 }
-                $corresp = [
+                $inbox = [
                     'hash' => $hash,
                     'variant' => $variant,
                     'settings' => $settings,
                     'fen' => $board->toFen(),
                     'movetext' => '',
                 ];
-                $this->correspStore->insert($corresp);
+                $this->inboxStore->insert($inbox);
                 $res = [
                     $cmd->name => [
                         'action' => CorrespondenceCommand::ACTION_CREATE,
                         'hash' => $hash,
-                        'corresp' =>  $corresp,
+                        'inbox' =>  $inbox,
                     ],
                 ];
             } elseif (CorrespondenceCommand::ACTION_READ === $action) {
-                if ($corresp = $this->correspStore->findOneBy(['hash', '=', $variant])) {
+                if ($inbox = $this->inboxStore->findOneBy(['hash', '=', $variant])) {
                     $res = [
                         $cmd->name => [
                             'action' => CorrespondenceCommand::ACTION_READ,
-                            'corresp' => $corresp,
+                            'inbox' => $inbox,
                         ],
                     ];
                 } else {
                     $res = [
                         $cmd->name => [
                             'action' => CorrespondenceCommand::ACTION_READ,
-                            'message' =>  'This correspondence code does not exist.',
+                            'message' =>  'This inbox code does not exist.',
                         ],
                     ];
                 }
             } elseif (CorrespondenceCommand::ACTION_REPLY === $action) {
-                if ($corresp = $this->correspStore->findOneBy(['hash', '=', $variant])) {
-                    if (isset($corresp['settings']['fen'])) {
-                      if ($corresp['variant'] === Game::VARIANT_960) {
-                          $startPos = str_split($corresp['settings']['startPos']);
-                          $board = (new Chess960FenStrToBoard($corresp['settings']['fen'], $startPos))
+                if ($inbox = $this->inboxStore->findOneBy(['hash', '=', $variant])) {
+                    if (isset($inbox['settings']['fen'])) {
+                      if ($inbox['variant'] === Game::VARIANT_960) {
+                          $startPos = str_split($inbox['settings']['startPos']);
+                          $board = (new Chess960FenStrToBoard($inbox['settings']['fen'], $startPos))
                               ->create();
-                      } elseif ($corresp['variant'] === Game::VARIANT_CAPABLANCA_80) {
-                          $board = (new Capablanca80FenStrToBoard($corresp['settings']['fen']))
+                      } elseif ($inbox['variant'] === Game::VARIANT_CAPABLANCA_80) {
+                          $board = (new Capablanca80FenStrToBoard($inbox['settings']['fen']))
                               ->create();
                       } else {
-                          $board = (new ClassicalFenStrToBoard($corresp['settings']['fen']))
+                          $board = (new ClassicalFenStrToBoard($inbox['settings']['fen']))
                               ->create();
                       }
                     } else {
-                        if ($corresp['variant'] === Game::VARIANT_960) {
+                        if ($inbox['variant'] === Game::VARIANT_960) {
                             $startPos = (new StartPosition())->create();
                             $board = new Chess960Board($startPos);
-                        } elseif ($corresp['variant'] === Game::VARIANT_CAPABLANCA_80) {
+                        } elseif ($inbox['variant'] === Game::VARIANT_CAPABLANCA_80) {
                             $board = new Capablanca80Board();
                         } else {
                             $board = new ClassicalBoard();
                         }
                     }
                     try {
-                        $board = (new PgnPlayer($corresp['movetext'], $board))->play()->getBoard();
+                        $board = (new PgnPlayer($inbox['movetext'], $board))->play()->getBoard();
                         $board->play($board->getTurn(), $this->parser->argv[3]);
-                        $corresp['fen'] = $board->toFen();
-                        $corresp['movetext'] = $board->getMovetext();
-                        $this->correspStore->update($corresp);
+                        $inbox['fen'] = $board->toFen();
+                        $inbox['movetext'] = $board->getMovetext();
+                        $this->inboxStore->update($inbox);
                         $res = [
                             $cmd->name => [
                                 'action' => CorrespondenceCommand::ACTION_REPLY,
