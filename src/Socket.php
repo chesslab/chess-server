@@ -126,23 +126,56 @@ class Socket implements MessageComponentInterface
             ]);
         } elseif (is_a($cmd, CorrespondenceCommand::class)) {
             $action = $this->parser->argv[1];
+            $variant = $this->parser->argv[2];
             if (CorrespondenceCommand::ACTION_CREATE === $action) {
                 $hash = md5(uniqid());
-                $this->correspStore->insert([
+                $add = json_decode(stripslashes($this->parser->argv[3]), true);
+                try {
+                    if ($variant === Game::VARIANT_960) {
+                        $startPos = str_split($corresp['add']['startPos']);
+                        $fen = isset($add['fen'])
+                            ? $add['fen']
+                            : (new \Chess\Variant\Chess960\Board($startPos))->toFen();
+                        $board = (new Chess960FenStrToBoard($fen, $startPos))
+                            ->create();
+                    } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
+                        $fen = isset($add['fen'])
+                            ? $add['fen']
+                            : (new \Chess\Variant\Capablanca80\Board())->toFen();
+                        $board = (new Capablanca80FenStrToBoard($fen))
+                            ->create();
+                    } else {
+                        $fen = isset($add['fen'])
+                            ? $add['fen']
+                            : (new \Chess\Variant\Classical\Board())->toFen();
+                        $board = (new ClassicalFenStrToBoard($fen))
+                            ->create();
+                    }
+                } catch (\Exception $e) {
+                    return $this->sendToOne($from->resourceId, [
+                        $cmd->name => [
+                            'action' => CorrespondenceCommand::ACTION_CREATE,
+                            'message' =>  'Invalid FEN, please try again with a different one.',
+                        ],
+                    ]);
+                }
+                $corresp = [
                     'hash' => $hash,
-                    'variant' => $this->parser->argv[2],
-                    'add' => json_decode(stripslashes($this->parser->argv[3]), true),
-                    'fen' => '',
+                    'variant' => $variant,
+                    'add' => $add,
+                    'fen' => $board->toFen(),
                     'movetext' => '',
-                ]);
+                ];
+                $this->correspStore->insert($corresp);
                 $res = [
                     $cmd->name => [
                         'action' => CorrespondenceCommand::ACTION_CREATE,
                         'hash' => $hash,
+                        'corresp' =>  $corresp,
                     ],
                 ];
             } elseif (CorrespondenceCommand::ACTION_READ === $action) {
-                if ($corresp = $this->correspStore->findOneBy(['hash', '=', $this->parser->argv[2]])) {
+                if ($corresp = $this->correspStore->findOneBy(['hash', '=', $variant])) {
                     $res = [
                         $cmd->name => [
                             'action' => CorrespondenceCommand::ACTION_READ,
@@ -158,7 +191,7 @@ class Socket implements MessageComponentInterface
                     ];
                 }
             } elseif (CorrespondenceCommand::ACTION_REPLY === $action) {
-                if ($corresp = $this->correspStore->findOneBy(['hash', '=', $this->parser->argv[2]])) {
+                if ($corresp = $this->correspStore->findOneBy(['hash', '=', $variant])) {
                     if (isset($corresp['add']['fen'])) {
                       if ($corresp['variant'] === Game::VARIANT_960) {
                           $startPos = str_split($corresp['add']['startPos']);
