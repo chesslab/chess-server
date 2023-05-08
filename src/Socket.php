@@ -217,14 +217,14 @@ class Socket implements MessageComponentInterface
                         $res = [
                             $cmd->name => [
                                 'action' => CorrespondenceCommand::ACTION_REPLY,
-                                'corresp' =>  $corresp,
+                                'message' =>  'Chess move successfully sent.',
                             ],
                         ];
                     } catch (\Exception $e) {
                         $res = [
                             $cmd->name => [
                                 'action' => CorrespondenceCommand::ACTION_REPLY,
-                                'message' =>  'This move is not valid.',
+                                'message' =>  'Invalid PGN move, please try again with a different one.',
                             ],
                         ];
                     }
