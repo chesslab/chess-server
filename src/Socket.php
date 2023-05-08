@@ -136,13 +136,13 @@ class Socket implements MessageComponentInterface
                 try {
                     if ($variant === Game::VARIANT_960) {
                         $startPos = str_split($corresp['settings']['startPos']);
-                        $fen = isset($settings['fen']) ? $settings['fen'] : (new Chess960Board($startPos))->toFen();
+                        $fen = $settings['fen'] ?? (new Chess960Board($startPos))->toFen();
                         $board = (new Chess960FenStrToBoard($fen, $startPos))->create();
                     } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
-                        $fen = isset($settings['fen']) ? $settings['fen'] : (new Capablanca80Board())->toFen();
+                        $fen = $settings['fen'] ?? (new Capablanca80Board())->toFen();
                         $board = (new Capablanca80FenStrToBoard($fen))->create();
                     } else {
-                        $fen = isset($settings['fen']) ? $settings['fen'] : (new ClassicalBoard())->toFen();
+                        $fen = $settings['fen'] ?? (new ClassicalBoard())->toFen();
                         $board = (new ClassicalFenStrToBoard($fen))->create();
                     }
                 } catch (\Exception $e) {
