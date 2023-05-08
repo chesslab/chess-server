@@ -15,7 +15,7 @@ class CorrespondenceCommand extends AbstractCommand
 
     public function __construct()
     {
-        $this->name = '/correspondence';
+        $this->name = '/corresp';
         $this->description = "Correspondence chess.";
         $this->params = [
             // mandatory
