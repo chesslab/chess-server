@@ -132,6 +132,7 @@ class Socket implements MessageComponentInterface
                     'hash' => $hash,
                     'variant' => $this->parser->argv[2],
                     'add' => json_decode(stripslashes($this->parser->argv[3]), true),
+                    'fen' => '',
                     'movetext' => '',
                 ]);
                 $res = [
@@ -183,6 +184,7 @@ class Socket implements MessageComponentInterface
                     try {
                         $board = (new PgnPlayer($corresp['movetext'], $board))->play()->getBoard();
                         $board->play($board->getTurn(), $this->parser->argv[3]);
+                        $corresp['fen'] = $board->toFen();
                         $corresp['movetext'] = $board->getMovetext();
                         $this->correspStore->update($corresp);
                         $res = [
