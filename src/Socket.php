@@ -19,7 +19,7 @@ use Chess\Variant\Classical\Randomizer\Randomizer;
 use Chess\Variant\Classical\Randomizer\Checkmate\TwoBishopsRandomizer;
 use Chess\Variant\Classical\Randomizer\Endgame\PawnEndgameRandomizer;
 use ChessServer\Command\AcceptPlayRequestCommand;
-use ChessServer\Command\CorrespondenceCommand;
+use ChessServer\Command\InboxCommand;
 use ChessServer\Command\DrawCommand;
 use ChessServer\Command\LeaveCommand;
 use ChessServer\Command\OnlineGamesCommand;
@@ -127,10 +127,17 @@ class Socket implements MessageComponentInterface
                     'message' =>  'This friend request could not be accepted.',
                 ],
             ]);
-        } elseif (is_a($cmd, CorrespondenceCommand::class)) {
+        } elseif (is_a($cmd, DrawCommand::class)) {
+            if (is_a($gameMode, PlayMode::class)) {
+                return $this->sendToMany(
+                    $gameMode->getResourceIds(),
+                    $gameMode->res($this->parser->argv, $cmd)
+                );
+            }
+        } elseif (is_a($cmd, InboxCommand::class)) {
             $action = $this->parser->argv[1];
             $variant = $this->parser->argv[2];
-            if (CorrespondenceCommand::ACTION_CREATE === $action) {
+            if (InboxCommand::ACTION_CREATE === $action) {
                 $hash = md5(uniqid());
                 $settings = json_decode(stripslashes($this->parser->argv[3]), true);
                 try {
@@ -148,7 +155,7 @@ class Socket implements MessageComponentInterface
                 } catch (\Exception $e) {
                     return $this->sendToOne($from->resourceId, [
                         $cmd->name => [
-                            'action' => CorrespondenceCommand::ACTION_CREATE,
+                            'action' => InboxCommand::ACTION_CREATE,
                             'message' =>  'Invalid FEN, please try again with a different one.',
                         ],
                     ]);
@@ -163,28 +170,28 @@ class Socket implements MessageComponentInterface
                 $this->inboxStore->insert($inbox);
                 $res = [
                     $cmd->name => [
-                        'action' => CorrespondenceCommand::ACTION_CREATE,
+                        'action' => InboxCommand::ACTION_CREATE,
                         'hash' => $hash,
                         'inbox' =>  $inbox,
                     ],
                 ];
-            } elseif (CorrespondenceCommand::ACTION_READ === $action) {
+            } elseif (InboxCommand::ACTION_READ === $action) {
                 if ($inbox = $this->inboxStore->findOneBy(['hash', '=', $variant])) {
                     $res = [
                         $cmd->name => [
-                            'action' => CorrespondenceCommand::ACTION_READ,
+                            'action' => InboxCommand::ACTION_READ,
                             'inbox' => $inbox,
                         ],
                     ];
                 } else {
                     $res = [
                         $cmd->name => [
-                            'action' => CorrespondenceCommand::ACTION_READ,
+                            'action' => InboxCommand::ACTION_READ,
                             'message' =>  'This inbox code does not exist.',
                         ],
                     ];
                 }
-            } elseif (CorrespondenceCommand::ACTION_REPLY === $action) {
+            } elseif (InboxCommand::ACTION_REPLY === $action) {
                 if ($inbox = $this->inboxStore->findOneBy(['hash', '=', $variant])) {
                     if (isset($inbox['settings']['fen'])) {
                       if ($inbox['variant'] === Game::VARIANT_960) {
@@ -216,14 +223,14 @@ class Socket implements MessageComponentInterface
                         $this->inboxStore->update($inbox);
                         $res = [
                             $cmd->name => [
-                                'action' => CorrespondenceCommand::ACTION_REPLY,
+                                'action' => InboxCommand::ACTION_REPLY,
                                 'message' =>  'Chess move successfully sent.',
                             ],
                         ];
                     } catch (\Exception $e) {
                         $res = [
                             $cmd->name => [
-                                'action' => CorrespondenceCommand::ACTION_REPLY,
+                                'action' => InboxCommand::ACTION_REPLY,
                                 'message' =>  'Invalid PGN move, please try again with a different one.',
                             ],
                         ];
@@ -231,13 +238,6 @@ class Socket implements MessageComponentInterface
                 }
             }
             return $this->sendToOne($from->resourceId, $res);
-        } elseif (is_a($cmd, DrawCommand::class)) {
-            if (is_a($gameMode, PlayMode::class)) {
-                return $this->sendToMany(
-                    $gameMode->getResourceIds(),
-                    $gameMode->res($this->parser->argv, $cmd)
-                );
-            }
         } elseif (is_a($cmd, LeaveCommand::class)) {
             if (is_a($gameMode, PlayMode::class)) {
                 $this->deleteGameModes($from->resourceId);

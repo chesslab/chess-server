@@ -5,7 +5,7 @@ namespace ChessServer\Command;
 use Chess\Game;
 use Chess\Variant\Classical\PGN\AN\Color;
 
-class CorrespondenceCommand extends AbstractCommand
+class InboxCommand extends AbstractCommand
 {
     const ACTION_CREATE = 'create';
 
@@ -33,10 +33,6 @@ class CorrespondenceCommand extends AbstractCommand
             ],
             // optional
             'settings' => [
-                'color' => [
-                    Color::W,
-                    Color::B,
-                ],
                 'fen' => '<string>',
                 'movetext' => '<string>',
                 'startPos' => '<string>',
