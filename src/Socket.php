@@ -181,7 +181,8 @@ class Socket implements MessageComponentInterface
                         }
                     }
                     try {
-                        $board = (new PgnPlayer($this->parser->argv[3], $board))->play()->getBoard();
+                        $board = (new PgnPlayer($corresp['movetext'], $board))->play()->getBoard();
+                        $board->play($board->getTurn(), $this->parser->argv[3]);
                         $corresp['movetext'] = $board->getMovetext();
                         $this->correspStore->update($corresp);
                         $res = [
