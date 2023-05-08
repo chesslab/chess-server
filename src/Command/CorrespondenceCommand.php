@@ -32,7 +32,7 @@ class CorrespondenceCommand extends AbstractCommand
                 Game::VARIANT_CLASSICAL,
             ],
             // optional
-            'add' => [
+            'settings' => [
                 'color' => [
                     Color::W,
                     Color::B,

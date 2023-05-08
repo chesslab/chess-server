@@ -35,7 +35,7 @@ class StartCommand extends AbstractCommand
                 StockfishMode::NAME,
             ],
             // additional param
-            'add' => [
+            'settings' => [
                 'color' => [
                     Color::W,
                     Color::B,
@@ -56,7 +56,7 @@ class StartCommand extends AbstractCommand
                     case AnalysisMode::NAME:
                         return count($argv) - 1 === 2;
                     case GmMode::NAME:
-                        return count($argv) - 1 === 3 && in_array($argv[3], $this->params['add']['color']);
+                        return count($argv) - 1 === 3 && in_array($argv[3], $this->params['settings']['color']);
                     case FenMode::NAME:
                         if ($argv[1] === Game::VARIANT_960) {
                             return count($argv) - 1 === 4;

@@ -132,17 +132,17 @@ class Socket implements MessageComponentInterface
             $variant = $this->parser->argv[2];
             if (CorrespondenceCommand::ACTION_CREATE === $action) {
                 $hash = md5(uniqid());
-                $add = json_decode(stripslashes($this->parser->argv[3]), true);
+                $settings = json_decode(stripslashes($this->parser->argv[3]), true);
                 try {
                     if ($variant === Game::VARIANT_960) {
-                        $startPos = str_split($corresp['add']['startPos']);
-                        $fen = isset($add['fen']) ? $add['fen'] : (new Chess960Board($startPos))->toFen();
+                        $startPos = str_split($corresp['settings']['startPos']);
+                        $fen = isset($settings['fen']) ? $settings['fen'] : (new Chess960Board($startPos))->toFen();
                         $board = (new Chess960FenStrToBoard($fen, $startPos))->create();
                     } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
-                        $fen = isset($add['fen']) ? $add['fen'] : (new Capablanca80Board())->toFen();
+                        $fen = isset($settings['fen']) ? $settings['fen'] : (new Capablanca80Board())->toFen();
                         $board = (new Capablanca80FenStrToBoard($fen))->create();
                     } else {
-                        $fen = isset($add['fen']) ? $add['fen'] : (new ClassicalBoard())->toFen();
+                        $fen = isset($settings['fen']) ? $settings['fen'] : (new ClassicalBoard())->toFen();
                         $board = (new ClassicalFenStrToBoard($fen))->create();
                     }
                 } catch (\Exception $e) {
@@ -156,7 +156,7 @@ class Socket implements MessageComponentInterface
                 $corresp = [
                     'hash' => $hash,
                     'variant' => $variant,
-                    'add' => $add,
+                    'settings' => $settings,
                     'fen' => $board->toFen(),
                     'movetext' => '',
                 ];
@@ -186,16 +186,16 @@ class Socket implements MessageComponentInterface
                 }
             } elseif (CorrespondenceCommand::ACTION_REPLY === $action) {
                 if ($corresp = $this->correspStore->findOneBy(['hash', '=', $variant])) {
-                    if (isset($corresp['add']['fen'])) {
+                    if (isset($corresp['settings']['fen'])) {
                       if ($corresp['variant'] === Game::VARIANT_960) {
-                          $startPos = str_split($corresp['add']['startPos']);
-                          $board = (new Chess960FenStrToBoard($corresp['add']['fen'], $startPos))
+                          $startPos = str_split($corresp['settings']['startPos']);
+                          $board = (new Chess960FenStrToBoard($corresp['settings']['fen'], $startPos))
                               ->create();
                       } elseif ($corresp['variant'] === Game::VARIANT_CAPABLANCA_80) {
-                          $board = (new Capablanca80FenStrToBoard($corresp['add']['fen']))
+                          $board = (new Capablanca80FenStrToBoard($corresp['settings']['fen']))
                               ->create();
                       } else {
-                          $board = (new ClassicalFenStrToBoard($corresp['add']['fen']))
+                          $board = (new ClassicalFenStrToBoard($corresp['settings']['fen']))
                               ->create();
                       }
                     } else {
