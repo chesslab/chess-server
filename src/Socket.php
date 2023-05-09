@@ -144,7 +144,7 @@ class Socket implements MessageComponentInterface
                 $settings = json_decode(stripslashes($this->parser->argv[3]), true);
                 try {
                     if ($variant === Game::VARIANT_960) {
-                        $startPos = str_split($inbox['settings']['startPos']);
+                        $startPos = str_split($settings['startPos']);
                         $fen = $settings['fen'] ?? (new Chess960Board($startPos))->toFen();
                         $board = (new Chess960FenStrToBoard($fen, $startPos))->create();
                     } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
