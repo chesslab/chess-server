@@ -138,8 +138,8 @@ class Socket implements MessageComponentInterface
             }
         } elseif (is_a($cmd, InboxCommand::class)) {
             $action = $this->parser->argv[1];
-            $variant = $this->parser->argv[2];
             if (InboxCommand::ACTION_CREATE === $action) {
+                $variant = $this->parser->argv[2];
                 $hash = md5(uniqid());
                 $settings = json_decode(stripslashes($this->parser->argv[3]), true);
                 try {
@@ -180,7 +180,8 @@ class Socket implements MessageComponentInterface
                     ],
                 ]);
             } elseif (InboxCommand::ACTION_READ === $action) {
-                if ($inbox = $this->inboxStore->findOneBy(['hash', '=', $variant])) {
+                $hash = $this->parser->argv[2];
+                if ($inbox = $this->inboxStore->findOneBy(['hash', '=', $hash])) {
                     return $this->sendToOne($from->resourceId, [
                         $cmd->name => [
                             'action' => InboxCommand::ACTION_READ,
@@ -196,7 +197,8 @@ class Socket implements MessageComponentInterface
                     ]);
                 }
             } elseif (InboxCommand::ACTION_REPLY === $action) {
-                if ($inbox = $this->inboxStore->findOneBy(['hash', '=', $variant])) {
+                $hash = $this->parser->argv[2];
+                if ($inbox = $this->inboxStore->findOneBy(['hash', '=', $hash])) {
                     if (isset($inbox['settings']['fen'])) {
                       if ($inbox['variant'] === Game::VARIANT_960) {
                           $startPos = str_split($inbox['settings']['startPos']);
