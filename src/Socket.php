@@ -224,6 +224,7 @@ class Socket implements MessageComponentInterface
                         $board->play($board->getTurn(), $this->parser->argv[3]);
                         $inbox['fen'] = $board->toFen();
                         $inbox['movetext'] = $board->getMovetext();
+                        $inbox['updatedAt'] = (new \DateTime())->format('Y-m-d H:i:s');
                         $this->inboxStore->update($inbox);
                         return $this->sendToOne($from->resourceId, [
                             $cmd->name => [
