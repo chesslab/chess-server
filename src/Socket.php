@@ -12,7 +12,6 @@ use Chess\Variant\Capablanca80\PGN\Move as Capablanca80PgnMove;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\StartPosition;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
-use Chess\Variant\Chess960\PGN\Move as Chess960PgnMove;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FEN\BoardToStr;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
@@ -202,7 +201,7 @@ class Socket implements MessageComponentInterface
                 if ($inbox = $this->inboxStore->findOneBy(['hash', '=', $hash])) {
                     if (isset($inbox['settings']['fen'])) {
                         if ($inbox['variant'] === Game::VARIANT_960) {
-                            $move = new Chess960PgnMove();
+                            $move = new ClassicalPgnMove();
                             $startPos = str_split($inbox['settings']['startPos']);
                             $board = (new Chess960FenStrToBoard($inbox['settings']['fen'], $startPos))
                                 ->create();
@@ -217,7 +216,7 @@ class Socket implements MessageComponentInterface
                         }
                     } else {
                         if ($inbox['variant'] === Game::VARIANT_960) {
-                            $move = new Chess960PgnMove();
+                            $move = new ClassicalPgnMove();
                             $startPos = (new StartPosition())->create();
                             $board = new Chess960Board($startPos);
                         } elseif ($inbox['variant'] === Game::VARIANT_CAPABLANCA_80) {
