@@ -166,6 +166,7 @@ class Socket implements MessageComponentInterface
                     'settings' => $settings,
                     'fen' => $board->toFen(),
                     'movetext' => '',
+                    'createdAt' => (new \DateTime())->format('Y-m-d H:i:s'),
                 ];
                 $this->inboxStore->insert($inbox);
                 $res = [
