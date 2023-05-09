@@ -6,15 +6,16 @@ use Chess\Game;
 use Chess\Grandmaster;
 use Chess\Movetext;
 use Chess\Player\PgnPlayer;
-use Chess\Variant\Capablanca80\PGN\Move as Capablanca80PgnMove;
 use Chess\Variant\Capablanca80\Board as Capablanca80Board;
 use Chess\Variant\Capablanca80\FEN\StrToBoard as Capablanca80FenStrToBoard;
+use Chess\Variant\Capablanca80\PGN\Move as Capablanca80PgnMove;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\StartPosition;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
+use Chess\Variant\Chess960\PGN\Move as Chess960PgnMove;
 use Chess\Variant\Classical\Board as ClassicalBoard;
-use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\FEN\BoardToStr;
+use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\PGN\Move as ClassicalPgnMove;
 use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Classical\Randomizer\Randomizer;
@@ -200,29 +201,41 @@ class Socket implements MessageComponentInterface
                 $hash = $this->parser->argv[2];
                 if ($inbox = $this->inboxStore->findOneBy(['hash', '=', $hash])) {
                     if (isset($inbox['settings']['fen'])) {
-                      if ($inbox['variant'] === Game::VARIANT_960) {
-                          $startPos = str_split($inbox['settings']['startPos']);
-                          $board = (new Chess960FenStrToBoard($inbox['settings']['fen'], $startPos))
-                              ->create();
-                      } elseif ($inbox['variant'] === Game::VARIANT_CAPABLANCA_80) {
-                          $board = (new Capablanca80FenStrToBoard($inbox['settings']['fen']))
-                              ->create();
-                      } else {
-                          $board = (new ClassicalFenStrToBoard($inbox['settings']['fen']))
-                              ->create();
-                      }
+                        if ($inbox['variant'] === Game::VARIANT_960) {
+                            $move = new Chess960PgnMove();
+                            $startPos = str_split($inbox['settings']['startPos']);
+                            $board = (new Chess960FenStrToBoard($inbox['settings']['fen'], $startPos))
+                                ->create();
+                        } elseif ($inbox['variant'] === Game::VARIANT_CAPABLANCA_80) {
+                            $move = new Capablanca80PgnMove();
+                            $board = (new Capablanca80FenStrToBoard($inbox['settings']['fen']))
+                                ->create();
+                        } else {
+                            $move = new ClassicalPgnMove();
+                            $board = (new ClassicalFenStrToBoard($inbox['settings']['fen']))
+                                ->create();
+                        }
                     } else {
                         if ($inbox['variant'] === Game::VARIANT_960) {
+                            $move = new Chess960PgnMove();
                             $startPos = (new StartPosition())->create();
                             $board = new Chess960Board($startPos);
                         } elseif ($inbox['variant'] === Game::VARIANT_CAPABLANCA_80) {
+                            $move = new Capablanca80PgnMove();
                             $board = new Capablanca80Board();
                         } else {
+                            $move = new ClassicalPgnMove();
                             $board = new ClassicalBoard();
                         }
                     }
                     try {
-                        $board = (new PgnPlayer($inbox['movetext'], $board))->play()->getBoard();
+                        if ($inbox['movetext']) {
+                            $movetext = new Movetext($move, $inbox['movetext']);
+                            $movetext->validate();
+                            foreach ($movetext->getMovetext()->moves as $key => $val) {
+                                $board->play($board->getTurn(), $val);
+                            }
+                        }
                         $board->play($board->getTurn(), $this->parser->argv[3]);
                         $inbox['fen'] = $board->toFen();
                         $inbox['movetext'] = $board->getMovetext();
