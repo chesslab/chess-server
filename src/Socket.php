@@ -6,6 +6,7 @@ use Chess\Game;
 use Chess\Grandmaster;
 use Chess\Movetext;
 use Chess\Player\PgnPlayer;
+use Chess\Variant\Capablanca80\PGN\Move as Capablanca80PgnMove;
 use Chess\Variant\Capablanca80\Board as Capablanca80Board;
 use Chess\Variant\Capablanca80\FEN\StrToBoard as Capablanca80FenStrToBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
@@ -14,6 +15,7 @@ use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\FEN\BoardToStr;
+use Chess\Variant\Classical\PGN\Move as ClassicalPgnMove;
 use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Classical\Randomizer\Randomizer;
 use Chess\Variant\Classical\Randomizer\Checkmate\TwoBishopsRandomizer;
@@ -408,18 +410,18 @@ class Socket implements MessageComponentInterface
             } elseif (PgnMode::NAME === $mode) {
                 try {
                     if ($variant === Game::VARIANT_960) {
-                        $move = new \Chess\Variant\Classical\PGN\Move();
+                        $move = new ClassicalPgnMove();
                         $movetext = (new Movetext($move, $this->parser->argv[3]))->validate();
                         $startPos = str_split($this->parser->argv[4]);
                         $board = new Chess960Board($startPos);
                         $player = (new PgnPlayer($movetext, $board))->play();
                     } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
-                        $move = new \Chess\Variant\Capablanca80\PGN\Move();
+                        $move = new Capablanca80PgnMove();
                         $movetext = (new Movetext($move, $this->parser->argv[3]))->validate();
                         $board = new Capablanca80Board();
                         $player = (new PgnPlayer($movetext, $board))->play();
                     } else {
-                        $move = new \Chess\Variant\Classical\PGN\Move();
+                        $move = new ClassicalPgnMove();
                         $movetext = (new Movetext($move, $this->parser->argv[3]))->validate();
                         $player = (new PgnPlayer($movetext))->play();
                     }
