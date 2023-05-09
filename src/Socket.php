@@ -169,28 +169,28 @@ class Socket implements MessageComponentInterface
                     'createdAt' => (new \DateTime())->format('Y-m-d H:i:s'),
                 ];
                 $this->inboxStore->insert($inbox);
-                $res = [
+                return $this->sendToOne($from->resourceId, [
                     $cmd->name => [
                         'action' => InboxCommand::ACTION_CREATE,
                         'hash' => $hash,
                         'inbox' =>  $inbox,
                     ],
-                ];
+                ]);
             } elseif (InboxCommand::ACTION_READ === $action) {
                 if ($inbox = $this->inboxStore->findOneBy(['hash', '=', $variant])) {
-                    $res = [
+                    return $this->sendToOne($from->resourceId, [
                         $cmd->name => [
                             'action' => InboxCommand::ACTION_READ,
                             'inbox' => $inbox,
                         ],
-                    ];
+                    ]);
                 } else {
-                    $res = [
+                    return $this->sendToOne($from->resourceId, [
                         $cmd->name => [
                             'action' => InboxCommand::ACTION_READ,
                             'message' =>  'This inbox code does not exist.',
                         ],
-                    ];
+                    ]);
                 }
             } elseif (InboxCommand::ACTION_REPLY === $action) {
                 if ($inbox = $this->inboxStore->findOneBy(['hash', '=', $variant])) {
@@ -222,23 +222,22 @@ class Socket implements MessageComponentInterface
                         $inbox['fen'] = $board->toFen();
                         $inbox['movetext'] = $board->getMovetext();
                         $this->inboxStore->update($inbox);
-                        $res = [
+                        return $this->sendToOne($from->resourceId, [
                             $cmd->name => [
                                 'action' => InboxCommand::ACTION_REPLY,
                                 'message' =>  'Chess move successfully sent.',
                             ],
-                        ];
+                        ]);
                     } catch (\Exception $e) {
-                        $res = [
+                        return $this->sendToOne($from->resourceId, [
                             $cmd->name => [
                                 'action' => InboxCommand::ACTION_REPLY,
                                 'message' =>  'Invalid PGN move, please try again with a different one.',
                             ],
-                        ];
+                        ]);
                     }
                 }
             }
-            return $this->sendToOne($from->resourceId, $res);
         } elseif (is_a($cmd, LeaveCommand::class)) {
             if (is_a($gameMode, PlayMode::class)) {
                 $this->deleteGameModes($from->resourceId);
