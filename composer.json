@@ -21,7 +21,8 @@
     "cboden/ratchet": "^0.4",
     "firebase/php-jwt": "^5.4",
     "vlucas/phpdotenv": "^5.3",
-    "monolog/monolog": "^2.3"
+    "monolog/monolog": "^2.3",
+    "rakibtg/sleekdb": "^2.15"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.5"

@@ -6,16 +6,22 @@ use Chess\Game;
 use Chess\Grandmaster;
 use Chess\Movetext;
 use Chess\Player\PgnPlayer;
+use Chess\Variant\Capablanca80\Board as Capablanca80Board;
 use Chess\Variant\Capablanca80\FEN\StrToBoard as Capablanca80FenStrToBoard;
+use Chess\Variant\Capablanca80\PGN\Move as Capablanca80PgnMove;
+use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\StartPosition;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
-use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
+use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FEN\BoardToStr;
+use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
+use Chess\Variant\Classical\PGN\Move as ClassicalPgnMove;
 use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Classical\Randomizer\Randomizer;
 use Chess\Variant\Classical\Randomizer\Checkmate\TwoBishopsRandomizer;
 use Chess\Variant\Classical\Randomizer\Endgame\PawnEndgameRandomizer;
 use ChessServer\Command\AcceptPlayRequestCommand;
+use ChessServer\Command\InboxCommand;
 use ChessServer\Command\DrawCommand;
 use ChessServer\Command\LeaveCommand;
 use ChessServer\Command\OnlineGamesCommand;
@@ -47,11 +53,15 @@ class Socket implements MessageComponentInterface
 {
     const DATA_FOLDER = __DIR__.'/../data';
 
+    const STORAGE_FOLDER = __DIR__.'/../storage';
+
     private $log;
 
     private $parser;
 
     private $gm;
+
+    private $inboxStore;
 
     private $clients = [];
 
@@ -63,10 +73,13 @@ class Socket implements MessageComponentInterface
         $dotenv->load();
 
         $this->log = new Logger($_ENV['BASE_URL']);
-        $this->log->pushHandler(new StreamHandler(__DIR__.'/../storage/pchess.log', Logger::INFO));
+        $this->log->pushHandler(new StreamHandler(self::STORAGE_FOLDER.'/pchess.log', Logger::INFO));
 
         $this->parser = new CommandParser;
         $this->gm = new Grandmaster(self::DATA_FOLDER.'/players.json');
+
+        $databaseDirectory = self::STORAGE_FOLDER;
+        $this->inboxStore = new \SleekDB\Store("inbox", self::STORAGE_FOLDER);
 
         echo "Welcome to PHP Chess Server" . PHP_EOL;
         echo "Commands available:" . PHP_EOL;
@@ -123,6 +136,127 @@ class Socket implements MessageComponentInterface
                     $gameMode->res($this->parser->argv, $cmd)
                 );
             }
+        } elseif (is_a($cmd, InboxCommand::class)) {
+            $action = $this->parser->argv[1];
+            if (InboxCommand::ACTION_CREATE === $action) {
+                $variant = $this->parser->argv[2];
+                $hash = md5(uniqid());
+                $settings = json_decode(stripslashes($this->parser->argv[3]), true);
+                try {
+                    if ($variant === Game::VARIANT_960) {
+                        $startPos = str_split($settings['startPos']);
+                        $fen = $settings['fen'] ?? (new Chess960Board($startPos))->toFen();
+                        $board = (new Chess960FenStrToBoard($fen, $startPos))->create();
+                    } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
+                        $fen = $settings['fen'] ?? (new Capablanca80Board())->toFen();
+                        $board = (new Capablanca80FenStrToBoard($fen))->create();
+                    } else {
+                        $fen = $settings['fen'] ?? (new ClassicalBoard())->toFen();
+                        $board = (new ClassicalFenStrToBoard($fen))->create();
+                    }
+                } catch (\Exception $e) {
+                    return $this->sendToOne($from->resourceId, [
+                        $cmd->name => [
+                            'action' => InboxCommand::ACTION_CREATE,
+                            'message' =>  'Invalid FEN, please try again with a different one.',
+                        ],
+                    ]);
+                }
+                $inbox = [
+                    'hash' => $hash,
+                    'variant' => $variant,
+                    'settings' => $settings,
+                    'fen' => $board->toFen(),
+                    'movetext' => '',
+                    'createdAt' => (new \DateTime())->format('Y-m-d H:i:s'),
+                    'createdBy' => $from->resourceId,
+                ];
+                $this->inboxStore->insert($inbox);
+                return $this->sendToOne($from->resourceId, [
+                    $cmd->name => [
+                        'action' => InboxCommand::ACTION_CREATE,
+                        'hash' => $hash,
+                        'inbox' =>  $inbox,
+                    ],
+                ]);
+            } elseif (InboxCommand::ACTION_READ === $action) {
+                $hash = $this->parser->argv[2];
+                if ($inbox = $this->inboxStore->findOneBy(['hash', '=', $hash])) {
+                    return $this->sendToOne($from->resourceId, [
+                        $cmd->name => [
+                            'action' => InboxCommand::ACTION_READ,
+                            'inbox' => $inbox,
+                        ],
+                    ]);
+                } else {
+                    return $this->sendToOne($from->resourceId, [
+                        $cmd->name => [
+                            'action' => InboxCommand::ACTION_READ,
+                            'message' =>  'This inbox code does not exist.',
+                        ],
+                    ]);
+                }
+            } elseif (InboxCommand::ACTION_REPLY === $action) {
+                $hash = $this->parser->argv[2];
+                if ($inbox = $this->inboxStore->findOneBy(['hash', '=', $hash])) {
+                    if (isset($inbox['settings']['fen'])) {
+                        if ($inbox['variant'] === Game::VARIANT_960) {
+                            $move = new ClassicalPgnMove();
+                            $startPos = str_split($inbox['settings']['startPos']);
+                            $board = (new Chess960FenStrToBoard($inbox['settings']['fen'], $startPos))
+                                ->create();
+                        } elseif ($inbox['variant'] === Game::VARIANT_CAPABLANCA_80) {
+                            $move = new Capablanca80PgnMove();
+                            $board = (new Capablanca80FenStrToBoard($inbox['settings']['fen']))
+                                ->create();
+                        } else {
+                            $move = new ClassicalPgnMove();
+                            $board = (new ClassicalFenStrToBoard($inbox['settings']['fen']))
+                                ->create();
+                        }
+                    } else {
+                        if ($inbox['variant'] === Game::VARIANT_960) {
+                            $move = new ClassicalPgnMove();
+                            $startPos = (new StartPosition())->create();
+                            $board = new Chess960Board($startPos);
+                        } elseif ($inbox['variant'] === Game::VARIANT_CAPABLANCA_80) {
+                            $move = new Capablanca80PgnMove();
+                            $board = new Capablanca80Board();
+                        } else {
+                            $move = new ClassicalPgnMove();
+                            $board = new ClassicalBoard();
+                        }
+                    }
+                    try {
+                        if ($inbox['movetext']) {
+                            $movetext = new Movetext($move, $inbox['movetext']);
+                            $movetext->validate();
+                            foreach ($movetext->getMovetext()->moves as $key => $val) {
+                                $board->play($board->getTurn(), $val);
+                            }
+                        }
+                        $board->play($board->getTurn(), $this->parser->argv[3]);
+                        $inbox['fen'] = $board->toFen();
+                        $inbox['movetext'] = $board->getMovetext();
+                        $inbox['updatedAt'] = (new \DateTime())->format('Y-m-d H:i:s');
+                        $inbox['updatedBy'] = $from->resourceId;
+                        $this->inboxStore->update($inbox);
+                        return $this->sendToOne($from->resourceId, [
+                            $cmd->name => [
+                                'action' => InboxCommand::ACTION_REPLY,
+                                'message' =>  'Chess move successfully sent.',
+                            ],
+                        ]);
+                    } catch (\Exception $e) {
+                        return $this->sendToOne($from->resourceId, [
+                            $cmd->name => [
+                                'action' => InboxCommand::ACTION_REPLY,
+                                'message' =>  'Invalid PGN move, please try again with a different one.',
+                            ],
+                        ]);
+                    }
+                }
+            }
         } elseif (is_a($cmd, LeaveCommand::class)) {
             if (is_a($gameMode, PlayMode::class)) {
                 $this->deleteGameModes($from->resourceId);
@@ -168,21 +302,19 @@ class Socket implements MessageComponentInterface
                         Color::B => $bIds,
                     ]))->getBoard();
                 }
-                $res = [
+                return $this->sendToOne($from->resourceId, [
                     $cmd->name => [
                         'turn' => $board->getTurn(),
                         'fen' => (new BoardToStr($board))->create(),
                     ],
-                ];
+                ]);
             } catch (\Throwable $e) {
-                echo $e->getMessage();
-                $res = [
+                return $this->sendToOne($from->resourceId, [
                     $cmd->name => [
                         'message' => 'A random puzzle could not be loaded.',
                     ],
-                ];
+                ]);
             }
-            return $this->sendToOne($from->resourceId, $res);
         } elseif (is_a($cmd, RematchCommand::class)) {
             if (is_a($gameMode, PlayMode::class)) {
                 return $this->sendToMany(
@@ -229,7 +361,7 @@ class Socket implements MessageComponentInterface
                     [$from->resourceId]
                 );
                 $this->gameModes[$from->resourceId] = $analysisMode;
-                $res = [
+                return $this->sendToOne($from->resourceId, [
                     $cmd->name => [
                         'variant' => $variant,
                         'mode' => $mode,
@@ -239,19 +371,19 @@ class Socket implements MessageComponentInterface
                             : []
                         ),
                     ],
-                ];
+                ]);
             } elseif (GmMode::NAME === $mode) {
                 $this->gameModes[$from->resourceId] = new GmMode(
                     new Game($variant, $mode, $this->gm),
                     [$from->resourceId]
                 );
-                $res = [
+                return $this->sendToOne($from->resourceId, [
                     $cmd->name => [
                         'variant' => $variant,
                         'mode' => $mode,
                         'color' => $this->parser->argv[3],
                     ],
-                ];
+                ]);
             } elseif (FenMode::NAME === $mode) {
                 try {
                     if ($variant === Game::VARIANT_960) {
@@ -272,7 +404,7 @@ class Socket implements MessageComponentInterface
                     );
                     $fenMode->getGame()->setBoard($board);
                     $this->gameModes[$from->resourceId] = $fenMode;
-                    $res = [
+                    return $this->sendToOne($from->resourceId, [
                         $cmd->name => [
                             'variant' => $variant,
                             'mode' => $mode,
@@ -282,31 +414,31 @@ class Socket implements MessageComponentInterface
                                 : []
                             ),
                         ],
-                    ];
+                    ]);
                 } catch (\Throwable $e) {
-                    $res = [
+                    return $this->sendToOne($from->resourceId, [
                         $cmd->name => [
                             'variant' => $variant,
                             'mode' => $mode,
                             'message' => 'This FEN string could not be loaded.',
                         ],
-                    ];
+                    ]);
                 }
             } elseif (PgnMode::NAME === $mode) {
                 try {
                     if ($variant === Game::VARIANT_960) {
-                        $move = new \Chess\Variant\Classical\PGN\Move();
+                        $move = new ClassicalPgnMove();
                         $movetext = (new Movetext($move, $this->parser->argv[3]))->validate();
                         $startPos = str_split($this->parser->argv[4]);
-                        $board = new \Chess\Variant\Chess960\Board($startPos);
+                        $board = new Chess960Board($startPos);
                         $player = (new PgnPlayer($movetext, $board))->play();
                     } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
-                        $move = new \Chess\Variant\Capablanca80\PGN\Move();
+                        $move = new Capablanca80PgnMove();
                         $movetext = (new Movetext($move, $this->parser->argv[3]))->validate();
-                        $board = new \Chess\Variant\Capablanca80\Board();
+                        $board = new Capablanca80Board();
                         $player = (new PgnPlayer($movetext, $board))->play();
                     } else {
-                        $move = new \Chess\Variant\Classical\PGN\Move();
+                        $move = new ClassicalPgnMove();
                         $movetext = (new Movetext($move, $this->parser->argv[3]))->validate();
                         $player = (new PgnPlayer($movetext))->play();
                     }
@@ -314,7 +446,7 @@ class Socket implements MessageComponentInterface
                     $game = $pgnMode->getGame()->setBoard($player->getBoard());
                     $pgnMode->setGame($game);
                     $this->gameModes[$from->resourceId] = $pgnMode;
-                    $res = [
+                    return $this->sendToOne($from->resourceId, [
                         $cmd->name => [
                             'variant' => $variant,
                             'mode' => $mode,
@@ -326,18 +458,17 @@ class Socket implements MessageComponentInterface
                                 : []
                             ),
                         ],
-                    ];
+                    ]);
                 } catch (\Throwable $e) {
-                    $res = [
+                    return $this->sendToOne($from->resourceId, [
                         $cmd->name => [
                             'variant' => $variant,
                             'mode' => $mode,
                             'message' => 'This PGN movetext could not be loaded.',
                         ],
-                    ];
+                    ]);
                 }
             } elseif (PlayMode::NAME === $mode) {
-                $res = [];
                 $settings = (object) json_decode(stripslashes($this->parser->argv[3]), true);
                 if (isset($settings->fen)) {
                     try {
@@ -353,65 +484,63 @@ class Socket implements MessageComponentInterface
                                 ->create();
                         }
                     } catch (\Throwable $e) {
-                        $res = [
+                        return $this->sendToOne($from->resourceId, [
                             $cmd->name => [
                                 'variant' => $variant,
                                 'mode' => $mode,
                                 'message' => 'This FEN string could not be loaded.',
                             ],
-                        ];
+                        ]);
                     }
                 } else {
                     if ($variant === Game::VARIANT_960) {
                         $startPos = (new StartPosition())->create();
-                        $board = new \Chess\Variant\Chess960\Board($startPos);
+                        $board = new Chess960Board($startPos);
                     } elseif ($variant === Game::VARIANT_CAPABLANCA_80) {
-                        $board = new \Chess\Variant\Capablanca80\Board();
+                        $board = new Capablanca80Board();
                     } else {
-                        $board = new \Chess\Variant\Classical\Board();
+                        $board = new ClassicalBoard();
                     }
                 }
-                if (!$res) {
-                    $game = (new Game($variant, $mode))->setBoard($board);
-                    $payload = [
-                        'iss' => $_ENV['JWT_ISS'],
-                        'iat' => time(),
-                        'exp' => time() + 3600, // one hour by default
-                        'variant' => $this->parser->argv[1],
-                        'submode' => $settings->submode,
-                        'color' => $settings->color,
-                        'min' => $settings->min,
-                        'increment' => $settings->increment,
+                $game = (new Game($variant, $mode))->setBoard($board);
+                $payload = [
+                    'iss' => $_ENV['JWT_ISS'],
+                    'iat' => time(),
+                    'exp' => time() + 3600, // one hour by default
+                    'variant' => $this->parser->argv[1],
+                    'submode' => $settings->submode,
+                    'color' => $settings->color,
+                    'min' => $settings->min,
+                    'increment' => $settings->increment,
+                    'fen' => $game->getBoard()->toFen(),
+                    ...($variant === Game::VARIANT_960
+                        ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
+                        : []
+                    ),
+                    ...(isset($settings->fen)
+                        ? ['fen' => $settings->fen]
+                        : []
+                    ),
+                ];
+                $jwt = JWT::encode($payload, $_ENV['JWT_SECRET']);
+                $playMode = new PlayMode($game, [$from->resourceId], $jwt);
+                $this->gameModes[$from->resourceId] = $playMode;
+                if ($settings->submode === PlayMode::SUBMODE_ONLINE) {
+                    $this->broadcast();
+                }
+                return $this->sendToOne($from->resourceId, [
+                    $cmd->name => [
+                        'variant' => $variant,
+                        'mode' => $mode,
                         'fen' => $game->getBoard()->toFen(),
+                        'jwt' => $jwt,
+                        'hash' => md5($jwt),
                         ...($variant === Game::VARIANT_960
-                            ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
+                            ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
                             : []
                         ),
-                        ...(isset($settings->fen)
-                            ? ['fen' => $settings->fen]
-                            : []
-                        ),
-                    ];
-                    $jwt = JWT::encode($payload, $_ENV['JWT_SECRET']);
-                    $playMode = new PlayMode($game, [$from->resourceId], $jwt);
-                    $this->gameModes[$from->resourceId] = $playMode;
-                    $res = [
-                        $cmd->name => [
-                            'variant' => $variant,
-                            'mode' => $mode,
-                            'fen' => $game->getBoard()->toFen(),
-                            'jwt' => $jwt,
-                            'hash' => md5($jwt),
-                            ...($variant === Game::VARIANT_960
-                                ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
-                                : []
-                            ),
-                        ],
-                    ];
-                    if ($settings->submode === PlayMode::SUBMODE_ONLINE) {
-                        $this->broadcast();
-                    }
-                }
+                    ],
+                ]);
             } elseif (StockfishMode::NAME === $mode) {
                 try {
                     $stockfishMode = new StockfishMode(
@@ -423,14 +552,14 @@ class Socket implements MessageComponentInterface
                     $game->loadFen($this->parser->argv[3]);
                     $stockfishMode->setGame($game);
                     $this->gameModes[$from->resourceId] = $stockfishMode;
-                    $res = [
+                    return $this->sendToOne($from->resourceId, [
                         $cmd->name => [
                             'variant' => $variant,
                             'mode' => $mode,
                             'color' => $game->getBoard()->getTurn(),
                             'fen' => $game->getBoard()->toFen(),
                         ],
-                    ];
+                    ]);
                 } catch (\Throwable $e) {
                     if ($this->parser->argv[3] === Color::W || $this->parser->argv[3] === Color::B) {
                         $stockfishMode = new StockfishMode(
@@ -438,25 +567,24 @@ class Socket implements MessageComponentInterface
                             [$from->resourceId]
                         );
                         $this->gameModes[$from->resourceId] = $stockfishMode;
-                        $res = [
+                        return $this->sendToOne($from->resourceId, [
                             $cmd->name => [
                                 'variant' => $variant,
                                 'mode' => $mode,
                                 'color' => $this->parser->argv[3],
                             ],
-                        ];
+                        ]);
                     } else {
-                        $res = [
+                        return $this->sendToOne($from->resourceId, [
                             $cmd->name => [
                                 'variant' => $variant,
                                 'mode' => $mode,
                                 'message' => 'Stockfish could not be started.',
                             ],
-                        ];
+                        ]);
                     }
                 }
             }
-            return $this->sendToOne($from->resourceId, $res);
         } elseif (is_a($cmd, TakebackCommand::class)) {
             if (is_a($gameMode, PlayMode::class)) {
                 return $this->sendToMany(
