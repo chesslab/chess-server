@@ -169,7 +169,7 @@ class Socket implements MessageComponentInterface
                     'fen' => $board->toFen(),
                     'movetext' => '',
                     'createdAt' => (new \DateTime())->format('Y-m-d H:i:s'),
-                    'resourceId' => $from->resourceId,
+                    'createdBy' => $from->resourceId,
                 ];
                 $this->inboxStore->insert($inbox);
                 return $this->sendToOne($from->resourceId, [
@@ -225,6 +225,7 @@ class Socket implements MessageComponentInterface
                         $inbox['fen'] = $board->toFen();
                         $inbox['movetext'] = $board->getMovetext();
                         $inbox['updatedAt'] = (new \DateTime())->format('Y-m-d H:i:s');
+                        $inbox['updatedBy'] = $from->resourceId;
                         $this->inboxStore->update($inbox);
                         return $this->sendToOne($from->resourceId, [
                             $cmd->name => [
