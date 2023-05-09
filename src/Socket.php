@@ -427,7 +427,7 @@ class Socket implements MessageComponentInterface
                     $game = $pgnMode->getGame()->setBoard($player->getBoard());
                     $pgnMode->setGame($game);
                     $this->gameModes[$from->resourceId] = $pgnMode;
-                    $res = [
+                    return $this->sendToOne($from->resourceId, [
                         $cmd->name => [
                             'variant' => $variant,
                             'mode' => $mode,
@@ -439,18 +439,17 @@ class Socket implements MessageComponentInterface
                                 : []
                             ),
                         ],
-                    ];
+                    ]);
                 } catch (\Throwable $e) {
-                    $res = [
+                    return $this->sendToOne($from->resourceId, [
                         $cmd->name => [
                             'variant' => $variant,
                             'mode' => $mode,
                             'message' => 'This PGN movetext could not be loaded.',
                         ],
-                    ];
+                    ]);
                 }
             } elseif (PlayMode::NAME === $mode) {
-                $res = [];
                 $settings = (object) json_decode(stripslashes($this->parser->argv[3]), true);
                 if (isset($settings->fen)) {
                     try {
@@ -466,13 +465,13 @@ class Socket implements MessageComponentInterface
                                 ->create();
                         }
                     } catch (\Throwable $e) {
-                        $res = [
+                        return $this->sendToOne($from->resourceId, [
                             $cmd->name => [
                                 'variant' => $variant,
                                 'mode' => $mode,
                                 'message' => 'This FEN string could not be loaded.',
                             ],
-                        ];
+                        ]);
                     }
                 } else {
                     if ($variant === Game::VARIANT_960) {
@@ -484,47 +483,45 @@ class Socket implements MessageComponentInterface
                         $board = new ClassicalBoard();
                     }
                 }
-                if (!$res) {
-                    $game = (new Game($variant, $mode))->setBoard($board);
-                    $payload = [
-                        'iss' => $_ENV['JWT_ISS'],
-                        'iat' => time(),
-                        'exp' => time() + 3600, // one hour by default
-                        'variant' => $this->parser->argv[1],
-                        'submode' => $settings->submode,
-                        'color' => $settings->color,
-                        'min' => $settings->min,
-                        'increment' => $settings->increment,
-                        'fen' => $game->getBoard()->toFen(),
-                        ...($variant === Game::VARIANT_960
-                            ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
-                            : []
-                        ),
-                        ...(isset($settings->fen)
-                            ? ['fen' => $settings->fen]
-                            : []
-                        ),
-                    ];
-                    $jwt = JWT::encode($payload, $_ENV['JWT_SECRET']);
-                    $playMode = new PlayMode($game, [$from->resourceId], $jwt);
-                    $this->gameModes[$from->resourceId] = $playMode;
-                    $res = [
-                        $cmd->name => [
-                            'variant' => $variant,
-                            'mode' => $mode,
-                            'fen' => $game->getBoard()->toFen(),
-                            'jwt' => $jwt,
-                            'hash' => md5($jwt),
-                            ...($variant === Game::VARIANT_960
-                                ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
-                                : []
-                            ),
-                        ],
-                    ];
-                    if ($settings->submode === PlayMode::SUBMODE_ONLINE) {
-                        $this->broadcast();
-                    }
+                $game = (new Game($variant, $mode))->setBoard($board);
+                $payload = [
+                    'iss' => $_ENV['JWT_ISS'],
+                    'iat' => time(),
+                    'exp' => time() + 3600, // one hour by default
+                    'variant' => $this->parser->argv[1],
+                    'submode' => $settings->submode,
+                    'color' => $settings->color,
+                    'min' => $settings->min,
+                    'increment' => $settings->increment,
+                    'fen' => $game->getBoard()->toFen(),
+                    ...($variant === Game::VARIANT_960
+                        ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
+                        : []
+                    ),
+                    ...(isset($settings->fen)
+                        ? ['fen' => $settings->fen]
+                        : []
+                    ),
+                ];
+                $jwt = JWT::encode($payload, $_ENV['JWT_SECRET']);
+                $playMode = new PlayMode($game, [$from->resourceId], $jwt);
+                $this->gameModes[$from->resourceId] = $playMode;
+                if ($settings->submode === PlayMode::SUBMODE_ONLINE) {
+                    $this->broadcast();
                 }
+                return $this->sendToOne($from->resourceId, [
+                    $cmd->name => [
+                        'variant' => $variant,
+                        'mode' => $mode,
+                        'fen' => $game->getBoard()->toFen(),
+                        'jwt' => $jwt,
+                        'hash' => md5($jwt),
+                        ...($variant === Game::VARIANT_960
+                            ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
+                            : []
+                        ),
+                    ],
+                ]);
             } elseif (StockfishMode::NAME === $mode) {
                 try {
                     $stockfishMode = new StockfishMode(
@@ -536,14 +533,14 @@ class Socket implements MessageComponentInterface
                     $game->loadFen($this->parser->argv[3]);
                     $stockfishMode->setGame($game);
                     $this->gameModes[$from->resourceId] = $stockfishMode;
-                    $res = [
+                    return $this->sendToOne($from->resourceId, [
                         $cmd->name => [
                             'variant' => $variant,
                             'mode' => $mode,
                             'color' => $game->getBoard()->getTurn(),
                             'fen' => $game->getBoard()->toFen(),
                         ],
-                    ];
+                    ]);
                 } catch (\Throwable $e) {
                     if ($this->parser->argv[3] === Color::W || $this->parser->argv[3] === Color::B) {
                         $stockfishMode = new StockfishMode(
@@ -551,25 +548,24 @@ class Socket implements MessageComponentInterface
                             [$from->resourceId]
                         );
                         $this->gameModes[$from->resourceId] = $stockfishMode;
-                        $res = [
+                        return $this->sendToOne($from->resourceId, [
                             $cmd->name => [
                                 'variant' => $variant,
                                 'mode' => $mode,
                                 'color' => $this->parser->argv[3],
                             ],
-                        ];
+                        ]);
                     } else {
-                        $res = [
+                        return $this->sendToOne($from->resourceId, [
                             $cmd->name => [
                                 'variant' => $variant,
                                 'mode' => $mode,
                                 'message' => 'Stockfish could not be started.',
                             ],
-                        ];
+                        ]);
                     }
                 }
             }
-            return $this->sendToOne($from->resourceId, $res);
         } elseif (is_a($cmd, TakebackCommand::class)) {
             if (is_a($gameMode, PlayMode::class)) {
                 return $this->sendToMany(
