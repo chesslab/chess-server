@@ -283,20 +283,19 @@ class Socket implements MessageComponentInterface
                         Color::B => $bIds,
                     ]))->getBoard();
                 }
-                $res = [
+                return $this->sendToOne($from->resourceId, [
                     $cmd->name => [
                         'turn' => $board->getTurn(),
                         'fen' => (new BoardToStr($board))->create(),
                     ],
-                ];
+                ]);
             } catch (\Throwable $e) {
-                $res = [
+                return $this->sendToOne($from->resourceId, [
                     $cmd->name => [
                         'message' => 'A random puzzle could not be loaded.',
                     ],
-                ];
+                ]);
             }
-            return $this->sendToOne($from->resourceId, $res);
         } elseif (is_a($cmd, RematchCommand::class)) {
             if (is_a($gameMode, PlayMode::class)) {
                 return $this->sendToMany(
@@ -343,7 +342,7 @@ class Socket implements MessageComponentInterface
                     [$from->resourceId]
                 );
                 $this->gameModes[$from->resourceId] = $analysisMode;
-                $res = [
+                return $this->sendToOne($from->resourceId, [
                     $cmd->name => [
                         'variant' => $variant,
                         'mode' => $mode,
@@ -353,19 +352,19 @@ class Socket implements MessageComponentInterface
                             : []
                         ),
                     ],
-                ];
+                ]);
             } elseif (GmMode::NAME === $mode) {
                 $this->gameModes[$from->resourceId] = new GmMode(
                     new Game($variant, $mode, $this->gm),
                     [$from->resourceId]
                 );
-                $res = [
+                return $this->sendToOne($from->resourceId, [
                     $cmd->name => [
                         'variant' => $variant,
                         'mode' => $mode,
                         'color' => $this->parser->argv[3],
                     ],
-                ];
+                ]);
             } elseif (FenMode::NAME === $mode) {
                 try {
                     if ($variant === Game::VARIANT_960) {
@@ -386,7 +385,7 @@ class Socket implements MessageComponentInterface
                     );
                     $fenMode->getGame()->setBoard($board);
                     $this->gameModes[$from->resourceId] = $fenMode;
-                    $res = [
+                    return $this->sendToOne($from->resourceId, [
                         $cmd->name => [
                             'variant' => $variant,
                             'mode' => $mode,
@@ -396,15 +395,15 @@ class Socket implements MessageComponentInterface
                                 : []
                             ),
                         ],
-                    ];
+                    ]);
                 } catch (\Throwable $e) {
-                    $res = [
+                    return $this->sendToOne($from->resourceId, [
                         $cmd->name => [
                             'variant' => $variant,
                             'mode' => $mode,
                             'message' => 'This FEN string could not be loaded.',
                         ],
-                    ];
+                    ]);
                 }
             } elseif (PgnMode::NAME === $mode) {
                 try {
