@@ -41,7 +41,6 @@ use ChessServer\GameMode\FenMode;
 use ChessServer\GameMode\PgnMode;
 use ChessServer\GameMode\PlayMode;
 use ChessServer\GameMode\StockfishMode;
-use ChessServer\Parser\CommandParser;
 use Dotenv\Dotenv;
 use Firebase\JWT\JWT;
 use Monolog\Logger;
@@ -56,6 +55,8 @@ class Socket implements MessageComponentInterface
     const STORAGE_FOLDER = __DIR__.'/../storage';
 
     private $log;
+
+    private $cli;
 
     private $parser;
 
@@ -75,7 +76,9 @@ class Socket implements MessageComponentInterface
         $this->log = new Logger($_ENV['BASE_URL']);
         $this->log->pushHandler(new StreamHandler(self::STORAGE_FOLDER.'/pchess.log', Logger::INFO));
 
-        $this->parser = new CommandParser;
+        $this->cli = new CommandContainer;
+        $this->parser = new CommandParser($this->cli);
+
         $this->gm = new Grandmaster(self::DATA_FOLDER.'/players.json');
 
         $databaseDirectory = self::STORAGE_FOLDER;
