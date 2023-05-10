@@ -270,7 +270,7 @@ class StartCommand extends AbstractCommand
             $playMode = new PlayMode($game, [$from->resourceId], $jwt);
             $socket->setGameModes([$from->resourceId], $playMode);
             if ($settings->submode === PlayMode::SUBMODE_ONLINE) {
-                $socket->broadcast();
+                $socket->sendToAll();
             }
             return $socket->sendToOne($from->resourceId, [
                 $this->name => [

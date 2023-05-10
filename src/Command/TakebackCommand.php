@@ -39,7 +39,7 @@ class TakebackCommand extends AbstractCommand
 
     public function run(Socket $socket, array $argv, ConnectionInterface $from)
     {
-        $gameMode = $socket->gameModeByResourceId($from->resourceId);
+        $gameMode = $socket->getGameMode($from->resourceId);
 
         if (is_a($gameMode, PlayMode::class)) {
             return $socket->sendToMany(

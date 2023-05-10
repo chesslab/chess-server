@@ -24,7 +24,7 @@ class LegalCommand extends AbstractCommand
 
     public function run(Socket $socket, array $argv, ConnectionInterface $from)
     {
-        $gameMode = $socket->gameModeByResourceId($from->resourceId);
+        $gameMode = $socket->getGameMode($from->resourceId);
 
         return $socket->sendToOne(
             $from->resourceId,
