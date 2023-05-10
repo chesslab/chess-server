@@ -73,10 +73,10 @@ class Socket implements MessageComponentInterface
         return $this->gameModes;
     }
 
-    public function getGameMode(int $id)
+    public function getGameMode(int $resourceId)
     {
         foreach ($this->gameModes as $key => $val) {
-            if ($key === $id) {
+            if ($key === $resourceId) {
                 return $val;
             }
         }
@@ -97,26 +97,26 @@ class Socket implements MessageComponentInterface
 
     public function getPendingGames()
     {
-        $onlinePending = [];
+        $pending = [];
         foreach ($this->gameModes as $gameMode) {
           if (is_a($gameMode, PlayMode::class)) {
             if ($gameMode->getState() === PlayMode::STATE_PENDING) {
                 $decoded = JWT::decode($gameMode->getJwt(), $_ENV['JWT_SECRET'], array('HS256'));
                 if ($decoded->submode === PlayMode::SUBMODE_ONLINE) {
                     $decoded->hash = $gameMode->getHash();
-                    $onlinePending[] = $decoded;
+                    $pending[] = $decoded;
                 }
             }
           }
         }
 
-        return $onlinePending;
+        return $pending;
     }
 
-    public function setGameModes(array $ids, $gameMode)
+    public function setGameModes(array $resourceIds, $gameMode)
     {
-        foreach ($ids as $id) {
-            $this->gameModes[$id] = $gameMode;
+        foreach ($resourceIds as $resourceId) {
+            $this->gameModes[$resourceId] = $gameMode;
         }
     }
 
@@ -174,15 +174,9 @@ class Socket implements MessageComponentInterface
     public function deleteGameModes(int $resourceId)
     {
         if ($gameMode = $this->getGameMode($resourceId)) {
-            $resourceIds = $gameMode->getResourceIds();
-            if (isset($resourceIds[0])) {
-                if (isset($this->gameModes[$resourceIds[0]])) {
-                    unset($this->gameModes[$resourceIds[0]]);
-                }
-            }
-            if (isset($resourceIds[1])) {
-                if (isset($this->gameModes[$resourceIds[1]])) {
-                    unset($this->gameModes[$resourceIds[1]]);
+            foreach ($resourceIds = $gameMode->getResourceIds() as $val) {
+                if (isset($this->gameModes[$val])) {
+                    unset($this->gameModes[$val]);
                 }
             }
         }
@@ -195,7 +189,7 @@ class Socket implements MessageComponentInterface
         }
     }
 
-    public function syncGameModeWith(AbstractMode $gameMode, ConnectionInterface $from)
+    public function syncGameModes(AbstractMode $gameMode, ConnectionInterface $from)
     {
         if ($resourceIds = $gameMode->getResourceIds()) {
             if (count($resourceIds) === 1) {
