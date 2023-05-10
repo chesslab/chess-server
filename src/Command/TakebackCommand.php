@@ -2,6 +2,10 @@
 
 namespace ChessServer\Command;
 
+use ChessServer\Socket;
+use ChessServer\GameMode\PlayMode;
+use Ratchet\ConnectionInterface;
+
 class TakebackCommand extends AbstractCommand
 {
     const ACTION_ACCEPT    = 'accept';
@@ -31,5 +35,17 @@ class TakebackCommand extends AbstractCommand
         }
 
         return false;
+    }
+
+    public function run(Socket $socket, array $argv, ConnectionInterface $from)
+    {
+        $gameMode = $socket->gameModeByResourceId($from->resourceId);
+
+        if (is_a($gameMode, PlayMode::class)) {
+            return $socket->sendToMany(
+                $gameMode->getResourceIds(),
+                $gameMode->res($argv, $this)
+            );
+        }
     }
 }
