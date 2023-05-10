@@ -243,17 +243,7 @@ class Socket implements MessageComponentInterface
         } elseif (is_a($cmd, OnlineGamesCommand::class)) {
             $cmd->run($this, $this->parser->argv, $from);
         } elseif (is_a($cmd, PlayLanCommand::class)) {
-            if (is_a($gameMode, PlayMode::class)) {
-                return $this->sendToMany(
-                    $gameMode->getResourceIds(),
-                    $gameMode->res($this->parser->argv, $cmd)
-                );
-            } elseif ($gameMode) {
-                return $this->sendToOne(
-                    $from->resourceId,
-                    $this->gameModes[$from->resourceId]->res($this->parser->argv, $cmd)
-                );
-            }
+            $cmd->run($this, $this->parser->argv, $from);
         } elseif (is_a($cmd, RandomizerCommand::class)) {
             try {
                 $items = json_decode(stripslashes($this->parser->argv[2]), true);

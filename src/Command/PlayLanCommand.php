@@ -2,6 +2,10 @@
 
 namespace ChessServer\Command;
 
+use ChessServer\Socket;
+use ChessServer\GameMode\PlayMode;
+use Ratchet\ConnectionInterface;
+
 class PlayLanCommand extends AbstractCommand
 {
     public function __construct()
@@ -20,5 +24,21 @@ class PlayLanCommand extends AbstractCommand
     public function validate(array $argv)
     {
         return count($argv) - 1 === count($this->params);
+    }
+
+    public function run(Socket $socket, array $argv, ConnectionInterface $from)
+    {
+        $gameMode = $socket->gameModeByResourceId($from->resourceId);
+        if (is_a($gameMode, PlayMode::class)) {
+            return $socket->sendToMany(
+                $gameMode->getResourceIds(),
+                $gameMode->res($argv, $this)
+            );
+        } elseif ($gameMode) {
+            return $socket->sendToOne(
+                $from->resourceId,
+                $gameMode->res($argv, $this)
+            );
+        }
     }
 }
