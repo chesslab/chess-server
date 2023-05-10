@@ -3,19 +3,6 @@
 namespace ChessServer;
 
 use Chess\Grandmaster;
-use ChessServer\Command\AcceptPlayRequestCommand;
-use ChessServer\Command\InboxCommand;
-use ChessServer\Command\DrawCommand;
-use ChessServer\Command\LeaveCommand;
-use ChessServer\Command\OnlineGamesCommand;
-use ChessServer\Command\PlayLanCommand;
-use ChessServer\Command\RandomizerCommand;
-use ChessServer\Command\RematchCommand;
-use ChessServer\Command\ResignCommand;
-use ChessServer\Command\RestartCommand;
-use ChessServer\Command\StartCommand;
-use ChessServer\Command\TakebackCommand;
-use ChessServer\Command\UndoCommand;
 use ChessServer\Exception\ParserException;
 use ChessServer\GameMode\AbstractMode;
 use ChessServer\GameMode\PlayMode;
@@ -89,40 +76,7 @@ class Socket implements MessageComponentInterface
             ]);
         }
 
-        $gameMode = $this->gameModeByResourceId($from->resourceId);
-
-        if (is_a($cmd, AcceptPlayRequestCommand::class)) {
-            $cmd->run($this, $this->parser->argv, $from);
-        } elseif (is_a($cmd, DrawCommand::class)) {
-            $cmd->run($this, $this->parser->argv, $from);
-        } elseif (is_a($cmd, InboxCommand::class)) {
-            $cmd->run($this, $this->parser->argv, $from);
-        } elseif (is_a($cmd, LeaveCommand::class)) {
-            $cmd->run($this, $this->parser->argv, $from);
-        } elseif (is_a($cmd, OnlineGamesCommand::class)) {
-            $cmd->run($this, $this->parser->argv, $from);
-        } elseif (is_a($cmd, PlayLanCommand::class)) {
-            $cmd->run($this, $this->parser->argv, $from);
-        } elseif (is_a($cmd, RandomizerCommand::class)) {
-            $cmd->run($this, $this->parser->argv, $from);
-        } elseif (is_a($cmd, RematchCommand::class)) {
-            $cmd->run($this, $this->parser->argv, $from);
-        } elseif (is_a($cmd, ResignCommand::class)) {
-            $cmd->run($this, $this->parser->argv, $from);
-        } elseif (is_a($cmd, RestartCommand::class)) {
-            $cmd->run($this, $this->parser->argv, $from);
-        } elseif (is_a($cmd, StartCommand::class)) {
-            $cmd->run($this, $this->parser->argv, $from);
-        } elseif (is_a($cmd, TakebackCommand::class)) {
-            $cmd->run($this, $this->parser->argv, $from);
-        } elseif (is_a($cmd, UndoCommand::class)) {
-            $cmd->run($this, $this->parser->argv, $from);
-        } elseif ($gameMode) {
-            return $this->sendToOne(
-                $from->resourceId,
-                $this->gameModes[$from->resourceId]->res($this->parser->argv, $cmd)
-            );
-        }
+        $cmd->run($this, $this->parser->argv, $from);
     }
 
     public function onClose(ConnectionInterface $conn)
