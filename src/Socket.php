@@ -114,24 +114,7 @@ class Socket implements MessageComponentInterface
         $gameMode = $this->gameModes[$from->resourceId] ?? null;
 
         if (is_a($cmd, AcceptPlayRequestCommand::class)) {
-            if ($gameMode = $this->gameModeByHash($this->parser->argv[1])) {
-                $gameMode->setState(PlayMode::STATE_ACCEPTED);
-                if ($this->syncGameModeWith($gameMode, $from)) {
-                    $jwt = $gameMode->getJwt();
-                    return $this->sendToMany($gameMode->getResourceIds(), [
-                        $cmd->name => [
-                            'jwt' => $jwt,
-                            'hash' => md5($jwt),
-                        ],
-                    ]);
-                }
-            }
-            return $this->sendToOne($from->resourceId, [
-                $cmd->name => [
-                    'mode' => PlayMode::NAME,
-                    'message' =>  'This friend request could not be accepted.',
-                ],
-            ]);
+            $cmd->run($this, $this->parser->argv, $from);
         } elseif (is_a($cmd, DrawCommand::class)) {
             if (is_a($gameMode, PlayMode::class)) {
                 return $this->sendToMany(
@@ -640,7 +623,7 @@ class Socket implements MessageComponentInterface
         $this->log->info('Occurred an error', ['message' => $e->getMessage()]);
     }
 
-    protected function gameModeByHash(string $hash)
+    public function gameModeByHash(string $hash)
     {
         foreach ($this->gameModes as $gameMode) {
             if ($hash === $gameMode->getHash()) {
@@ -720,7 +703,7 @@ class Socket implements MessageComponentInterface
         }
     }
 
-    protected function syncGameModeWith(AbstractMode $gameMode, ConnectionInterface $from)
+    public function syncGameModeWith(AbstractMode $gameMode, ConnectionInterface $from)
     {
         if ($resourceIds = $gameMode->getResourceIds()) {
             if (count($resourceIds) === 1) {
@@ -736,7 +719,7 @@ class Socket implements MessageComponentInterface
         return false;
     }
 
-    protected function sendToOne(int $resourceId, array $res)
+    public function sendToOne(int $resourceId, array $res)
     {
         if (isset($this->clients[$resourceId])) {
             $this->clients[$resourceId]->send(json_encode($res));
@@ -748,7 +731,7 @@ class Socket implements MessageComponentInterface
         }
     }
 
-    protected function sendToMany(array $resourceIds, array $res)
+    public function sendToMany(array $resourceIds, array $res)
     {
         foreach ($resourceIds as $resourceId) {
             $this->clients[$resourceId]->send(json_encode($res));
