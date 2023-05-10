@@ -245,12 +245,7 @@ class Socket implements MessageComponentInterface
         } elseif (is_a($cmd, RematchCommand::class)) {
             $cmd->run($this, $this->parser->argv, $from);
         } elseif (is_a($cmd, ResignCommand::class)) {
-            if (is_a($gameMode, PlayMode::class)) {
-                return $this->sendToMany(
-                    $gameMode->getResourceIds(),
-                    $gameMode->res($this->parser->argv, $cmd)
-                );
-            }
+            $cmd->run($this, $this->parser->argv, $from);
         } elseif (is_a($cmd, RestartCommand::class)) {
             if ($gameMode = $this->gameModeByHash($this->parser->argv[1])) {
                 $jwt = $gameMode->getJwt();
