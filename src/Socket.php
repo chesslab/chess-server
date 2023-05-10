@@ -241,9 +241,7 @@ class Socket implements MessageComponentInterface
         } elseif (is_a($cmd, LeaveCommand::class)) {
             $cmd->run($this, $this->parser->argv, $from);
         } elseif (is_a($cmd, OnlineGamesCommand::class)) {
-            return $this->sendToOne($from->resourceId, [
-                $cmd->name => $this->playModesArrayByState(PlayMode::STATE_PENDING),
-            ]);
+            $cmd->run($this, $this->parser->argv, $from);
         } elseif (is_a($cmd, PlayLanCommand::class)) {
             if (is_a($gameMode, PlayMode::class)) {
                 return $this->sendToMany(
@@ -623,7 +621,7 @@ class Socket implements MessageComponentInterface
         return null;
     }
 
-    protected function playModesArrayByState(string $state)
+    public function playModesArrayByState(string $state)
     {
         $result = [];
         foreach ($this->gameModes as $gameMode) {
