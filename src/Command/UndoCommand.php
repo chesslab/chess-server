@@ -3,12 +3,7 @@
 namespace ChessServer\Command;
 
 use ChessServer\Socket;
-use ChessServer\GameMode\AnalysisMode;
-use ChessServer\GameMode\GmMode;
-use ChessServer\GameMode\FenMode;
-use ChessServer\GameMode\PgnMode;
 use ChessServer\GameMode\PlayMode;
-use ChessServer\GameMode\StockfishMode;
 use Ratchet\ConnectionInterface;
 
 class UndoCommand extends AbstractCommand
@@ -33,17 +28,11 @@ class UndoCommand extends AbstractCommand
                 $gameMode->getResourceIds(),
                 $gameMode->res($argv, $this)
             );
-        } elseif (
-            is_a($gameMode, AnalysisMode::class) ||
-            is_a($gameMode, FenMode::class) ||
-            is_a($gameMode, GmMode::class) ||
-            is_a($gameMode, PgnMode::class) ||
-            is_a($gameMode, StockfishMode::class)
-        ) {
-            return $socket->sendToOne(
-                $from->resourceId,
-                $gameMode->res($argv, $this)
-            );
         }
+
+        return $socket->sendToOne(
+            $from->resourceId,
+            $gameMode->res($argv, $this)
+        );
     }
 }
