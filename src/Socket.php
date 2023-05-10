@@ -18,12 +18,7 @@ use ChessServer\Command\TakebackCommand;
 use ChessServer\Command\UndoCommand;
 use ChessServer\Exception\ParserException;
 use ChessServer\GameMode\AbstractMode;
-use ChessServer\GameMode\AnalysisMode;
-use ChessServer\GameMode\GmMode;
-use ChessServer\GameMode\FenMode;
-use ChessServer\GameMode\PgnMode;
 use ChessServer\GameMode\PlayMode;
-use ChessServer\GameMode\StockfishMode;
 use Dotenv\Dotenv;
 use Firebase\JWT\JWT;
 use Monolog\Logger;
@@ -121,23 +116,7 @@ class Socket implements MessageComponentInterface
         } elseif (is_a($cmd, TakebackCommand::class)) {
             $cmd->run($this, $this->parser->argv, $from);
         } elseif (is_a($cmd, UndoCommand::class)) {
-            if (is_a($gameMode, PlayMode::class)) {
-                return $this->sendToMany(
-                    $gameMode->getResourceIds(),
-                    $gameMode->res($this->parser->argv, $cmd)
-                );
-            } elseif (
-                is_a($gameMode, AnalysisMode::class) ||
-                is_a($gameMode, FenMode::class) ||
-                is_a($gameMode, GmMode::class) ||
-                is_a($gameMode, PgnMode::class) ||
-                is_a($gameMode, StockfishMode::class)
-            ) {
-                return $this->sendToOne(
-                    $from->resourceId,
-                    $gameMode->res($this->parser->argv, $cmd)
-                );
-            }
+            $cmd->run($this, $this->parser->argv, $from);
         } elseif ($gameMode) {
             return $this->sendToOne(
                 $from->resourceId,
