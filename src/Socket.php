@@ -13,13 +13,9 @@ use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\StartPosition;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\Board as ClassicalBoard;
-use Chess\Variant\Classical\FEN\BoardToStr;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\PGN\Move as ClassicalPgnMove;
 use Chess\Variant\Classical\PGN\AN\Color;
-use Chess\Variant\Classical\Randomizer\Randomizer;
-use Chess\Variant\Classical\Randomizer\Checkmate\TwoBishopsRandomizer;
-use Chess\Variant\Classical\Randomizer\Endgame\PawnEndgameRandomizer;
 use ChessServer\Command\AcceptPlayRequestCommand;
 use ChessServer\Command\InboxCommand;
 use ChessServer\Command\DrawCommand;
@@ -245,39 +241,7 @@ class Socket implements MessageComponentInterface
         } elseif (is_a($cmd, PlayLanCommand::class)) {
             $cmd->run($this, $this->parser->argv, $from);
         } elseif (is_a($cmd, RandomizerCommand::class)) {
-            try {
-                $items = json_decode(stripslashes($this->parser->argv[2]), true);
-                if (count($items) === 1) {
-                    $color = array_key_first($items);
-                    $ids = str_split(current($items));
-                    if ($ids === ['B', 'B']) {
-                        $board = (new TwoBishopsRandomizer($this->parser->argv[1]))->getBoard();
-                    } elseif ($ids === ['P']) {
-                        $board = (new PawnEndgameRandomizer($this->parser->argv[1]))->getBoard();
-                    } else {
-                        $board = (new Randomizer($this->parser->argv[1], [$color => $ids]))->getBoard();
-                    }
-                } else {
-                    $wIds = str_split($items[Color::W]);
-                    $bIds = str_split($items[Color::B]);
-                    $board = (new Randomizer($this->parser->argv[1], [
-                        Color::W => $wIds,
-                        Color::B => $bIds,
-                    ]))->getBoard();
-                }
-                return $this->sendToOne($from->resourceId, [
-                    $cmd->name => [
-                        'turn' => $board->getTurn(),
-                        'fen' => (new BoardToStr($board))->create(),
-                    ],
-                ]);
-            } catch (\Throwable $e) {
-                return $this->sendToOne($from->resourceId, [
-                    $cmd->name => [
-                        'message' => 'A random puzzle could not be loaded.',
-                    ],
-                ]);
-            }
+            $cmd->run($this, $this->parser->argv, $from);
         } elseif (is_a($cmd, RematchCommand::class)) {
             if (is_a($gameMode, PlayMode::class)) {
                 return $this->sendToMany(
