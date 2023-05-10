@@ -247,28 +247,7 @@ class Socket implements MessageComponentInterface
         } elseif (is_a($cmd, ResignCommand::class)) {
             $cmd->run($this, $this->parser->argv, $from);
         } elseif (is_a($cmd, RestartCommand::class)) {
-            if ($gameMode = $this->gameModeByHash($this->parser->argv[1])) {
-                $jwt = $gameMode->getJwt();
-                $decoded = JWT::decode($jwt, $_ENV['JWT_SECRET'], array('HS256'));
-                $decoded->iat = time();
-                $decoded->exp = time() + 3600; // one hour by default
-                $newJwt = JWT::encode($decoded, $_ENV['JWT_SECRET']);
-                $resourceIds = $gameMode->getResourceIds();
-                $newGameMode = new PlayMode(
-                    new Game(Game::VARIANT_CLASSICAL, Game::MODE_PLAY),
-                    [$resourceIds[0], $resourceIds[1]],
-                    $newJwt
-                );
-                $newGameMode->setState(PlayMode::STATE_ACCEPTED);
-                $this->gameModes[$resourceIds[0]] = $newGameMode;
-                $this->gameModes[$resourceIds[1]] = $newGameMode;
-                return $this->sendToMany($newGameMode->getResourceIds(), [
-                    $cmd->name => [
-                        'jwt' => $newJwt,
-                        'hash' => md5($newJwt),
-                    ],
-                ]);
-            }
+            $cmd->run($this, $this->parser->argv, $from);
         } elseif (is_a($cmd, StartCommand::class)) {
             $variant = $this->parser->argv[1];
             $mode = $this->parser->argv[2];
@@ -563,6 +542,13 @@ class Socket implements MessageComponentInterface
         }
 
         return null;
+    }
+
+    public function setGameModeByIds(array $ids, $gameMode)
+    {
+        foreach ($ids as $id) {
+            $this->gameModes[$id] = $gameMode;
+        }
     }
 
     public function playModesArrayByState(string $state)
