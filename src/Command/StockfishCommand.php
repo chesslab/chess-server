@@ -22,9 +22,6 @@ class StockfishCommand extends AbstractCommand
                 'depth' => 'int',
             ],
         ];
-        $this->dependsOn = [
-            StartCommand::class,
-        ];
     }
 
     public function validate(array $argv)

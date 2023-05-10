@@ -15,9 +15,6 @@ class LegalCommand extends AbstractCommand
         $this->params = [
             'position' => '<string>',
         ];
-        $this->dependsOn = [
-            StartCommand::class,
-        ];
     }
 
     public function validate(array $argv)

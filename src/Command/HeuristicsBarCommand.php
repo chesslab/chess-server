@@ -16,9 +16,6 @@ class HeuristicsBarCommand extends AbstractCommand
             'fen' => '<string>',
             'variant' => '<string>',
         ];
-        $this->dependsOn = [
-            StartCommand::class,
-        ];
     }
 
     public function validate(array $argv)

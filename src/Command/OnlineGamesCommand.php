@@ -12,9 +12,6 @@ class OnlineGamesCommand extends AbstractCommand
     {
         $this->name = '/online_games';
         $this->description = "Returns the online games waiting to be accepted.";
-        $this->dependsOn = [
-            StartCommand::class,
-        ];
     }
 
     public function validate(array $argv)

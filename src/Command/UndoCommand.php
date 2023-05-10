@@ -17,9 +17,6 @@ class UndoCommand extends AbstractCommand
     {
         $this->name = '/undo';
         $this->description = 'Undoes the last move.';
-        $this->dependsOn = [
-            StartCommand::class,
-        ];
     }
 
     public function validate(array $argv)

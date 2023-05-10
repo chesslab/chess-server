@@ -17,7 +17,6 @@ class RestartCommand extends AbstractCommand
         $this->params = [
             'hash' => '<string>',
         ];
-        $this->dependsOn = [];
     }
 
     public function validate(array $argv)

@@ -16,9 +16,6 @@ class PlayLanCommand extends AbstractCommand
             'color' => '<string>',
             'lan' => '<string>',
         ];
-        $this->dependsOn = [
-            StartCommand::class,
-        ];
     }
 
     public function validate(array $argv)

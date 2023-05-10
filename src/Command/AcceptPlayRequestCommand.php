@@ -15,7 +15,6 @@ class AcceptPlayRequestCommand extends AbstractCommand
         $this->params = [
             'jwt' => '<string>',
         ];
-        $this->dependsOn = [];
     }
 
     public function validate(array $argv)
@@ -37,7 +36,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
                 ]);
             }
         }
-        
+
         return $socket->sendToOne($from->resourceId, [
             $this->name => [
                 'mode' => PlayMode::NAME,

@@ -14,8 +14,6 @@ abstract class AbstractCommand
 
     protected $params;
 
-    protected $dependsOn;
-
     public function __get($property)
     {
         if (property_exists($this, $property)) {
