@@ -3,6 +3,7 @@
 namespace ChessServer;
 
 use Chess\Grandmaster;
+use ChessServer\Command\LeaveCommand;
 use ChessServer\Exception\ParserException;
 use ChessServer\GameMode\AbstractMode;
 use ChessServer\GameMode\PlayMode;
@@ -163,16 +164,10 @@ class Socket implements MessageComponentInterface
     protected function leaveGame(int $resourceId)
     {
         if ($gameMode = $this->getGameMode($resourceId)) {
-            $toId = null;
-            $resourceIds = $gameMode->getResourceIds();
-            if ($resourceIds[0] !== $resourceId) {
-                $toId = $resourceIds[0];
-            } elseif (isset($resourceIds[1]) && $resourceIds[1] !== $resourceId) {
-                $toId = $resourceIds[1];
-            }
-            if ($toId) {
-                $this->sendToOne($toId, ['/leave' => LeaveCommand::ACTION_ACCEPT]);
-            }
+            return $this->sendToMany(
+                $gameMode->getResourceIds(),
+                ['/leave' => LeaveCommand::ACTION_ACCEPT]
+            );
         }
     }
 
