@@ -111,17 +111,12 @@ class Socket implements MessageComponentInterface
             ]);
         }
 
-        $gameMode = $this->gameModes[$from->resourceId] ?? null;
+        $gameMode = $this->gameModeByResourceId($from->resourceId);
 
         if (is_a($cmd, AcceptPlayRequestCommand::class)) {
             $cmd->run($this, $this->parser->argv, $from);
         } elseif (is_a($cmd, DrawCommand::class)) {
-            if (is_a($gameMode, PlayMode::class)) {
-                return $this->sendToMany(
-                    $gameMode->getResourceIds(),
-                    $gameMode->res($this->parser->argv, $cmd)
-                );
-            }
+            $cmd->run($this, $this->parser->argv, $from);
         } elseif (is_a($cmd, InboxCommand::class)) {
             $action = $this->parser->argv[1];
             if (InboxCommand::ACTION_CREATE === $action) {
@@ -652,7 +647,7 @@ class Socket implements MessageComponentInterface
         return $result;
     }
 
-    protected function gameModeByResourceId(int $id)
+    public function gameModeByResourceId(int $id)
     {
         foreach ($this->gameModes as $key => $val) {
             if ($key === $id) {
