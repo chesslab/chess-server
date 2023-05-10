@@ -4,6 +4,7 @@ namespace ChessServer\Command;
 
 use Chess\Game;
 use Chess\Movetext;
+use Chess\Exception\MovetextException;
 use Chess\Variant\Capablanca80\Board as Capablanca80Board;
 use Chess\Variant\Capablanca80\FEN\StrToBoard as Capablanca80FenStrToBoard;
 use Chess\Variant\Capablanca80\PGN\Move as Capablanca80PgnMove;
@@ -163,7 +164,9 @@ class InboxCommand extends AbstractCommand
                             $board->play($board->getTurn(), $val);
                         }
                     }
-                    $board->play($board->getTurn(), $argv[3]);
+                    if (!$board->play($board->getTurn(), $argv[3])) {
+                        throw new MovetextException();
+                    }
                     $inbox['fen'] = $board->toFen();
                     $inbox['movetext'] = $board->getMovetext();
                     $inbox['updatedAt'] = (new \DateTime())->format('Y-m-d H:i:s');
