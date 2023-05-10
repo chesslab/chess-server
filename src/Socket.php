@@ -239,13 +239,7 @@ class Socket implements MessageComponentInterface
                 }
             }
         } elseif (is_a($cmd, LeaveCommand::class)) {
-            if (is_a($gameMode, PlayMode::class)) {
-                $this->deleteGameModes($from->resourceId);
-                return $this->sendToMany(
-                    $gameMode->getResourceIds(),
-                    $gameMode->res($this->parser->argv, $cmd)
-                );
-            }
+            $cmd->run($this, $this->parser->argv, $from);
         } elseif (is_a($cmd, OnlineGamesCommand::class)) {
             return $this->sendToOne($from->resourceId, [
                 $cmd->name => $this->playModesArrayByState(PlayMode::STATE_PENDING),
@@ -674,7 +668,7 @@ class Socket implements MessageComponentInterface
         }
     }
 
-    protected function deleteGameModes(int $resourceId)
+    public function deleteGameModes(int $resourceId)
     {
         if ($gameMode = $this->gameModeByResourceId($resourceId)) {
             $resourceIds = $gameMode->getResourceIds();
