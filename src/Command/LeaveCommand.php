@@ -36,7 +36,6 @@ class LeaveCommand extends AbstractCommand
         $gameMode = $socket->getGameMode($from->resourceId);
 
         if (is_a($gameMode, PlayMode::class)) {
-            $socket->deleteGameModes($from->resourceId);
             return $socket->sendToMany(
                 $gameMode->getResourceIds(),
                 $gameMode->res($argv, $this)
