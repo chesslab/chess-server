@@ -26,16 +26,17 @@ class PlayLanCommand extends AbstractCommand
     public function run(Socket $socket, array $argv, ConnectionInterface $from)
     {
         $gameMode = $socket->getGameMode($from->resourceId);
+
         if (is_a($gameMode, PlayMode::class)) {
             return $socket->sendToMany(
                 $gameMode->getResourceIds(),
                 $gameMode->res($argv, $this)
             );
-        } elseif ($gameMode) {
-            return $socket->sendToOne(
-                $from->resourceId,
-                $gameMode->res($argv, $this)
-            );
         }
+
+        return $socket->sendToOne(
+            $from->resourceId,
+            $gameMode->res($argv, $this)
+        );
     }
 }
