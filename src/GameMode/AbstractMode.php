@@ -101,12 +101,15 @@ abstract class AbstractMode
                     return [
                         $cmd->name => [
                             'turn' => $turn,
+                            'fen' => $state->fen,
+                            'movetext' => $state->movetext,
+                            'pgn' => $state->pgn,
                             'isLegal' => $isLegal,
                             'isCheck' => $state->isCheck,
                             'isMate' => $state->isMate,
-                            'movetext' => $state->movetext,
-                            'fen' => $state->fen,
-                            'pgn' => $state->pgn,
+                            'isMate' => $state->isMate,
+                            'isStalemate' => $state->isStalemate,
+                            'isFivefoldRepetition' => $state->isFivefoldRepetition,
                         ],
                     ];
                 case StockfishCommand::class:
