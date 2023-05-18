@@ -189,22 +189,6 @@ class Socket implements MessageComponentInterface
         }
     }
 
-    public function syncGameModes(AbstractMode $gameMode, ConnectionInterface $from)
-    {
-        if ($resourceIds = $gameMode->getResourceIds()) {
-            if (count($resourceIds) === 1) {
-                $resourceIds[] = $from->resourceId;
-                $gameMode->setResourceIds($resourceIds);
-                foreach ($resourceIds as $resourceId) {
-                    $this->gameModes[$resourceId] = $gameMode;
-                }
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public function sendToOne(int $resourceId, array $res)
     {
         if (isset($this->clients[$resourceId])) {
