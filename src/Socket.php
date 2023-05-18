@@ -107,8 +107,8 @@ class Socket implements MessageComponentInterface
 
         $this->gameModeStorage->delete($conn->resourceId);
 
-        if (isset($this->clients[$resourceId])) {
-            unset($this->clients[$resourceId]);
+        if (isset($this->clients[$conn->resourceId])) {
+            unset($this->clients[$conn->resourceId]);
         }
 
         $this->log->info('Closed connection', [
