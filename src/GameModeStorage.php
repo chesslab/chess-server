@@ -2,12 +2,13 @@
 
 namespace ChessServer;
 
+use ChessServer\GameMode\AbstractMode;
 use ChessServer\GameMode\PlayMode;
 use Firebase\JWT\JWT;
 
 class GameModeStorage extends \SplObjectStorage
 {
-    public function getByResourceId(int $resourceId)
+    public function getByResourceId(int $resourceId): ?AbstractMode
     {
         $this->rewind();
         while ($this->valid()) {
@@ -20,7 +21,7 @@ class GameModeStorage extends \SplObjectStorage
         return null;
     }
 
-    public function getByHash(string $hash)
+    public function getByHash(string $hash): ?AbstractMode
     {
         $this->rewind();
         while ($this->valid()) {
@@ -33,7 +34,7 @@ class GameModeStorage extends \SplObjectStorage
         return null;
     }
 
-    public function decodeByPlayMode(string $state, string $submode)
+    public function decodeByPlayMode(string $state, string $submode): array
     {
         $items = [];
         $this->rewind();
@@ -56,7 +57,7 @@ class GameModeStorage extends \SplObjectStorage
         return $items;
     }
 
-    public function set(array $resourceIds, $gameMode)
+    public function set(array $resourceIds, $gameMode): void
     {
         foreach ($resourceIds as $resourceId) {
             if ($prev = $this->getByResourceId($resourceId)) {
@@ -66,7 +67,7 @@ class GameModeStorage extends \SplObjectStorage
         }
     }
 
-    public function delete(int $resourceId)
+    public function delete(int $resourceId): void
     {
         $this->rewind();
         while ($this->valid()) {
@@ -75,7 +76,5 @@ class GameModeStorage extends \SplObjectStorage
             }
             $this->next();
         }
-
-        return null;
     }
 }
