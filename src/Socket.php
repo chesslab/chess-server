@@ -100,7 +100,7 @@ class Socket implements MessageComponentInterface
     {
         if ($gameMode = $this->gameModeStorage->getByResourceId($conn->resourceId)) {
             $this->gameModeStorage->delete($gameMode);
-            return $this->sendToMany(
+            $this->sendToMany(
                 $gameMode->getResourceIds(),
                 ['/leave' => LeaveCommand::ACTION_ACCEPT]
             );
