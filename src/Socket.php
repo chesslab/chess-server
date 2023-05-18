@@ -98,7 +98,7 @@ class Socket implements MessageComponentInterface
 
     public function onClose(ConnectionInterface $conn)
     {
-        if ($gameMode = $this->gameModeStorage->getByResourceId($resourceId)) {
+        if ($gameMode = $this->gameModeStorage->getByResourceId($conn->resourceId)) {
             return $this->sendToMany(
                 $gameMode->getResourceIds(),
                 ['/leave' => LeaveCommand::ACTION_ACCEPT]
