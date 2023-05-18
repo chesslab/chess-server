@@ -25,11 +25,11 @@ class AcceptPlayRequestCommand extends AbstractCommand
 
     public function run(Socket $socket, array $argv, ConnectionInterface $from)
     {
-        if ($gameMode = $socket->getGameModeByHash($argv[1])) {
+        if ($gameMode = $socket->getGameModeStorage()->getByHash($argv[1])) {
             if ($gameMode->getState() === PlayMode::STATE_PENDING) {
                 $resourceIds = [...$gameMode->getResourceIds(), $from->resourceId];
                 $gameMode->setResourceIds($resourceIds)->setState(PlayMode::STATE_ACCEPTED);
-                $socket->setGameModes($resourceIds, $gameMode);
+                $socket->getGameModeStorage()->set($resourceIds, $gameMode);
                 $decoded = JWT::decode($gameMode->getJwt(), $_ENV['JWT_SECRET'], array('HS256'));
                 if ($decoded->submode === PlayMode::SUBMODE_ONLINE) {
                     $socket->sendToAll();
