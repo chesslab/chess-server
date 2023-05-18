@@ -99,13 +99,12 @@ class Socket implements MessageComponentInterface
     public function onClose(ConnectionInterface $conn)
     {
         if ($gameMode = $this->gameModeStorage->getByResourceId($conn->resourceId)) {
+            $this->gameModeStorage->delete($gameMode);
             return $this->sendToMany(
                 $gameMode->getResourceIds(),
                 ['/leave' => LeaveCommand::ACTION_ACCEPT]
             );
         }
-
-        $this->gameModeStorage->delete($conn->resourceId);
 
         if (isset($this->clients[$conn->resourceId])) {
             unset($this->clients[$conn->resourceId]);

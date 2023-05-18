@@ -12,7 +12,7 @@ class GameModeStorage extends \SplObjectStorage
     {
         $this->rewind();
         while ($this->valid()) {
-            if ($resourceId === $this->getInfo()) {
+            if (in_array($resourceId, $this->current()->getResourceIds())) {
                 return $this->current();
             }
             $this->next();
@@ -57,24 +57,19 @@ class GameModeStorage extends \SplObjectStorage
         return $items;
     }
 
-    public function set(array $resourceIds, $gameMode): void
+    public function set($gameMode): void
     {
-        foreach ($resourceIds as $resourceId) {
-            if ($prev = $this->getByResourceId($resourceId)) {
-                $this->detach($prev);
+        foreach ($resourceIds = $gameMode->getResourceIds() as $resourceId) {
+            if ($found = $this->getByResourceId($resourceId)) {
+                $this->detach($found);
             }
-            $this->attach($gameMode, $resourceId);
         }
+
+        $this->attach($gameMode);
     }
 
-    public function delete(int $resourceId): void
+    public function delete(AbstractMode $gameMode): void
     {
-        $this->rewind();
-        while ($this->valid()) {
-            if ($resourceId === $this->getInfo()) {
-                $this->detach($this->current());
-            }
-            $this->next();
-        }
+        $this->detach($gameMode);
     }
 }
