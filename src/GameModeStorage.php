@@ -2,6 +2,9 @@
 
 namespace ChessServer;
 
+use ChessServer\GameMode\PlayMode;
+use Firebase\JWT\JWT;
+
 class GameModeStorage extends \SplObjectStorage
 {
     public function getByResourceId(int $resourceId)
@@ -36,16 +39,16 @@ class GameModeStorage extends \SplObjectStorage
         $this->rewind();
         while ($this->valid()) {
             if (is_a($this->current(), PlayMode::class)) {
-              if ($this->current()->getState() === $state) {
-                  $decoded = JWT::decode(
-                      $this->current()->getJwt(),
-                      $_ENV['JWT_SECRET'], array('HS256')
-                  );
-                  if ($decoded->submode === $submode) {
-                      $decoded->hash = $this->current()->getHash();
-                      $items[] = $decoded;
-                  }
-              }
+                if ($this->current()->getState() === $state) {
+                    $decoded = JWT::decode(
+                        $this->current()->getJwt(),
+                        $_ENV['JWT_SECRET'], array('HS256')
+                    );
+                    if ($decoded->submode === $submode) {
+                        $decoded->hash = $this->current()->getHash();
+                        $items[] = $decoded;
+                    }
+                }
             }
             $this->next();
         }
