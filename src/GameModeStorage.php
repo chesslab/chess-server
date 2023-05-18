@@ -56,7 +56,12 @@ class GameModeStorage extends \SplObjectStorage
     public function set(array $resourceIds, $gameMode)
     {
         foreach ($resourceIds as $resourceId) {
-            $this->attach($gameMode, $resourceId);
+            if ($prev = $this->getByResourceId($resourceId)) {
+                $this->detach($prev);
+                $this->attach($gameMode, $resourceId);
+            } else {
+                $this->attach($gameMode, $resourceId);
+            }
         }
     }
 
