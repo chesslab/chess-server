@@ -4,6 +4,7 @@ namespace ChessServer\Command;
 
 use ChessServer\Socket;
 use ChessServer\GameMode\PlayMode;
+use Firebase\JWT\JWT;
 use Ratchet\ConnectionInterface;
 
 class AcceptPlayRequestCommand extends AbstractCommand
@@ -25,13 +26,18 @@ class AcceptPlayRequestCommand extends AbstractCommand
     public function run(Socket $socket, array $argv, ConnectionInterface $from)
     {
         if ($gameMode = $socket->getGameModeByHash($argv[1])) {
-            $gameMode->setState(PlayMode::STATE_ACCEPTED);
-            if ($socket->syncGameModes($gameMode, $from)) {
-                $jwt = $gameMode->getJwt();
-                return $socket->sendToMany($gameMode->getResourceIds(), [
+            if ($gameMode->getState() === PlayMode::STATE_PENDING) {
+                $resourceIds = [...$gameMode->getResourceIds(), $from->resourceId];
+                $gameMode->setResourceIds($resourceIds)->setState(PlayMode::STATE_ACCEPTED);
+                $socket->setGameModes($resourceIds, $gameMode);
+                $decoded = JWT::decode($gameMode->getJwt(), $_ENV['JWT_SECRET'], array('HS256'));
+                if ($decoded->submode === PlayMode::SUBMODE_ONLINE) {
+                    $socket->sendToAll();
+                }
+                return $socket->sendToMany($resourceIds, [
                     $this->name => [
-                        'jwt' => $jwt,
-                        'hash' => md5($jwt),
+                        'jwt' => $gameMode->getJwt(),
+                        'hash' => md5($gameMode->getJwt()),
                     ],
                 ]);
             }
