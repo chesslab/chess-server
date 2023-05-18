@@ -98,9 +98,18 @@ class Socket implements MessageComponentInterface
 
     public function onClose(ConnectionInterface $conn)
     {
-        $this->leave($conn->resourceId);
-        $this->delete($conn->resourceId);
+        if ($gameMode = $this->gameModeStorage->getByResourceId($resourceId)) {
+            return $this->sendToMany(
+                $gameMode->getResourceIds(),
+                ['/leave' => LeaveCommand::ACTION_ACCEPT]
+            );
+        }
+
         $this->gameModeStorage->delete($conn->resourceId);
+
+        if (isset($this->clients[$resourceId])) {
+            unset($this->clients[$resourceId]);
+        }
 
         $this->log->info('Closed connection', [
             'id' => $conn->resourceId,
@@ -150,23 +159,6 @@ class Socket implements MessageComponentInterface
 
         foreach ($this->clients as $client) {
             $client->send(json_encode($res));
-        }
-    }
-
-    protected function leave(int $resourceId)
-    {
-        if ($gameMode = $this->gameModeStorage->getByResourceId($resourceId)) {
-            return $this->sendToMany(
-                $gameMode->getResourceIds(),
-                ['/leave' => LeaveCommand::ACTION_ACCEPT]
-            );
-        }
-    }
-
-    protected function delete(int $resourceId)
-    {
-        if (isset($this->clients[$resourceId])) {
-            unset($this->clients[$resourceId]);
         }
     }
 }
