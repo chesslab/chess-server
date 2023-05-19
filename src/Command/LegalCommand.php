@@ -3,7 +3,6 @@
 namespace ChessServer\Command;
 
 use ChessServer\Socket;
-use ChessServer\GameMode\PlayMode;
 use Ratchet\ConnectionInterface;
 
 class LegalCommand extends AbstractCommand
@@ -24,7 +23,7 @@ class LegalCommand extends AbstractCommand
 
     public function run(Socket $socket, array $argv, ConnectionInterface $from)
     {
-        $gameMode = $socket->getGameMode($from->resourceId);
+        $gameMode = $socket->getGameModeStorage()->getByResourceId($from->resourceId);
 
         return $socket->sendToOne(
             $from->resourceId,

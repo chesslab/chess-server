@@ -5,10 +5,8 @@ namespace ChessServer;
 use Chess\Grandmaster;
 use ChessServer\Command\LeaveCommand;
 use ChessServer\Exception\ParserException;
-use ChessServer\GameMode\AbstractMode;
 use ChessServer\GameMode\PlayMode;
 use Dotenv\Dotenv;
-use Firebase\JWT\JWT;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Ratchet\MessageComponentInterface;
@@ -30,7 +28,7 @@ class Socket implements MessageComponentInterface
 
     private $inboxStore;
 
-    private $gameModes = [];
+    private $gameModeStorage;
 
     private $clients = [];
 
@@ -50,6 +48,8 @@ class Socket implements MessageComponentInterface
         $databaseDirectory = self::STORAGE_FOLDER;
         $this->inboxStore = new \SleekDB\Store("inbox", self::STORAGE_FOLDER);
 
+        $this->gameModeStorage = new GameModeStorage();
+
         echo "Welcome to PHP Chess Server" . PHP_EOL;
         echo "Commands available:" . PHP_EOL;
         echo $this->parser->cli->help() . PHP_EOL;
@@ -68,61 +68,15 @@ class Socket implements MessageComponentInterface
         return $this->inboxStore;
     }
 
-    public function getGameModes()
+    public function getGameModeStorage()
     {
-        return $this->gameModes;
-    }
-
-    public function getGameMode(int $resourceId)
-    {
-        foreach ($this->gameModes as $key => $val) {
-            if ($key === $resourceId) {
-                return $val;
-            }
-        }
-
-        return null;
-    }
-
-    public function getGameModeByHash(string $hash)
-    {
-        foreach ($this->gameModes as $gameMode) {
-            if ($hash === $gameMode->getHash()) {
-                return $gameMode;
-            }
-        }
-
-        return null;
-    }
-
-    public function getPendingGames()
-    {
-        $pending = [];
-        foreach ($this->gameModes as $gameMode) {
-          if (is_a($gameMode, PlayMode::class)) {
-            if ($gameMode->getState() === PlayMode::STATE_PENDING) {
-                $decoded = JWT::decode($gameMode->getJwt(), $_ENV['JWT_SECRET'], array('HS256'));
-                if ($decoded->submode === PlayMode::SUBMODE_ONLINE) {
-                    $decoded->hash = $gameMode->getHash();
-                    $pending[] = $decoded;
-                }
-            }
-          }
-        }
-
-        return $pending;
-    }
-
-    public function setGameModes(array $resourceIds, $gameMode)
-    {
-        foreach ($resourceIds as $resourceId) {
-            $this->gameModes[$resourceId] = $gameMode;
-        }
+        return $this->gameModeStorage;
     }
 
     public function onOpen(ConnectionInterface $conn)
     {
         $this->clients[$conn->resourceId] = $conn;
+
         $this->log->info('New connection', [
             'id' => $conn->resourceId,
             'n' => count($this->clients)
@@ -144,9 +98,17 @@ class Socket implements MessageComponentInterface
 
     public function onClose(ConnectionInterface $conn)
     {
-        $this->leaveGame($conn->resourceId);
-        $this->deleteGameModes($conn->resourceId);
-        $this->deleteClient($conn->resourceId);
+        if ($gameMode = $this->gameModeStorage->getByResourceId($conn->resourceId)) {
+            $this->gameModeStorage->delete($gameMode);
+            $this->sendToMany(
+                $gameMode->getResourceIds(),
+                ['/leave' => LeaveCommand::ACTION_ACCEPT]
+            );
+        }
+
+        if (isset($this->clients[$conn->resourceId])) {
+            unset($this->clients[$conn->resourceId]);
+        }
 
         $this->log->info('Closed connection', [
             'id' => $conn->resourceId,
@@ -159,34 +121,6 @@ class Socket implements MessageComponentInterface
         $conn->close();
 
         $this->log->info('Occurred an error', ['message' => $e->getMessage()]);
-    }
-
-    protected function leaveGame(int $resourceId)
-    {
-        if ($gameMode = $this->getGameMode($resourceId)) {
-            return $this->sendToMany(
-                $gameMode->getResourceIds(),
-                ['/leave' => LeaveCommand::ACTION_ACCEPT]
-            );
-        }
-    }
-
-    public function deleteGameModes(int $resourceId)
-    {
-        if ($gameMode = $this->getGameMode($resourceId)) {
-            foreach ($resourceIds = $gameMode->getResourceIds() as $val) {
-                if (isset($this->gameModes[$val])) {
-                    unset($this->gameModes[$val]);
-                }
-            }
-        }
-    }
-
-    protected function deleteClient(int $resourceId)
-    {
-        if (isset($this->clients[$resourceId])) {
-            unset($this->clients[$resourceId]);
-        }
     }
 
     public function sendToOne(int $resourceId, array $res)
@@ -215,14 +149,15 @@ class Socket implements MessageComponentInterface
 
     public function sendToAll()
     {
-        $message = [
+        $res = [
             'broadcast' => [
-                'onlineGames' => $this->getPendingGames(),
+                'onlineGames' => $this->gameModeStorage
+                    ->decodeByPlayMode(PlayMode::STATE_PENDING, PlayMode::SUBMODE_ONLINE),
             ],
         ];
 
         foreach ($this->clients as $client) {
-            $client->send(json_encode($message));
+            $client->send(json_encode($res));
         }
     }
 }
