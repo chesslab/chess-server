@@ -122,10 +122,7 @@ abstract class AbstractMode
                         }
                     }
                     return [
-                        $cmd->name => [
-                            ...(isset($ai) ? ['move' => $ai->move] : []),
-                            'state' => $this->game->state(),
-                        ],
+                        $cmd->name => $this->game->state(),
                     ];
                 case UndoCommand::class:
                     $board = $this->game->getBoard()->undo();
