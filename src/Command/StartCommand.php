@@ -16,7 +16,6 @@ use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\PGN\Move as ClassicalPgnMove;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Socket;
-use ChessServer\GameMode\AnalysisMode;
 use ChessServer\GameMode\GmMode;
 use ChessServer\GameMode\FenMode;
 use ChessServer\GameMode\PgnMode;
@@ -41,7 +40,6 @@ class StartCommand extends AbstractCommand
             ],
             // mandatory param
             'mode' => [
-                AnalysisMode::NAME,
                 GmMode::NAME,
                 FenMode::NAME,
                 PgnMode::NAME,
@@ -67,8 +65,6 @@ class StartCommand extends AbstractCommand
         if (in_array($argv[1], $this->params['variant'])) {
             if (in_array($argv[2], $this->params['mode'])) {
                 switch ($argv[2]) {
-                    case AnalysisMode::NAME:
-                        return count($argv) - 1 === 2;
                     case GmMode::NAME:
                         return count($argv) - 1 === 3 && in_array($argv[3], $this->params['settings']['color']);
                     case FenMode::NAME:
@@ -99,37 +95,7 @@ class StartCommand extends AbstractCommand
 
     public function run(Socket $socket, array $argv, ConnectionInterface $from)
     {
-        if (AnalysisMode::NAME === $argv[2]) {
-            $analysisMode = new AnalysisMode(
-                new Game($argv[1], $argv[2]),
-                [$from->resourceId]
-            );
-            $socket->getGameModeStorage()->set($analysisMode);
-            return $socket->sendToOne($from->resourceId, [
-                $this->name => [
-                    'variant' => $argv[1],
-                    'mode' => $argv[2],
-                    'fen' => $analysisMode->getGame()->getBoard()->toFen(),
-                    ...($argv[1] === Game::VARIANT_960
-                        ? ['startPos' => implode('', $analysisMode->getGame()->getBoard()->getStartPos())]
-                        : []
-                    ),
-                ],
-            ]);
-        } elseif (GmMode::NAME === $argv[2]) {
-            $gmMode = new GmMode(
-                new Game($argv[1], $argv[2], $socket->getGm()),
-                [$from->resourceId]
-            );
-            $socket->getGameModeStorage()->set($gmMode);
-            return $socket->sendToOne($from->resourceId, [
-                $this->name => [
-                    'variant' => $argv[1],
-                    'mode' => $argv[2],
-                    'color' => $argv[3],
-                ],
-            ]);
-        } elseif (FenMode::NAME === $argv[2]) {
+        if (FenMode::NAME === $argv[2]) {
             try {
                 if ($argv[1] === Game::VARIANT_960) {
                     $startPos = str_split($argv[4]);
@@ -169,6 +135,19 @@ class StartCommand extends AbstractCommand
                     ],
                 ]);
             }
+        } elseif (GmMode::NAME === $argv[2]) {
+            $gmMode = new GmMode(
+                new Game($argv[1], $argv[2], $socket->getGm()),
+                [$from->resourceId]
+            );
+            $socket->getGameModeStorage()->set($gmMode);
+            return $socket->sendToOne($from->resourceId, [
+                $this->name => [
+                    'variant' => $argv[1],
+                    'mode' => $argv[2],
+                    'color' => $argv[3],
+                ],
+            ]);
         } elseif (PgnMode::NAME === $argv[2]) {
             try {
                 if ($argv[1] === Game::VARIANT_960) {
