@@ -69,9 +69,11 @@ class StartCommand extends AbstractCommand
                         return count($argv) - 1 === 3 && in_array($argv[3], $this->params['settings']['color']);
                     case FenMode::NAME:
                         if ($argv[1] === Game::VARIANT_960) {
-                            return count($argv) - 1 === 4;
+                            return count($argv) - 1 === 4 ||
+                                count($argv) - 1 === 2;
                         } else {
-                            return count($argv) - 1 === 3;
+                            return count($argv) - 1 === 3 ||
+                                count($argv) - 1 === 2;
                         }
                     case PgnMode::NAME:
                         if ($argv[1] === Game::VARIANT_960) {
@@ -98,20 +100,31 @@ class StartCommand extends AbstractCommand
         if (FenMode::NAME === $argv[2]) {
             try {
                 if ($argv[1] === Game::VARIANT_960) {
-                    $startPos = str_split($argv[4]);
-                    $board = (new Chess960FenStrToBoard($argv[3], $startPos))
-                        ->create();
+                    if (isset($argv[3]) && isset($argv[4])) {
+                        $startPos = str_split($argv[4]);
+                        $board = (new Chess960FenStrToBoard($argv[3], $startPos))
+                            ->create();
+                    } else {
+                        $startPos = (new StartPosition())->create();
+                        $board = new Chess960Board($startPos);
+                    }
                 } elseif ($argv[1] === Game::VARIANT_CAPABLANCA_80) {
-                    $board = (new Capablanca80FenStrToBoard($argv[3]))
-                        ->create();
+                    if (isset($argv[3])) {
+                        $board = (new Capablanca80FenStrToBoard($argv[3]))->create();
+                    } else {
+                        $board =  new Capablanca80Board();
+                    }
                 } else {
-                    $board = (new ClassicalFenStrToBoard($argv[3]))
-                        ->create();
+                    if (isset($argv[3])) {
+                        $board = (new ClassicalFenStrToBoard($argv[3]))->create();
+                    } else {
+                        $board =  new ClassicalBoard();
+                    }
                 }
                 $fenMode = new FenMode(
                     new Game($argv[1], $argv[2]),
                     [$from->resourceId],
-                    $argv[3]
+                    $board->toFen()
                 );
                 $fenMode->getGame()->setBoard($board);
                 $socket->getGameModeStorage()->set($fenMode);
@@ -119,9 +132,9 @@ class StartCommand extends AbstractCommand
                     $this->name => [
                         'variant' => $argv[1],
                         'mode' => $argv[2],
-                        'fen' => $argv[3],
+                        'fen' => $board->toFen(),
                         ...($argv[1] === Game::VARIANT_960
-                            ? ['startPos' =>  $argv[4]]
+                            ? ['startPos' => implode('', $startPos)]
                             : []
                         ),
                     ],
