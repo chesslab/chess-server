@@ -110,6 +110,7 @@ abstract class AbstractMode
                             'isMate' => $state->isMate,
                             'isStalemate' => $state->isStalemate,
                             'isFivefoldRepetition' => $state->isFivefoldRepetition,
+                            'variant' =>  $this->game->getVariant(),
                         ],
                     ];
                 case StockfishCommand::class:
