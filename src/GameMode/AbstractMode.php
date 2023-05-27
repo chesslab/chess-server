@@ -129,7 +129,10 @@ abstract class AbstractMode
                     $board = $this->game->getBoard()->undo();
                     $this->game->setBoard($board);
                     return [
-                        $cmd->name => $this->game->state(),
+                        $cmd->name => [
+                          ... (array) $this->game->state(),
+                          'variant' =>  $this->game->getVariant(),
+                        ],
                     ];
                 default:
                     return null;
