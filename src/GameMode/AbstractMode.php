@@ -123,7 +123,10 @@ abstract class AbstractMode
                         }
                     }
                     return [
-                        $cmd->name => $this->game->state(),
+                        $cmd->name => [
+                          ... (array) $this->game->state(),
+                          'variant' =>  $this->game->getVariant(),
+                        ],
                     ];
                 case UndoCommand::class:
                     $board = $this->game->getBoard()->undo();
