@@ -3,6 +3,7 @@
 namespace ChessServer\Command;
 
 use Chess\Game;
+use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use ChessServer\Socket;
 use ChessServer\GameMode\PlayMode;
 use Firebase\JWT\JWT;
@@ -31,9 +32,18 @@ class RestartCommand extends AbstractCommand
             $decoded = JWT::decode($jwt, $_ENV['JWT_SECRET'], array('HS256'));
             $decoded->iat = time();
             $decoded->exp = time() + 3600; // one hour by default
+            if ($decoded->variant === Game::VARIANT_960) {
+                $startPos = str_split($decoded->startPos);
+                $board = (new Chess960FenStrToBoard($decoded->fen, $startPos))->create();
+                $game = (new Game($decoded->variant, Game::MODE_PLAY))->setBoard($board);
+            } else if ($decoded->variant === Game::VARIANT_CAPABLANCA_80) {
+                $game = new Game($decoded->variant, Game::MODE_PLAY);
+            } else {
+                $game = new Game($decoded->variant, Game::MODE_PLAY);
+            }
             $newJwt = JWT::encode($decoded, $_ENV['JWT_SECRET']);
             $newGameMode = new PlayMode(
-                new Game(Game::VARIANT_CLASSICAL, Game::MODE_PLAY),
+                $game,
                 $gameMode->getResourceIds(),
                 $newJwt
             );
