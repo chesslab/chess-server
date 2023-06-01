@@ -28,6 +28,8 @@ class PlayMode extends AbstractMode
 
     protected int $startedAt;
 
+    protected int $updatedAt;
+
     protected array $timer;
 
     public function __construct(Game $game, array $resourceIds, string $jwt)
@@ -54,6 +56,11 @@ class PlayMode extends AbstractMode
         return $this->startedAt;
     }
 
+    public function getUpdatedAt(): int
+    {
+        return $this->updatedAt;
+    }
+
     public function getTimer(): array
     {
         return $this->timer;
@@ -69,6 +76,13 @@ class PlayMode extends AbstractMode
     public function setStartedAt(int $timestamp)
     {
         $this->startedAt = $timestamp;
+
+        return $this;
+    }
+
+    public function setUpdatedAt(int $timestamp)
+    {
+        $this->updatedAt = $timestamp;
 
         return $this;
     }
