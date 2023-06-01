@@ -3,6 +3,7 @@
 namespace ChessServer\GameMode;
 
 use Chess\Game;
+use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\DrawCommand;
 use ChessServer\Command\LeaveCommand;
 use ChessServer\Command\PlayLanCommand;
@@ -94,9 +95,21 @@ class PlayMode extends AbstractMode
         return $this;
     }
 
-    protected function increment(string $color)
+    protected function updateTimer(string $color)
     {
-        // TODO
+        $now = time();
+        $diff = $now - $this->updatedAt;
+        if ($this->game->getBoard()->getTurn() === Color::B) {
+            // TODO
+            // Substract seconds from the white timer
+            // Increment the white timer
+        } else {
+            // TODO
+            // Substract seconds from the black timer
+            // Increment the black timer
+        }
+
+        $this->updatedAt = $now;
     }
 
     public function res($argv, $cmd)
@@ -125,7 +138,7 @@ class PlayMode extends AbstractMode
                     ];
                 case PlayLanCommand::class:
                     $this->game->playLan($argv[1], $argv[2]);
-                    $this->setUpdatedAt(time())->increment($argv[1]);
+                    $this->updateTimer($argv[1]);
                     return [
                         $cmd->name => [
                           ... (array) $this->game->state(),
