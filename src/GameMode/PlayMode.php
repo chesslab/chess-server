@@ -14,9 +14,9 @@ class PlayMode extends AbstractMode
 {
     const NAME = Game::MODE_PLAY;
 
-    const STATE_PENDING = 'pending';
+    const STATUS_PENDING = 'pending';
 
-    const STATE_ACCEPTED = 'accepted';
+    const STATUS_ACCEPTED = 'accepted';
 
     const SUBMODE_FRIEND = 'friend';
 
@@ -32,7 +32,7 @@ class PlayMode extends AbstractMode
 
         $this->jwt = $jwt;
         $this->hash = md5($jwt);
-        $this->state = self::STATE_PENDING;
+        $this->state = self::STATUS_PENDING;
     }
 
     public function getJwt()
@@ -40,12 +40,12 @@ class PlayMode extends AbstractMode
         return $this->jwt;
     }
 
-    public function getState()
+    public function getStatus()
     {
         return $this->state;
     }
 
-    public function setState(string $state)
+    public function setStatus(string $state)
     {
         $this->state = $state;
 

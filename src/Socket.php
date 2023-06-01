@@ -152,7 +152,7 @@ class Socket implements MessageComponentInterface
         $res = [
             'broadcast' => [
                 'onlineGames' => $this->gameModeStorage
-                    ->decodeByPlayMode(PlayMode::STATE_PENDING, PlayMode::SUBMODE_ONLINE),
+                    ->decodeByPlayMode(PlayMode::STATUS_PENDING, PlayMode::SUBMODE_ONLINE),
             ],
         ];
 

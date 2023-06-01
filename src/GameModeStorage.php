@@ -34,13 +34,13 @@ class GameModeStorage extends \SplObjectStorage
         return null;
     }
 
-    public function decodeByPlayMode(string $state, string $submode): array
+    public function decodeByPlayMode(string $status, string $submode): array
     {
         $items = [];
         $this->rewind();
         while ($this->valid()) {
             if (is_a($this->current(), PlayMode::class)) {
-                if ($this->current()->getState() === $state) {
+                if ($this->current()->getStatus() === $status) {
                     $decoded = JWT::decode(
                         $this->current()->getJwt(),
                         $_ENV['JWT_SECRET'], array('HS256')

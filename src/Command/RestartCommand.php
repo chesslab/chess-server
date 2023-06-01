@@ -47,7 +47,7 @@ class RestartCommand extends AbstractCommand
                 $gameMode->getResourceIds(),
                 $newJwt
             );
-            $newGameMode->setState(PlayMode::STATE_ACCEPTED);
+            $newGameMode->setStatus(PlayMode::STATUS_ACCEPTED);
             $socket->getGameModeStorage()->set($newGameMode);
 
             return $socket->sendToMany($newGameMode->getResourceIds(), [
