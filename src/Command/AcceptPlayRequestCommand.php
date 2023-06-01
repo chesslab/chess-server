@@ -2,6 +2,7 @@
 
 namespace ChessServer\Command;
 
+use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Socket;
 use ChessServer\GameMode\PlayMode;
 use Firebase\JWT\JWT;
@@ -38,6 +39,19 @@ class AcceptPlayRequestCommand extends AbstractCommand
                     $this->name => [
                         'jwt' => $gameMode->getJwt(),
                         'hash' => md5($gameMode->getJwt()),
+                        'timer' => [
+                            Color::W => [
+                                'h' => 0,
+                                'm' => $decoded->min,
+                                's' => 0,
+                            ],
+                            Color::B => [
+                                'h' => 0,
+                                'm' => $decoded->min,
+                                's' => 0,
+                            ],
+                        ],
+                        'startedAt' => time(),
                     ],
                 ]);
             }
