@@ -124,25 +124,14 @@ class PlayMode extends AbstractMode
                         $cmd->name => $argv[1],
                     ];
                 case PlayLanCommand::class:
-                    $turn = $this->game->state()->turn;
-                    $isLegal = $this->game->playLan($argv[1], $argv[2]);
-                    $isLegal ? $this->increment($argv[1]) : null;
-                    $state = $this->game->state();
+                    $this->game->playLan($argv[1], $argv[2]);
+                    $this->increment($argv[1]);
                     return [
                         $cmd->name => [
-                            'turn' => $turn,
-                            'fen' => $state->fen,
-                            'movetext' => $state->movetext,
-                            'pgn' => $state->pgn,
-                            'isLegal' => $isLegal,
-                            'isCheck' => $state->isCheck,
-                            'isMate' => $state->isMate,
-                            'isMate' => $state->isMate,
-                            'isStalemate' => $state->isStalemate,
-                            'isFivefoldRepetition' => $state->isFivefoldRepetition,
-                            'variant' =>  $this->game->getVariant(),
-                            // play mode information
-                            'timer' => $this->timer,
+                          ... (array) $this->game->state(),
+                          'variant' =>  $this->game->getVariant(),
+                          // play mode information
+                          'timer' => $this->timer,
                         ],
                     ];
                 default:
