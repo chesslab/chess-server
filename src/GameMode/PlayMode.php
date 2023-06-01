@@ -106,13 +106,11 @@ class PlayMode extends AbstractMode
         $now = time();
         $diff = $now - $this->updatedAt;
         if ($this->game->getBoard()->getTurn() === Color::B) {
-            // TODO
-            // Substract seconds from the white timer
-            // Increment the white timer
+            $this->timer[Color::W] -= $diff;
+            $this->timer[Color::W] += $this->getJwtDecoded()->increment;
         } else {
-            // TODO
-            // Substract seconds from the black timer
-            // Increment the black timer
+            $this->timer[Color::B] -= $diff;
+            $this->timer[Color::B] += $this->getJwtDecoded()->increment;
         }
 
         $this->updatedAt = $now;
