@@ -35,6 +35,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
                 $gameMode->setResourceIds($resourceIds)
                     ->setStatus(PlayMode::STATUS_ACCEPTED)
                     ->setStartedAt(time())
+                    ->setUpdatedAt(time())
                     ->setTimer([
                         Color::W => [
                             'h' => 0,

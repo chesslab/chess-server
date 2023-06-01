@@ -125,7 +125,7 @@ class PlayMode extends AbstractMode
                     ];
                 case PlayLanCommand::class:
                     $this->game->playLan($argv[1], $argv[2]);
-                    $this->increment($argv[1]);
+                    $this->setUpdatedAt(time())->increment($argv[1]);
                     return [
                         $cmd->name => [
                           ... (array) $this->game->state(),
