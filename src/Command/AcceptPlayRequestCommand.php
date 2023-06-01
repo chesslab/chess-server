@@ -28,12 +28,18 @@ class AcceptPlayRequestCommand extends AbstractCommand
     {
         if ($gameMode = $socket->getGameModeStorage()->getByHash($argv[1])) {
             if ($gameMode->getStatus() === PlayMode::STATUS_PENDING) {
+                $decoded = JWT::decode($gameMode->getJwt(), $_ENV['JWT_SECRET'], array('HS256'));
                 $resourceIds = [...$gameMode->getResourceIds(), $from->resourceId];
+                // TODO
+                // Hours and seconds
                 $gameMode->setResourceIds($resourceIds)
                     ->setStatus(PlayMode::STATUS_ACCEPTED)
-                    ->setStartedAt(time());
+                    ->setStartedAt(time())
+                    ->setTimer([
+                        Color::W => "0:{$decoded->min}:0",
+                        Color::B => "0:{$decoded->min}:0",
+                    ]);
                 $socket->getGameModeStorage()->set($gameMode);
-                $decoded = JWT::decode($gameMode->getJwt(), $_ENV['JWT_SECRET'], array('HS256'));
                 if ($decoded->submode === PlayMode::SUBMODE_ONLINE) {
                     $socket->sendToAll();
                 }
@@ -41,19 +47,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
                     $this->name => [
                         'jwt' => $gameMode->getJwt(),
                         'hash' => md5($gameMode->getJwt()),
-                        // TODO ...
-                        'timer' => [
-                            Color::W => [
-                                'h' => 0,
-                                'm' => $decoded->min,
-                                's' => 0,
-                            ],
-                            Color::B => [
-                                'h' => 0,
-                                'm' => $decoded->min,
-                                's' => 0,
-                            ],
-                        ],
+                        'timer' => $gameMode->getTimer(),
                         'startedAt' => $gameMode->getStartedAt(),
                     ],
                 ]);

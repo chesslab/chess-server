@@ -28,6 +28,8 @@ class PlayMode extends AbstractMode
 
     protected int $startedAt;
 
+    protected array $timer;
+
     public function __construct(Game $game, array $resourceIds, string $jwt)
     {
         parent::__construct($game, $resourceIds);
@@ -52,6 +54,11 @@ class PlayMode extends AbstractMode
         return $this->startedAt;
     }
 
+    public function getTimer(): array
+    {
+        return $this->timer;
+    }
+
     public function setStatus(string $status)
     {
         $this->status = $status;
@@ -62,6 +69,13 @@ class PlayMode extends AbstractMode
     public function setStartedAt(int $timestamp)
     {
         $this->startedAt = $timestamp;
+
+        return $this;
+    }
+
+    public function setTimer(array $timer)
+    {
+        $this->timer = $timer;
 
         return $this;
     }
@@ -107,7 +121,8 @@ class PlayMode extends AbstractMode
                             'isStalemate' => $state->isStalemate,
                             'isFivefoldRepetition' => $state->isFivefoldRepetition,
                             'variant' =>  $this->game->getVariant(),
-                            'foo' => 'bar',
+                            // play mode information
+                            'timer' => $this->timer,
                         ],
                     ];
                 default:
