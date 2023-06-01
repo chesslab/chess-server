@@ -80,6 +80,11 @@ class PlayMode extends AbstractMode
         return $this;
     }
 
+    protected function increment(string $color)
+    {
+        // TODO
+    }
+
     public function res($argv, $cmd)
     {
         try {
@@ -107,6 +112,7 @@ class PlayMode extends AbstractMode
                 case PlayLanCommand::class:
                     $turn = $this->game->state()->turn;
                     $isLegal = $this->game->playLan($argv[1], $argv[2]);
+                    $isLegal ? $this->increment($argv[1]) : null;
                     $state = $this->game->state();
                     return [
                         $cmd->name => [
