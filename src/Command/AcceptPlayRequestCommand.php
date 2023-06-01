@@ -36,8 +36,16 @@ class AcceptPlayRequestCommand extends AbstractCommand
                     ->setStatus(PlayMode::STATUS_ACCEPTED)
                     ->setStartedAt(time())
                     ->setTimer([
-                        Color::W => "0:{$decoded->min}:0",
-                        Color::B => "0:{$decoded->min}:0",
+                        Color::W => [
+                            'h' => 0,
+                            'm' => $decoded->min,
+                            's' => 0,
+                        ],
+                        Color::B => [
+                            'h' => 0,
+                            'm' => $decoded->min,
+                            's' => 0,
+                        ],
                     ]);
                 $socket->getGameModeStorage()->set($gameMode);
                 if ($decoded->submode === PlayMode::SUBMODE_ONLINE) {
