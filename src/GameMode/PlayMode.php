@@ -5,6 +5,7 @@ namespace ChessServer\GameMode;
 use Chess\Game;
 use ChessServer\Command\DrawCommand;
 use ChessServer\Command\LeaveCommand;
+use ChessServer\Command\PlayLanCommand;
 use ChessServer\Command\RematchCommand;
 use ChessServer\Command\ResignCommand;
 use ChessServer\Command\TakebackCommand;
@@ -74,6 +75,26 @@ class PlayMode extends AbstractMode
                 case TakebackCommand::class:
                     return [
                         $cmd->name => $argv[1],
+                    ];
+                case PlayLanCommand::class:
+                    $turn = $this->game->state()->turn;
+                    $isLegal = $this->game->playLan($argv[1], $argv[2]);
+                    $state = $this->game->state();
+                    return [
+                        $cmd->name => [
+                            'turn' => $turn,
+                            'fen' => $state->fen,
+                            'movetext' => $state->movetext,
+                            'pgn' => $state->pgn,
+                            'isLegal' => $isLegal,
+                            'isCheck' => $state->isCheck,
+                            'isMate' => $state->isMate,
+                            'isMate' => $state->isMate,
+                            'isStalemate' => $state->isStalemate,
+                            'isFivefoldRepetition' => $state->isFivefoldRepetition,
+                            'variant' =>  $this->game->getVariant(),
+                            'foo' => 'bar',
+                        ],
                     ];
                 default:
                     return parent::res($argv, $cmd);
