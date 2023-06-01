@@ -24,7 +24,9 @@ class PlayMode extends AbstractMode
 
     protected $jwt;
 
-    protected $state;
+    protected string $status;
+
+    protected int $startedAt;
 
     public function __construct(Game $game, array $resourceIds, string $jwt)
     {
@@ -32,7 +34,7 @@ class PlayMode extends AbstractMode
 
         $this->jwt = $jwt;
         $this->hash = md5($jwt);
-        $this->state = self::STATUS_PENDING;
+        $this->status = self::STATUS_PENDING;
     }
 
     public function getJwt()
@@ -40,14 +42,26 @@ class PlayMode extends AbstractMode
         return $this->jwt;
     }
 
-    public function getStatus()
+    public function getStatus(): string
     {
-        return $this->state;
+        return $this->status;
     }
 
-    public function setStatus(string $state)
+    public function getStartedAt(): int
     {
-        $this->state = $state;
+        return $this->startedAt;
+    }
+
+    public function setStatus(string $status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function setStartedAt(int $timestamp)
+    {
+        $this->startedAt = $timestamp;
 
         return $this;
     }

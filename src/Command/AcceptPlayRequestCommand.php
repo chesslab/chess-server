@@ -29,7 +29,9 @@ class AcceptPlayRequestCommand extends AbstractCommand
         if ($gameMode = $socket->getGameModeStorage()->getByHash($argv[1])) {
             if ($gameMode->getStatus() === PlayMode::STATUS_PENDING) {
                 $resourceIds = [...$gameMode->getResourceIds(), $from->resourceId];
-                $gameMode->setResourceIds($resourceIds)->setStatus(PlayMode::STATUS_ACCEPTED);
+                $gameMode->setResourceIds($resourceIds)
+                    ->setStatus(PlayMode::STATUS_ACCEPTED)
+                    ->setStartedAt(time());
                 $socket->getGameModeStorage()->set($gameMode);
                 $decoded = JWT::decode($gameMode->getJwt(), $_ENV['JWT_SECRET'], array('HS256'));
                 if ($decoded->submode === PlayMode::SUBMODE_ONLINE) {
@@ -39,6 +41,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
                     $this->name => [
                         'jwt' => $gameMode->getJwt(),
                         'hash' => md5($gameMode->getJwt()),
+                        // TODO ...
                         'timer' => [
                             Color::W => [
                                 'h' => 0,
@@ -51,7 +54,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
                                 's' => 0,
                             ],
                         ],
-                        'startedAt' => time(),
+                        'startedAt' => $gameMode->getStartedAt(),
                     ],
                 ]);
             }
