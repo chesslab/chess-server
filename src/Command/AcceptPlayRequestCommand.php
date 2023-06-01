@@ -5,7 +5,6 @@ namespace ChessServer\Command;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Socket;
 use ChessServer\GameMode\PlayMode;
-use Firebase\JWT\JWT;
 use Ratchet\ConnectionInterface;
 
 class AcceptPlayRequestCommand extends AbstractCommand
@@ -28,7 +27,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
     {
         if ($gameMode = $socket->getGameModeStorage()->getByHash($argv[1])) {
             if ($gameMode->getStatus() === PlayMode::STATUS_PENDING) {
-                $decoded = JWT::decode($gameMode->getJwt(), $_ENV['JWT_SECRET'], array('HS256'));
+                $decoded = $gameMode->getJwtDecoded();
                 $resourceIds = [...$gameMode->getResourceIds(), $from->resourceId];
                 $gameMode->setResourceIds($resourceIds)
                     ->setStatus(PlayMode::STATUS_ACCEPTED)

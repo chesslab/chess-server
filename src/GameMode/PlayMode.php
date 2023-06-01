@@ -10,6 +10,7 @@ use ChessServer\Command\PlayLanCommand;
 use ChessServer\Command\RematchCommand;
 use ChessServer\Command\ResignCommand;
 use ChessServer\Command\TakebackCommand;
+use Firebase\JWT\JWT;
 
 class PlayMode extends AbstractMode
 {
@@ -45,6 +46,11 @@ class PlayMode extends AbstractMode
     public function getJwt()
     {
         return $this->jwt;
+    }
+
+    public function getJwtDecoded()
+    {
+        return JWT::decode($this->jwt, $_ENV['JWT_SECRET'], array('HS256'));
     }
 
     public function getStatus(): string

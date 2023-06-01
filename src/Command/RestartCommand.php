@@ -28,8 +28,7 @@ class RestartCommand extends AbstractCommand
     public function run(Socket $socket, array $argv, ConnectionInterface $from)
     {
         if ($gameMode = $socket->getGameModeStorage()->getByHash($argv[1])) {
-            $jwt = $gameMode->getJwt();
-            $decoded = JWT::decode($jwt, $_ENV['JWT_SECRET'], array('HS256'));
+            $decoded = $gameMode->getJwtDecoded();
             $decoded->iat = time();
             $decoded->exp = time() + 3600; // one hour by default
             if ($decoded->variant === Game::VARIANT_960) {
