@@ -4,6 +4,7 @@ namespace ChessServer\Command;
 
 use Chess\Game;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
+use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Socket;
 use ChessServer\GameMode\PlayMode;
 use Firebase\JWT\JWT;
@@ -46,13 +47,20 @@ class RestartCommand extends AbstractCommand
                 $gameMode->getResourceIds(),
                 $newJwt
             );
-            $newGameMode->setStatus(PlayMode::STATUS_ACCEPTED);
+            $newGameMode->setStatus(PlayMode::STATUS_ACCEPTED)
+                ->setStartedAt(time())
+                ->setUpdatedAt(time())
+                ->setTimer([
+                    Color::W => $decoded->min * 60,
+                    Color::B => $decoded->min * 60,
+                ]);
             $socket->getGameModeStorage()->set($newGameMode);
 
             return $socket->sendToMany($newGameMode->getResourceIds(), [
                 $this->name => [
                     'jwt' => $newJwt,
                     'hash' => md5($newJwt),
+                    'timer' => $newGameMode->getTimer(),
                 ],
             ]);
         }
