@@ -24,7 +24,7 @@ class OnlineGamesCommand extends AbstractCommand
         return $socket->sendToOne($from->resourceId, [
             $this->name => $socket
                 ->getGameModeStorage()
-                ->decodeByPlayMode(PlayMode::STATE_PENDING, PlayMode::SUBMODE_ONLINE),
+                ->decodeByPlayMode(PlayMode::STATUS_PENDING, PlayMode::SUBMODE_ONLINE),
         ]);
     }
 }

@@ -2,9 +2,9 @@
 
 namespace ChessServer\Command;
 
+use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Socket;
 use ChessServer\GameMode\PlayMode;
-use Firebase\JWT\JWT;
 use Ratchet\ConnectionInterface;
 
 class AcceptPlayRequestCommand extends AbstractCommand
@@ -26,11 +26,18 @@ class AcceptPlayRequestCommand extends AbstractCommand
     public function run(Socket $socket, array $argv, ConnectionInterface $from)
     {
         if ($gameMode = $socket->getGameModeStorage()->getByHash($argv[1])) {
-            if ($gameMode->getState() === PlayMode::STATE_PENDING) {
+            if ($gameMode->getStatus() === PlayMode::STATUS_PENDING) {
+                $decoded = $gameMode->getJwtDecoded();
                 $resourceIds = [...$gameMode->getResourceIds(), $from->resourceId];
-                $gameMode->setResourceIds($resourceIds)->setState(PlayMode::STATE_ACCEPTED);
+                $gameMode->setResourceIds($resourceIds)
+                    ->setStatus(PlayMode::STATUS_ACCEPTED)
+                    ->setStartedAt(time())
+                    ->setUpdatedAt(time())
+                    ->setTimer([
+                        Color::W => $decoded->min * 60,
+                        Color::B => $decoded->min * 60,
+                    ]);
                 $socket->getGameModeStorage()->set($gameMode);
-                $decoded = JWT::decode($gameMode->getJwt(), $_ENV['JWT_SECRET'], array('HS256'));
                 if ($decoded->submode === PlayMode::SUBMODE_ONLINE) {
                     $socket->sendToAll();
                 }
@@ -38,6 +45,8 @@ class AcceptPlayRequestCommand extends AbstractCommand
                     $this->name => [
                         'jwt' => $gameMode->getJwt(),
                         'hash' => md5($gameMode->getJwt()),
+                        'timer' => $gameMode->getTimer(),
+                        'startedAt' => $gameMode->getStartedAt(),
                     ],
                 ]);
             }

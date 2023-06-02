@@ -4,6 +4,7 @@ namespace ChessServer\Command;
 
 use Chess\Game;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
+use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Socket;
 use ChessServer\GameMode\PlayMode;
 use Firebase\JWT\JWT;
@@ -28,8 +29,7 @@ class RestartCommand extends AbstractCommand
     public function run(Socket $socket, array $argv, ConnectionInterface $from)
     {
         if ($gameMode = $socket->getGameModeStorage()->getByHash($argv[1])) {
-            $jwt = $gameMode->getJwt();
-            $decoded = JWT::decode($jwt, $_ENV['JWT_SECRET'], array('HS256'));
+            $decoded = $gameMode->getJwtDecoded();
             $decoded->iat = time();
             $decoded->exp = time() + 3600; // one hour by default
             if ($decoded->variant === Game::VARIANT_960) {
@@ -47,13 +47,20 @@ class RestartCommand extends AbstractCommand
                 $gameMode->getResourceIds(),
                 $newJwt
             );
-            $newGameMode->setState(PlayMode::STATE_ACCEPTED);
+            $newGameMode->setStatus(PlayMode::STATUS_ACCEPTED)
+                ->setStartedAt(time())
+                ->setUpdatedAt(time())
+                ->setTimer([
+                    Color::W => $decoded->min * 60,
+                    Color::B => $decoded->min * 60,
+                ]);
             $socket->getGameModeStorage()->set($newGameMode);
 
             return $socket->sendToMany($newGameMode->getResourceIds(), [
                 $this->name => [
                     'jwt' => $newJwt,
                     'hash' => md5($newJwt),
+                    'timer' => $newGameMode->getTimer(),
                 ],
             ]);
         }
