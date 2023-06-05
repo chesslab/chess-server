@@ -279,15 +279,26 @@ class StartCommand extends AbstractCommand
                 ],
             ]);
         } elseif (StockfishMode::NAME === $argv[2]) {
-            try {
+            if ($argv[3] === Color::W || $argv[3] === Color::B) {
                 $stockfishMode = new StockfishMode(
-                    new Game($argv[1], $argv[2]),
-                    [$from->resourceId],
-                    $argv[3]
+                    new Game($argv[1], $argv[2], $socket->getGm()),
+                    [$from->resourceId]
                 );
-                $game = $stockfishMode->getGame();
-                $game->loadFen($argv[3]);
-                $stockfishMode->setGame($game);
+                $socket->getGameModeStorage()->set($stockfishMode);
+                return $socket->sendToOne($from->resourceId, [
+                    $this->name => [
+                        'variant' => $argv[1],
+                        'mode' => $argv[2],
+                        'color' => $argv[3],
+                    ],
+                ]);
+            } else {
+                $board = (new ClassicalFenStrToBoard($argv[3]))->create();
+                $game = (new Game($argv[1], $argv[2]))->setBoard($board);
+                $stockfishMode = new StockfishMode(
+                    $game,
+                    [$from->resourceId],
+                );
                 $socket->getGameModeStorage()->set($stockfishMode);
                 return $socket->sendToOne($from->resourceId, [
                     $this->name => [
@@ -297,29 +308,6 @@ class StartCommand extends AbstractCommand
                         'fen' => $game->getBoard()->toFen(),
                     ],
                 ]);
-            } catch (\Throwable $e) {
-                if ($argv[3] === Color::W || $argv[3] === Color::B) {
-                    $stockfishMode = new StockfishMode(
-                        new Game($argv[1], $argv[2], $socket->getGm()),
-                        [$from->resourceId]
-                    );
-                    $socket->getGameModeStorage()->set($stockfishMode);
-                    return $socket->sendToOne($from->resourceId, [
-                        $this->name => [
-                            'variant' => $argv[1],
-                            'mode' => $argv[2],
-                            'color' => $argv[3],
-                        ],
-                    ]);
-                } else {
-                    return $socket->sendToOne($from->resourceId, [
-                        $this->name => [
-                            'variant' => $argv[1],
-                            'mode' => $argv[2],
-                            'message' => 'Stockfish could not be started.',
-                        ],
-                    ]);
-                }
             }
         }
     }
