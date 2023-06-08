@@ -160,7 +160,7 @@ class InboxCommand extends AbstractCommand
                     if ($inbox['movetext']) {
                         $movetext = new Movetext($move, $inbox['movetext']);
                         $movetext->validate();
-                        foreach ($movetext->getMovetext()->moves as $key => $val) {
+                        foreach ($movetext->getMoves() as $key => $val) {
                             $board->play($board->getTurn(), $val);
                         }
                     }
