@@ -2,9 +2,9 @@
 
 namespace ChessServer\Command;
 
-use Chess\Game;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
+use ChessServer\Game;
 use ChessServer\Socket;
 use ChessServer\GameMode\PlayMode;
 use Firebase\JWT\JWT;

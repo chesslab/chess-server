@@ -2,7 +2,6 @@
 
 namespace ChessServer\Command;
 
-use Chess\Game;
 use Chess\Movetext;
 use Chess\Player\PgnPlayer;
 use Chess\Variant\Capablanca80\Board as Capablanca80Board;
@@ -15,6 +14,7 @@ use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\PGN\Move as ClassicalPgnMove;
 use Chess\Variant\Classical\PGN\AN\Color;
+use ChessServer\Game;
 use ChessServer\Socket;
 use ChessServer\GameMode\GmMode;
 use ChessServer\GameMode\FenMode;
