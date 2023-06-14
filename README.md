@@ -13,21 +13,24 @@ Check out [this demo](https://www.chesslablab.com).
 ### Setup
 
 Clone the `chesslablab/chess-server` repo into your projects folder as it is described in the following example:
-
-    $ git clone git@github.com:chesslablab/chess-server.git
+```
+git clone git@github.com:chesslablab/chess-server.git
+```
 
 Then `cd` the `chess-server` directory and install the Composer dependencies:
-
-    $ composer install
+```
+composer install
+```
 
 Create an `.env` file:
-
-    $ cp .env.example .env
+```
+cp .env.example .env
+```
 
 Finally if you're not using Docker make sure to install the Stockfish chess engine.
 
 ```
-$ sudo apt-get install stockfish
+sudo apt-get install stockfish
 ```
 
 ### WebSocket Server
@@ -37,7 +40,9 @@ $ sudo apt-get install stockfish
 Start the server:
 
 ```
-$ php cli/wss-server.php
+php cli/wss-server.php
+```
+```
 Welcome to PHP Chess Server
 Commands available:
 /accept {"jwt":"<string>"} Accepts a request to play a game.
