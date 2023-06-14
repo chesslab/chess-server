@@ -155,7 +155,7 @@ class Game
         }
 
         if ($this->gm) {
-            if ($move = $this->gm->move($this)) {
+            if ($move = $this->gm->move($this->board)) {
                 return $move;
             }
         }
