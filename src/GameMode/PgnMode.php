@@ -2,7 +2,7 @@
 
 namespace ChessServer\GameMode;
 
-use Chess\Game;
+use ChessServer\Game;
 
 class PgnMode extends AbstractMode
 {

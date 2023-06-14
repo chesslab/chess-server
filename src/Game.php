@@ -108,7 +108,7 @@ class Game
      * Sets the Chess\Board object.
      *
      * @param \Chess\Variant\Classical\Board $board
-     * @return \Chess\Game
+     * @return \ChessServer\Game
      */
     public function setBoard(ClassicalBoard $board): Game
     {

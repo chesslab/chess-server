@@ -2,6 +2,7 @@
 
 namespace ChessServer;
 
+use Chess\Grandmaster;
 use ChessServer\Command\LeaveCommand;
 use ChessServer\Exception\ParserException;
 use ChessServer\GameMode\PlayMode;

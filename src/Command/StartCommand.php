@@ -4,9 +4,9 @@ namespace ChessServer\Command;
 
 use Chess\Movetext;
 use Chess\Player\PgnPlayer;
-use Chess\Variant\Capablanca80\Board as Capablanca80Board;
-use Chess\Variant\Capablanca80\FEN\StrToBoard as Capablanca80FenStrToBoard;
-use Chess\Variant\Capablanca80\PGN\Move as Capablanca80PgnMove;
+use Chess\Variant\Capablanca\Board as CapablancaBoard;
+use Chess\Variant\Capablanca\FEN\StrToBoard as CapablancaFenStrToBoard;
+use Chess\Variant\Capablanca\PGN\Move as CapablancaPgnMove;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\StartPosition;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
@@ -34,8 +34,7 @@ class StartCommand extends AbstractCommand
             // mandatory param
             'variant' => [
                 Game::VARIANT_960,
-                Game::VARIANT_CAPABLANCA_80,
-                Game::VARIANT_CAPABLANCA_100,
+                Game::VARIANT_CAPABLANCA,
                 Game::VARIANT_CLASSICAL,
             ],
             // mandatory param
@@ -108,11 +107,11 @@ class StartCommand extends AbstractCommand
                         $startPos = (new StartPosition())->create();
                         $board = new Chess960Board($startPos);
                     }
-                } elseif ($argv[1] === Game::VARIANT_CAPABLANCA_80) {
+                } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
                     if (isset($argv[3])) {
-                        $board = (new Capablanca80FenStrToBoard($argv[3]))->create();
+                        $board = (new CapablancaFenStrToBoard($argv[3]))->create();
                     } else {
-                        $board =  new Capablanca80Board();
+                        $board =  new CapablancaBoard();
                     }
                 } else {
                     if (isset($argv[3])) {
@@ -169,10 +168,10 @@ class StartCommand extends AbstractCommand
                     $startPos = str_split($argv[4]);
                     $board = new Chess960Board($startPos);
                     $player = (new PgnPlayer($movetext, $board))->play();
-                } elseif ($argv[1] === Game::VARIANT_CAPABLANCA_80) {
-                    $move = new Capablanca80PgnMove();
+                } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
+                    $move = new CapablancaPgnMove();
                     $movetext = (new Movetext($move, $argv[3]))->validate();
-                    $board = new Capablanca80Board();
+                    $board = new CapablancaBoard();
                     $player = (new PgnPlayer($movetext, $board))->play();
                 } else {
                     $move = new ClassicalPgnMove();
@@ -213,8 +212,8 @@ class StartCommand extends AbstractCommand
                         $startPos = str_split($settings->startPos);
                         $board = (new Chess960FenStrToBoard($settings->fen, $startPos))
                             ->create();
-                    } elseif ($argv[1] === Game::VARIANT_CAPABLANCA_80) {
-                        $board = (new Capablanca80FenStrToBoard($settings->fen))
+                    } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
+                        $board = (new CapablancaFenStrToBoard($settings->fen))
                             ->create();
                     } else {
                         $board = (new ClassicalFenStrToBoard($settings->fen))
@@ -233,8 +232,8 @@ class StartCommand extends AbstractCommand
                 if ($argv[1] === Game::VARIANT_960) {
                     $startPos = (new StartPosition())->create();
                     $board = new Chess960Board($startPos);
-                } elseif ($argv[1] === Game::VARIANT_CAPABLANCA_80) {
-                    $board = new Capablanca80Board();
+                } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
+                    $board = new CapablancaBoard();
                 } else {
                     $board = new ClassicalBoard();
                 }
