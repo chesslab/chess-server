@@ -33,14 +33,14 @@ class FenMode extends AbstractMode
                     $movetext = $this->game->getBoard()->getMovetext();
                     if ($this->fen) {
                         $board = (new StrToBoard($this->fen))->create();
-                        $balance = (new Heuristics($movetext, $board))->getBalance();
+                        $heuristics = new Heuristics($movetext, $board);
                     } else {
-                        $balance = (new Heuristics($movetext))->getBalance();
+                        $heuristics = new Heuristics($movetext);
                     }
                     return [
                         $cmd->name => [
-                            'dimensions' => (new Heuristics())->getDimsNames(),
-                            'balance' => $balance,
+                            'evalNames' => $heuristics->getEvalNames(),
+                            'balance' => $heuristics->getBalance(),
                         ],
                     ];
                 default:

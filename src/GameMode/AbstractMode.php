@@ -76,18 +76,19 @@ abstract class AbstractMode
                     } elseif ($variant === Game::VARIANT_CLASSICAL) {
                         $board = new ClassicalBoard();
                     }
+                    $heuristics = new Heuristics($movetext, $board);
                     return [
                         $cmd->name => [
-                            'dimensions' => (new Heuristics())->getDimsNames(),
-                            'balance' => (new Heuristics($movetext, $board))->getBalance(),
+                            'evalNames' => $heuristics->getEvalNames(),
+                            'balance' => $heuristics->getBalance(),
                         ],
                     ];
                 case HeuristicsBarCommand::class:
-                    $balance = (new HeuristicsByFenString($argv[1], $argv[2]))->getBalance();
+                    $heuristics = new HeuristicsByFenString($argv[1], $argv[2]);
                     return [
                         $cmd->name => [
-                            'dimensions' => (new Heuristics())->getDimsNames(),
-                            'balance' => $balance,
+                            'evalNames' => $heuristics->getEvalNames(),
+                            'balance' => $heuristics->getBalance(),
                         ],
                     ];
                 case LegalCommand::class:
