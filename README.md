@@ -13,6 +13,7 @@ Check out [this demo](https://www.chesslablab.com).
 ### Setup
 
 Clone the `chesslablab/chess-server` repo into your projects folder as it is described in the following example:
+
 ```
 git clone git@github.com:chesslablab/chess-server.git
 ```
@@ -27,17 +28,21 @@ Create an `.env` file:
 cp .env.example .env
 ```
 
-Finally if you're not using Docker make sure to install the Stockfish chess engine.
+Add the following entry to your `/etc/hosts` file:
 
 ```
-sudo apt-get install stockfish
+127.0.0.1       pchess.net
 ```
-
-### WebSocket Server
 
 > Before starting the secure WebSocket server for the first time, make sure to have created the `certificate.crt` and `private.key` files into the `ssl` folder.
 
-Start the server:
+This is how to run the Docker container:
+
+```
+docker compose up -d
+```
+
+Alternatively, you may want to start the chess server manually:
 
 ```
 php cli/wss-server.php
