@@ -36,7 +36,7 @@ class RestartCommand extends AbstractCommand
                 $startPos = str_split($decoded->startPos);
                 $board = (new Chess960FenStrToBoard($decoded->fen, $startPos))->create();
                 $game = (new Game($decoded->variant, Game::MODE_PLAY))->setBoard($board);
-            } else if ($decoded->variant === Game::VARIANT_CAPABLANCA_80) {
+            } else if ($decoded->variant === Game::VARIANT_CAPABLANCA) {
                 $game = new Game($decoded->variant, Game::MODE_PLAY);
             } else {
                 $game = new Game($decoded->variant, Game::MODE_PLAY);

@@ -77,7 +77,7 @@ class InboxCommand extends AbstractCommand
                     $startPos = str_split($settings['startPos']);
                     $fen = $settings['fen'] ?? (new Chess960Board($startPos))->toFen();
                     $board = (new Chess960FenStrToBoard($fen, $startPos))->create();
-                } elseif ($argv[2] === Game::VARIANT_CAPABLANCA_80) {
+                } elseif ($argv[2] === Game::VARIANT_CAPABLANCA) {
                     $fen = $settings['fen'] ?? (new CapablancaBoard())->toFen();
                     $board = (new CapablancaFenStrToBoard($fen))->create();
                 } else {
@@ -133,7 +133,7 @@ class InboxCommand extends AbstractCommand
                         $startPos = str_split($inbox['settings']['startPos']);
                         $board = (new Chess960FenStrToBoard($inbox['settings']['fen'], $startPos))
                             ->create();
-                    } elseif ($inbox['variant'] === Game::VARIANT_CAPABLANCA_80) {
+                    } elseif ($inbox['variant'] === Game::VARIANT_CAPABLANCA) {
                         $move = new CapablancaPgnMove();
                         $board = (new CapablancaFenStrToBoard($inbox['settings']['fen']))
                             ->create();
@@ -147,7 +147,7 @@ class InboxCommand extends AbstractCommand
                         $move = new ClassicalPgnMove();
                         $startPos = (new StartPosition())->create();
                         $board = new Chess960Board($startPos);
-                    } elseif ($inbox['variant'] === Game::VARIANT_CAPABLANCA_80) {
+                    } elseif ($inbox['variant'] === Game::VARIANT_CAPABLANCA) {
                         $move = new CapablancaPgnMove();
                         $board = new CapablancaBoard();
                     } else {
