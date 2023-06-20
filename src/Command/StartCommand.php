@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command;
 
-use Chess\Movetext;
+use Chess\Movetext\SAN as SanMovetext;
 use Chess\Play\SAN;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\Capablanca\FEN\StrToBoard as CapablancaFenStrToBoard;
@@ -164,19 +164,19 @@ class StartCommand extends AbstractCommand
             try {
                 if ($argv[1] === Game::VARIANT_960) {
                     $move = new ClassicalPgnMove();
-                    $movetext = (new Movetext($move, $argv[3]))->validate();
+                    $san = (new SanMovetext($move, $argv[3]))->validate();
                     $startPos = str_split($argv[4]);
                     $board = new Chess960Board($startPos);
-                    $play = (new SAN($movetext, $board))->play();
+                    $play = (new SAN($san, $board))->play();
                 } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
                     $move = new CapablancaPgnMove();
-                    $movetext = (new Movetext($move, $argv[3]))->validate();
+                    $san = (new SanMovetext($move, $argv[3]))->validate();
                     $board = new CapablancaBoard();
-                    $play = (new SAN($movetext, $board))->play();
+                    $play = (new SAN($san, $board))->play();
                 } else {
                     $move = new ClassicalPgnMove();
-                    $movetext = (new Movetext($move, $argv[3]))->validate();
-                    $play = (new SAN($movetext))->play();
+                    $san = (new SanMovetext($move, $argv[3]))->validate();
+                    $play = (new SAN($san))->play();
                 }
                 $pgnMode = new PgnMode(new Game($argv[1], $argv[2]), [$from->resourceId]);
                 $game = $pgnMode->getGame()->setBoard($play->getBoard());
@@ -187,7 +187,7 @@ class StartCommand extends AbstractCommand
                         'variant' => $argv[1],
                         'mode' => $argv[2],
                         'turn' => $game->state()->turn,
-                        'movetext' => $movetext,
+                        'movetext' => $san,
                         'fen' => $play->getFen(),
                         ...($argv[1] === Game::VARIANT_960
                             ? ['startPos' =>  $argv[4]]
