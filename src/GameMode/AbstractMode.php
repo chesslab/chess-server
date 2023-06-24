@@ -3,7 +3,7 @@
 namespace ChessServer\GameMode;
 
 use Chess\Heuristics;
-use Chess\HeuristicsByFenString;
+use Chess\HeuristicsByFen;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
@@ -81,7 +81,7 @@ abstract class AbstractMode
                         ],
                     ];
                 case HeuristicsBarCommand::class:
-                    $heuristics = new HeuristicsByFenString($argv[1], $argv[2]);
+                    $heuristics = new HeuristicsByFen($argv[1], $argv[2]);
                     return [
                         $cmd->name => [
                             'evalNames' => $heuristics->getEvalNames(),

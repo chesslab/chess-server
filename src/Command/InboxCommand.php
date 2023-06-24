@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command;
 
-use Chess\Movetext\SAN;
+use Chess\Movetext\SanMovetext;
 use Chess\Exception\MovetextException;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\Capablanca\FEN\StrToBoard as CapablancaFenStrToBoard;
@@ -157,7 +157,7 @@ class InboxCommand extends AbstractCommand
                 }
                 try {
                     if ($inbox['movetext']) {
-                        $san = new SAN($move, $inbox['movetext']);
+                        $san = new SanMovetext($move, $inbox['movetext']);
                         $san->validate();
                         foreach ($san->getMoves() as $key => $val) {
                             $board->play($board->getTurn(), $val);
