@@ -2,17 +2,14 @@
 
 namespace ChessServer\Command;
 
-use Chess\Movetext\SanMovetext;
-use Chess\Play\SanPlay;
+use Chess\Play\RavPlay;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\Capablanca\FEN\StrToBoard as CapablancaFenStrToBoard;
-use Chess\Variant\Capablanca\PGN\Move as CapablancaPgnMove;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\StartPosition;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
-use Chess\Variant\Classical\PGN\Move as ClassicalPgnMove;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Game;
 use ChessServer\Socket;
@@ -163,23 +160,18 @@ class StartCommand extends AbstractCommand
         } elseif (PgnMode::NAME === $argv[2]) {
             try {
                 if ($argv[1] === Game::VARIANT_960) {
-                    $move = new ClassicalPgnMove();
-                    $san = (new SanMovetext($move, $argv[3]))->validate();
                     $startPos = str_split($argv[4]);
                     $board = new Chess960Board($startPos);
-                    $play = (new SanPlay($san, $board))->play();
+                    $ravPlay = new RavPlay($argv[3], $board);
                 } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
-                    $move = new CapablancaPgnMove();
-                    $san = (new SanMovetext($move, $argv[3]))->validate();
                     $board = new CapablancaBoard();
-                    $play = (new SanPlay($san, $board))->play();
+                    $ravPlay = new RavPlay($argv[3], $board);
                 } else {
-                    $move = new ClassicalPgnMove();
-                    $san = (new SanMovetext($move, $argv[3]))->validate();
-                    $play = (new SanPlay($san))->play();
+                    $ravPlay = new RavPlay($argv[3]);
                 }
+                $board = $ravPlay->play()->getBoard();
                 $pgnMode = new PgnMode(new Game($argv[1], $argv[2]), [$from->resourceId]);
-                $game = $pgnMode->getGame()->setBoard($play->getBoard());
+                $game = $pgnMode->getGame()->setBoard($board);
                 $pgnMode->setGame($game);
                 $socket->getGameModeStorage()->set($pgnMode);
                 return $socket->sendToOne($from->resourceId, [
@@ -187,8 +179,9 @@ class StartCommand extends AbstractCommand
                         'variant' => $argv[1],
                         'mode' => $argv[2],
                         'turn' => $game->state()->turn,
-                        'movetext' => $san,
-                        'fen' => $play->getFen(),
+                        'movetext' => $ravPlay->getRavMovetext()->main(),
+                        'inline' => $ravPlay->getRavMovetext()->inline(),
+                        'fen' => $ravPlay->fen()->getFen(),
                         ...($argv[1] === Game::VARIANT_960
                             ? ['startPos' =>  $argv[4]]
                             : []
