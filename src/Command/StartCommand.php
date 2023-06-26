@@ -169,7 +169,7 @@ class StartCommand extends AbstractCommand
                 } else {
                     $ravPlay = new RavPlay($argv[3]);
                 }
-                $board = $ravPlay->play()->getBoard();
+                $board = $ravPlay->validate()->getBoard();
                 $pgnMode = new PgnMode(new Game($argv[1], $argv[2]), [$from->resourceId]);
                 $game = $pgnMode->getGame()->setBoard($board);
                 $pgnMode->setGame($game);
@@ -180,7 +180,8 @@ class StartCommand extends AbstractCommand
                         'mode' => $argv[2],
                         'turn' => $game->state()->turn,
                         'movetext' => $ravPlay->getRavMovetext()->main(),
-                        'inline' => $ravPlay->getRavMovetext()->inline(),
+                        'filtered' => $ravPlay->getRavMovetext()->filtered(),
+                        'breakdown' => $ravPlay->getBreakdown(),
                         'fen' => $ravPlay->fen()->getFen(),
                         ...($argv[1] === Game::VARIANT_960
                             ? ['startPos' =>  $argv[4]]
