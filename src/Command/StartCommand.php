@@ -14,11 +14,11 @@ use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Game;
 use ChessServer\Socket;
-use ChessServer\GameMode\GmMode;
 use ChessServer\GameMode\FenMode;
-use ChessServer\GameMode\PgnMode;
-use ChessServer\GameMode\RavMode;
+use ChessServer\GameMode\GmMode;
 use ChessServer\GameMode\PlayMode;
+use ChessServer\GameMode\RavMode;
+use ChessServer\GameMode\SanMode;
 use ChessServer\GameMode\StockfishMode;
 use Firebase\JWT\JWT;
 use Ratchet\ConnectionInterface;
@@ -40,7 +40,7 @@ class StartCommand extends AbstractCommand
             'mode' => [
                 GmMode::NAME,
                 FenMode::NAME,
-                PgnMode::NAME,
+                SanMode::NAME,
                 RavMode::NAME,
                 PlayMode::NAME,
                 StockfishMode::NAME,
@@ -74,7 +74,7 @@ class StartCommand extends AbstractCommand
                             return count($argv) - 1 === 3 ||
                                 count($argv) - 1 === 2;
                         }
-                    case PgnMode::NAME:
+                    case SanMode::NAME:
                         if ($argv[1] === Game::VARIANT_960) {
                             return count($argv) - 1 === 4;
                         } else {
@@ -166,7 +166,7 @@ class StartCommand extends AbstractCommand
                     'color' => $argv[3],
                 ],
             ]);
-        } elseif (PgnMode::NAME === $argv[2]) {
+        } elseif (SanMode::NAME === $argv[2]) {
             try {
                 if ($argv[1] === Game::VARIANT_960) {
                     $startPos = str_split($argv[4]);
@@ -179,10 +179,10 @@ class StartCommand extends AbstractCommand
                     $sanPlay = new SanPlay($argv[3]);
                 }
                 $board = $sanPlay->validate()->getBoard();
-                $pgnMode = new PgnMode(new Game($argv[1], $argv[2]), [$from->resourceId]);
-                $game = $pgnMode->getGame()->setBoard($board);
-                $pgnMode->setGame($game);
-                $socket->getGameModeStorage()->set($pgnMode);
+                $sanMode = new SanMode(new Game($argv[1], $argv[2]), [$from->resourceId]);
+                $game = $sanMode->getGame()->setBoard($board);
+                $sanMode->setGame($game);
+                $socket->getGameModeStorage()->set($sanMode);
                 return $socket->sendToOne($from->resourceId, [
                     $this->name => [
                         'variant' => $argv[1],
@@ -219,10 +219,10 @@ class StartCommand extends AbstractCommand
                     $ravPlay = new RavPlay($argv[3]);
                 }
                 $board = $ravPlay->validate()->getBoard();
-                $pgnMode = new PgnMode(new Game($argv[1], $argv[2]), [$from->resourceId]);
-                $game = $pgnMode->getGame()->setBoard($board);
-                $pgnMode->setGame($game);
-                $socket->getGameModeStorage()->set($pgnMode);
+                $sanMode = new SanMode(new Game($argv[1], $argv[2]), [$from->resourceId]);
+                $game = $sanMode->getGame()->setBoard($board);
+                $sanMode->setGame($game);
+                $socket->getGameModeStorage()->set($sanMode);
                 return $socket->sendToOne($from->resourceId, [
                     $this->name => [
                         'variant' => $argv[1],

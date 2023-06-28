@@ -21,11 +21,11 @@ class Game
     const VARIANT_CAPABLANCA        = CapablancaBoard::VARIANT;
     const VARIANT_CLASSICAL         = ClassicalBoard::VARIANT;
 
-    const MODE_GM                   = 'gm';
     const MODE_FEN                  = 'fen';
-    const MODE_PGN                  = 'pgn';
-    const MODE_RAV                  = 'rav';
+    const MODE_GM                   = 'gm';
     const MODE_PLAY                 = 'play';
+    const MODE_RAV                  = 'rav';
+    const MODE_SAN                  = 'san';
     const MODE_STOCKFISH            = 'stockfish';
 
     /**
