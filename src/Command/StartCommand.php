@@ -16,6 +16,7 @@ use ChessServer\Socket;
 use ChessServer\GameMode\GmMode;
 use ChessServer\GameMode\FenMode;
 use ChessServer\GameMode\PgnMode;
+use ChessServer\GameMode\RavMode;
 use ChessServer\GameMode\PlayMode;
 use ChessServer\GameMode\StockfishMode;
 use Firebase\JWT\JWT;
@@ -39,6 +40,7 @@ class StartCommand extends AbstractCommand
                 GmMode::NAME,
                 FenMode::NAME,
                 PgnMode::NAME,
+                RavMode::NAME,
                 PlayMode::NAME,
                 StockfishMode::NAME,
             ],
@@ -72,6 +74,12 @@ class StartCommand extends AbstractCommand
                                 count($argv) - 1 === 2;
                         }
                     case PgnMode::NAME:
+                        if ($argv[1] === Game::VARIANT_960) {
+                            return count($argv) - 1 === 4;
+                        } else {
+                            return count($argv) - 1 === 3;
+                        }
+                    case RavMode::NAME:
                         if ($argv[1] === Game::VARIANT_960) {
                             return count($argv) - 1 === 4;
                         } else {
@@ -158,6 +166,47 @@ class StartCommand extends AbstractCommand
                 ],
             ]);
         } elseif (PgnMode::NAME === $argv[2]) {
+            try {
+                if ($argv[1] === Game::VARIANT_960) {
+                    $startPos = str_split($argv[4]);
+                    $board = new Chess960Board($startPos);
+                    $ravPlay = new RavPlay($argv[3], $board);
+                } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
+                    $board = new CapablancaBoard();
+                    $ravPlay = new RavPlay($argv[3], $board);
+                } else {
+                    $ravPlay = new RavPlay($argv[3]);
+                }
+                $board = $ravPlay->validate()->getBoard();
+                $pgnMode = new PgnMode(new Game($argv[1], $argv[2]), [$from->resourceId]);
+                $game = $pgnMode->getGame()->setBoard($board);
+                $pgnMode->setGame($game);
+                $socket->getGameModeStorage()->set($pgnMode);
+                return $socket->sendToOne($from->resourceId, [
+                    $this->name => [
+                        'variant' => $argv[1],
+                        'mode' => $argv[2],
+                        'turn' => $game->state()->turn,
+                        'filtered' => $ravPlay->getRavMovetext()->filtered(),
+                        'movetext' => $ravPlay->getRavMovetext()->main(),
+                        'breakdown' => $ravPlay->getBreakdown(),
+                        'fen' => $ravPlay->fen()->getFen(),
+                        ...($argv[1] === Game::VARIANT_960
+                            ? ['startPos' =>  $argv[4]]
+                            : []
+                        ),
+                    ],
+                ]);
+            } catch (\Throwable $e) {
+                return $socket->sendToOne($from->resourceId, [
+                    $this->name => [
+                        'variant' => $argv[1],
+                        'mode' => $argv[2],
+                        'message' => 'This PGN movetext could not be loaded.',
+                    ],
+                ]);
+            }
+        } elseif (RavMode::NAME === $argv[2]) {
             try {
                 if ($argv[1] === Game::VARIANT_960) {
                     $startPos = str_split($argv[4]);

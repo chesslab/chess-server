@@ -24,6 +24,7 @@ class Game
     const MODE_GM                   = 'gm';
     const MODE_FEN                  = 'fen';
     const MODE_PGN                  = 'pgn';
+    const MODE_RAV                  = 'rav';
     const MODE_PLAY                 = 'play';
     const MODE_STOCKFISH            = 'stockfish';
 
