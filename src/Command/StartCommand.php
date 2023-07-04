@@ -180,7 +180,7 @@ class StartCommand extends AbstractCommand
                         'movetext' => $sanPlay->getSanMovetext()->validate(),
                         'fen' => $sanPlay->getFen(),
                         ...($argv[1] === Game::VARIANT_960
-                            ? ['startPos' =>  $settings->startPos
+                            ? ['startPos' =>  $settings->startPos]
                             : []
                         ),
                     ],
