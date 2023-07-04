@@ -2,6 +2,7 @@
 
 namespace ChessServer\Command;
 
+use Chess\FenToBoard;
 use Chess\Play\RavPlay;
 use Chess\Play\SanPlay;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
@@ -92,7 +93,9 @@ class StartCommand extends AbstractCommand
     {
         if (FenMode::NAME === $argv[2]) {
             try {
-                $settings = (object) json_decode(stripslashes($argv[3]), true);
+                if (isset($argv[3])) {
+                    $settings = (object) json_decode(stripslashes($argv[3]), true);
+                }
                 if ($argv[1] === Game::VARIANT_960) {
                     if (isset($settings->fen) && isset($settings->startPos)) {
                         $startPos = str_split($settings->startPos);
@@ -202,14 +205,25 @@ class StartCommand extends AbstractCommand
                 if ($argv[1] === Game::VARIANT_960) {
                     $startPos = str_split($settings->startPos);
                     $board = new Chess960Board($startPos);
+                    if (isset($settings->fen)) {
+                        $board = FenToBoard::create($settings->fen, $board);
+                    }
                     $ravPlay = new RavPlay($settings->movetext, $board);
                 } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
                     $board = new CapablancaBoard();
+                    if (isset($settings->fen)) {
+                        $board = FenToBoard::create($settings->fen, $board);
+                    }
                     $ravPlay = new RavPlay($settings->movetext, $board);
                 } else {
-                    $ravPlay = new RavPlay($settings->movetext);
+                    $board = new ClassicalBoard();
+                    if (isset($settings->fen)) {
+                        $board = FenToBoard::create($settings->fen, $board);
+                    }
+                    $ravPlay = new RavPlay($settings->movetext, $board);
                 }
-                $board = $ravPlay->validate()->getBoard();
+                $ravPlay->validate();
+                $board = $ravPlay->getBoard();
                 $sanMode = new SanMode(new Game($argv[1], $argv[2]), [$from->resourceId]);
                 $game = $sanMode->getGame()->setBoard($board);
                 $sanMode->setGame($game);
@@ -222,7 +236,7 @@ class StartCommand extends AbstractCommand
                         'filtered' => $ravPlay->getRavMovetext()->filtered(),
                         'movetext' => $ravPlay->getRavMovetext()->main(),
                         'breakdown' => $ravPlay->getBreakdown(),
-                        'fen' => $ravPlay->fen()->getFen(),
+                        'fen' => $ravPlay->getFen(),
                         ...($argv[1] === Game::VARIANT_960
                             ? ['startPos' =>  $settings->startPos]
                             : []
