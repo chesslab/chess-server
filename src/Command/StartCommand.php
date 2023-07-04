@@ -65,9 +65,11 @@ class StartCommand extends AbstractCommand
             if (in_array($argv[2], $this->params['mode'])) {
                 switch ($argv[2]) {
                     case GmMode::NAME:
-                        return count($argv) - 1 === 3 && in_array($argv[3], $this->params['settings']['color']);
+                        return count($argv) - 1 === 3 &&
+                            in_array($argv[3], $this->params['settings']['color']);
                     case FenMode::NAME:
-                        return count($argv) - 1 === 3;
+                        return count($argv) - 1 === 3 ||
+                            count($argv) - 1 === 2;
                     case SanMode::NAME:
                         return count($argv) - 1 === 3;
                     case RavMode::NAME:
