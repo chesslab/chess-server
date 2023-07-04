@@ -67,13 +67,7 @@ class StartCommand extends AbstractCommand
                     case GmMode::NAME:
                         return count($argv) - 1 === 3 && in_array($argv[3], $this->params['settings']['color']);
                     case FenMode::NAME:
-                        if ($argv[1] === Game::VARIANT_960) {
-                            return count($argv) - 1 === 4 ||
-                                count($argv) - 1 === 2;
-                        } else {
-                            return count($argv) - 1 === 3 ||
-                                count($argv) - 1 === 2;
-                        }
+                        return count($argv) - 1 === 3;
                     case SanMode::NAME:
                         return count($argv) - 1 === 3;
                     case RavMode::NAME:
@@ -96,24 +90,25 @@ class StartCommand extends AbstractCommand
     {
         if (FenMode::NAME === $argv[2]) {
             try {
+                $settings = (object) json_decode(stripslashes($argv[3]), true);
                 if ($argv[1] === Game::VARIANT_960) {
-                    if (isset($argv[3]) && isset($argv[4])) {
-                        $startPos = str_split($argv[4]);
-                        $board = (new Chess960FenStrToBoard($argv[3], $startPos))
+                    if (isset($settings->fen) && isset($settings->startPos)) {
+                        $startPos = str_split($settings->startPos);
+                        $board = (new Chess960FenStrToBoard($settings->fen, $startPos))
                             ->create();
                     } else {
                         $startPos = (new StartPosition())->create();
                         $board = new Chess960Board($startPos);
                     }
                 } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
-                    if (isset($argv[3])) {
-                        $board = (new CapablancaFenStrToBoard($argv[3]))->create();
+                    if (isset($settings->fen)) {
+                        $board = (new CapablancaFenStrToBoard($settings->fen))->create();
                     } else {
                         $board =  new CapablancaBoard();
                     }
                 } else {
-                    if (isset($argv[3])) {
-                        $board = (new ClassicalFenStrToBoard($argv[3]))->create();
+                    if (isset($settings->fen)) {
+                        $board = (new ClassicalFenStrToBoard($settings->fen))->create();
                     } else {
                         $board =  new ClassicalBoard();
                     }
