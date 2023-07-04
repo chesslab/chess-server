@@ -222,7 +222,7 @@ class StartCommand extends AbstractCommand
                         'breakdown' => $ravPlay->getBreakdown(),
                         'fen' => $ravPlay->fen()->getFen(),
                         ...($argv[1] === Game::VARIANT_960
-                            ? ['startPos' =>  $settings->startPos
+                            ? ['startPos' =>  $settings->startPos]
                             : []
                         ),
                     ],
