@@ -81,11 +81,7 @@ class StartCommand extends AbstractCommand
                             return count($argv) - 1 === 3;
                         }
                     case RavMode::NAME:
-                        if ($argv[1] === Game::VARIANT_960) {
-                            return count($argv) - 1 === 4;
-                        } else {
-                            return count($argv) - 1 === 3;
-                        }
+                        return count($argv) - 1 === 3;
                     case PlayMode::NAME:
                         return count($argv) - 1 === 3;
                     case StockfishMode::NAME:
@@ -208,15 +204,16 @@ class StartCommand extends AbstractCommand
             }
         } elseif (RavMode::NAME === $argv[2]) {
             try {
+                $settings = (object) json_decode(stripslashes($argv[3]), true);
                 if ($argv[1] === Game::VARIANT_960) {
-                    $startPos = str_split($argv[4]);
+                    $startPos = str_split($settings->startPos);
                     $board = new Chess960Board($startPos);
-                    $ravPlay = new RavPlay($argv[3], $board);
+                    $ravPlay = new RavPlay($settings->movetext, $board);
                 } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
                     $board = new CapablancaBoard();
-                    $ravPlay = new RavPlay($argv[3], $board);
+                    $ravPlay = new RavPlay($settings->movetext, $board);
                 } else {
-                    $ravPlay = new RavPlay($argv[3]);
+                    $ravPlay = new RavPlay($settings->movetext);
                 }
                 $board = $ravPlay->validate()->getBoard();
                 $sanMode = new SanMode(new Game($argv[1], $argv[2]), [$from->resourceId]);
@@ -233,7 +230,7 @@ class StartCommand extends AbstractCommand
                         'breakdown' => $ravPlay->getBreakdown(),
                         'fen' => $ravPlay->fen()->getFen(),
                         ...($argv[1] === Game::VARIANT_960
-                            ? ['startPos' =>  $argv[4]]
+                            ? ['startPos' =>  $settings->startPos
                             : []
                         ),
                     ],
