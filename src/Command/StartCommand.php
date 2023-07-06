@@ -164,14 +164,25 @@ class StartCommand extends AbstractCommand
                 if ($argv[1] === Game::VARIANT_960) {
                     $startPos = str_split($settings->startPos);
                     $board = new Chess960Board($startPos);
-                    $sanPlay = (new SanPlay($settings->movetext, $board));
+                    if (isset($settings->fen)) {
+                        $board = FenToBoard::create($settings->fen, $board);
+                    }
+                    $sanPlay = new SanPlay($settings->movetext, $board);
                 } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
                     $board = new CapablancaBoard();
-                    $sanPlay = (new SanPlay($settings->movetext, $board));
+                    if (isset($settings->fen)) {
+                        $board = FenToBoard::create($settings->fen, $board);
+                    }
+                    $sanPlay = new SanPlay($settings->movetext, $board);
                 } else {
-                    $sanPlay = new SanPlay($settings->movetext);
+                    $board = new ClassicalBoard();
+                    if (isset($settings->fen)) {
+                        $board = FenToBoard::create($settings->fen, $board);
+                    }
+                    $sanPlay = new SanPlay($settings->movetext, $board);
                 }
-                $board = $sanPlay->validate()->getBoard();
+                $sanPlay->validate();
+                $board = $sanPlay->getBoard();
                 $sanMode = new SanMode(new Game($argv[1], $argv[2]), [$from->resourceId]);
                 $game = $sanMode->getGame()->setBoard($board);
                 $sanMode->setGame($game);
