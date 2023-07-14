@@ -192,7 +192,6 @@ class StartCommand extends AbstractCommand
                         'variant' => $argv[1],
                         'mode' => $argv[2],
                         'turn' => $game->state()->turn,
-                        'filtered' => $sanPlay->getSanMovetext()->filtered(),
                         'movetext' => $sanPlay->getSanMovetext()->validate(),
                         'fen' => $sanPlay->getFen(),
                         ...($argv[1] === Game::VARIANT_960
