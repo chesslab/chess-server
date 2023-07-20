@@ -245,7 +245,7 @@ class StartCommand extends AbstractCommand
                         'turn' => $game->state()->turn,
                         'filtered' => $ravPlay->getRavMovetext()->filtered(),
                         'movetext' => $ravPlay->getRavMovetext()->main(),
-                        'breakdown' => $ravPlay->getBreakdown(),
+                        'breakdown' => $ravPlay->getRavMovetext()->getBreakdown(),
                         'fen' => $ravPlay->getFen(),
                         ...($argv[1] === Game::VARIANT_960
                             ? ['startPos' =>  $settings->startPos]
