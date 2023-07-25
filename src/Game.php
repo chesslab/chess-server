@@ -22,7 +22,6 @@ class Game
     const VARIANT_CLASSICAL         = ClassicalBoard::VARIANT;
 
     const MODE_FEN                  = 'fen';
-    const MODE_GM                   = 'gm';
     const MODE_PLAY                 = 'play';
     const MODE_RAV                  = 'rav';
     const MODE_SAN                  = 'san';
@@ -151,10 +150,6 @@ class Game
      */
     public function ai(array $options = [], array $params = []): ?object
     {
-        if ($this->mode === Game::MODE_GM) {
-            return $this->gm->move($this);
-        }
-
         if ($this->gm) {
             if ($move = $this->gm->move($this->board)) {
                 return $move;

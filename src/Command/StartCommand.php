@@ -16,7 +16,6 @@ use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Game;
 use ChessServer\Socket;
 use ChessServer\GameMode\FenMode;
-use ChessServer\GameMode\GmMode;
 use ChessServer\GameMode\PlayMode;
 use ChessServer\GameMode\RavMode;
 use ChessServer\GameMode\SanMode;
@@ -39,7 +38,6 @@ class StartCommand extends AbstractCommand
             ],
             // mandatory param
             'mode' => [
-                GmMode::NAME,
                 FenMode::NAME,
                 SanMode::NAME,
                 RavMode::NAME,
@@ -65,9 +63,6 @@ class StartCommand extends AbstractCommand
         if (in_array($argv[1], $this->params['variant'])) {
             if (in_array($argv[2], $this->params['mode'])) {
                 switch ($argv[2]) {
-                    case GmMode::NAME:
-                        return count($argv) - 1 === 3 &&
-                            in_array($argv[3], $this->params['settings']['color']);
                     case FenMode::NAME:
                         return count($argv) - 1 === 3 ||
                             count($argv) - 1 === 2;
@@ -145,19 +140,6 @@ class StartCommand extends AbstractCommand
                     ],
                 ]);
             }
-        } elseif (GmMode::NAME === $argv[2]) {
-            $gmMode = new GmMode(
-                new Game($argv[1], $argv[2], $socket->getGm()),
-                [$from->resourceId]
-            );
-            $socket->getGameModeStorage()->set($gmMode);
-            return $socket->sendToOne($from->resourceId, [
-                $this->name => [
-                    'variant' => $argv[1],
-                    'mode' => $argv[2],
-                    'color' => $argv[3],
-                ],
-            ]);
         } elseif (SanMode::NAME === $argv[2]) {
             try {
                 $settings = (object) json_decode(stripslashes($argv[3]), true);
