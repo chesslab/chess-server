@@ -87,4 +87,4 @@ ws.send('/start classical analysis');
 
 See the [contributing guidelines](https://github.com/chesslablab/chess-server/blob/master/CONTRIBUTING.md).
 
-Happy learning and coding! Thank you, and keep up the hard work.!
+Happy learning and coding! Thank you, and keep up the hard work!
