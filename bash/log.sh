@@ -1,11 +1,11 @@
 #!/bin/bash
 
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-FILE_PATH="${SCRIPT_DIR}/../storage/pchess.log"
-MAX_SIZE=10485760
-FILE_SIZE=$(stat -c%s "$FILE_PATH")
+script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+file_path="${script_dir}/../storage/pchess.log"
+max_size=10485760
+file_size=$(stat -c%s "$file_path")
 
-if (( FILE_SIZE > MAX_SIZE ))
+if (( file_size > max_size ))
 then
-    cat /dev/null > $FILE_PATH
+    cat /dev/null > $file_path
 fi
