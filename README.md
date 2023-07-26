@@ -71,7 +71,7 @@ Commands available:
 Listening to commands...
 ```
 
-Open a console in your favorite browser and run commands:
+Open a console in your favorite browser and run the following commands:
 
 ```
 const ws = new WebSocket('wss://pchess.net:8443');
@@ -81,10 +81,10 @@ ws.send('/start classical analysis');
 
 ### License
 
-The GNU General Public License.
+[The GNU General Public License](https://github.com/chesslablab/chess-server/blob/master/LICENSE).
 
 ### Contributions
 
 See the [contributing guidelines](https://github.com/chesslablab/chess-server/blob/master/CONTRIBUTING.md).
 
-Happy learning and coding! Thank you, and keep it up.
+Happy learning and coding! Thank you, and keep up the hard work!
