@@ -1,0 +1,10 @@
+site_name: Chess Server
+pages:
+  - Chess Server for Web Apps: index.md
+  - /start: start.md
+  - /legal_sqs: legal-sqs.md
+  - /play_lan: play-lan.md
+  - /undo: undo.md
+  - /heuristics: heuristics.md
+  - /heuristics_bar: heuristics-bar.md
+theme: readthedocs
