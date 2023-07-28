@@ -11,7 +11,7 @@
  >
   <link rel="apple-touch-icon" href="https://www.chesslablab.com/assets/img/abstract.jpg">
   <link rel="manifest" href="/manifest.json">
-  <title>ChesslaBlab Documentation</title>
+  <!---<title>ChesslaBlab Documentation</title>-->
   <!-- Twitter Card data -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@programarivm">
