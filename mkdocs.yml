@@ -5,4 +5,5 @@ pages:
   - /legal_sqs: legal-sqs.md
   - /play_lan: play-lan.md
   - /heuristics: heuristics.md
+  - /heuristics_bar: heuristics_bar.md
 theme: readthedocs

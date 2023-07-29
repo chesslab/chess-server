@@ -8,7 +8,7 @@ Starts a new chess game.
 | ---- | ----------- | -------- |
 | variant | Accepts: 960, capablanca, classical. | Yes |
 | mode | Accepts: analysis, fen, pgn, play, stockfish. | Yes |
-| add | Additional, specific params. color (stockfish mode), fen (fen mode), movetext (pgn mode), settings (play mode), startPos (pgn mode). | Maybe, depends on the mode selected. |
+| add | Additional, specific params. color (stockfish mode), fen (fen mode), movetext (pgn mode), settings (play mode), startPos (pgn mode). | Maybe, depends on the mode selected as shown in the following examples. |
 
 ### Example
 
