@@ -4,4 +4,5 @@ pages:
   - /start: start.md
   - /legal_sqs: legal-sqs.md
   - /play_lan: play-lan.md
+  - /heuristics: heuristics.md
 theme: readthedocs
