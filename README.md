@@ -4,7 +4,7 @@ PHP Ratchet WebSocket server using [PHP Chess](https://github.com/chesslablab/ph
 
 ### Documentation
 
-Read the [reference guide](https://www.chesslablab.com/documentation/).
+Read the latest docs [here](https://php-chess-server.readthedocs.io/en/latest/).
 
 ### Demo
 
