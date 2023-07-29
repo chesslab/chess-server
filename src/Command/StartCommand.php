@@ -298,7 +298,7 @@ class StartCommand extends AbstractCommand
                     : []
                 ),
             ];
-            $jwt = JWT::encode($payload, $_ENV['JWT_SECRET']);
+            $jwt = JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256');
             $playMode = new PlayMode($game, [$from->resourceId], $jwt);
             $socket->getGameModeStorage()->set($playMode);
             if ($settings->submode === PlayMode::SUBMODE_ONLINE) {

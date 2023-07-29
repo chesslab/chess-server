@@ -19,7 +19,7 @@
     "chesslablab/php-chess": "dev-master",
     "rubix/ml": "^2.0",
     "cboden/ratchet": "^0.4",
-    "firebase/php-jwt": "^5.4",
+    "firebase/php-jwt": "^6.8",
     "vlucas/phpdotenv": "^5.3",
     "monolog/monolog": "^2.3",
     "rakibtg/sleekdb": "^2.15"
