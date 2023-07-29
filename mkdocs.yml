@@ -1,4 +1,5 @@
 site_name: PHP Chess Server
 pages:
   - Chess Server for Web Apps: index.md
+  - /start: start.md
 theme: readthedocs
