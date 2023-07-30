@@ -41,7 +41,7 @@ class RestartCommand extends AbstractCommand
             } else {
                 $game = new Game($decoded->variant, Game::MODE_PLAY);
             }
-            $newJwt = JWT::encode($decoded, $_ENV['JWT_SECRET'], 'HS256');
+            $newJwt = JWT::encode((array)$decoded, $_ENV['JWT_SECRET'], 'HS256');
             $newGameMode = new PlayMode(
                 $game,
                 $gameMode->getResourceIds(),
