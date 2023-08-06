@@ -35,7 +35,9 @@ class StockfishMode extends AbstractMode
                         $board = (new StrToBoard($this->fen))->create();
                         $heuristics = new Heuristics($movetext, $board);
                     } else {
-                        $heuristics = new Heuristics($movetext);
+                        $board = (new StrToBoard($this->game->getBoard()->getStartFen()))
+                            ->create();
+                        $heuristics = new Heuristics($movetext, $board);
                     }
                     return [
                         $cmd->name => [
@@ -46,6 +48,7 @@ class StockfishMode extends AbstractMode
                 default:
                     return parent::res($argv, $cmd);
             }
+
         } catch (\Exception $e) {
             return [
                 'error' => $e->getMessage(),
