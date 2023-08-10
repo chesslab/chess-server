@@ -52,7 +52,6 @@ Welcome to PHP Chess Server
 Commands available:
 /accept {"jwt":"<string>"} Accepts a request to play a game.
 /draw {"action":["accept","decline","propose"]} Allows to offer a draw.
-/heuristics {"movetext":"<string>"} Takes a balanced heuristic picture of the given PGN movetext.
 /heuristics_bar {"fen":"<string>","variant":"<string>"} Takes an expanded heuristic picture of the current position.
 /inbox {"action":["create","read","reply"],"variant":["960","capablanca","classical"],"settings":{"fen":"<string>","movetext":"<string>","startPos":"<string>"},"hash":"<string>","movetext":"<string>"} Correspondence chess.
 /leave {"action":["accept"]} Allows to leave a game.

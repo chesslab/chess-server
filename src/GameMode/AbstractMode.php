@@ -8,7 +8,6 @@ use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use ChessServer\Game;
-use ChessServer\Command\HeuristicsCommand;
 use ChessServer\Command\HeuristicsBarCommand;
 use ChessServer\Command\LegalCommand;
 use ChessServer\Command\PlayLanCommand;
@@ -62,24 +61,6 @@ abstract class AbstractMode
     {
         try {
             switch (get_class($cmd)) {
-                case HeuristicsCommand::class:
-                    $variant = $this->game->getVariant();
-                    $movetext = $argv[1];
-                    if ($variant === Game::VARIANT_960) {
-                        $startPos = $this->game->getBoard()->getStartPos();
-                        $board = new Chess960Board($startPos);
-                    } elseif ($variant === Game::VARIANT_CAPABLANCA) {
-                        $board = new CapablancaBoard();
-                    } elseif ($variant === Game::VARIANT_CLASSICAL) {
-                        $board = new ClassicalBoard();
-                    }
-                    $heuristics = new Heuristics($movetext, $board);
-                    return [
-                        $cmd->name => [
-                            'evalNames' => $heuristics->getEvalNames(),
-                            'balance' => $heuristics->getBalance(),
-                        ],
-                    ];
                 case HeuristicsBarCommand::class:
                     $heuristics = new HeuristicsByFen($argv[1], $argv[2]);
                     return [
