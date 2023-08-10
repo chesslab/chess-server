@@ -4,7 +4,6 @@ namespace ChessServer;
 
 use ChessServer\Command\AcceptPlayRequestCommand;
 use ChessServer\Command\DrawCommand;
-use ChessServer\Command\HeuristicsCommand;
 use ChessServer\Command\HeuristicsBarCommand;
 use ChessServer\Command\InboxCommand;
 use ChessServer\Command\LeaveCommand;
@@ -29,7 +28,6 @@ class CommandContainer
         $this->obj = new \SplObjectStorage;
         $this->obj->attach(new AcceptPlayRequestCommand());
         $this->obj->attach(new DrawCommand());
-        $this->obj->attach(new HeuristicsCommand());
         $this->obj->attach(new HeuristicsBarCommand());
         $this->obj->attach(new InboxCommand());
         $this->obj->attach(new LeaveCommand());
