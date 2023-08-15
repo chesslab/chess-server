@@ -62,7 +62,7 @@ Commands available:
 /rematch {"action":["accept","decline","propose"]} Allows to offer a rematch.
 /resign {"action":["accept"]} Allows to resign a game.
 /restart {"hash":"<string>"} Restarts a game.
-/start {"variant":["960","capablanca","classical"],"mode":["fen","san","rav","play","stockfish"],"settings":{"color":["w","b"],"fen":"<string>","movetext":"<string>","settings":"<string>","startPos":"<string>"}} Starts a new game.
+/start {"variant":["960","capablanca","classical"],"mode":["fen","san","play","stockfish"],"settings":{"color":["w","b"],"fen":"<string>","movetext":"<string>","settings":"<string>","startPos":"<string>"}} Starts a new game.
 /stockfish {"options":{"Skill Level":"int"},"params":{"depth":"int"}} Returns Stockfish's response to the current position.
 /takeback {"action":["accept","decline","propose"]} Allows to manage a takeback.
 /undo Undoes the last move.
