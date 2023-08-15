@@ -3,7 +3,6 @@
 namespace ChessServer\Command;
 
 use Chess\FenToBoard;
-use Chess\Play\RavPlay;
 use Chess\Play\SanPlay;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\Capablanca\FEN\StrToBoard as CapablancaFenStrToBoard;
@@ -17,7 +16,6 @@ use ChessServer\Game;
 use ChessServer\Socket;
 use ChessServer\GameMode\FenMode;
 use ChessServer\GameMode\PlayMode;
-use ChessServer\GameMode\RavMode;
 use ChessServer\GameMode\SanMode;
 use ChessServer\GameMode\StockfishMode;
 use Firebase\JWT\JWT;
@@ -40,7 +38,6 @@ class StartCommand extends AbstractCommand
             'mode' => [
                 FenMode::NAME,
                 SanMode::NAME,
-                RavMode::NAME,
                 PlayMode::NAME,
                 StockfishMode::NAME,
             ],
@@ -67,8 +64,6 @@ class StartCommand extends AbstractCommand
                         return count($argv) - 1 === 3 ||
                             count($argv) - 1 === 2;
                     case SanMode::NAME:
-                        return count($argv) - 1 === 3;
-                    case RavMode::NAME:
                         return count($argv) - 1 === 3;
                     case PlayMode::NAME:
                         return count($argv) - 1 === 3;
@@ -176,59 +171,6 @@ class StartCommand extends AbstractCommand
                         'turn' => $game->state()->turn,
                         'movetext' => $sanPlay->getSanMovetext()->validate(),
                         'fen' => $sanPlay->getFen(),
-                        ...($argv[1] === Game::VARIANT_960
-                            ? ['startPos' =>  $settings->startPos]
-                            : []
-                        ),
-                    ],
-                ]);
-            } catch (\Throwable $e) {
-                return $socket->sendToOne($from->resourceId, [
-                    $this->name => [
-                        'variant' => $argv[1],
-                        'mode' => $argv[2],
-                        'message' => 'This PGN movetext could not be loaded.',
-                    ],
-                ]);
-            }
-        } elseif (RavMode::NAME === $argv[2]) {
-            try {
-                $settings = (object) json_decode(stripslashes($argv[3]), true);
-                if ($argv[1] === Game::VARIANT_960) {
-                    $startPos = str_split($settings->startPos);
-                    $board = new Chess960Board($startPos);
-                    if (isset($settings->fen)) {
-                        $board = FenToBoard::create($settings->fen, $board);
-                    }
-                    $ravPlay = new RavPlay($settings->movetext, $board);
-                } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
-                    $board = new CapablancaBoard();
-                    if (isset($settings->fen)) {
-                        $board = FenToBoard::create($settings->fen, $board);
-                    }
-                    $ravPlay = new RavPlay($settings->movetext, $board);
-                } else {
-                    $board = new ClassicalBoard();
-                    if (isset($settings->fen)) {
-                        $board = FenToBoard::create($settings->fen, $board);
-                    }
-                    $ravPlay = new RavPlay($settings->movetext, $board);
-                }
-                $ravPlay->validate();
-                $board = $ravPlay->getBoard();
-                $sanMode = new SanMode(new Game($argv[1], $argv[2]), [$from->resourceId]);
-                $game = $sanMode->getGame()->setBoard($board);
-                $sanMode->setGame($game);
-                $socket->getGameModeStorage()->set($sanMode);
-                return $socket->sendToOne($from->resourceId, [
-                    $this->name => [
-                        'variant' => $argv[1],
-                        'mode' => $argv[2],
-                        'turn' => $game->state()->turn,
-                        'filtered' => $ravPlay->getRavMovetext()->filtered(),
-                        'movetext' => $ravPlay->getRavMovetext()->main(),
-                        'breakdown' => $ravPlay->getRavMovetext()->getBreakdown(),
-                        'fen' => $ravPlay->getFen(),
                         ...($argv[1] === Game::VARIANT_960
                             ? ['startPos' =>  $settings->startPos]
                             : []
