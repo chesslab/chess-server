@@ -2,8 +2,11 @@
 
 namespace ChessServer\GameMode;
 
+use Chess\FenToBoard;
 use Chess\Heuristics;
 use Chess\HeuristicsByFen;
+use Chess\Movetext\NagMovetext;
+use Chess\UciEngine\Stockfish;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
@@ -12,6 +15,7 @@ use ChessServer\Command\HeuristicsBarCommand;
 use ChessServer\Command\LegalCommand;
 use ChessServer\Command\PlayLanCommand;
 use ChessServer\Command\StockfishCommand;
+use ChessServer\Command\StockfishEvalCommand;
 use ChessServer\Command\UndoCommand;
 
 abstract class AbstractMode
@@ -95,6 +99,13 @@ abstract class AbstractMode
                           ... (array) $this->game->state(),
                           'variant' =>  $this->game->getVariant(),
                         ],
+                    ];
+                case StockfishEvalCommand::class:
+                    $board = FenToBoard::create($argv[1]);
+                    $stockfish = new Stockfish($board);
+                    $nag = $stockfish->evalNag($board->toFen());
+                    return [
+                        $cmd->name => NagMovetext::glyph($nag),
                     ];
                 case UndoCommand::class:
                     $board = $this->game->getBoard()->undo();

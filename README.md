@@ -64,6 +64,7 @@ Commands available:
 /restart {"hash":"<string>"} Restarts a game.
 /start {"variant":["960","capablanca","classical"],"mode":["fen","san","play","stockfish"],"settings":{"color":["w","b"],"fen":"<string>","movetext":"<string>","settings":"<string>","startPos":"<string>"}} Starts a new game.
 /stockfish {"options":{"Skill Level":"int"},"params":{"depth":"int"}} Returns Stockfish's response to the current position.
+/stockfish_eval {"fen":"<string>"} Returns an evaluation for the given position.
 /takeback {"action":["accept","decline","propose"]} Allows to manage a takeback.
 /undo Undoes the last move.
 
