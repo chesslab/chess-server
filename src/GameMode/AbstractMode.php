@@ -11,7 +11,7 @@ use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use ChessServer\Game;
-use ChessServer\Command\HeuristicsBarCommand;
+use ChessServer\Command\HeuristicsCommand;
 use ChessServer\Command\LegalCommand;
 use ChessServer\Command\PlayLanCommand;
 use ChessServer\Command\StockfishCommand;
@@ -65,7 +65,7 @@ abstract class AbstractMode
     {
         try {
             switch (get_class($cmd)) {
-                case HeuristicsBarCommand::class:
+                case HeuristicsCommand::class:
                     $heuristics = new HeuristicsByFen($argv[1], $argv[2]);
                     return [
                         $cmd->name => [

@@ -52,7 +52,7 @@ Welcome to PHP Chess Server
 Commands available:
 /accept {"jwt":"<string>"} Accepts a request to play a game.
 /draw {"action":["accept","decline","propose"]} Allows to offer a draw.
-/heuristics_bar {"fen":"<string>","variant":"<string>"} Takes an expanded heuristic picture of the current position.
+/heuristics {"fen":"<string>","variant":"<string>"} Takes an expanded heuristic picture of the current position.
 /inbox {"action":["create","read","reply"],"variant":["960","capablanca","classical"],"settings":{"fen":"<string>","movetext":"<string>","startPos":"<string>"},"hash":"<string>","movetext":"<string>"} Correspondence chess.
 /leave {"action":["accept"]} Allows to leave a game.
 /legal {"position":"<string>"} Returns the legal FEN positions of a piece.
@@ -64,7 +64,7 @@ Commands available:
 /restart {"hash":"<string>"} Restarts a game.
 /start {"variant":["960","capablanca","classical"],"mode":["fen","san","play","stockfish"],"settings":{"color":["w","b"],"fen":"<string>","movetext":"<string>","settings":"<string>","startPos":"<string>"}} Starts a new game.
 /stockfish {"options":{"Skill Level":"int"},"params":{"depth":"int"}} Returns Stockfish's response to the current position.
-/stockfish_eval {"fen":"<string>"} Returns Stockfish's evaluation for a position.
+/stockfish_eval {"fen":"<string>"} Returns Stockfish's evaluation for the given position.
 /takeback {"action":["accept","decline","propose"]} Allows to manage a takeback.
 /undo Undoes the last move.
 

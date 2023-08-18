@@ -1,6 +1,6 @@
-# /heuristics_bar
+# /heuristics
 
-Similar to the `/heuristics` command with the difference that `/heuristics_bar` takes a picture of the current position only rather than a picture of the entire game.
+Returns the heuristics of a chess position.
 
 ## Parameters
 
@@ -13,12 +13,12 @@ Similar to the `/heuristics` command with the difference that `/heuristics_bar` 
 
 ```js
 ws.send('/start classical analysis');
-ws.send('/heuristics_bar "rnbqkb1r/p1pp1ppp/1p2pn2/8/2PP4/2N2N2/PP2PPPP/R1BQKB1R b KQkq -" classical');
+ws.send('/heuristics "rnbqkb1r/p1pp1ppp/1p2pn2/8/2PP4/2N2N2/PP2PPPP/R1BQKB1R b KQkq -" classical');
 ```
 
 ```text
 {
-  "/heuristics_bar": {
+  "/heuristics": {
     "dimensions": [
       "Material",
       "Center",
@@ -52,4 +52,4 @@ ws.send('/heuristics_bar "rnbqkb1r/p1pp1ppp/1p2pn2/8/2PP4/2N2N2/PP2PPPP/R1BQKB1R
 
 The returned data can then be plotted on a chart as shown in the example below.
 
-![Figure 1](https://raw.githubusercontent.com/chesslablab/chess-server/master/docs/heuristics_bar_01.png)
+![Figure 1](https://raw.githubusercontent.com/chesslablab/chess-server/master/docs/heuristics_01.png)

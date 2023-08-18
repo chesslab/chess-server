@@ -6,11 +6,11 @@ use ChessServer\Socket;
 use ChessServer\GameMode\PlayMode;
 use Ratchet\ConnectionInterface;
 
-class HeuristicsBarCommand extends AbstractCommand
+class HeuristicsCommand extends AbstractCommand
 {
     public function __construct()
     {
-        $this->name = '/heuristics_bar';
+        $this->name = '/heuristics';
         $this->description = "Takes an expanded heuristic picture of the current position.";
         $this->params = [
             'fen' => '<string>',
