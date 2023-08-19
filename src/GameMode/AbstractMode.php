@@ -103,7 +103,7 @@ abstract class AbstractMode
                 case StockfishEvalCommand::class:
                     $board = FenToBoard::create($argv[1]);
                     $stockfish = new Stockfish($board);
-                    $nag = $stockfish->evalNag($board->toFen(), 'Final evaluation');
+                    $nag = $stockfish->evalNag($board->toFen(), 'Final');
                     return [
                         $cmd->name => NagMovetext::glyph($nag),
                     ];
