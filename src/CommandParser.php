@@ -27,7 +27,7 @@ class CommandParser
         $this->argv = $this->filter($string);
         $command = $this->cli->findByName($this->argv[0]);
         if (!$command || !$command->validate($this->argv)) {
-            throw new ParserException('Command not recognized by the server. Did you provide valid parameters?');
+            throw new ParserException();
         }
 
         return $command;

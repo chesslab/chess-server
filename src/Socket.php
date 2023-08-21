@@ -90,7 +90,7 @@ class Socket implements MessageComponentInterface
             $cmd = $this->parser->validate($msg);
         } catch (ParserException $e) {
             return $this->sendToOne($from->resourceId, [
-                'error' => $e->getMessage(),
+                'error' => 'Command parameters not valid',
             ]);
         }
 
