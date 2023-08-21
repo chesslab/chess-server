@@ -17,6 +17,7 @@ use ChessServer\Command\PlayLanCommand;
 use ChessServer\Command\StockfishCommand;
 use ChessServer\Command\StockfishEvalCommand;
 use ChessServer\Command\UndoCommand;
+use ChessServer\Exception\InternalErrorException;
 
 abstract class AbstractMode
 {
@@ -120,9 +121,7 @@ abstract class AbstractMode
                     return null;
             }
         } catch (\Exception $e) {
-            return [
-                'error' => 'Internal server error',
-            ];
+            throw new InternalErrorException();
         }
     }
 }

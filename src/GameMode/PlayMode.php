@@ -10,6 +10,7 @@ use ChessServer\Command\PlayLanCommand;
 use ChessServer\Command\RematchCommand;
 use ChessServer\Command\ResignCommand;
 use ChessServer\Command\TakebackCommand;
+use ChessServer\Exception\InternalErrorException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -156,9 +157,7 @@ class PlayMode extends AbstractMode
                     return parent::res($argv, $cmd);
             }
         } catch (\Exception $e) {
-            return [
-                'error' => 'Internal server error',
-            ];
+            throw new InternalErrorException();
         }
     }
 }
