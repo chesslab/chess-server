@@ -3,7 +3,6 @@
 namespace ChessServer\Command;
 
 use ChessServer\Socket;
-use ChessServer\GameMode\PlayMode;
 use Ratchet\ConnectionInterface;
 
 abstract class AbstractCommand

@@ -3,6 +3,7 @@
 namespace ChessServer\Command;
 
 use ChessServer\Socket;
+use ChessServer\Exception\InternalErrorException;
 use Ratchet\ConnectionInterface;
 
 class LegalCommand extends AbstractCommand
@@ -24,6 +25,10 @@ class LegalCommand extends AbstractCommand
     public function run(Socket $socket, array $argv, ConnectionInterface $from)
     {
         $gameMode = $socket->getGameModeStorage()->getByResourceId($from->resourceId);
+
+        if (!$gameMode) {
+            throw new InternalErrorException();
+        }
 
         return $socket->sendToOne(
             $from->resourceId,

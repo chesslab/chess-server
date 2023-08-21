@@ -4,6 +4,7 @@ namespace ChessServer;
 
 use Chess\Grandmaster;
 use ChessServer\Command\LeaveCommand;
+use ChessServer\Exception\InternalErrorException;
 use ChessServer\Exception\ParserException;
 use ChessServer\GameMode\PlayMode;
 use Dotenv\Dotenv;
@@ -93,7 +94,13 @@ class Socket implements MessageComponentInterface
             ]);
         }
 
-        $cmd->run($this, $this->parser->argv, $from);
+        try {
+            $cmd->run($this, $this->parser->argv, $from);
+        } catch (InternalErrorException $e) {
+            return $this->sendToOne($from->resourceId, [
+                'error' => 'Internal server error',
+            ]);
+        }
     }
 
     public function onClose(ConnectionInterface $conn)
