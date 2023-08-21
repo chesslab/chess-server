@@ -121,7 +121,7 @@ abstract class AbstractMode
             }
         } catch (\Exception $e) {
             return [
-                'error' => $e->getMessage(),
+                'error' => 'Internal server error',
             ];
         }
     }
