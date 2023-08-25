@@ -3,6 +3,7 @@ version: "3.8"
 services:
   php_fpm:
       build: .
+      user: "${UID}:${GID}"
       container_name: chess_server_php_fpm
       ports:
           - 8443:8443
