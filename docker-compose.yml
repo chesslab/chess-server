@@ -10,5 +10,5 @@ services:
       restart: always
       volumes:
           - ./:/usr/share/chess-server
-          - ./docker/php/8.1/cli/php.ini:/usr/local/etc/php/php.ini
+          - ./docker/php/8.2/cli/php.ini:/usr/local/etc/php/php.ini
       working_dir: /usr/share/chess-server
