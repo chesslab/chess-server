@@ -75,8 +75,7 @@ Open a console in your favorite browser and run the following commands:
 
 ```
 const ws = new WebSocket('wss://pchess.net:8443');
-ws.onmessage = (res) => { console.log(res.data) };
-ws.send('/start classical analysis');
+ws.send('/start classical fen');
 ```
 
 ### License
