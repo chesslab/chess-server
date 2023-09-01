@@ -2,7 +2,8 @@
 
 namespace ChessServer\Tests\Unit;
 
-use ChessServer\Parser\CommandParser;
+use ChessServer\CommandContainer;
+use ChessServer\CommandParser;
 use PHPUnit\Framework\TestCase;
 
 class CommandTestCase extends TestCase
@@ -11,6 +12,6 @@ class CommandTestCase extends TestCase
 
     public function setUp(): void
     {
-        self::$parser = new CommandParser();
+        self::$parser = new CommandParser(new CommandContainer());
     }
 }
