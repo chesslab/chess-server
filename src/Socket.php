@@ -21,8 +21,6 @@ class Socket implements MessageComponentInterface
 
     private $log;
 
-    private $cli;
-
     private $parser;
 
     private $gm;
@@ -41,8 +39,7 @@ class Socket implements MessageComponentInterface
         $this->log = new Logger($_ENV['BASE_URL']);
         $this->log->pushHandler(new StreamHandler(self::STORAGE_FOLDER.'/pchess.log', Logger::INFO));
 
-        $this->cli = new CommandContainer;
-        $this->parser = new CommandParser($this->cli);
+        $this->parser = new CommandParser(new CommandContainer());
 
         $this->gm = new Grandmaster(self::DATA_FOLDER.'/players.json');
 
