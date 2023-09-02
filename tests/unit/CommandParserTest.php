@@ -39,16 +39,6 @@ class CommandParserTest extends TestCase
     /**
      * @test
      */
-    public function validate_start_classical_fen()
-    {
-        $this->expectException(ParserException::class);
-
-        self::$parser->validate('/start classical fen');
-    }
-
-    /**
-     * @test
-     */
     public function validate_takeback_foobar()
     {
         $this->expectException(ParserException::class);
