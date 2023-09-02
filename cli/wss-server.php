@@ -14,9 +14,9 @@ use React\Socket\SecureServer;
 
 require __DIR__  . '/../vendor/autoload.php';
 
-$allowed = [
+putenv("$allowed = [
     'www.chesslablab.com',
-];
+]");
 
 $loop = Factory::create();
 
@@ -35,7 +35,7 @@ $httpServer = new HttpServer(
       new WsServer(
           new Socket()
       ),
-      $allowed,
+      getenv("$allowed"),
     )
 );
 
