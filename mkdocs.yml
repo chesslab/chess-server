@@ -2,7 +2,7 @@ site_name: PHP Chess Server
 pages:
   - Chess Server for Web Apps: index.md
   - /start: start.md
-  - /legal_sqs: legal-sqs.md
+  - /legal: legal.md
   - /play_lan: play-lan.md
   - /heuristics: heuristics.md
 theme: readthedocs
