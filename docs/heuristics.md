@@ -12,14 +12,14 @@ Returns the heuristics of a chess position.
 ### Example
 
 ```js
-ws.send('/start classical analysis');
+ws.send('/start classical fen');
 ws.send('/heuristics "rnbqkb1r/p1pp1ppp/1p2pn2/8/2PP4/2N2N2/PP2PPPP/R1BQKB1R b KQkq -" classical');
 ```
 
 ```text
 {
   "/heuristics": {
-    "dimensions": [
+    "evalNames": [
       "Material",
       "Center",
       "Connectivity",
@@ -44,7 +44,28 @@ ws.send('/heuristics "rnbqkb1r/p1pp1ppp/1p2pn2/8/2PP4/2N2N2/PP2PPPP/R1BQKB1R b K
       "Direct opposition"
     ],
     "balance": [
-      0, 0.28, 0, 0.07, 0, 0, 0, 0, 0, 0, 0, 0.04, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      0,
+      0.28,
+      0,
+      0.07,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0.04,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
     ]
   }
 }
