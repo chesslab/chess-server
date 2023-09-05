@@ -89,7 +89,23 @@ ws.send('/start 960 san "{\\"movetext\\":\\"1.e4 Nc6 2.d4\\",\\"startPos\\":\\"B
 }
 ```
 
-### Creates an invite code to play a classical game
+### Start a classical game in Stockfish mode
+
+```js
+ws.send('/start classical stockfish b');
+```
+
+```text
+{
+  "/start": {
+    "variant": "classical",
+    "mode": "stockfish",
+    "color": "b"
+  }
+}
+```
+
+### Create an invite code to play a classical game
 
 ```js
 ws.send('/start classical play "{\\"min\\":5,\\"increment\\":3,\\"color\\":\\"w\\",\\"submode\\":\\"friend\\"}"');
@@ -103,22 +119,6 @@ ws.send('/start classical play "{\\"min\\":5,\\"increment\\":3,\\"color\\":\\"w\
     "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -",
     "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwY2hlc3MubmV0IiwiaWF0IjoxNjkzOTI5MDUzLCJleHAiOjE2OTM5MzI2NTMsInZhcmlhbnQiOiJjbGFzc2ljYWwiLCJzdWJtb2RlIjoiZnJpZW5kIiwiY29sb3IiOiJ3IiwibWluIjo1LCJpbmNyZW1lbnQiOjMsImZlbiI6InJuYnFrYm5yL3BwcHBwcHBwLzgvOC84LzgvUFBQUFBQUFAvUk5CUUtCTlIgdyBLUWtxIC0ifQ.1rdf1MMR3vsYMDYZ0LroMlTbYRFp3j1ctd1lshW0XV4",
     "hash": "0151f4d3af859a6aa14abd3e0ee57f2a"
-  }
-}
-```
-
-### Start a classical game in Stockfish mode
-
-```js
-ws.send('/start classical stockfish b');
-```
-
-```text
-{
-  "/start": {
-    "variant": "classical",
-    "mode": "stockfish",
-    "color": "b"
   }
 }
 ```
