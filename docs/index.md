@@ -1,6 +1,6 @@
 # Chess Server for Web Apps
 
-Similar to the [Chess API](https://chess-api.readthedocs.io/en/latest/), the [Chess Server](https://github.com/chesslablab/chess-server) provides functionality to play chess online. Also it can be hosted on a custom domain. The main difference between both is that the Chess API endpoints may take few seconds to execute while the Chess Server commands are intended to run faster.
+Similar to the [Chess API](https://chess-api.readthedocs.io/en/latest/), the [Chess Server](https://github.com/chesslablab/chess-server) provides functionality to play chess online. Also it can be hosted on a custom domain. The main difference between both is that the Chess API endpoints may take few seconds to execute like a file download or a database query, while the Chess Server commands are intended to run faster.
 
 This is how to open a WebSocket connection in JavaScript.
 
@@ -119,3 +119,5 @@ The `/start` command accepts two mandatory params: A chess variant and a game mo
 | stockfish | Start a game to play with the Stockfish chess engine. |
 
 Now let's have a look at the WebSocket commands available!
+
+The list of commands could have been sorted in alphabetical order but it is more convenient to begin with the `/start` command and continue in a way that's easier to understand.
