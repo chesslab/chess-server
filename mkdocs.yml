@@ -5,4 +5,5 @@ pages:
   - /legal: legal.md
   - /play_lan: play-lan.md
   - /heuristics: heuristics.md
+  - /undo: undo.md
 theme: readthedocs
