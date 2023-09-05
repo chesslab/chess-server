@@ -1,6 +1,6 @@
 # Chess Server for Web Apps
 
-Similar to the ChesslaBlab [Chess API](https://chess-api.readthedocs.io/en/latest/), the [Chess Server](https://github.com/chesslablab/chess-server) provides functionality to play chess online. Also it can be hosted on a custom domain. The main difference between both is that the Chess API endpoints may take few seconds to execute while the Chess Server commands are intended to run faster.
+Similar to the [Chess API](https://chess-api.readthedocs.io/en/latest/), the [Chess Server](https://github.com/chesslablab/chess-server) provides functionality to play chess online. Also it can be hosted on a custom domain. The main difference between both is that the Chess API endpoints may take few seconds to execute while the Chess Server commands are intended to run faster.
 
 This is how to open a WebSocket connection in JavaScript.
 
@@ -30,10 +30,6 @@ The `/start` command above starts a new classical chess game and retrieves a JSO
 
 On successful server response a FEN string representing the starting position is returned as well as the chess variant and the game mode. This is the classical starting position in FEN format.
 
-```text
-rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -
-```
-
 Now you're ready to make your first move.
 
 What about 1.e4?
@@ -46,7 +42,7 @@ Let's play 1.e4 in LAN format.
 ws.send('/play_lan w e2e4');
 ```
 
-The `/play_lan` command makes the chess move retrieving the following JSON response.
+The `/play_lan` command above retrieves the following JSON response.
 
 ```text
 {
@@ -98,7 +94,7 @@ Described below is the series of steps required to start a classical chess game 
 
 ```js
 const ws = new WebSocket('wss://pchess.net:8443');
-ws.send('/start classical analysis');
+ws.send('/start classical fen');
 ws.send('/play_lan w e2e4');
 ws.send('/play_lan b e7e5');
 ```
@@ -118,7 +114,7 @@ The `/start` command accepts two mandatory params: A chess variant and a game mo
 | Name | Description |
 | ---- | ----------- |
 | fen | Start a game from a FEN position for further analysis. |
-| pgn | Start a game from a PGN movetext for further analysis. |
+| san | Start a game from a SAN movetext for further analysis. |
 | play | Start a game to play online with an opponent. |
 | stockfish | Start a game to play with the Stockfish chess engine. |
 
