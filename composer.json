@@ -22,8 +22,7 @@
     "firebase/php-jwt": "^6.8",
     "vlucas/phpdotenv": "^5.3",
     "monolog/monolog": "^2.3",
-    "rakibtg/sleekdb": "^2.15",
-    "ratchet/pawl": "^0.4.1"
+    "rakibtg/sleekdb": "^2.15"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.5"
