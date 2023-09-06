@@ -2,6 +2,7 @@ site_name: PHP Chess Server
 pages:
   - Chess Server for Web Apps: index.md
   - /start: start.md
+  - /restart: restart.md
   - /legal: legal.md
   - /play_lan: play-lan.md
   - /heuristics: heuristics.md
