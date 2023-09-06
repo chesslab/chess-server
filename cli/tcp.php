@@ -2,13 +2,13 @@
 
 namespace ChessServer\Cli;
 
-use React\Http\HttpServer;
+use React\Http\Server;
 use React\Http\Message\Response;
 use React\Socket\SocketServer;
 
 require __DIR__  . '/../vendor/autoload.php';
 
-$server = new HttpServer(function (Psr\Http\Message\ServerRequestInterface $request) {
+$server = new Server(function (Psr\Http\Message\ServerRequestInterface $request) {
     return Response::plaintext(
         "Hello World!\n"
     );
