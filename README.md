@@ -45,7 +45,7 @@ docker compose up -d
 Alternatively, you may want to start the chess server manually:
 
 ```
-php cli/wss-server.php
+php cli/wss.php
 ```
 ```
 Welcome to PHP Chess Server
