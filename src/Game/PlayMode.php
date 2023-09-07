@@ -3,7 +3,7 @@
 namespace ChessServer\Game;
 
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Game;
+use ChessServer\Game\Game;
 use ChessServer\Command\DrawCommand;
 use ChessServer\Command\LeaveCommand;
 use ChessServer\Command\PlayLanCommand;

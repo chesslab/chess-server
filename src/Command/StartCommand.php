@@ -12,7 +12,7 @@ use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Game;
+use ChessServer\Game\Game;
 use ChessServer\Socket\ChessSocket;
 use ChessServer\Game\FenMode;
 use ChessServer\Game\PlayMode;

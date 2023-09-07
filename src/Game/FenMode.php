@@ -2,7 +2,7 @@
 
 namespace ChessServer\Game;
 
-use ChessServer\Game;
+use ChessServer\Game\Game;
 
 class FenMode extends AbstractMode
 {

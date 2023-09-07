@@ -14,7 +14,7 @@ use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\PGN\Move as ClassicalPgnMove;
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Game;
+use ChessServer\Game\Game;
 use ChessServer\Socket\ChessSocket;
 use ChessServer\Game\PlayMode;
 
