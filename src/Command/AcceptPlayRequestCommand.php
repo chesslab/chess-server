@@ -6,7 +6,6 @@ use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Socket\ChessSocket;
 use ChessServer\Exception\InternalErrorException;
 use ChessServer\GameMode\PlayMode;
-use Ratchet\ConnectionInterface;
 
 class AcceptPlayRequestCommand extends AbstractCommand
 {
@@ -24,7 +23,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
         return count($argv) - 1 === count($this->params);
     }
 
-    public function run(ChessSocket $socket, array $argv, ConnectionInterface $from)
+    public function run(ChessSocket $socket, array $argv, int $resourceId)
     {
         $gameMode = $socket->getGameModeStorage()->getByHash($argv[1]);
 

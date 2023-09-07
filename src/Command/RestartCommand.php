@@ -8,7 +8,6 @@ use ChessServer\Game;
 use ChessServer\Socket\ChessSocket;
 use ChessServer\GameMode\PlayMode;
 use Firebase\JWT\JWT;
-use Ratchet\ConnectionInterface;
 
 class RestartCommand extends AbstractCommand
 {
@@ -26,7 +25,7 @@ class RestartCommand extends AbstractCommand
         return count($argv) - 1 === count($this->params);
     }
 
-    public function run(ChessSocket $socket, array $argv, ConnectionInterface $from)
+    public function run(ChessSocket $socket, array $argv, int $resourceId)
     {
         if ($gameMode = $socket->getGameModeStorage()->getByHash($argv[1])) {
             $decoded = $gameMode->getJwtDecoded();

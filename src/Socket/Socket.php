@@ -32,7 +32,7 @@ class Socket extends ChessSocket implements MessageComponentInterface
         }
 
         try {
-            $cmd->run($this, $this->parser->argv, $from);
+            $cmd->run($this, $this->parser->argv, $from->resourceId);
         } catch (InternalErrorException $e) {
             return $this->sendToOne($from->resourceId, [
                 'error' => 'Internal server error',

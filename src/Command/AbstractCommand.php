@@ -3,7 +3,6 @@
 namespace ChessServer\Command;
 
 use ChessServer\Socket\ChessSocket;
-use Ratchet\ConnectionInterface;
 
 abstract class AbstractCommand
 {
@@ -22,5 +21,5 @@ abstract class AbstractCommand
 
     abstract public function validate(array $command);
 
-    abstract public function run(ChessSocket $socket, array $argv, ConnectionInterface $from);
+    abstract public function run(ChessSocket $socket, array $argv, int $resourceId);
 }

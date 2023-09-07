@@ -5,7 +5,6 @@ namespace ChessServer\Command;
 use ChessServer\Socket\ChessSocket;
 use ChessServer\GameMode\PlayMode;
 use ChessServer\Exception\InternalErrorException;
-use Ratchet\ConnectionInterface;
 
 class ResignCommand extends AbstractCommand
 {
@@ -32,7 +31,7 @@ class ResignCommand extends AbstractCommand
         return false;
     }
 
-    public function run(ChessSocket $socket, array $argv, ConnectionInterface $from)
+    public function run(ChessSocket $socket, array $argv, int $resourceId)
     {
         $gameMode = $socket->getGameModeStorage()->getByResourceId($from->resourceId);
 

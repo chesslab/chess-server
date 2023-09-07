@@ -17,7 +17,6 @@ use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Game;
 use ChessServer\Socket\ChessSocket;
 use ChessServer\GameMode\PlayMode;
-use Ratchet\ConnectionInterface;
 
 class InboxCommand extends AbstractCommand
 {
@@ -67,7 +66,7 @@ class InboxCommand extends AbstractCommand
         return false;
     }
 
-    public function run(ChessSocket $socket, array $argv, ConnectionInterface $from)
+    public function run(ChessSocket $socket, array $argv, int $resourceId)
     {
         if (InboxCommand::ACTION_CREATE === $argv[1]) {
             $hash = md5(uniqid());

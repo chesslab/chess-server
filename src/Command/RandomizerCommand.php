@@ -9,7 +9,6 @@ use Chess\Variant\Classical\Randomizer\Checkmate\TwoBishopsRandomizer;
 use Chess\Variant\Classical\Randomizer\Endgame\PawnEndgameRandomizer;
 use ChessServer\Socket\ChessSocket;
 use ChessServer\GameMode\PlayMode;
-use Ratchet\ConnectionInterface;
 
 class RandomizerCommand extends AbstractCommand
 {
@@ -74,7 +73,7 @@ class RandomizerCommand extends AbstractCommand
         return true;
     }
 
-    public function run(ChessSocket $socket, array $argv, ConnectionInterface $from)
+    public function run(ChessSocket $socket, array $argv, int $resourceId)
     {
         try {
             $items = json_decode(stripslashes($argv[2]), true);

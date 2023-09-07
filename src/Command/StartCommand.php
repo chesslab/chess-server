@@ -19,7 +19,6 @@ use ChessServer\GameMode\PlayMode;
 use ChessServer\GameMode\SanMode;
 use ChessServer\GameMode\StockfishMode;
 use Firebase\JWT\JWT;
-use Ratchet\ConnectionInterface;
 
 class StartCommand extends AbstractCommand
 {
@@ -79,7 +78,7 @@ class StartCommand extends AbstractCommand
         return false;
     }
 
-    public function run(ChessSocket $socket, array $argv, ConnectionInterface $from)
+    public function run(ChessSocket $socket, array $argv, int $resourceId)
     {
         if (FenMode::NAME === $argv[2]) {
             try {
