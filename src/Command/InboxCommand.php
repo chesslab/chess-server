@@ -15,7 +15,7 @@ use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\PGN\Move as ClassicalPgnMove;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Game;
-use ChessServer\Socket;
+use ChessServer\Socket\ChessSocket;
 use ChessServer\GameMode\PlayMode;
 use Ratchet\ConnectionInterface;
 
@@ -67,7 +67,7 @@ class InboxCommand extends AbstractCommand
         return false;
     }
 
-    public function run(Socket $socket, array $argv, ConnectionInterface $from)
+    public function run(ChessSocket $socket, array $argv, ConnectionInterface $from)
     {
         if (InboxCommand::ACTION_CREATE === $argv[1]) {
             $hash = md5(uniqid());

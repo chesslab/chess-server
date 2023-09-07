@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command;
 
-use ChessServer\Socket;
+use ChessServer\Socket\ChessSocket;
 use ChessServer\GameMode\PlayMode;
 use Ratchet\ConnectionInterface;
 
@@ -19,7 +19,7 @@ class OnlineGamesCommand extends AbstractCommand
         return count($argv) - 1 === 0;
     }
 
-    public function run(Socket $socket, array $argv, ConnectionInterface $from)
+    public function run(ChessSocket $socket, array $argv, ConnectionInterface $from)
     {
         return $socket->sendToOne($from->resourceId, [
             $this->name => $socket
