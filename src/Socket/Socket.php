@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer;
+namespace ChessServer\Socket;
 
 use Chess\Grandmaster;
 use ChessServer\Command\CommandContainer;
@@ -18,9 +18,9 @@ use Ratchet\ConnectionInterface;
 
 class Socket implements MessageComponentInterface
 {
-    const DATA_FOLDER = __DIR__.'/../data';
+    const DATA_FOLDER = __DIR__.'/../../data';
 
-    const STORAGE_FOLDER = __DIR__.'/../storage';
+    const STORAGE_FOLDER = __DIR__.'/../../storage';
 
     private $log;
 
@@ -36,7 +36,7 @@ class Socket implements MessageComponentInterface
 
     public function __construct()
     {
-        $dotenv = Dotenv::createImmutable(__DIR__.'/../');
+        $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
         $dotenv->load();
 
         $this->log = new Logger($_ENV['BASE_URL']);
