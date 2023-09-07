@@ -3,6 +3,8 @@
 namespace ChessServer;
 
 use Chess\Grandmaster;
+use ChessServer\Command\CommandContainer;
+use ChessServer\Command\CommandParser;
 use ChessServer\Command\LeaveCommand;
 use ChessServer\Exception\InternalErrorException;
 use ChessServer\Exception\ParserException;
