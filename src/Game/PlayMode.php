@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\GameMode;
+namespace ChessServer\Game;
 
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Game;

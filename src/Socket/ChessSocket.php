@@ -4,7 +4,7 @@ namespace ChessServer\Socket;
 
 use Chess\Grandmaster;
 use ChessServer\Command\CommandParser;
-use ChessServer\GameMode\GameModeStorage;
+use ChessServer\Game\GameModeStorage;
 use Dotenv\Dotenv;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;

@@ -3,7 +3,7 @@
 namespace ChessServer\Command;
 
 use ChessServer\Socket\ChessSocket;
-use ChessServer\GameMode\PlayMode;
+use ChessServer\Game\PlayMode;
 
 class OnlineGamesCommand extends AbstractCommand
 {

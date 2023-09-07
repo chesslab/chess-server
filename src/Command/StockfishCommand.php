@@ -4,7 +4,7 @@ namespace ChessServer\Command;
 
 use ChessServer\Socket\ChessSocket;
 use ChessServer\Exception\InternalErrorException;
-use ChessServer\GameMode\PlayMode;
+use ChessServer\Game\PlayMode;
 
 class StockfishCommand extends AbstractCommand
 {

@@ -5,7 +5,7 @@ namespace ChessServer\Command;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Socket\ChessSocket;
 use ChessServer\Exception\InternalErrorException;
-use ChessServer\GameMode\PlayMode;
+use ChessServer\Game\PlayMode;
 
 class AcceptPlayRequestCommand extends AbstractCommand
 {

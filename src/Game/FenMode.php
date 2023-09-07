@@ -1,12 +1,12 @@
 <?php
 
-namespace ChessServer\GameMode;
+namespace ChessServer\Game;
 
 use ChessServer\Game;
 
-class StockfishMode extends AbstractMode
+class FenMode extends AbstractMode
 {
-    const NAME = Game::MODE_STOCKFISH;
+    const NAME = Game::MODE_FEN;
 
     protected $fen;
 

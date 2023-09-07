@@ -3,7 +3,7 @@
 namespace ChessServer\Socket;
 
 use ChessServer\Command\LeaveCommand;
-use ChessServer\GameMode\PlayMode;
+use ChessServer\Game\PlayMode;
 use ChessServer\Exception\InternalErrorException;
 use ChessServer\Exception\ParserException;
 use Ratchet\MessageComponentInterface;

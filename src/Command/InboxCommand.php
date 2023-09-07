@@ -16,7 +16,7 @@ use Chess\Variant\Classical\PGN\Move as ClassicalPgnMove;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Game;
 use ChessServer\Socket\ChessSocket;
-use ChessServer\GameMode\PlayMode;
+use ChessServer\Game\PlayMode;
 
 class InboxCommand extends AbstractCommand
 {

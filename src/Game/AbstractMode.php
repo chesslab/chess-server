@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\GameMode;
+namespace ChessServer\Game;
 
 use Chess\FenToBoard;
 use Chess\Heuristics;

@@ -6,7 +6,7 @@ use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Game;
 use ChessServer\Socket\ChessSocket;
-use ChessServer\GameMode\PlayMode;
+use ChessServer\Game\PlayMode;
 use Firebase\JWT\JWT;
 
 class RestartCommand extends AbstractCommand

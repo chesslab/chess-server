@@ -14,10 +14,10 @@ use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Game;
 use ChessServer\Socket\ChessSocket;
-use ChessServer\GameMode\FenMode;
-use ChessServer\GameMode\PlayMode;
-use ChessServer\GameMode\SanMode;
-use ChessServer\GameMode\StockfishMode;
+use ChessServer\Game\FenMode;
+use ChessServer\Game\PlayMode;
+use ChessServer\Game\SanMode;
+use ChessServer\Game\StockfishMode;
 use Firebase\JWT\JWT;
 
 class StartCommand extends AbstractCommand

@@ -8,7 +8,7 @@ use Chess\Variant\Classical\Randomizer\Randomizer;
 use Chess\Variant\Classical\Randomizer\Checkmate\TwoBishopsRandomizer;
 use Chess\Variant\Classical\Randomizer\Endgame\PawnEndgameRandomizer;
 use ChessServer\Socket\ChessSocket;
-use ChessServer\GameMode\PlayMode;
+use ChessServer\Game\PlayMode;
 
 class RandomizerCommand extends AbstractCommand
 {
