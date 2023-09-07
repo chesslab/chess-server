@@ -23,14 +23,14 @@ class StockfishEvalCommand extends AbstractCommand
 
     public function run(ChessSocket $socket, array $argv, int $resourceId)
     {
-        $gameMode = $socket->getGameModeStorage()->getByResourceId($from->resourceId);
+        $gameMode = $socket->getGameModeStorage()->getByResourceId($resourceId);
 
         if (!$gameMode) {
             throw new InternalErrorException();
         }
 
         return $socket->sendToOne(
-            $from->resourceId,
+            $resourceId,
             $gameMode->res($argv, $this)
         );
     }

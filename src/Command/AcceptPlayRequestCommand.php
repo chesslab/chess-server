@@ -28,7 +28,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
         $gameMode = $socket->getGameModeStorage()->getByHash($argv[1]);
 
         if (!$gameMode) {
-            return $socket->sendToOne($from->resourceId, [
+            return $socket->sendToOne($resourceId, [
                 $this->name => [
                     'mode' => PlayMode::NAME,
                     'message' =>  'This friend request could not be accepted.',
@@ -38,7 +38,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
 
         if ($gameMode->getStatus() === PlayMode::STATUS_PENDING) {
             $decoded = $gameMode->getJwtDecoded();
-            $resourceIds = [...$gameMode->getResourceIds(), $from->resourceId];
+            $resourceIds = [...$gameMode->getResourceIds(), $resourceId];
             $gameMode->setResourceIds($resourceIds)
                 ->setStatus(PlayMode::STATUS_ACCEPTED)
                 ->setStartedAt(time())

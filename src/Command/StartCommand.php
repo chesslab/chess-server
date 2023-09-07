@@ -109,12 +109,12 @@ class StartCommand extends AbstractCommand
                 }
                 $fenMode = new FenMode(
                     new Game($argv[1], $argv[2]),
-                    [$from->resourceId],
+                    [$resourceId],
                     $board->toFen()
                 );
                 $fenMode->getGame()->setBoard($board);
                 $socket->getGameModeStorage()->set($fenMode);
-                return $socket->sendToOne($from->resourceId, [
+                return $socket->sendToOne($resourceId, [
                     $this->name => [
                         'variant' => $argv[1],
                         'mode' => $argv[2],
@@ -126,7 +126,7 @@ class StartCommand extends AbstractCommand
                     ],
                 ]);
             } catch (\Throwable $e) {
-                return $socket->sendToOne($from->resourceId, [
+                return $socket->sendToOne($resourceId, [
                     $this->name => [
                         'variant' => $argv[1],
                         'mode' => $argv[2],
@@ -159,11 +159,11 @@ class StartCommand extends AbstractCommand
                 }
                 $sanPlay->validate();
                 $board = $sanPlay->getBoard();
-                $sanMode = new SanMode(new Game($argv[1], $argv[2]), [$from->resourceId]);
+                $sanMode = new SanMode(new Game($argv[1], $argv[2]), [$resourceId]);
                 $game = $sanMode->getGame()->setBoard($board);
                 $sanMode->setGame($game);
                 $socket->getGameModeStorage()->set($sanMode);
-                return $socket->sendToOne($from->resourceId, [
+                return $socket->sendToOne($resourceId, [
                     $this->name => [
                         'variant' => $argv[1],
                         'mode' => $argv[2],
@@ -177,7 +177,7 @@ class StartCommand extends AbstractCommand
                     ],
                 ]);
             } catch (\Throwable $e) {
-                return $socket->sendToOne($from->resourceId, [
+                return $socket->sendToOne($resourceId, [
                     $this->name => [
                         'variant' => $argv[1],
                         'mode' => $argv[2],
@@ -201,7 +201,7 @@ class StartCommand extends AbstractCommand
                             ->create();
                     }
                 } catch (\Throwable $e) {
-                    return $socket->sendToOne($from->resourceId, [
+                    return $socket->sendToOne($resourceId, [
                         $this->name => [
                             'variant' => $argv[1],
                             'mode' => $argv[2],
@@ -240,12 +240,12 @@ class StartCommand extends AbstractCommand
                 ),
             ];
             $jwt = JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256');
-            $playMode = new PlayMode($game, [$from->resourceId], $jwt);
+            $playMode = new PlayMode($game, [$resourceId], $jwt);
             $socket->getGameModeStorage()->set($playMode);
             if ($settings->submode === PlayMode::SUBMODE_ONLINE) {
                 $socket->sendToAll();
             }
-            return $socket->sendToOne($from->resourceId, [
+            return $socket->sendToOne($resourceId, [
                 $this->name => [
                     'variant' => $argv[1],
                     'mode' => $argv[2],
@@ -262,10 +262,10 @@ class StartCommand extends AbstractCommand
             if ($argv[3] === Color::W || $argv[3] === Color::B) {
                 $stockfishMode = new StockfishMode(
                     new Game($argv[1], $argv[2], $socket->getGm()),
-                    [$from->resourceId]
+                    [$resourceId]
                 );
                 $socket->getGameModeStorage()->set($stockfishMode);
-                return $socket->sendToOne($from->resourceId, [
+                return $socket->sendToOne($resourceId, [
                     $this->name => [
                         'variant' => $argv[1],
                         'mode' => $argv[2],
@@ -277,10 +277,10 @@ class StartCommand extends AbstractCommand
                 $game = (new Game($argv[1], $argv[2]))->setBoard($board);
                 $stockfishMode = new StockfishMode(
                     $game,
-                    [$from->resourceId],
+                    [$resourceId],
                 );
                 $socket->getGameModeStorage()->set($stockfishMode);
-                return $socket->sendToOne($from->resourceId, [
+                return $socket->sendToOne($resourceId, [
                     $this->name => [
                         'variant' => $argv[1],
                         'mode' => $argv[2],

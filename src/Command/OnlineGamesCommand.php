@@ -20,7 +20,7 @@ class OnlineGamesCommand extends AbstractCommand
 
     public function run(ChessSocket $socket, array $argv, int $resourceId)
     {
-        return $socket->sendToOne($from->resourceId, [
+        return $socket->sendToOne($resourceId, [
             $this->name => $socket
                 ->getGameModeStorage()
                 ->decodeByPlayMode(PlayMode::STATUS_PENDING, PlayMode::SUBMODE_ONLINE),

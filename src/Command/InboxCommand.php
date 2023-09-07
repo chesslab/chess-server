@@ -84,7 +84,7 @@ class InboxCommand extends AbstractCommand
                     $board = (new ClassicalFenStrToBoard($fen))->create();
                 }
             } catch (\Exception $e) {
-                return $socket->sendToOne($from->resourceId, [
+                return $socket->sendToOne($resourceId, [
                     $this->name => [
                         'action' => InboxCommand::ACTION_CREATE,
                         'message' =>  'Invalid FEN, please try again with a different one.',
@@ -98,10 +98,10 @@ class InboxCommand extends AbstractCommand
                 'fen' => $board->toFen(),
                 'movetext' => '',
                 'createdAt' => (new \DateTime())->format('Y-m-d H:i:s'),
-                'createdBy' => $from->resourceId,
+                'createdBy' => $resourceId,
             ];
             $socket->getInboxStore()->insert($inbox);
-            return $socket->sendToOne($from->resourceId, [
+            return $socket->sendToOne($resourceId, [
                 $this->name => [
                     'action' => InboxCommand::ACTION_CREATE,
                     'hash' => $hash,
@@ -110,14 +110,14 @@ class InboxCommand extends AbstractCommand
             ]);
         } elseif (InboxCommand::ACTION_READ === $argv[1]) {
             if ($inbox = $socket->getInboxStore()->findOneBy(['hash', '=', $argv[2]])) {
-                return $socket->sendToOne($from->resourceId, [
+                return $socket->sendToOne($resourceId, [
                     $this->name => [
                         'action' => InboxCommand::ACTION_READ,
                         'inbox' => $inbox,
                     ],
                 ]);
             } else {
-                return $socket->sendToOne($from->resourceId, [
+                return $socket->sendToOne($resourceId, [
                     $this->name => [
                         'action' => InboxCommand::ACTION_READ,
                         'message' =>  'This inbox code does not exist.',
@@ -168,16 +168,16 @@ class InboxCommand extends AbstractCommand
                     $inbox['fen'] = $board->toFen();
                     $inbox['movetext'] = $board->getMovetext();
                     $inbox['updatedAt'] = (new \DateTime())->format('Y-m-d H:i:s');
-                    $inbox['updatedBy'] = $from->resourceId;
+                    $inbox['updatedBy'] = $resourceId;
                     $socket->getInboxStore()->update($inbox);
-                    return $socket->sendToOne($from->resourceId, [
+                    return $socket->sendToOne($resourceId, [
                         $this->name => [
                             'action' => InboxCommand::ACTION_REPLY,
                             'message' =>  'Chess move successfully sent.',
                         ],
                     ]);
                 } catch (\Exception $e) {
-                    return $socket->sendToOne($from->resourceId, [
+                    return $socket->sendToOne($resourceId, [
                         $this->name => [
                             'action' => InboxCommand::ACTION_REPLY,
                             'message' =>  'Invalid PGN move, please try again with a different one.',
