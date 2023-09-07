@@ -3,7 +3,6 @@
 namespace ChessServer\Socket;
 
 use Chess\Grandmaster;
-use ChessServer\Command\CommandContainer;
 use ChessServer\Command\CommandParser;
 use ChessServer\GameMode\GameModeStorage;
 use Dotenv\Dotenv;
@@ -36,7 +35,7 @@ class ChessSocket
         $this->log = new Logger($_ENV['BASE_URL']);
         $this->log->pushHandler(new StreamHandler(self::STORAGE_FOLDER.'/pchess.log', Logger::INFO));
 
-        $this->parser = new CommandParser(new CommandContainer());
+        $this->parser = new CommandParser();
 
         $this->gm = new Grandmaster(self::DATA_FOLDER.'/players.json');
 
