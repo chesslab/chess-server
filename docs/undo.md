@@ -2,6 +2,8 @@
 
 Undoes the last move.
 
+## Usage
+
 ### Example
 
 Starts a classical game to play 1.e4 e5 2.f4 undoing the last move.

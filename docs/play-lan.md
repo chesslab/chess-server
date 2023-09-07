@@ -9,6 +9,8 @@ Plays a chess move in long algebraic notation (LAN) format.
 | color | The player's turn. | Yes |
 | lan | The chess move in LAN format. | Yes |
 
+## Usage
+
 ### Example
 
 Starts a classical game to play 1.e4.

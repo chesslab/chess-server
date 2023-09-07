@@ -8,6 +8,8 @@ Returns the legal squares of a piece.
 | ---- | ----------- | -------- |
 | position | The location of the piece on the board. | Yes |
 
+## Usage
+
 ### Example
 
 Start a classical game to find out the legal squares of the piece on e2.

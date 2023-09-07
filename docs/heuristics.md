@@ -9,6 +9,8 @@ Returns the heuristics of a chess position.
 | fen | A FEN string. | Yes |
 | variant | Accepts: 960, capablanca, classical. | Yes |
 
+## Usage
+
 ### Example
 
 ```js

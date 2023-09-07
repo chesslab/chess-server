@@ -12,6 +12,8 @@ The `/restart` command allows you to restart an existing game.
 | ---- | ----------- | -------- |
 | hash | The unique hash of the game. | Yes |
 
+## Usage
+
 ### Restart a game
 
 ```js

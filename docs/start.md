@@ -10,6 +10,8 @@ Starts a new chess game.
 | mode | Accepts: fen, san, play, stockfish. | Yes |
 | add | Additional, specific params. color (stockfish mode), fen (fen mode), movetext (pgn mode), settings (play mode), startPos (pgn mode). | Maybe, depends on the mode selected as shown in the following examples. |
 
+## Usage
+
 ### Start a classical game
 
 ```js
