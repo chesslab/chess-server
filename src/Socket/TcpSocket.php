@@ -76,7 +76,6 @@ class TcpSocket extends ChessSocket
         return $this;
     }
 
-
     public function onError()
     {
         $this->server->on('error', function (Exception $e) {
