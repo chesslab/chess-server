@@ -109,4 +109,18 @@ class TcpSocket extends ChessSocket
             'cmd' => array_keys($res),
         ]);
     }
+
+    public function sendToAll()
+    {
+        $res = [
+            'broadcast' => [
+                'onlineGames' => $this->gameModeStorage
+                    ->decodeByPlayMode(PlayMode::STATUS_PENDING, PlayMode::SUBMODE_ONLINE),
+            ],
+        ];
+
+        foreach ($this->clients as $client) {
+            $client->write(json_encode($res));
+        }
+    }
 }
