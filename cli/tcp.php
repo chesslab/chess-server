@@ -2,19 +2,21 @@
 
 namespace ChessServer\Cli;
 
-use React\Http\Server;
-use React\Http\Message\Response;
-use React\Socket\SocketServer;
+use React\Socket\ConnectionInterface;
+use React\Socket\TcpServer;
 
-require __DIR__  . '/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
-$server = new Server(function (Psr\Http\Message\ServerRequestInterface $request) {
-    return Response::plaintext(
-        "Hello World!\n"
-    );
+$server = new TcpServer(8080);
+
+$server->on('connection', function (ConnectionInterface $connection) {
+    echo 'Plaintext connection from ' . $connection->getRemoteAddress() . PHP_EOL;
+
+    $connection->write('hello there!' . PHP_EOL);
 });
 
-$socket = new SocketServer('127.0.0.1:8080');
-$server->listen($socket);
+$server->on('error', function (Exception $e) {
+    echo 'Error: ' . $e->getMessage() . PHP_EOL;
+});
 
-echo "Server running at http://127.0.0.1:8080" . PHP_EOL;
+echo 'Listening on ' . $server->getAddress() . PHP_EOL;
