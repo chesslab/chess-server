@@ -8,6 +8,7 @@ use ChessServer\Command\CommandParser;
 use ChessServer\Command\LeaveCommand;
 use ChessServer\Exception\InternalErrorException;
 use ChessServer\Exception\ParserException;
+use ChessServer\GameMode\GameModeStorage;
 use ChessServer\GameMode\PlayMode;
 use Dotenv\Dotenv;
 use Monolog\Logger;
