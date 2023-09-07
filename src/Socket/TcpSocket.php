@@ -19,7 +19,8 @@ class TcpSocket extends ChessSocket
 
         $this->server = new TcpServer(8080);
 
-        $this->onConnection()->onError();
+        $this->onConnection()
+            ->onError();
     }
 
     public function onConnection()
@@ -51,6 +52,25 @@ class TcpSocket extends ChessSocket
                     ]);
                 }
             });
+
+            $conn->on('close', function () use ($conn, $resourceId) {
+                if ($gameMode = $this->gameModeStorage->getByResourceId($resourceId)) {
+                    $this->gameModeStorage->delete($gameMode);
+                    $this->sendToMany(
+                        $gameMode->getResourceIds(),
+                        ['/leave' => LeaveCommand::ACTION_ACCEPT]
+                    );
+                }
+
+                if (isset($this->clients[$resourceId])) {
+                    unset($this->clients[$resourceId]);
+                }
+
+                $this->log->info('Closed connection', [
+                    'id' => $resourceId,
+                    'n' => count($this->clients)
+                ]);
+            });
         });
 
         return $this;
@@ -76,5 +96,17 @@ class TcpSocket extends ChessSocket
                 'cmd' => array_keys($res),
             ]);
         }
+    }
+
+    public function sendToMany(array $resourceIds, array $res)
+    {
+        foreach ($resourceIds as $resourceId) {
+            $this->clients[$resourceId]->write(json_encode($res));
+        }
+
+        $this->log->info('Sent message', [
+            'ids' => $resourceIds,
+            'cmd' => array_keys($res),
+        ]);
     }
 }
