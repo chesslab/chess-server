@@ -13,7 +13,7 @@ use Monolog\Handler\StreamHandler;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
-class WebSocket implements MessageComponentInterface
+class Socket implements MessageComponentInterface
 {
     const DATA_FOLDER = __DIR__.'/../data';
 

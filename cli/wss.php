@@ -2,7 +2,7 @@
 
 namespace ChessServer\Cli;
 
-use ChessServer\WebSocket;
+use ChessServer\Socket;
 use Ratchet\Http\HttpServer;
 use Ratchet\Http\OriginCheck;
 use Ratchet\Server\IoServer;
@@ -33,7 +33,7 @@ $limitingServer = new LimitingServer($secureServer, 50);
 $httpServer = new HttpServer(
     new OriginCheck(
       new WsServer(
-          new WebSocket()
+          new Socket()
       ),
       $allowed,
     )
