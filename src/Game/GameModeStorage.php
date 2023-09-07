@@ -1,9 +1,6 @@
 <?php
 
-namespace ChessServer;
-
-use ChessServer\GameMode\AbstractMode;
-use ChessServer\GameMode\PlayMode;
+namespace ChessServer\Game;
 
 class GameModeStorage extends \SplObjectStorage
 {

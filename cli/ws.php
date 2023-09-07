@@ -1,8 +1,8 @@
 <?php
 
-namespace ChessServer;
+namespace ChessServer\Cli;
 
-use ChessServer\Socket;
+use ChessServer\Socket\WebSocket;
 use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
@@ -12,7 +12,7 @@ require __DIR__  . '/../vendor/autoload.php';
 $server = IoServer::factory(
     new HttpServer(
         new WsServer(
-            new Socket()
+            new WebSocket()
         )
     ),
     8080

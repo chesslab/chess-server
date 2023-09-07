@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer;
+namespace ChessServer\Command;
 
 use ChessServer\Exception\ParserException;
 
@@ -10,9 +10,9 @@ class CommandParser
 
     protected $cli;
 
-    public function __construct(CommandContainer $cli)
+    public function __construct()
     {
-        $this->cli = $cli;
+        $this->cli = new CommandContainer();
     }
 
     public function __get($property)

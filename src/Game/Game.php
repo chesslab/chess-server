@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer;
+namespace ChessServer\Game;
 
 use Chess\Grandmaster;
 use Chess\UciEngine\Stockfish;

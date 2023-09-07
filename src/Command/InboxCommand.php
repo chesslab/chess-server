@@ -14,10 +14,9 @@ use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\PGN\Move as ClassicalPgnMove;
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Game;
-use ChessServer\Socket;
-use ChessServer\GameMode\PlayMode;
-use Ratchet\ConnectionInterface;
+use ChessServer\Game\Game;
+use ChessServer\Socket\ChessSocket;
+use ChessServer\Game\PlayMode;
 
 class InboxCommand extends AbstractCommand
 {
@@ -67,7 +66,7 @@ class InboxCommand extends AbstractCommand
         return false;
     }
 
-    public function run(Socket $socket, array $argv, ConnectionInterface $from)
+    public function run(ChessSocket $socket, array $argv, int $resourceId)
     {
         if (InboxCommand::ACTION_CREATE === $argv[1]) {
             $hash = md5(uniqid());
@@ -85,7 +84,7 @@ class InboxCommand extends AbstractCommand
                     $board = (new ClassicalFenStrToBoard($fen))->create();
                 }
             } catch (\Exception $e) {
-                return $socket->sendToOne($from->resourceId, [
+                return $socket->sendToOne($resourceId, [
                     $this->name => [
                         'action' => InboxCommand::ACTION_CREATE,
                         'message' =>  'Invalid FEN, please try again with a different one.',
@@ -99,10 +98,10 @@ class InboxCommand extends AbstractCommand
                 'fen' => $board->toFen(),
                 'movetext' => '',
                 'createdAt' => (new \DateTime())->format('Y-m-d H:i:s'),
-                'createdBy' => $from->resourceId,
+                'createdBy' => $resourceId,
             ];
             $socket->getInboxStore()->insert($inbox);
-            return $socket->sendToOne($from->resourceId, [
+            return $socket->sendToOne($resourceId, [
                 $this->name => [
                     'action' => InboxCommand::ACTION_CREATE,
                     'hash' => $hash,
@@ -111,14 +110,14 @@ class InboxCommand extends AbstractCommand
             ]);
         } elseif (InboxCommand::ACTION_READ === $argv[1]) {
             if ($inbox = $socket->getInboxStore()->findOneBy(['hash', '=', $argv[2]])) {
-                return $socket->sendToOne($from->resourceId, [
+                return $socket->sendToOne($resourceId, [
                     $this->name => [
                         'action' => InboxCommand::ACTION_READ,
                         'inbox' => $inbox,
                     ],
                 ]);
             } else {
-                return $socket->sendToOne($from->resourceId, [
+                return $socket->sendToOne($resourceId, [
                     $this->name => [
                         'action' => InboxCommand::ACTION_READ,
                         'message' =>  'This inbox code does not exist.',
@@ -169,16 +168,16 @@ class InboxCommand extends AbstractCommand
                     $inbox['fen'] = $board->toFen();
                     $inbox['movetext'] = $board->getMovetext();
                     $inbox['updatedAt'] = (new \DateTime())->format('Y-m-d H:i:s');
-                    $inbox['updatedBy'] = $from->resourceId;
+                    $inbox['updatedBy'] = $resourceId;
                     $socket->getInboxStore()->update($inbox);
-                    return $socket->sendToOne($from->resourceId, [
+                    return $socket->sendToOne($resourceId, [
                         $this->name => [
                             'action' => InboxCommand::ACTION_REPLY,
                             'message' =>  'Chess move successfully sent.',
                         ],
                     ]);
                 } catch (\Exception $e) {
-                    return $socket->sendToOne($from->resourceId, [
+                    return $socket->sendToOne($resourceId, [
                         $this->name => [
                             'action' => InboxCommand::ACTION_REPLY,
                             'message' =>  'Invalid PGN move, please try again with a different one.',

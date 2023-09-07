@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\GameMode;
+namespace ChessServer\Game;
 
 use Chess\FenToBoard;
 use Chess\Heuristics;
@@ -10,7 +10,7 @@ use Chess\UciEngine\Stockfish;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
-use ChessServer\Game;
+use ChessServer\Game\Game;
 use ChessServer\Command\HeuristicsCommand;
 use ChessServer\Command\LegalCommand;
 use ChessServer\Command\PlayLanCommand;

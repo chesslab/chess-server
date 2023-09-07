@@ -2,9 +2,8 @@
 
 namespace ChessServer\Command;
 
-use ChessServer\Socket;
-use ChessServer\GameMode\PlayMode;
-use Ratchet\ConnectionInterface;
+use ChessServer\Socket\ChessSocket;
+use ChessServer\Game\PlayMode;
 
 class OnlineGamesCommand extends AbstractCommand
 {
@@ -19,9 +18,9 @@ class OnlineGamesCommand extends AbstractCommand
         return count($argv) - 1 === 0;
     }
 
-    public function run(Socket $socket, array $argv, ConnectionInterface $from)
+    public function run(ChessSocket $socket, array $argv, int $resourceId)
     {
-        return $socket->sendToOne($from->resourceId, [
+        return $socket->sendToOne($resourceId, [
             $this->name => $socket
                 ->getGameModeStorage()
                 ->decodeByPlayMode(PlayMode::STATUS_PENDING, PlayMode::SUBMODE_ONLINE),

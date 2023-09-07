@@ -2,10 +2,9 @@
 
 namespace ChessServer\Command;
 
-use ChessServer\Socket;
+use ChessServer\Socket\ChessSocket;
 use ChessServer\Exception\InternalErrorException;
-use ChessServer\GameMode\PlayMode;
-use Ratchet\ConnectionInterface;
+use ChessServer\Game\PlayMode;
 
 class LeaveCommand extends AbstractCommand
 {
@@ -32,9 +31,9 @@ class LeaveCommand extends AbstractCommand
         return false;
     }
 
-    public function run(Socket $socket, array $argv, ConnectionInterface $from)
+    public function run(ChessSocket $socket, array $argv, int $resourceId)
     {
-        $gameMode = $socket->getGameModeStorage()->getByResourceId($from->resourceId);
+        $gameMode = $socket->getGameModeStorage()->getByResourceId($resourceId);
 
         if (!$gameMode) {
             throw new InternalErrorException();
