@@ -19,22 +19,43 @@ class TcpSocket extends ChessSocket
 
         $this->server = new TcpServer(8080);
 
-        $this->onOpen()->onError();
+        $this->onConnection()->onError();
     }
 
-    public function onOpen()
+    public function onConnection()
     {
         $this->server->on('connection', function (ConnectionInterface $conn) {
             $resourceId = get_resource_id($conn->stream);
+
             $this->clients[$resourceId] = $conn;
+
             $this->log->info('New connection', [
                 'id' => $resourceId,
                 'n' => count($this->clients)
             ]);
+
+            $conn->on('data', function ($msg) use ($resourceId) {
+                try {
+                    $cmd = $this->parser->validate($msg);
+                } catch (ParserException $e) {
+                    return $this->sendToOne($resourceId, [
+                        'error' => 'Command parameters not valid',
+                    ]);
+                }
+
+                try {
+                    $cmd->run($this, $this->parser->argv, $resourceId);
+                } catch (InternalErrorException $e) {
+                    return $this->sendToOne($resourceId, [
+                        'error' => 'Internal server error',
+                    ]);
+                }
+            });
         });
 
         return $this;
     }
+
 
     public function onError()
     {
@@ -43,5 +64,17 @@ class TcpSocket extends ChessSocket
         });
 
         return $this;
+    }
+
+    public function sendToOne(int $resourceId, array $res)
+    {
+        if (isset($this->clients[$resourceId])) {
+            $this->clients[$resourceId]->write(json_encode($res));
+
+            $this->log->info('Sent message', [
+                'id' => $resourceId,
+                'cmd' => array_keys($res),
+            ]);
+        }
     }
 }
