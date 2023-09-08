@@ -2,8 +2,8 @@
 
 namespace ChessServer\Tests\Unit;
 
-use ChessServer\CommandContainer;
-use ChessServer\CommandParser;
+use ChessServer\Command\CommandParser;
+use ChessServer\Command\StartCommand;
 use ChessServer\Exception\ParserException;
 use PHPUnit\Framework\TestCase;
 
@@ -13,7 +13,7 @@ class CommandParserTest extends TestCase
 
     public function setUp(): void
     {
-        self::$parser = new CommandParser(new CommandContainer());
+        self::$parser = new CommandParser();
     }
 
     /**
@@ -34,6 +34,14 @@ class CommandParserTest extends TestCase
         $this->expectException(ParserException::class);
 
         self::$parser->validate('/start classical foobar');
+    }
+
+    /**
+     * @test
+     */
+    public function validate_start_classical_fen()
+    {
+        $this->assertInstanceOf(StartCommand::class, self::$parser->validate('/start classical fen'));
     }
 
     /**
