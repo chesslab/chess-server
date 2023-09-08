@@ -2,8 +2,7 @@
 
 namespace ChessServer\Command;
 
-use ChessServer\Socket;
-use Ratchet\ConnectionInterface;
+use ChessServer\Socket\ChesslaBlab;
 
 abstract class AbstractCommand
 {
@@ -22,5 +21,5 @@ abstract class AbstractCommand
 
     abstract public function validate(array $command);
 
-    abstract public function run(Socket $socket, array $argv, ConnectionInterface $from);
+    abstract public function run(ChesslaBlab $socket, array $argv, int $resourceId);
 }

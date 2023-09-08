@@ -2,10 +2,9 @@
 
 namespace ChessServer\Command;
 
-use ChessServer\Socket;
+use ChessServer\Socket\ChesslaBlab;
 use ChessServer\Exception\InternalErrorException;
-use ChessServer\GameMode\PlayMode;
-use Ratchet\ConnectionInterface;
+use ChessServer\Game\PlayMode;
 
 class UndoCommand extends AbstractCommand
 {
@@ -20,9 +19,9 @@ class UndoCommand extends AbstractCommand
         return count($argv) - 1 === 0;
     }
 
-    public function run(Socket $socket, array $argv, ConnectionInterface $from)
+    public function run(ChesslaBlab $socket, array $argv, int $resourceId)
     {
-        $gameMode = $socket->getGameModeStorage()->getByResourceId($from->resourceId);
+        $gameMode = $socket->getGameModeStorage()->getByResourceId($resourceId);
 
         if (!$gameMode) {
             throw new InternalErrorException();
@@ -36,7 +35,7 @@ class UndoCommand extends AbstractCommand
         }
 
         return $socket->sendToOne(
-            $from->resourceId,
+            $resourceId,
             $gameMode->res($argv, $this)
         );
     }

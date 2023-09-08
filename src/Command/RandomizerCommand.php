@@ -7,9 +7,8 @@ use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Classical\Randomizer\Randomizer;
 use Chess\Variant\Classical\Randomizer\Checkmate\TwoBishopsRandomizer;
 use Chess\Variant\Classical\Randomizer\Endgame\PawnEndgameRandomizer;
-use ChessServer\Socket;
-use ChessServer\GameMode\PlayMode;
-use Ratchet\ConnectionInterface;
+use ChessServer\Socket\ChesslaBlab;
+use ChessServer\Game\PlayMode;
 
 class RandomizerCommand extends AbstractCommand
 {
@@ -74,7 +73,7 @@ class RandomizerCommand extends AbstractCommand
         return true;
     }
 
-    public function run(Socket $socket, array $argv, ConnectionInterface $from)
+    public function run(ChesslaBlab $socket, array $argv, int $resourceId)
     {
         try {
             $items = json_decode(stripslashes($argv[2]), true);
@@ -96,14 +95,14 @@ class RandomizerCommand extends AbstractCommand
                     Color::B => $bIds,
                 ]))->getBoard();
             }
-            return $socket->sendToOne($from->resourceId, [
+            return $socket->sendToOne($resourceId, [
                 $this->name => [
                     'turn' => $board->getTurn(),
                     'fen' => (new BoardToStr($board))->create(),
                 ],
             ]);
         } catch (\Throwable $e) {
-            return $socket->sendToOne($from->resourceId, [
+            return $socket->sendToOne($resourceId, [
                 $this->name => [
                     'message' => 'A random puzzle could not be loaded.',
                 ],

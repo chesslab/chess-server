@@ -1,8 +1,8 @@
 <?php
 
-namespace ChessServer\GameMode;
+namespace ChessServer\Game;
 
-use ChessServer\Game;
+use ChessServer\Game\Game;
 
 class SanMode extends AbstractMode
 {

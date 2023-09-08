@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer;
+namespace ChessServer\Command;
 
 use ChessServer\Command\AcceptPlayRequestCommand;
 use ChessServer\Command\DrawCommand;

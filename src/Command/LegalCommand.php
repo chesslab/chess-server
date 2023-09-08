@@ -2,9 +2,8 @@
 
 namespace ChessServer\Command;
 
-use ChessServer\Socket;
+use ChessServer\Socket\ChesslaBlab;
 use ChessServer\Exception\InternalErrorException;
-use Ratchet\ConnectionInterface;
 
 class LegalCommand extends AbstractCommand
 {
@@ -22,16 +21,16 @@ class LegalCommand extends AbstractCommand
         return count($argv) - 1 === count($this->params);
     }
 
-    public function run(Socket $socket, array $argv, ConnectionInterface $from)
+    public function run(ChesslaBlab $socket, array $argv, int $resourceId)
     {
-        $gameMode = $socket->getGameModeStorage()->getByResourceId($from->resourceId);
+        $gameMode = $socket->getGameModeStorage()->getByResourceId($resourceId);
 
         if (!$gameMode) {
             throw new InternalErrorException();
         }
 
         return $socket->sendToOne(
-            $from->resourceId,
+            $resourceId,
             $gameMode->res($argv, $this)
         );
     }

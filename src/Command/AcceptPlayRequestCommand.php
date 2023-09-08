@@ -3,10 +3,9 @@
 namespace ChessServer\Command;
 
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Socket;
+use ChessServer\Socket\ChesslaBlab;
 use ChessServer\Exception\InternalErrorException;
-use ChessServer\GameMode\PlayMode;
-use Ratchet\ConnectionInterface;
+use ChessServer\Game\PlayMode;
 
 class AcceptPlayRequestCommand extends AbstractCommand
 {
@@ -24,12 +23,12 @@ class AcceptPlayRequestCommand extends AbstractCommand
         return count($argv) - 1 === count($this->params);
     }
 
-    public function run(Socket $socket, array $argv, ConnectionInterface $from)
+    public function run(ChesslaBlab $socket, array $argv, int $resourceId)
     {
         $gameMode = $socket->getGameModeStorage()->getByHash($argv[1]);
 
         if (!$gameMode) {
-            return $socket->sendToOne($from->resourceId, [
+            return $socket->sendToOne($resourceId, [
                 $this->name => [
                     'mode' => PlayMode::NAME,
                     'message' =>  'This friend request could not be accepted.',
@@ -39,7 +38,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
 
         if ($gameMode->getStatus() === PlayMode::STATUS_PENDING) {
             $decoded = $gameMode->getJwtDecoded();
-            $resourceIds = [...$gameMode->getResourceIds(), $from->resourceId];
+            $resourceIds = [...$gameMode->getResourceIds(), $resourceId];
             $gameMode->setResourceIds($resourceIds)
                 ->setStatus(PlayMode::STATUS_ACCEPTED)
                 ->setStartedAt(time())
