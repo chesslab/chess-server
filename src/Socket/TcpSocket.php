@@ -9,7 +9,7 @@ use ChessServer\Exception\ParserException;
 use React\Socket\ConnectionInterface;
 use React\Socket\TcpServer;
 
-class TcpSocket extends ChessSocket
+class TcpSocket extends ChessSocket implements SendInterface
 {
     private TcpServer $server;
 
@@ -85,7 +85,7 @@ class TcpSocket extends ChessSocket
         return $this;
     }
 
-    public function sendToOne(int $resourceId, array $res)
+    public function sendToOne(int $resourceId, array $res): void
     {
         if (isset($this->clients[$resourceId])) {
             $this->clients[$resourceId]->write(json_encode($res));
@@ -97,7 +97,7 @@ class TcpSocket extends ChessSocket
         }
     }
 
-    public function sendToMany(array $resourceIds, array $res)
+    public function sendToMany(array $resourceIds, array $res): void
     {
         foreach ($resourceIds as $resourceId) {
             $this->clients[$resourceId]->write(json_encode($res));
@@ -109,7 +109,7 @@ class TcpSocket extends ChessSocket
         ]);
     }
 
-    public function sendToAll()
+    public function sendToAll(): void
     {
         $res = [
             'broadcast' => [

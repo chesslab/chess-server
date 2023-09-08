@@ -9,7 +9,7 @@ use ChessServer\Exception\ParserException;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
-class WebSocket extends ChessSocket implements MessageComponentInterface
+class WebSocket extends ChessSocket implements MessageComponentInterface, SendInterface
 {
     public function onOpen(ConnectionInterface $conn)
     {
@@ -67,7 +67,7 @@ class WebSocket extends ChessSocket implements MessageComponentInterface
         $this->log->info('Occurred an error', ['message' => $e->getMessage()]);
     }
 
-    public function sendToOne(int $resourceId, array $res)
+    public function sendToOne(int $resourceId, array $res): void
     {
         if (isset($this->clients[$resourceId])) {
             $this->clients[$resourceId]->send(json_encode($res));
@@ -79,7 +79,7 @@ class WebSocket extends ChessSocket implements MessageComponentInterface
         }
     }
 
-    public function sendToMany(array $resourceIds, array $res)
+    public function sendToMany(array $resourceIds, array $res): void
     {
         foreach ($resourceIds as $resourceId) {
             $this->clients[$resourceId]->send(json_encode($res));
@@ -91,7 +91,7 @@ class WebSocket extends ChessSocket implements MessageComponentInterface
         ]);
     }
 
-    public function sendToAll()
+    public function sendToAll(): void
     {
         $res = [
             'broadcast' => [
