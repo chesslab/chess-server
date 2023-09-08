@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command;
 
-use ChessServer\Socket\ChessSocket;
+use ChessServer\Socket\ChesslaBlab;
 use ChessServer\Exception\InternalErrorException;
 
 class LegalCommand extends AbstractCommand
@@ -21,7 +21,7 @@ class LegalCommand extends AbstractCommand
         return count($argv) - 1 === count($this->params);
     }
 
-    public function run(ChessSocket $socket, array $argv, int $resourceId)
+    public function run(ChesslaBlab $socket, array $argv, int $resourceId)
     {
         $gameMode = $socket->getGameModeStorage()->getByResourceId($resourceId);
 

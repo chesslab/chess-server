@@ -7,7 +7,7 @@ use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Classical\Randomizer\Randomizer;
 use Chess\Variant\Classical\Randomizer\Checkmate\TwoBishopsRandomizer;
 use Chess\Variant\Classical\Randomizer\Endgame\PawnEndgameRandomizer;
-use ChessServer\Socket\ChessSocket;
+use ChessServer\Socket\ChesslaBlab;
 use ChessServer\Game\PlayMode;
 
 class RandomizerCommand extends AbstractCommand
@@ -73,7 +73,7 @@ class RandomizerCommand extends AbstractCommand
         return true;
     }
 
-    public function run(ChessSocket $socket, array $argv, int $resourceId)
+    public function run(ChesslaBlab $socket, array $argv, int $resourceId)
     {
         try {
             $items = json_decode(stripslashes($argv[2]), true);

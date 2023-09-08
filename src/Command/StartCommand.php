@@ -13,7 +13,7 @@ use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Game\Game;
-use ChessServer\Socket\ChessSocket;
+use ChessServer\Socket\ChesslaBlab;
 use ChessServer\Game\FenMode;
 use ChessServer\Game\PlayMode;
 use ChessServer\Game\SanMode;
@@ -78,7 +78,7 @@ class StartCommand extends AbstractCommand
         return false;
     }
 
-    public function run(ChessSocket $socket, array $argv, int $resourceId)
+    public function run(ChesslaBlab $socket, array $argv, int $resourceId)
     {
         if (FenMode::NAME === $argv[2]) {
             try {

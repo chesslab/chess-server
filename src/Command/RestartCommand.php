@@ -6,7 +6,7 @@ use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Exception\InternalErrorException;
 use ChessServer\Game\Game;
-use ChessServer\Socket\ChessSocket;
+use ChessServer\Socket\ChesslaBlab;
 use ChessServer\Game\PlayMode;
 use Firebase\JWT\JWT;
 
@@ -26,7 +26,7 @@ class RestartCommand extends AbstractCommand
         return count($argv) - 1 === count($this->params);
     }
 
-    public function run(ChessSocket $socket, array $argv, int $resourceId)
+    public function run(ChesslaBlab $socket, array $argv, int $resourceId)
     {
         $gameMode = $socket->getGameModeStorage()->getByHash($argv[1]);
 

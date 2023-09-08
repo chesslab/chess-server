@@ -9,7 +9,7 @@ use ChessServer\Exception\ParserException;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
-class WebSocket extends ChessSocket implements MessageComponentInterface, SendInterface
+class WebSocket extends ChesslaBlab implements MessageComponentInterface, SendInterface
 {
     public function onOpen(ConnectionInterface $conn)
     {

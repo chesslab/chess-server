@@ -9,7 +9,7 @@ use ChessServer\Exception\ParserException;
 use React\Socket\ConnectionInterface;
 use React\Socket\TcpServer;
 
-class TcpSocket extends ChessSocket implements SendInterface
+class TcpSocket extends ChesslaBlab implements SendInterface
 {
     private TcpServer $server;
 
