@@ -3,6 +3,7 @@
 namespace ChessServer\Cli;
 
 use ChessServer\Socket\WebSocket;
+use Dotenv\Dotenv;
 use Ratchet\Http\HttpServer;
 use Ratchet\Http\OriginCheck;
 use Ratchet\Server\IoServer;
@@ -14,9 +15,12 @@ use React\Socket\SecureServer;
 
 require __DIR__  . '/../vendor/autoload.php';
 
-putenv("$allowed = [
-    'www.chesslablab.com',
-]");
+$dotenv = Dotenv::createImmutable(__DIR__.'/../');
+$dotenv->load();
+
+$allowed = [
+    $_ENV['WSS_ALLOWED'],
+];
 
 $loop = Factory::create();
 
@@ -35,7 +39,7 @@ $httpServer = new HttpServer(
       new WsServer(
           new WebSocket()
       ),
-      getenv("$allowed"),
+      $allowed,
     )
 );
 
