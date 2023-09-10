@@ -3,6 +3,7 @@
 namespace ChessServer\Tests\Unit;
 
 use ChessServer\Command\CommandParser;
+use ChessServer\Command\RestartCommand;
 use ChessServer\Command\StartCommand;
 use ChessServer\Exception\ParserException;
 use PHPUnit\Framework\TestCase;
@@ -24,13 +25,6 @@ class CommandParserTest extends TestCase
         $this->expectException(ParserException::class);
 
         self::$parser->validate('/start foobar');
-    }
-
-    public function validate_restart_foobar()
-    {
-        $this->expectException(ParserException::class);
-
-        self::$parser->validate('/restart foobar');
     }
 
     /**
@@ -69,5 +63,13 @@ class CommandParserTest extends TestCase
         $this->expectException(ParserException::class);
 
         self::$parser->validate('/undo foo');
+    }
+
+    /**
+     * @test
+     */
+    public function validate_restart_foobar()
+    {
+        $this->assertInstanceOf(RestartCommand::class, self::$parser->validate('/restart foobar'));
     }
 }
