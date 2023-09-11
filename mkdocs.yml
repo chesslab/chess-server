@@ -6,5 +6,6 @@ pages:
   - /play_lan: play-lan.md
   - /heuristics: heuristics.md
   - /undo: undo.md
+  - /accept: accept.md
   - /restart: restart.md
 theme: readthedocs
