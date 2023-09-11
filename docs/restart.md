@@ -12,7 +12,7 @@ Allows to restart an existing game.
 
 ## Usage
 
-### Restart a game
+### Example
 
 ```js
 ws.send('/restart ffc536a8f44fc21b4d254e4fb85d7e33');
