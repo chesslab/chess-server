@@ -84,4 +84,14 @@ class CommandParserTest extends TestCase
     {
         $this->assertInstanceOf(RestartCommand::class, self::$parser->validate('/restart foobar'));
     }
+
+    /**
+     * @test
+     */
+    public function validate_restart_foo_bar()
+    {
+        $this->expectException(ParserException::class);
+
+        self::$parser->validate('/restart foo bar');
+    }
 }
