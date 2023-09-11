@@ -1,10 +1,8 @@
 # /restart
 
-Restarts a game.
+## Description
 
-## Detailed Description
-
-The `/restart` command allows you to restart an existing game.
+Allows to restart an existing game.
 
 ## Parameters
 

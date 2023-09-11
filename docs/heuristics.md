@@ -1,5 +1,7 @@
 # /heuristics
 
+## Description
+
 Returns the heuristics of a chess position.
 
 ## Parameters

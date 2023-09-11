@@ -1,5 +1,7 @@
 # /legal
 
+## Description
+
 Returns the legal squares of a piece.
 
 ## Parameters

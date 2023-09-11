@@ -1,5 +1,7 @@
 # /start
 
+## Description
+
 Starts a new chess game.
 
 ## Parameters
