@@ -48,6 +48,18 @@ class CommandParserTest extends TestCase
     /**
      * @test
      */
+
+    public function validate_restart()
+    {
+        $this->expectException(ParserException::class);
+
+        self::$parser->validate('/restart');
+    }
+
+    /**
+     * @test
+     */
+
     public function validate_takeback_foobar()
     {
         $this->expectException(ParserException::class);
