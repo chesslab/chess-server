@@ -30,7 +30,7 @@ cp .env.example .env
 
 ### Run the Chess Server
 
-The chess server comes in four different flavors.
+The chess server comes in four different flavors and can be run manually using a PHP script.
 
 | Script | Description | Use |
 | ------ | ----------- | --- |
@@ -102,9 +102,9 @@ php cli/prod.php
 
 This will allow the `WSS_ALLOWED` website to send a request to it.
 
-### Run the Docker Container
+### Run the Chess Server on a Docker Container
 
-Also the chess server can run on a Docker container.
+Alternatively, the chess server can run on a Docker container.
 
 #### Functional Testing
 
