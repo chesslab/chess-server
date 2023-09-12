@@ -34,42 +34,74 @@ Add the following entry to your `/etc/hosts` file:
 127.0.0.1       pchess.net
 ```
 
-> Before starting the secure WebSocket server for the first time, make sure to have created the `certificate.crt` and `private.key` files into the `ssl` folder.
+### Run the Chess Server
 
-This is how to run the Docker container:
+The chess server comes in four different flavors.
+
+| Script | Description | Use |
+| ------ | ----------- | --- |
+| cli/tcp.php | TCP socket. | Functional testing. |
+| cli/ws.php | Simple WebSocket server. | Development. |
+| cli/wss-staging.php | Secure WebSocket server. | Staging. |
+| cli/wss.php | Secure WebSocket server. | Production. |
+
+#### Functional Testing
+
+Run the TCP socket server.
 
 ```
-docker compose up -d
+php cli/tcp.php
 ```
 
-Alternatively, you may want to start the chess server manually:
+Run the functional tests.
+
+```
+vendor/bin/phpunit tests/functional
+PHPUnit 9.6.11 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.2.9
+Configuration: /home/standard/projects/chess-server/phpunit.xml
+
+..                                                                  2 / 2 (100%)
+
+Time: 00:00.042, Memory: 8.00 MB
+
+OK (2 tests, 2 assertions)
+```
+
+#### Simple WebSocket Server
+
+Run the simple WebSocket server if you are not using an SSL/TLS certificate.
+
+```
+php cli/ws.php
+```
+
+#### Staging Secure WebSocket Server
+
+Before starting the secure WebSocket server for the first time, make sure to have created the `certificate.crt` and `private.key` files into the `ssl` folder.
+
+Run the staging secure WebSocket server if you don't want to check the website's origin.
+
+```
+php cli/wss-staging.php
+```
+
+This will allow any origin to send a request to it.
+
+#### Production Secure WebSocket Server
+
+Before starting the secure WebSocket server for the first time, make sure to have created the `certificate.crt` and `private.key` files into the `ssl` folder.
+
+Run the secure WebSocket server to check the website's origin as defined in the `WSS_ALLOWED` variable in the `.env.example` file.
 
 ```
 php cli/wss.php
 ```
-```
-Welcome to PHP Chess Server
-Commands available:
-/accept {"jwt":"<string>"} Accepts a request to play a game.
-/draw {"action":["accept","decline","propose"]} Allows to offer a draw.
-/heuristics {"fen":"<string>","variant":"<string>"} Takes an expanded heuristic picture of the current position.
-/inbox {"action":["create","read","reply"],"variant":["960","capablanca","classical"],"settings":{"fen":"<string>","movetext":"<string>","startPos":"<string>"},"hash":"<string>","movetext":"<string>"} Correspondence chess.
-/leave {"action":["accept"]} Allows to leave a game.
-/legal {"position":"<string>"} Returns the legal FEN positions of a piece.
-/online_games Returns the online games waiting to be accepted.
-/play_lan {"color":"<string>","lan":"<string>"} Plays a chess move in long algebraic notation.
-/randomizer {"turn":"<string>","items":"<string>"} Starts a random position.
-/rematch {"action":["accept","decline","propose"]} Allows to offer a rematch.
-/resign {"action":["accept"]} Allows to resign a game.
-/restart {"hash":"<string>"} Restarts a game.
-/start {"variant":["960","capablanca","classical"],"mode":["fen","san","play","stockfish"],"settings":{"color":["w","b"],"fen":"<string>","movetext":"<string>","settings":"<string>","startPos":"<string>"}} Starts a new game.
-/stockfish {"options":{"Skill Level":"int"},"params":{"depth":"int"}} Returns Stockfish's response to the current position.
-/stockfish_eval {"fen":"<string>"} Returns Stockfish's evaluation for the given position.
-/takeback {"action":["accept","decline","propose"]} Allows to manage a takeback.
-/undo Undoes the last move.
 
-Listening to commands...
-```
+This will allow the `WSS_ALLOWED` website to send a request to it.
+
+### Connect to the Secure WebSocket Server
 
 Open a console in your favorite browser and run the following commands:
 
@@ -86,4 +118,4 @@ ws.send('/start classical fen');
 
 See the [contributing guidelines](https://github.com/chesslablab/chess-server/blob/master/CONTRIBUTING.md).
 
-Happy learning and coding! Thank you, and keep up the hard work!
+Happy learning and coding!

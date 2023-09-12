@@ -2,7 +2,9 @@ version: "3.8"
 
 services:
   php_fpm:
-      build: .
+      build:
+        context: .
+        dockerfile: Dockerfile.staging
       user: "${UID}:${GID}"
       container_name: chess_server_php_fpm
       ports:
