@@ -34,10 +34,10 @@ The chess server comes in four different flavors and can be run manually using a
 
 | Script | Description | Use |
 | ------ | ----------- | --- |
-| cli/testing.php | TCP socket. | Functional testing. |
-| cli/dev.php | Simple WebSocket server. | Development. |
-| cli/staging.php | Secure WebSocket server. | Staging. |
-| cli/prod.php | Secure WebSocket server. | Production. |
+| [cli/testing.php](https://github.com/chesslablab/chess-server/blob/master/cli/testing.php) | TCP socket. | Functional testing. |
+| [cli/dev.php](https://github.com/chesslablab/chess-server/blob/master/cli/dev.php) | Simple WebSocket server. | Development. |
+| [cli/staging.php](https://github.com/chesslablab/chess-server/blob/master/cli/staging.php) | Secure WebSocket server. | Staging. |
+| [cli/prod.php](https://github.com/chesslablab/chess-server/blob/master/cli/prod.php) | Secure WebSocket server. | Production. |
 
 
 Whether it is the development, the staging or the production flavor, you may want to add the following entry to your `/etc/hosts` file if running the WebSocket server on your localhost as per the `REACT_APP_WS_HOST` variable in the [react-chess/.env.example](https://github.com/chesslablab/react-chess/blob/master/.env.example) file.
