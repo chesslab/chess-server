@@ -2,11 +2,13 @@ version: "3.8"
 
 services:
   php_fpm:
-      build: .
+      build:
+        context: .
+        dockerfile: Dockerfile.prod
       user: "${UID}:${GID}"
       container_name: chess_server_php_fpm
       ports:
-          - 8443:8443
+          - ${WSS_PORT}:${WSS_PORT}
       restart: always
       volumes:
           - ./:/usr/share/chess-server
