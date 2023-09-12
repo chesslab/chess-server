@@ -13,11 +13,11 @@ class TcpSocket extends ChesslaBlab implements SendInterface
 {
     private TcpServer $server;
 
-    public function __construct()
+    public function __construct(string $port)
     {
         parent::__construct();
 
-        $this->server = new TcpServer(8080);
+        $this->server = new TcpServer($port);
 
         $this->onConnection()
             ->onError();
