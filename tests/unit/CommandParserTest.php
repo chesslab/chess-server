@@ -70,6 +70,17 @@ class CommandParserTest extends TestCase
     /**
      * @test
      */
+    
+    public function validate_accept_foobar()
+    {
+        $this->expectException(ParserException::class);
+
+        self::$parser->validate('/accept foobar');
+    }
+
+    /**
+     * @test
+     */ 
     public function validate_undo_foo()
     {
         $this->expectException(ParserException::class);
