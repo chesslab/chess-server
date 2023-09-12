@@ -2,17 +2,13 @@
 
 namespace ChessServer\Tests\Functional;
 
-use PHPUnit\Framework\TestCase;
+use ChessServer\Tests\AbstractFunctionalTestCase;
 use React\Promise\Deferred;
 use React\Socket\Connector;
 use React\Socket\ConnectionInterface;
 
-class StartCommandTest extends TestCase
+class StartCommandTest extends AbstractFunctionalTestCase
 {
-    public static $host = '127.0.0.1';
-
-    public static $port = '8080';
-
     public static $connector;
 
     public static $deferred;
@@ -33,7 +29,7 @@ class StartCommandTest extends TestCase
     {
         $expected = '{"\/start":{"variant":"classical","mode":"fen","fen":"rnbqkbnr\/pppppppp\/8\/8\/8\/8\/PPPPPPPP\/RNBQKBNR w KQkq -"}}';
 
-        self::$connector->connect(self::$host.':'.self::$port)->then(function (ConnectionInterface $connection) {
+        self::$connector->connect("$this->host:$this->port")->then(function (ConnectionInterface $connection) {
             $connection->on('data', function ($data) use ($connection) {
                 self::$deferred->resolve($data);
                 $connection->close();

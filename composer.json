@@ -35,7 +35,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "ChessServer\\Tests\\Unit\\": "tests/unit/"
+      "ChessServer\\Tests\\": "tests"
     }
   },
   "scripts": {
