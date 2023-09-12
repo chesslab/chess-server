@@ -28,29 +28,30 @@ Create an `.env` file:
 cp .env.example .env
 ```
 
-Add the following entry to your `/etc/hosts` file:
-
-```
-127.0.0.1       pchess.net
-```
-
 ### Run the Chess Server
 
 The chess server comes in four different flavors.
 
 | Script | Description | Use |
 | ------ | ----------- | --- |
-| cli/tcp.php | TCP socket. | Functional testing. |
-| cli/ws.php | Simple WebSocket server. | Development. |
-| cli/wss-staging.php | Secure WebSocket server. | Staging. |
-| cli/wss.php | Secure WebSocket server. | Production. |
+| cli/testing.php | TCP socket. | Functional testing. |
+| cli/dev.php | Simple WebSocket server. | Development. |
+| cli/staging.php | Secure WebSocket server. | Staging. |
+| cli/prod.php | Secure WebSocket server. | Production. |
+
+
+Whether it is the development, the staging or the production flavor, you may want to add the following entry to your `/etc/hosts` file if running the WebSocket server on your localhost as per the `REACT_APP_WS_HOST` variable in the [react-chess/.env.example](https://github.com/chesslablab/react-chess/blob/master/.env.example) file.
+
+```
+127.0.0.1       pchess.net
+```
 
 #### Functional Testing
 
 Run the TCP socket server.
 
 ```
-php cli/tcp.php
+php cli/testing.php
 ```
 
 Run the functional tests.
@@ -74,7 +75,7 @@ OK (2 tests, 2 assertions)
 Run the simple WebSocket server if you are not using an SSL/TLS certificate.
 
 ```
-php cli/ws.php
+php cli/dev.php
 ```
 
 #### Staging Secure WebSocket Server
@@ -84,7 +85,7 @@ Before starting the secure WebSocket server for the first time, make sure to hav
 Run the staging secure WebSocket server if you don't want to check the website's origin.
 
 ```
-php cli/wss-staging.php
+php cli/staging.php
 ```
 
 This will allow any origin to send a request to it.
@@ -96,10 +97,38 @@ Before starting the secure WebSocket server for the first time, make sure to hav
 Run the secure WebSocket server to check the website's origin as defined in the `WSS_ALLOWED` variable in the `.env.example` file.
 
 ```
-php cli/wss.php
+php cli/prod.php
 ```
 
 This will allow the `WSS_ALLOWED` website to send a request to it.
+
+### Run the Docker Container
+
+Also the chess server can run on a Docker container.
+
+#### Functional Testing
+
+```
+docker compose -f docker-compose.testing.yml up -d
+```
+
+#### Development
+
+```
+docker compose -f docker-compose.dev.yml up -d
+```
+
+#### Staging
+
+```
+docker compose -f docker-compose.staging.yml up -d
+```
+
+#### Production
+
+```
+docker compose -f docker-compose.prod.yml up -d
+```
 
 ### Connect to the Secure WebSocket Server
 

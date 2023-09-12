@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  php_fpm:
+      build:
+        context: .
+        dockerfile: Dockerfile.testing
+      user: "${UID}:${GID}"
+      container_name: chess_server_php_fpm
+      ports:
+          - 8080:8080
+      restart: always
+      volumes:
+          - ./:/usr/share/chess-server
+          - ./docker/php/8.2/cli/php.ini:/usr/local/etc/php/php.ini
+      working_dir: /usr/share/chess-server
