@@ -94,4 +94,14 @@ class CommandParserTest extends TestCase
 
         self::$parser->validate('/restart foo bar');
     }
+
+    /**
+     * @test
+     */
+    public function validate_accept_foo_bar()
+    {
+        $this->expectException(ParserException::class);
+
+        self::$parser->validate('/accept foo bar');
+    }
 }
