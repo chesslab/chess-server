@@ -43,4 +43,26 @@ class StartCommandTest extends AbstractFunctionalTestCase
 
         $this->assertEquals($expected, $response);
     }
+
+    /**
+     * @test
+     */
+    public function start_classical_fen_foobar()
+    {
+        self::$connector->connect("$this->host:$this->port")->then(function (ConnectionInterface $conn) {
+            $conn->on('data', function ($data) use ($conn) {
+                self::$deferred->resolve($data);
+                $conn->close();
+            });
+            $conn->write('/start classical fen "{\"fen\":\"foobar\"}"');
+        });
+
+        $response = \React\Async\await(self::$promise->then(function (string $result): string {
+            return $result;
+        }));
+
+        $expected = '{"\/start":{"variant":"classical","mode":"fen","message":"This FEN string could not be loaded."}}';
+
+        $this->assertEquals($expected, $response);
+    }
 }
