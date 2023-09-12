@@ -27,23 +27,19 @@ class StartCommandTest extends AbstractFunctionalTestCase
      */
     public function start_classical_fen()
     {
-        $expected = '{"\/start":{"variant":"classical","mode":"fen","fen":"rnbqkbnr\/pppppppp\/8\/8\/8\/8\/PPPPPPPP\/RNBQKBNR w KQkq -"}}';
-
-        self::$connector->connect("$this->host:$this->port")->then(function (ConnectionInterface $connection) {
-            $connection->on('data', function ($data) use ($connection) {
+        self::$connector->connect("$this->host:$this->port")->then(function (ConnectionInterface $conn) {
+            $conn->on('data', function ($data) use ($conn) {
                 self::$deferred->resolve($data);
-                $connection->close();
+                $conn->close();
             });
-            $connection->write("/start classical fen");
-        }, function (Exception $e) {
-            echo 'Error: ' . $e->getMessage() . PHP_EOL;
+            $conn->write("/start classical fen");
         });
 
         $response = \React\Async\await(self::$promise->then(function (string $result): string {
             return $result;
-        }, function (\Throwable $e): void {
-            echo 'Error: ' . $e->getMessage() . PHP_EOL;
         }));
+
+        $expected = '{"\/start":{"variant":"classical","mode":"fen","fen":"rnbqkbnr\/pppppppp\/8\/8\/8\/8\/PPPPPPPP\/RNBQKBNR w KQkq -"}}';
 
         $this->assertEquals($expected, $response);
     }
