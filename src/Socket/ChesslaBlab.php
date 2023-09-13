@@ -74,7 +74,7 @@ class ChesslaBlab
         $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
         $dotenv->load();
 
-        $this->log = new Logger($_ENV['BASE_URL']);
+        $this->log = new Logger('log');
         $this->log->pushHandler(new StreamHandler(self::STORAGE_FOLDER.'/pchess.log', Logger::INFO));
 
         $this->parser = new CommandParser();
