@@ -30,7 +30,7 @@ cp .env.example .env
 
 ### Run the Chess Server
 
-The chess server comes in four different flavors and can be run manually using a PHP script.
+The chess server comes in four different flavors and can be run using a PHP script.
 
 | Script | Description | Use |
 | ------ | ----------- | --- |
@@ -40,7 +40,7 @@ The chess server comes in four different flavors and can be run manually using a
 | [cli/prod.php](https://github.com/chesslablab/chess-server/blob/master/cli/prod.php) | Secure WebSocket server. | Production. |
 
 
-Whether it is the development, the staging or the production flavor, you may want to add the following entry to your `/etc/hosts` file if running the WebSocket server on your localhost as per the `REACT_APP_WS_HOST` variable in the [react-chess/.env.example](https://github.com/chesslablab/react-chess/blob/master/.env.example) file.
+Whether it is the development, the staging or the production flavor, you may want to add the following entry to your `/etc/hosts` file if running the WebSocket server on your localhost along with [React Chess](https://github.com/chesslablab/react-chess) as per the `REACT_APP_WS_HOST` variable in the [react-chess/.env.example](https://github.com/chesslablab/react-chess/blob/master/.env.example) file.
 
 ```
 127.0.0.1       pchess.net
