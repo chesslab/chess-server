@@ -2,6 +2,7 @@
 
 namespace ChessServer\Tests\Unit;
 
+use ChessServer\Command\AcceptPlayRequestCommand;
 use ChessServer\Command\CommandParser;
 use ChessServer\Command\RestartCommand;
 use ChessServer\Command\StartCommand;
@@ -67,6 +68,7 @@ class CommandParserTest extends TestCase
         self::$parser->validate('/takeback foobar');
     }
 
+
     /**
      * @test
      */
@@ -93,6 +95,14 @@ class CommandParserTest extends TestCase
         $this->expectException(ParserException::class);
 
         self::$parser->validate('/restart foo bar');
+    }
+
+    /**
+     * @test
+     */
+    public function validate_accept_foobar()
+    {
+        $this->assertInstanceOf(AcceptPlayRequestCommand::class, self::$parser->validate('/accept foobar'));
     }
 
     /**
