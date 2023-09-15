@@ -23,6 +23,12 @@ class WebSocket extends ChesslaBlab implements MessageComponentInterface, SendIn
 
     public function onMessage(ConnectionInterface $from, $msg)
     {
+        if (strlen($msg) > 4096) {
+            return $this->sendToOne($from->resourceId, [
+                'error' => 'Internal server error',
+            ]);
+        }
+
         try {
             $cmd = $this->parser->validate($msg);
         } catch (ParserException $e) {
