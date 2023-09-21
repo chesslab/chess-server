@@ -2,7 +2,6 @@
 
 namespace ChessServer\Command;
 
-use Chess\Variant\Classical\FEN\BoardToStr;
 use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Classical\Randomizer\Randomizer;
 use Chess\Variant\Classical\Randomizer\Checkmate\TwoBishopsRandomizer;
@@ -98,7 +97,7 @@ class RandomizerCommand extends AbstractCommand
             return $socket->sendToOne($resourceId, [
                 $this->name => [
                     'turn' => $board->getTurn(),
-                    'fen' => (new BoardToStr($board))->create(),
+                    'fen' => $board->toFen(),
                 ],
             ]);
         } catch (\Throwable $e) {
