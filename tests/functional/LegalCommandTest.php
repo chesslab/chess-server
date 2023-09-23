@@ -44,7 +44,6 @@ class LegalCommandTest extends AbstractFunctionalTestCase
 
         $expected = '{"\/start":{"variant":"classical","mode":"fen","fen":"rnbqkbnr\/pppppppp\/8\/8\/8\/8\/PPPPPPPP\/RNBQKBNR w KQkq -"}}';
 
-        $this->assertEquals($expected, $response);
         if($this->assertEquals($expected,$response)){
             self::$connector->connect("$this->host:$this->port")->then(function (ConnectionInterface $conn) {
                 $conn->on('data', function ($data) use ($conn) {
