@@ -65,3 +65,5 @@ class LegalCommandTest extends AbstractFunctionalTestCase
     }
 
 }
+
+?>
