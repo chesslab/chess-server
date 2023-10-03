@@ -5,8 +5,10 @@ namespace ChessServer\Game;
 use Chess\Grandmaster;
 use Chess\UciEngine\Stockfish;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
+use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
+use Chess\Variant\CapablancaFischer\StartPosition as CapablancaFischerStartPosition;
 use Chess\Variant\Chess960\Board as Chess960Board;
-use Chess\Variant\Chess960\StartPosition;
+use Chess\Variant\Chess960\StartPosition as Chess960StartPosition;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 
 /**
@@ -17,14 +19,15 @@ use Chess\Variant\Classical\Board as ClassicalBoard;
  */
 class Game
 {
-    const VARIANT_960               = Chess960Board::VARIANT;
-    const VARIANT_CAPABLANCA        = CapablancaBoard::VARIANT;
-    const VARIANT_CLASSICAL         = ClassicalBoard::VARIANT;
+    const VARIANT_960 = Chess960Board::VARIANT;
+    const VARIANT_CAPABLANCA = CapablancaBoard::VARIANT;
+    const VARIANT_CAPABLANCA_FISCHER = CapablancaFischerBoard::VARIANT;
+    const VARIANT_CLASSICAL = ClassicalBoard::VARIANT;
 
-    const MODE_FEN                  = 'fen';
-    const MODE_PLAY                 = 'play';
-    const MODE_SAN                  = 'san';
-    const MODE_STOCKFISH            = 'stockfish';
+    const MODE_FEN = 'fen';
+    const MODE_PLAY = 'play';
+    const MODE_SAN = 'san';
+    const MODE_STOCKFISH = 'stockfish';
 
     /**
      * Chess board.
@@ -64,10 +67,13 @@ class Game
         $this->gm = $gm;
 
         if ($this->variant === self::VARIANT_960) {
-            $startPos = (new StartPosition())->create();
+            $startPos = (new Chess960StartPosition())->create();
             $this->board = new Chess960Board($startPos);
         } elseif ($this->variant === self::VARIANT_CAPABLANCA) {
             $this->board = new CapablancaBoard();
+        } elseif ($this->variant === self::VARIANT_CAPABLANCA_FISCHER) {
+            $startPos = (new CapablancaFischerStartPosition())->create();
+            $this->board = new CapablancaFischerBoard($startPos);
         } elseif ($this->variant === self::VARIANT_CLASSICAL) {
             $this->board = new ClassicalBoard();
         }
