@@ -106,7 +106,7 @@ class StartCommand extends AbstractCommand
                 } elseif ($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER) {
                     if (isset($settings->fen) && isset($settings->startPos)) {
                         $startPos = str_split($settings->startPos);
-                        $board = (new CapablancaFischerBoard($settings->fen, $startPos))
+                        $board = (new CapablancaFischerFenStrToBoard($settings->fen, $startPos))
                             ->create();
                     } else {
                         $startPos = (new CapablancaFischerStartPosition())->create();
