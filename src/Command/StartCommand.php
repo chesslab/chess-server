@@ -6,8 +6,11 @@ use Chess\FenToBoard;
 use Chess\Play\SanPlay;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\Capablanca\FEN\StrToBoard as CapablancaFenStrToBoard;
+use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
+use Chess\Variant\CapablancaFischer\StartPosition as CapablancaFischerStartPosition;
+use Chess\Variant\CapablancaFischer\FEN\StrToBoard as CapablancaFischerFenStrToBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
-use Chess\Variant\Chess960\StartPosition;
+use Chess\Variant\Chess960\StartPosition as Chess960StartPosition;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
@@ -91,7 +94,7 @@ class StartCommand extends AbstractCommand
                         $board = (new Chess960FenStrToBoard($settings->fen, $startPos))
                             ->create();
                     } else {
-                        $startPos = (new StartPosition())->create();
+                        $startPos = (new Chess960StartPosition())->create();
                         $board = new Chess960Board($startPos);
                     }
                 } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
@@ -99,6 +102,15 @@ class StartCommand extends AbstractCommand
                         $board = (new CapablancaFenStrToBoard($settings->fen))->create();
                     } else {
                         $board =  new CapablancaBoard();
+                    }
+                } elseif ($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER) {
+                    if (isset($settings->fen) && isset($settings->startPos)) {
+                        $startPos = str_split($settings->startPos);
+                        $board = (new CapablancaFischerFenStrToBoard($settings->fen, $startPos))
+                            ->create();
+                    } else {
+                        $startPos = (new CapablancaFischerStartPosition())->create();
+                        $board = new CapablancaFischerBoard($startPos);
                     }
                 } else {
                     if (isset($settings->fen)) {
@@ -150,6 +162,13 @@ class StartCommand extends AbstractCommand
                         $board = FenToBoard::create($settings->fen, $board);
                     }
                     $sanPlay = new SanPlay($settings->movetext, $board);
+                } elseif ($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER) {
+                    $startPos = str_split($settings->startPos);
+                    $board = new CapablancaFischerBoard($startPos);
+                    if (isset($settings->fen)) {
+                        $board = FenToBoard::create($settings->fen, $board);
+                    }
+                    $sanPlay = new SanPlay($settings->movetext, $board);
                 } else {
                     $board = new ClassicalBoard();
                     if (isset($settings->fen)) {
@@ -196,6 +215,10 @@ class StartCommand extends AbstractCommand
                     } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
                         $board = (new CapablancaFenStrToBoard($settings->fen))
                             ->create();
+                    } elseif ($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER) {
+                        $startPos = str_split($settings->startPos);
+                        $board = (new CapablancaFischerBoard($settings->fen, $startPos))
+                            ->create();
                     } else {
                         $board = (new ClassicalFenStrToBoard($settings->fen))
                             ->create();
@@ -211,7 +234,7 @@ class StartCommand extends AbstractCommand
                 }
             } else {
                 if ($argv[1] === Game::VARIANT_960) {
-                    $startPos = (new StartPosition())->create();
+                    $startPos = (new Chess960StartPosition())->create();
                     $board = new Chess960Board($startPos);
                 } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
                     $board = new CapablancaBoard();
