@@ -34,6 +34,7 @@ class StartCommand extends AbstractCommand
             'variant' => [
                 Game::VARIANT_960,
                 Game::VARIANT_CAPABLANCA,
+                Game::VARIANT_CAPABLANCA_FISCHER,
                 Game::VARIANT_CLASSICAL,
             ],
             // mandatory param
@@ -238,6 +239,9 @@ class StartCommand extends AbstractCommand
                     $board = new Chess960Board($startPos);
                 } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
                     $board = new CapablancaBoard();
+                } elseif ($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER) {
+                    $startPos = (new CapablancaFischerStartPosition())->create();
+                    $board = new CapablancaFischerBoard($startPos);
                 } else {
                     $board = new ClassicalBoard();
                 }
