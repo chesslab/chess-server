@@ -44,6 +44,7 @@ class InboxCommand extends AbstractCommand
             'variant' => [
                 Game::VARIANT_960,
                 Game::VARIANT_CAPABLANCA,
+                Game::VARIANT_CAPABLANCA_FISCHER,
                 Game::VARIANT_CLASSICAL,
             ],
             // optional
