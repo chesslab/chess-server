@@ -136,6 +136,10 @@ class StartCommand extends AbstractCommand
                             ? ['startPos' => implode('', $startPos)]
                             : []
                         ),
+                        ...($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER
+                            ? ['startPos' => implode('', $startPos)]
+                            : []
+                        ),
                     ],
                 ]);
             } catch (\Throwable $e) {
@@ -191,6 +195,10 @@ class StartCommand extends AbstractCommand
                         'movetext' => $sanPlay->getSanMovetext()->validate(),
                         'fen' => $sanPlay->getFen(),
                         ...($argv[1] === Game::VARIANT_960
+                            ? ['startPos' =>  $settings->startPos]
+                            : []
+                        ),
+                        ...($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER
                             ? ['startPos' =>  $settings->startPos]
                             : []
                         ),
@@ -261,6 +269,10 @@ class StartCommand extends AbstractCommand
                     ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
                     : []
                 ),
+                ...($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER
+                    ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
+                    : []
+                ),
                 ...(isset($settings->fen)
                     ? ['fen' => $settings->fen]
                     : []
@@ -280,6 +292,10 @@ class StartCommand extends AbstractCommand
                     'jwt' => $jwt,
                     'hash' => md5($jwt),
                     ...($argv[1] === Game::VARIANT_960
+                        ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
+                        : []
+                    ),
+                    ...($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER
                         ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
                         : []
                     ),
