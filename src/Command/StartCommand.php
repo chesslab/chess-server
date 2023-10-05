@@ -6,8 +6,11 @@ use Chess\FenToBoard;
 use Chess\Play\SanPlay;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\Capablanca\FEN\StrToBoard as CapablancaFenStrToBoard;
+use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
+use Chess\Variant\CapablancaFischer\StartPosition as CapablancaFischerStartPosition;
+use Chess\Variant\CapablancaFischer\FEN\StrToBoard as CapablancaFischerFenStrToBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
-use Chess\Variant\Chess960\StartPosition;
+use Chess\Variant\Chess960\StartPosition as Chess960StartPosition;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
@@ -31,6 +34,7 @@ class StartCommand extends AbstractCommand
             'variant' => [
                 Game::VARIANT_960,
                 Game::VARIANT_CAPABLANCA,
+                Game::VARIANT_CAPABLANCA_FISCHER,
                 Game::VARIANT_CLASSICAL,
             ],
             // mandatory param
@@ -91,7 +95,7 @@ class StartCommand extends AbstractCommand
                         $board = (new Chess960FenStrToBoard($settings->fen, $startPos))
                             ->create();
                     } else {
-                        $startPos = (new StartPosition())->create();
+                        $startPos = (new Chess960StartPosition())->create();
                         $board = new Chess960Board($startPos);
                     }
                 } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
@@ -99,6 +103,15 @@ class StartCommand extends AbstractCommand
                         $board = (new CapablancaFenStrToBoard($settings->fen))->create();
                     } else {
                         $board =  new CapablancaBoard();
+                    }
+                } elseif ($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER) {
+                    if (isset($settings->fen) && isset($settings->startPos)) {
+                        $startPos = str_split($settings->startPos);
+                        $board = (new CapablancaFischerFenStrToBoard($settings->fen, $startPos))
+                            ->create();
+                    } else {
+                        $startPos = (new CapablancaFischerStartPosition())->create();
+                        $board = new CapablancaFischerBoard($startPos);
                     }
                 } else {
                     if (isset($settings->fen)) {
@@ -120,6 +133,10 @@ class StartCommand extends AbstractCommand
                         'mode' => $argv[2],
                         'fen' => $board->toFen(),
                         ...($argv[1] === Game::VARIANT_960
+                            ? ['startPos' => implode('', $startPos)]
+                            : []
+                        ),
+                        ...($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER
                             ? ['startPos' => implode('', $startPos)]
                             : []
                         ),
@@ -150,6 +167,13 @@ class StartCommand extends AbstractCommand
                         $board = FenToBoard::create($settings->fen, $board);
                     }
                     $sanPlay = new SanPlay($settings->movetext, $board);
+                } elseif ($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER) {
+                    $startPos = str_split($settings->startPos);
+                    $board = new CapablancaFischerBoard($startPos);
+                    if (isset($settings->fen)) {
+                        $board = FenToBoard::create($settings->fen, $board);
+                    }
+                    $sanPlay = new SanPlay($settings->movetext, $board);
                 } else {
                     $board = new ClassicalBoard();
                     if (isset($settings->fen)) {
@@ -171,6 +195,10 @@ class StartCommand extends AbstractCommand
                         'movetext' => $sanPlay->getSanMovetext()->validate(),
                         'fen' => $sanPlay->getFen(),
                         ...($argv[1] === Game::VARIANT_960
+                            ? ['startPos' =>  $settings->startPos]
+                            : []
+                        ),
+                        ...($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER
                             ? ['startPos' =>  $settings->startPos]
                             : []
                         ),
@@ -196,6 +224,10 @@ class StartCommand extends AbstractCommand
                     } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
                         $board = (new CapablancaFenStrToBoard($settings->fen))
                             ->create();
+                    } elseif ($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER) {
+                        $startPos = str_split($settings->startPos);
+                        $board = (new CapablancaFischerBoard($settings->fen, $startPos))
+                            ->create();
                     } else {
                         $board = (new ClassicalFenStrToBoard($settings->fen))
                             ->create();
@@ -211,10 +243,13 @@ class StartCommand extends AbstractCommand
                 }
             } else {
                 if ($argv[1] === Game::VARIANT_960) {
-                    $startPos = (new StartPosition())->create();
+                    $startPos = (new Chess960StartPosition())->create();
                     $board = new Chess960Board($startPos);
                 } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
                     $board = new CapablancaBoard();
+                } elseif ($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER) {
+                    $startPos = (new CapablancaFischerStartPosition())->create();
+                    $board = new CapablancaFischerBoard($startPos);
                 } else {
                     $board = new ClassicalBoard();
                 }
@@ -231,6 +266,10 @@ class StartCommand extends AbstractCommand
                 'increment' => $settings->increment,
                 'fen' => $game->getBoard()->toFen(),
                 ...($argv[1] === Game::VARIANT_960
+                    ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
+                    : []
+                ),
+                ...($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER
                     ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
                     : []
                 ),
@@ -253,6 +292,10 @@ class StartCommand extends AbstractCommand
                     'jwt' => $jwt,
                     'hash' => md5($jwt),
                     ...($argv[1] === Game::VARIANT_960
+                        ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
+                        : []
+                    ),
+                    ...($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER
                         ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
                         : []
                     ),
