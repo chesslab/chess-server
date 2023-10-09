@@ -138,6 +138,7 @@ class Game
             'castlingAbility' => $this->board->getCastlingAbility(),
             'movetext' => $this->board->getMovetext(),
             'fen' => $this->board->toFen(),
+            'isCapture' => $end->move->isCapture,
             'isCheck' => $this->board->isCheck(),
             'isMate' => $this->board->isMate(),
             'isStalemate' => $this->board->isStalemate(),
