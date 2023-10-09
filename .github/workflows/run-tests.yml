@@ -1,0 +1,40 @@
+name: Run tests
+
+on: [ push, pull_request ]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: ['8.1', '8.2']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, dom, fileinfo, intl
+          coverage: xdebug
+
+      - name: Check PHP Version
+        run: php -v
+
+      - name: Check Composer Version
+        run: composer -V
+
+      - name: Install Dependencies
+        run: composer update --no-interaction
+
+      - name: Creating .env for unit tests
+        run: mv .env.example .env
+
+      - name: Start Test Server
+        run: nohup php cli/testing.php 2>&1 &
+
+      - name: Execute Tests
+        run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
