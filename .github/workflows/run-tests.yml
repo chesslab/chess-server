@@ -34,7 +34,7 @@ jobs:
         run: mv .env.example .env
 
       - name: Start Test Server
-        run: php cli/testing.php
+        run: nohup php cli/testing.php 2>&1 &
 
       - name: Execute Tests
         run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
