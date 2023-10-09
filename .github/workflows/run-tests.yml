@@ -33,5 +33,8 @@ jobs:
       - name: Creating .env for unit tests
         run: mv .env.example .env
 
+      - name: Start Test Server
+        run: php cli/testing.php
+
       - name: Execute Tests
         run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
