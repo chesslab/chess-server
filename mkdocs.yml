@@ -7,5 +7,6 @@ pages:
   - /heuristics: heuristics.md
   - /undo: undo.md
   - /accept: accept.md
+  - /draw: draw.md
   - /restart: restart.md
 theme: readthedocs
