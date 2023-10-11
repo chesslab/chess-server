@@ -8,5 +8,6 @@ pages:
   - /undo: undo.md
   - /accept: accept.md
   - /draw: draw.md
+  - /resign: resign.md
   - /restart: restart.md
 theme: readthedocs
