@@ -2,13 +2,13 @@
 
 ## Description
 
-Returns the legal squares of a piece.
+Returns the legal FEN positions of a piece.
 
 ## Parameters
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
-| position | The location of the piece on the board. | Yes |
+| `position` | The location of the piece on the board. | Yes |
 
 ## Usage
 

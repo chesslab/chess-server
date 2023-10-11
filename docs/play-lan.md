@@ -2,14 +2,14 @@
 
 ## Description
 
-Plays a chess move in long algebraic notation (LAN) format.
+Plays a chess move in long algebraic notation.
 
 ## Parameters
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
-| color | The player's turn. | Yes |
-| lan | The chess move in LAN format. | Yes |
+| `color` | The player's turn. | Yes |
+| `lan` | The chess move in LAN format. | Yes |
 
 ## Usage
 

@@ -11,7 +11,7 @@ class HeuristicsCommand extends AbstractCommand
     public function __construct()
     {
         $this->name = '/heuristics';
-        $this->description = "Takes an expanded heuristic picture of the current position.";
+        $this->description = "Returns the heuristics of a chess position.";
         $this->params = [
             'fen' => '<string>',
             'variant' => '<string>',

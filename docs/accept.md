@@ -2,13 +2,13 @@
 
 ## Description
 
-Accepts an invitation code to play chess online with an opponent.
+Accepts an invitation to play online with an opponent.
 
 ## Parameters
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
-| hash | The unique hash of the game. | Yes |
+| `hash` | The unique hash of the game. | Yes |
 
 ## Usage
 

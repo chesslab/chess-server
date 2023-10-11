@@ -2,15 +2,15 @@
 
 ## Description
 
-Starts a new chess game.
+Starts a new game.
 
 ## Parameters
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
-| variant | Accepts: 960, capablanca, classical. | Yes |
-| mode | Accepts: fen, san, play, stockfish. | Yes |
-| add | Additional, specific params. color (stockfish mode), fen (fen mode), movetext (pgn mode), settings (play mode), startPos (pgn mode). | Maybe, depends on the mode selected as shown in the following examples. |
+| `variant` | Accepts: `960`, `capablanca`, `classical`. | Yes |
+| `mode` | Accepts: `fen`, `san`, `play`, `stockfish`. | Yes |
+| `add` | Additional params. `color` (stockfish mode), `fen` (fen mode), `movetext` (pgn mode), `settings` (play mode), `startPos` (pgn mode). | Maybe, depends on the mode selected as shown in the following examples. |
 
 ## Usage
 

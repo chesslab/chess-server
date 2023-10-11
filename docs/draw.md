@@ -2,13 +2,13 @@
 
 ## Description
 
-Allows to draw a game.
+Allows to offer a draw.
 
 ## Parameters
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
-| action | Accepts: propose, accept | Yes |
+| `action` | Accepts: `propose`, `accept`. | Yes |
 
 ## Usage
 

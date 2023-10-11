@@ -2,13 +2,13 @@
 
 ## Description
 
-Allows to restart an existing game.
+Restarts an existing game.
 
 ## Parameters
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
-| hash | The unique hash of the game. | Yes |
+| `hash` | The unique hash of the game. | Yes |
 
 ## Usage
 

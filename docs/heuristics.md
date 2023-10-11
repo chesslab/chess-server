@@ -8,8 +8,8 @@ Returns the heuristics of a chess position.
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
-| fen | A FEN string. | Yes |
-| variant | Accepts: 960, capablanca, classical. | Yes |
+| `fen` | A FEN string. | Yes |
+| `variant` | Accepts: `960`, `capablanca`, `classical`. | Yes |
 
 ## Usage
 

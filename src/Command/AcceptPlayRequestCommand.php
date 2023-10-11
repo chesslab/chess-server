@@ -12,7 +12,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
     public function __construct()
     {
         $this->name = '/accept';
-        $this->description = 'Accepts a request to play a game.';
+        $this->description = 'Accepts an invitation to play online with an opponent.';
         $this->params = [
             'jwt' => '<string>',
         ];
