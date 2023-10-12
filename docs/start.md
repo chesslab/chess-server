@@ -8,9 +8,9 @@ Starts a new game.
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
-| `variant` | Accepted values:<br/><br/>`960`<br/>`capablanca`<br/>`capablanca-fischer`<br/>`classical` | Yes |
-| `mode` | Accepted values:<br/><br/>`fen`<br/>`san`<br/>`play`<br/>`stockfish` | Yes |
-| `add` | Additional params.<br/><br/>`fen` (fen mode)<br/>`movetext` (san mode)<br/>`startPos` (san mode)<br/>`settings` (play mode)<br/>`color` (stockfish) | Depends on the mode selected as shown in the following examples. |
+| `variant` | `960`<br/>`capablanca`<br/>`capablanca-fischer`<br/>`classical` | Yes |
+| `mode` | `fen`<br/>`san`<br/>`play`<br/>`stockfish` | Yes |
+| `add` | `fen`<br/>`movetext`<br/>`startPos`<br/>`settings`<br/>`color`<br/>`min`<br/>`increment`<br/>`submode` | Maybe. Depends on the mode selected as shown in the following examples. |
 
 ## Usage
 

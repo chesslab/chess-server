@@ -8,7 +8,7 @@ Allows to leave a game.
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
-| `action` | Accepted values:<br/><br/>`accept` | Yes |
+| `action` | `accept` | Yes |
 
 ## Usage
 

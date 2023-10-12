@@ -8,7 +8,7 @@ Allows to take back a move.
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
-| `action` | Accepted values:<br/><br/>`propose`<br/>`decline`<br/>`accept` | Yes |
+| `action` | `propose`<br/>`decline`<br/>`accept` | Yes |
 
 ## Usage
 
