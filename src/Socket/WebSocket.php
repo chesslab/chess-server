@@ -50,10 +50,11 @@ class WebSocket extends ChesslaBlab implements MessageComponentInterface, SendIn
     {
         if ($gameMode = $this->gameModeStorage->getByResourceId($conn->resourceId)) {
             $this->gameModeStorage->delete($gameMode);
-            $this->sendToMany(
-                $gameMode->getResourceIds(),
-                ['/leave' => LeaveCommand::ACTION_ACCEPT]
-            );
+            $this->sendToMany($gameMode->getResourceIds(), [
+                '/leave' => [
+                    'action' => LeaveCommand::ACTION_ACCEPT,
+                ],
+            ]);
         }
 
         if (isset($this->clients[$conn->resourceId])) {
