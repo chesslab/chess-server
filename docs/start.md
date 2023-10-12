@@ -8,9 +8,9 @@ Starts a new game.
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
-| `variant` | Accepted values are `960`, `capablanca` and `classical`. | Yes |
-| `mode` | Accepted values are `fen`, `san`, `play` and `stockfish`. | Yes |
-| `add` | Additional params. `color` (stockfish mode), `fen` (fen mode), `movetext` (san mode), `settings` (play mode) and `startPos` (san mode). | Maybe, depends on the mode selected as shown in the following examples. |
+| `variant` | Accepted values:<br/><br/><ul><li>`960`</li><li>`capablanca`</li><li>`capablanca-fischer`</li><li>`classical`</li></ul> | Yes |
+| `mode` | Accepted values:<br/><br/><ul><li>`fen`</li><li>`san`</li><li>`play`</li><li>`stockfish`</li></ul> | Yes |
+| `add` | Additional params.<br/><br/><ul><li>`fen` (fen)</li><li>`movetext` (san)</li><li>`startPos` (san)</li><li>`settings` (play)</li><li>`color` (stockfish)</li></ul> | Depends on the mode selected as shown in the following examples. |
 
 ## Usage
 

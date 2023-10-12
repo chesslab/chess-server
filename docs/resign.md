@@ -8,7 +8,7 @@ Allows to resign a game.
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
-| `action` | Accepted values are `accept`. | Yes |
+| `action` | Accepted values:<br/><br/><ul><li>`accept`</li></ul> | Yes |
 
 ## Usage
 
