@@ -8,7 +8,7 @@ Allows to offer a draw.
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
-| `action` | Accepted values are `propose` and `accept`. | Yes |
+| `action` | Accepted values are `propose`, `decline` and `accept`. | Yes |
 
 ## Usage
 
@@ -21,6 +21,18 @@ ws.send('/draw propose');
 ```text
 {
   "/draw": "propose"
+}
+```
+
+### Decline a draw
+
+```js
+ws.send('/draw decline');
+```
+
+```text
+{
+  "/draw": "decline"
 }
 ```
 
