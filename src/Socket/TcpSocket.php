@@ -56,10 +56,11 @@ class TcpSocket extends ChesslaBlab implements SendInterface
             $conn->on('close', function () use ($conn, $resourceId) {
                 if ($gameMode = $this->gameModeStorage->getByResourceId($resourceId)) {
                     $this->gameModeStorage->delete($gameMode);
-                    $this->sendToMany(
-                        $gameMode->getResourceIds(),
-                        ['/leave' => LeaveCommand::ACTION_ACCEPT]
-                    );
+                    $this->sendToMany($gameMode->getResourceIds(), [
+                        '/leave' => [
+                            'action' => LeaveCommand::ACTION_ACCEPT,
+                        ],
+                    ]);
                 }
 
                 if (isset($this->clients[$resourceId])) {

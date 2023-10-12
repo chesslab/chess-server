@@ -4,12 +4,7 @@ namespace ChessServer\Game;
 
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Game\Game;
-use ChessServer\Command\DrawCommand;
-use ChessServer\Command\LeaveCommand;
 use ChessServer\Command\PlayLanCommand;
-use ChessServer\Command\RematchCommand;
-use ChessServer\Command\ResignCommand;
-use ChessServer\Command\TakebackCommand;
 use ChessServer\Exception\InternalErrorException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -122,26 +117,6 @@ class PlayMode extends AbstractMode
     {
         try {
             switch (get_class($cmd)) {
-                case DrawCommand::class:
-                    return [
-                        $cmd->name => $argv[1],
-                    ];
-                case LeaveCommand::class:
-                    return [
-                        $cmd->name => $argv[1],
-                    ];
-                case RematchCommand::class:
-                    return [
-                        $cmd->name => $argv[1],
-                    ];
-                case ResignCommand::class:
-                    return [
-                        $cmd->name => $argv[1],
-                    ];
-                case TakebackCommand::class:
-                    return [
-                        $cmd->name => $argv[1],
-                    ];
                 case PlayLanCommand::class:
                     $this->game->playLan($argv[1], $argv[2]);
                     $this->updateTimer($argv[1]);
