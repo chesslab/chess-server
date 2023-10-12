@@ -99,25 +99,4 @@ ws.send('/play_lan w e2e4');
 ws.send('/play_lan b e7e5');
 ```
 
-The `/start` command accepts two mandatory params: A chess variant and a game mode. These two parameters play an important role in how a game is started, so here's a description of both.
-
-## Variant
-
-| Name | Description |
-| ---- | ----------- |
-| 960 | Chess960, also known as Fischer Random chess. |
-| capablanca | Capablanca chess played on a 10×8 board. |
-| classical | Classical chess. |
-
-## Mode
-
-| Name | Description |
-| ---- | ----------- |
-| fen | Start a game from a FEN position for further analysis. |
-| san | Start a game from a SAN movetext for further analysis. |
-| play | Start a game to play online with an opponent. |
-| stockfish | Start a game to play with the Stockfish chess engine. |
-
-Now let's have a look at the WebSocket commands available!
-
-The list of commands could have been sorted in alphabetical order but it is more convenient to begin with the `/start` command and continue in a way that's easier to understand.
+Now let's have a look at the WebSocket commands available! The list of commands could have been sorted in alphabetical order but it is more convenient to begin with the `/start` command and continue in a way that's easier to understand.
