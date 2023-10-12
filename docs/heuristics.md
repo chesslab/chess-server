@@ -9,7 +9,7 @@ Returns the heuristics of a chess position.
 | Name | Description | Required |
 | ---- | ----------- | -------- |
 | `fen` | A FEN string. | Yes |
-| `variant` | Accepted values:<br/><br/><ul><li>`960`</li><li>`capablanca`</li><li>`capablanca-fischer`</li><li>`classical`</li></ul> | Yes |
+| `variant` | Accepted values:<br/><br/>`960`<br/>`capablanca`<br/>`capablanca-fischer`<br/>`classical` | Yes |
 
 ## Usage
 

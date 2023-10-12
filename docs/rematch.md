@@ -8,7 +8,7 @@ Allows to offer a rematch.
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
-| `action` | Accepted values:<br/><br/><ul><li>`propose`</li><li>`decline`</li><li>`accept`</li></ul> | Yes |
+| `action` | Accepted values:<br/><br/>`propose`<br/>`decline`<br/>`accept` | Yes |
 
 ## Usage
 
