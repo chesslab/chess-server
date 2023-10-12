@@ -10,5 +10,6 @@ pages:
   - /takeback: takeback.md
   - /draw: draw.md
   - /resign: resign.md
+  - /leave: leave.md
   - /restart: restart.md
 theme: readthedocs
