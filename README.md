@@ -54,22 +54,6 @@ Run the TCP socket server.
 php cli/testing.php
 ```
 
-Run the functional tests.
-
-```
-vendor/bin/phpunit tests/functional
-PHPUnit 9.6.11 by Sebastian Bergmann and contributors.
-
-Runtime:       PHP 8.2.9
-Configuration: /home/standard/projects/chess-server/phpunit.xml
-
-..                                                                  2 / 2 (100%)
-
-Time: 00:00.042, Memory: 8.00 MB
-
-OK (2 tests, 2 assertions)
-```
-
 #### Simple WebSocket Server
 
 Run the simple WebSocket server if you are not using an SSL/TLS certificate.
@@ -78,9 +62,9 @@ Run the simple WebSocket server if you are not using an SSL/TLS certificate.
 php cli/dev.php
 ```
 
-#### Staging Secure WebSocket Server
+#### Staging
 
-Before starting the secure WebSocket server for the first time, make sure to have created the `certificate.crt` and `private.key` files into the `ssl` folder.
+> Before starting the secure WebSocket server for the first time, make sure to have created the `certificate.crt` and `private.key` files into the `ssl` folder.
 
 Run the staging secure WebSocket server if you don't want to check the website's origin.
 
@@ -90,9 +74,9 @@ php cli/staging.php
 
 This will allow any origin to send a request to it.
 
-#### Production Secure WebSocket Server
+#### Production
 
-Before starting the secure WebSocket server for the first time, make sure to have created the `certificate.crt` and `private.key` files into the `ssl` folder.
+> Before starting the secure WebSocket server for the first time, make sure to have created the `certificate.crt` and `private.key` files into the `ssl` folder.
 
 Run the secure WebSocket server to check the website's origin as defined in the `WSS_ALLOWED` variable in the `.env.example` file.
 
