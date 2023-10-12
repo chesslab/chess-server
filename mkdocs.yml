@@ -7,6 +7,7 @@ pages:
   - /heuristics: heuristics.md
   - /undo: undo.md
   - /accept: accept.md
+  - /takeback: takeback.md
   - /draw: draw.md
   - /resign: resign.md
   - /restart: restart.md
