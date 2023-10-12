@@ -20,6 +20,8 @@ ws.send('/resign accept');
 
 ```text
 {
-  "/resign": "accept"
+  "/resign": {
+    "action": "accept"
+   }
 }
 ```

@@ -20,7 +20,9 @@ ws.send('/rematch propose');
 
 ```text
 {
-  "/rematch": "propose"
+  "/rematch": {
+    "action": "propose"
+   }
 }
 ```
 
@@ -32,7 +34,9 @@ ws.send('/rematch decline');
 
 ```text
 {
-  "/rematch": "decline"
+  "/rematch": {
+    "action": "decline"
+   }
 }
 ```
 
@@ -44,6 +48,8 @@ ws.send('/rematch accept');
 
 ```text
 {
-  "/rematch": "accept"
+  "/rematch": {
+    "action": "accept"
+   }
 }
 ```

@@ -20,7 +20,9 @@ ws.send('/draw propose');
 
 ```text
 {
-  "/draw": "propose"
+  "/draw": {
+    "action": "propose"
+   }
 }
 ```
 
@@ -32,7 +34,9 @@ ws.send('/draw decline');
 
 ```text
 {
-  "/draw": "decline"
+  "/draw": {
+    "action": "decline"
+   }
 }
 ```
 
@@ -44,6 +48,8 @@ ws.send('/draw accept');
 
 ```text
 {
-  "/draw": "accept"
+  "/takeback": {
+    "action": "accept"
+   }
 }
 ```

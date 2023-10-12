@@ -20,7 +20,9 @@ ws.send('/takeback propose');
 
 ```text
 {
-  "/takeback": "propose"
+  "/takeback": {
+    "action": "propose"
+   }
 }
 ```
 
@@ -32,7 +34,9 @@ ws.send('/takeback decline');
 
 ```text
 {
-  "/takeback": "decline"
+  "/takeback": {
+    "action": "decline"
+   }
 }
 ```
 
@@ -44,6 +48,8 @@ ws.send('/takeback accept');
 
 ```text
 {
-  "/takeback": "accept"
+  "/takeback": {
+    "action": "accept"
+   }
 }
 ```
