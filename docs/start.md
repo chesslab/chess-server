@@ -10,7 +10,7 @@ Starts a new game.
 | ---- | ----------- | -------- |
 | `variant` | `960`<br/>`capablanca`<br/>`capablanca-fischer`<br/>`classical` | Yes |
 | `mode` | `fen`<br/>`san`<br/>`play`<br/>`stockfish` | Yes |
-| `add` | `fen`<br/>`movetext`<br/>`startPos`<br/>`settings`<br/>`color`<br/>`min`<br/>`increment`<br/>`submode` | Maybe. Depends on the mode selected as shown in the following examples. |
+| `add` | `fen`<br/>`movetext`<br/>`startPos`<br/>`settings`<br/>`color`<br/>`min`<br/>`increment`<br/>`submode` | Maybe. Depends on the mode selected. |
 
 ## Usage
 
