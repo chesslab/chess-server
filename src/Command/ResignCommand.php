@@ -40,10 +40,11 @@ class ResignCommand extends AbstractCommand
         }
 
         if (is_a($gameMode, PlayMode::class)) {
-            return $socket->sendToMany(
-                $gameMode->getResourceIds(),
-                $gameMode->res($argv, $this)
-            );
+            return $socket->sendToMany($gameMode->getResourceIds(), [
+                $this->name => [
+                    'action' => $argv[1],
+                ],
+            ]);
         }
     }
 }
