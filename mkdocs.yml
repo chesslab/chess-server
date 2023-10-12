@@ -11,5 +11,6 @@ pages:
   - /draw: draw.md
   - /resign: resign.md
   - /leave: leave.md
+  - /rematch: rematch.md
   - /restart: restart.md
 theme: readthedocs
