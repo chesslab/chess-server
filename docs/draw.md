@@ -8,7 +8,7 @@ Allows to offer a draw.
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
-| `action` | Accepts: `propose`, `accept`. | Yes |
+| `action` | Accepted values are `propose` and `accept`. | Yes |
 
 ## Usage
 
