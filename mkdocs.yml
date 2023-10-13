@@ -13,4 +13,5 @@ pages:
   - /leave: leave.md
   - /rematch: rematch.md
   - /restart: restart.md
+  - /inbox: inbox.md
 theme: readthedocs
