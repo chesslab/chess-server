@@ -10,7 +10,7 @@ Starts a new game.
 | ---- | ----------- | -------- |
 | `variant` | `960`<br/>`capablanca`<br/>`capablanca-fischer`<br/>`classical` | Yes |
 | `mode` | `fen`<br/>`san`<br/>`play`<br/>`stockfish` | Yes |
-| `add` | `fen`<br/>`movetext`<br/>`startPos`<br/>`settings`<br/>`color`<br/>`min`<br/>`increment`<br/>`submode` | Maybe. Depends on the mode selected. |
+| `add` | `fen`<br/>`movetext`<br/>`startPos`<br/>`settings`<br/>`color` | Maybe. Depends on the mode selected. |
 
 ## Usage
 
@@ -32,6 +32,10 @@ ws.send('/start classical fen');
 
 ### Start a classical FEN
 
+| Name | Description | Required |
+| ---- | ----------- | -------- |
+| `add` | `fen` | Yes |
+
 ```js
 ws.send('/start classical fen "{\\"fen\\":\\"r1bqkbnr/pppppppp/2n5/8/3PP3/8/PPP2PPP/RNBQKBNR b KQkq d3\\"}"');
 ```
@@ -47,6 +51,10 @@ ws.send('/start classical fen "{\\"fen\\":\\"r1bqkbnr/pppppppp/2n5/8/3PP3/8/PPP2
 ```
 
 ### Start a classical SAN movetext
+
+| Name | Description | Required |
+| ---- | ----------- | -------- |
+| `add` | `movetext` | Yes |
 
 ```js
 ws.send('/start classical san "{\\"movetext\\":\\"1.e4 Nc6 2.d4\\"}"');
@@ -70,6 +78,10 @@ ws.send('/start classical san "{\\"movetext\\":\\"1.e4 Nc6 2.d4\\"}"');
 ```
 
 ### Start a Chess960 SAN movetext
+
+| Name | Description | Required |
+| ---- | ----------- | -------- |
+| `add` | `movetext`<br/>`startPos` | Yes |
 
 ```js
 ws.send('/start 960 san "{\\"movetext\\":\\"1.e4 Nc6 2.d4\\",\\"startPos\\":\\"BNRKQBRN\\"}"');
@@ -95,6 +107,10 @@ ws.send('/start 960 san "{\\"movetext\\":\\"1.e4 Nc6 2.d4\\",\\"startPos\\":\\"B
 
 ### Start a classical game in Stockfish mode
 
+| Name | Description | Required |
+| ---- | ----------- | -------- |
+| `add` | `color` | Yes |
+
 ```js
 ws.send('/start classical stockfish b');
 ```
@@ -110,6 +126,10 @@ ws.send('/start classical stockfish b');
 ```
 
 ### Create an invite code to play a classical game
+
+| Name | Description | Required |
+| ---- | ----------- | -------- |
+| `add` | `settings` | Yes |
 
 ```js
 ws.send('/start classical play "{\\"min\\":5,\\"increment\\":3,\\"color\\":\\"w\\",\\"submode\\":\\"friend\\"}"');
