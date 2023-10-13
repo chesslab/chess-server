@@ -4,8 +4,6 @@
 
 Allows to take back a move.
 
-## Parameters
-
 | Name | Description | Required |
 | ---- | ----------- | -------- |
 | `action` | `propose`<br/>`decline`<br/>`accept` | Yes |

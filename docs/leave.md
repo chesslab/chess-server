@@ -4,8 +4,6 @@
 
 Allows to leave a game.
 
-## Parameters
-
 | Name | Description | Required |
 | ---- | ----------- | -------- |
 | `action` | `accept` | Yes |

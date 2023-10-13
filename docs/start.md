@@ -4,8 +4,6 @@
 
 Starts a new game.
 
-## Parameters
-
 | Name | Description | Required |
 | ---- | ----------- | -------- |
 | `variant` | `960`<br/>`capablanca`<br/>`capablanca-fischer`<br/>`classical` | Yes |

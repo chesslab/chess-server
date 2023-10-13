@@ -4,8 +4,6 @@
 
 Returns the heuristics of a chess position.
 
-## Parameters
-
 | Name | Description | Required |
 | ---- | ----------- | -------- |
 | `fen` | A FEN string. | Yes |

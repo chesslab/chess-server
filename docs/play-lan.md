@@ -4,8 +4,6 @@
 
 Plays a chess move in long algebraic notation.
 
-## Parameters
-
 | Name | Description | Required |
 | ---- | ----------- | -------- |
 | `color` | The player's turn. | Yes |

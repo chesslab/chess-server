@@ -4,8 +4,6 @@
 
 Restarts an existing game.
 
-## Parameters
-
 | Name | Description | Required |
 | ---- | ----------- | -------- |
 | `hash` | The unique hash of the game. | Yes |

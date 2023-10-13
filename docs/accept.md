@@ -4,8 +4,6 @@
 
 Accepts an invitation to play online with an opponent.
 
-## Parameters
-
 | Name | Description | Required |
 | ---- | ----------- | -------- |
 | `hash` | The unique hash of the game. | Yes |

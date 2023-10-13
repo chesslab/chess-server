@@ -4,8 +4,6 @@
 
 Allows to offer a rematch.
 
-## Parameters
-
 | Name | Description | Required |
 | ---- | ----------- | -------- |
 | `action` | `propose`<br/>`decline`<br/>`accept` | Yes |

@@ -4,8 +4,6 @@
 
 Returns the legal FEN positions of a piece.
 
-## Parameters
-
 | Name | Description | Required |
 | ---- | ----------- | -------- |
 | `position` | The location of the piece on the board. | Yes |
