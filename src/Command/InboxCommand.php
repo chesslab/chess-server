@@ -32,7 +32,7 @@ class InboxCommand extends AbstractCommand
     public function __construct()
     {
         $this->name = '/inbox';
-        $this->description = "Correspondence chess.";
+        $this->description = "Allows to play correspondence chess.";
         $this->params = [
             // mandatory
             'action' => [
