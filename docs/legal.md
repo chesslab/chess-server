@@ -1,7 +1,5 @@
 # /legal
 
-## Description
-
 Returns the legal FEN positions of a piece.
 
 | Name | Description | Required |

@@ -1,7 +1,5 @@
 # /inbox
 
-## Description
-
 Allows to play correspondence chess.
 
 | Name | Description | Required |

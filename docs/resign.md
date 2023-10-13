@@ -1,7 +1,5 @@
 # /resign
 
-## Description
-
 Allows to resign a game.
 
 | Name | Description | Required |

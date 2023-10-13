@@ -1,7 +1,5 @@
 # /play_lan
 
-## Description
-
 Plays a chess move in long algebraic notation.
 
 | Name | Description | Required |

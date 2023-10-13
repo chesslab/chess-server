@@ -1,7 +1,5 @@
 # /rematch
 
-## Description
-
 Allows to offer a rematch.
 
 | Name | Description | Required |

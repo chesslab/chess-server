@@ -1,7 +1,5 @@
 # /draw
 
-## Description
-
 Allows to offer a draw.
 
 | Name | Description | Required |

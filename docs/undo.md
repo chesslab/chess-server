@@ -1,7 +1,5 @@
 # /undo
 
-## Description
-
 Undoes the last move.
 
 ## Usage

@@ -1,7 +1,5 @@
 # /accept
 
-## Description
-
 Accepts an invitation to play online with an opponent.
 
 | Name | Description | Required |

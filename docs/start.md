@@ -1,7 +1,5 @@
 # /start
 
-## Description
-
 Starts a new game.
 
 | Name | Description | Required |

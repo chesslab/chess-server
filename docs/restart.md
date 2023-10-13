@@ -1,7 +1,5 @@
 # /restart
 
-## Description
-
 Restarts an existing game.
 
 | Name | Description | Required |

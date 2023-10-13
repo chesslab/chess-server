@@ -1,7 +1,5 @@
 # /leave
 
-## Description
-
 Allows to leave a game.
 
 | Name | Description | Required |

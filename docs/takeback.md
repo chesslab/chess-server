@@ -1,7 +1,5 @@
 # /takeback
 
-## Description
-
 Allows to take back a move.
 
 | Name | Description | Required |
