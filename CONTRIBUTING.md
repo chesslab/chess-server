@@ -26,6 +26,5 @@ That's it!
 
 For further information please visit:
 
-- [Redux Chess](https://github.com/chesslablab/redux-chess)
-- [Redux Chess Testing Application](https://github.com/chesslablab/testing-redux-chess)
-- [PHP Chess Docs](https://php-chess.readthedocs.io/en/latest/)
+- [React Chess](https://github.com/chesslablab/react-chess)
+- [PHP Chess](https://github.com/chesslablab/php-chess)
