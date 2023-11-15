@@ -2,6 +2,7 @@
 
 namespace ChessServer\Game;
 
+use Chess\EvalFunction;
 use Chess\FenToBoard;
 use Chess\HeuristicsByFen;
 use Chess\Movetext\NagMovetext;
@@ -63,11 +64,11 @@ abstract class AbstractMode
         try {
             switch (get_class($cmd)) {
                 case HeuristicsCommand::class:
-                    $heuristics = new HeuristicsByFen($argv[1], $argv[2]);
                     return [
                         $cmd->name => [
-                            'evalNames' => $heuristics->getEvalNames(),
-                            'balance' => $heuristics->getBalance(),
+                            'evalNames' => (new EvalFunction())->names(),
+                            'balance' => (new HeuristicsByFen($argv[1], $argv[2]))
+                                ->getBalance(),
                         ],
                     ];
                 case LegalCommand::class:
