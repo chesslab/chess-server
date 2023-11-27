@@ -16,7 +16,7 @@ ws.send('/online_games');
 
 ```text
 Game ID | Player 1 | Player 2 | Move Number | Position
-------- | -------- | -------- | -------- | --------
-1       | Steve    | Mark     | 1        | e4 e5
-2       | Max      | Charles  | 2        | Nf3 Nc6
+------- | -------- | -------- | ----------- | --------
+1       | Steve    | Mark     | 1           | e4 e5
+2       | Max      | Charles  | 2           | Nf3 Nc6
 ```
