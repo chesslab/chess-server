@@ -1,6 +1,6 @@
 # /stockfish_eval
 
-Evaluates a chess position using the Stockfish engine
+Evaluates a chess position using the Stockfish engine.
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
