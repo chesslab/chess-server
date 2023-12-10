@@ -19,7 +19,8 @@ $server = IoServer::factory(
             new WebSocket()
         )
     ),
-    $_ENV['WS_PORT']
+    $_ENV['WS_PORT'],
+    $_ENV['WS_LISTEN']
 );
 
 $server->run();
