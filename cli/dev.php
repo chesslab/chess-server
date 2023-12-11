@@ -20,7 +20,7 @@ $server = IoServer::factory(
         )
     ),
     $_ENV['WS_PORT'],
-    $_ENV['WS_LISTEN']
+    $_ENV['WS_ADDRESS']
 );
 
 $server->run();
