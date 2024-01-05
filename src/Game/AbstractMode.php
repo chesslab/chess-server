@@ -66,7 +66,7 @@ abstract class AbstractMode
                 case HeuristicsCommand::class:
                     return [
                         $cmd->name => [
-                            'evalNames' => (new StandardFunction())->names(),
+                            'names' => (new StandardFunction())->names(),
                             'balance' => (new FenHeuristics($argv[1], $argv[2]))
                                 ->getBalance(),
                         ],
