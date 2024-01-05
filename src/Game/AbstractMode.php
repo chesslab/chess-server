@@ -3,7 +3,7 @@
 namespace ChessServer\Game;
 
 use Chess\FenToBoard;
-use Chess\Heuristics\EvalFunction;
+use Chess\Function\StandardFunction;
 use Chess\Heuristics\FenHeuristics;
 use Chess\Movetext\NagMovetext;
 use Chess\UciEngine\Stockfish;
@@ -66,7 +66,7 @@ abstract class AbstractMode
                 case HeuristicsCommand::class:
                     return [
                         $cmd->name => [
-                            'evalNames' => (new EvalFunction())->names(),
+                            'evalNames' => (new StandardFunction())->names(),
                             'balance' => (new FenHeuristics($argv[1], $argv[2]))
                                 ->getBalance(),
                         ],
