@@ -19,7 +19,7 @@ ws.send('/heuristics "rnbqkb1r/p1pp1ppp/1p2pn2/8/2PP4/2N2N2/PP2PPPP/R1BQKB1R b K
 ```text
 {
   "/heuristics": {
-    "evalNames": [
+    "names": [
       "Material",
       "Center",
       "Connectivity",
