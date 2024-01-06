@@ -1,7 +1,7 @@
 # ChesslaBlab
 ## Open Source Community
 
-Chess is a perfect topic for learning full-stack web development as well as for playing around with machine learning libraries. A bunch of public chess repos ranging from React and JavaScript to PHP are available on the ChesslabLab community on GitHub.
+Chess is a perfect topic for learning full-stack web development as well as for playing around with machine learning libraries. A bunch of public chess repos ranging from React and JavaScript to PHP are available on the ChesslaBlab community on GitHub.
 
 ### Contributing guidelines
 
