@@ -128,3 +128,9 @@ ws.send('/start classical fen');
 See the [contributing guidelines](https://github.com/chesslablab/chess-server/blob/master/CONTRIBUTING.md).
 
 Happy learning and coding!
+
+<a href="https://github.com/chesslablab/chess-server/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=chesslablab/chess-server" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
