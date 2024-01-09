@@ -27,7 +27,7 @@ cp .env.example .env
 Finally, you may want to add the following entry to your `/etc/hosts` file if running the PHP chess server on your localhost along with [React Chess](https://github.com/chesslablab/react-chess) as per the `REACT_APP_WS_HOST` variable defined in the [react-chess/.env.example](https://github.com/chesslablab/react-chess/blob/master/.env.example) file.
 
 ```
-127.0.0.1       pchess.net
+127.0.0.1       chesslablab.net
 ```
 
 ### Run the Chess Server
@@ -115,7 +115,7 @@ docker compose -f docker-compose.prod.yml up -d
 Open a console in your favorite browser and run the following commands:
 
 ```
-const ws = new WebSocket('wss://pchess.net:8443');
+const ws = new WebSocket('wss://chesslablab.net:8443');
 ws.send('/start classical fen');
 ```
 

@@ -5,7 +5,7 @@ Similar to the [Chess API](https://chess-api.readthedocs.io/en/latest/), the [Ch
 This is how to open a WebSocket connection in JavaScript.
 
 ```js
-const ws = new WebSocket('wss://pchess.net:8443');
+const ws = new WebSocket('wss://chesslablab.net:8443');
 ```
 
 That's it!
@@ -93,7 +93,7 @@ Let's recap.
 Described below is the series of steps required to start a classical chess game with 1.e4 e5. Remember, computers and graphic user interfaces (GUIs) usually prefer the Long Algebraic Notation (LAN) format instead: e2e4 and e7e5.
 
 ```js
-const ws = new WebSocket('wss://pchess.net:8443');
+const ws = new WebSocket('wss://chesslablab.net:8443');
 ws.send('/start classical fen');
 ws.send('/play_lan w e2e4');
 ws.send('/play_lan b e7e5');
