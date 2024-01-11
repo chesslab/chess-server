@@ -4,7 +4,7 @@
 [![Contributing](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 [![Contributors](https://img.shields.io/github/contributors/chesslablab/chess-server)](https://github.com/chesslablab/chess-server/graphs/contributors)
 
-Asynchronous PHP server using the [PHP Chess](https://github.com/chesslablab/php-chess) library.
+Asynchronous PHP chess server.
 
 ### Connect to the WebSocket Server
 
