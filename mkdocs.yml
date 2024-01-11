@@ -1,6 +1,7 @@
 site_name: PHP Chess Server
 pages:
   - Features: index.md
+  - Installation: installation.md
   - Getting Started: getting-started.md
   - /start: start.md
   - /legal: legal.md
