@@ -18,4 +18,5 @@ pages:
   - /inbox: inbox.md
   - /stockfish: stockfish.md
   - /stockfish_eval: stockfish-eval.md
+  - /online_games: online-games.md
 theme: readthedocs
