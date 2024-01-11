@@ -17,7 +17,6 @@
   "require": {
     "php": ">=8.1",
     "chesslablab/php-chess": "dev-master",
-    "rubix/ml": "^2.0",
     "cboden/ratchet": "^0.4",
     "firebase/php-jwt": "^6.8",
     "vlucas/phpdotenv": "^5.3",
