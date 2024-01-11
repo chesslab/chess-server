@@ -1,6 +1,6 @@
 # /stockfish
 
-Uses Stockfish to make a move.
+Returns Stockfish's response to the current position.
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
@@ -11,7 +11,7 @@ Uses Stockfish to make a move.
 
 ### Example
 
-Start a classical game and ask Stockfish to respond with a move.
+Start a classical game, play `e2e4` and use Stockfish to respond with a move.
 
 ```js
 ws.send('/start classical stockfish w');
