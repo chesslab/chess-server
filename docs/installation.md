@@ -109,12 +109,3 @@ docker compose -f docker-compose.staging.yml up -d
 ```
 docker compose -f docker-compose.prod.yml up -d
 ```
-
-## Connect to the Secure WebSocket Server
-
-Open a console in your favorite browser and run the following commands:
-
-```
-const ws = new WebSocket('wss://chesslablab.net:8443');
-ws.send('/start classical fen');
-```
