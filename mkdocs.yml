@@ -17,4 +17,5 @@ pages:
   - /restart: restart.md
   - /inbox: inbox.md
   - /stockfish: stockfish.md
+  - /stockfish_eval: stockfish-eval.md
 theme: readthedocs
