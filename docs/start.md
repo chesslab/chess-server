@@ -6,7 +6,7 @@ Starts a new game.
 | ---- | ----------- | -------- |
 | `variant` | `960`<br/>`capablanca`<br/>`capablanca-fischer`<br/>`classical` | Yes |
 | `mode` | `fen`<br/>`san`<br/>`play`<br/>`stockfish` | Yes |
-| `add` | `fen`<br/>`movetext`<br/>`startPos`<br/>`settings`<br/>`color` | Maybe. Depends on the mode selected. |
+| `add` | `fen`<br/>`movetext`<br/>`startPos`<br/>`settings`<br/>`color` | Depends on the mode selected. |
 
 ## Usage
 
@@ -26,7 +26,7 @@ ws.send('/start classical fen');
 }
 ```
 
-### Start a classical FEN
+### Start a classical game from a FEN position
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
@@ -46,7 +46,7 @@ ws.send('/start classical fen "{\\"fen\\":\\"r1bqkbnr/pppppppp/2n5/8/3PP3/8/PPP2
 }
 ```
 
-### Start a classical SAN movetext
+### Start a classical game from a SAN movetext
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
@@ -73,7 +73,7 @@ ws.send('/start classical san "{\\"movetext\\":\\"1.e4 Nc6 2.d4\\"}"');
 }
 ```
 
-### Start a Chess960 SAN movetext
+### Start a Chess960 game from a SAN movetext
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
@@ -137,8 +137,8 @@ ws.send('/start classical play "{\\"min\\":5,\\"increment\\":3,\\"color\\":\\"w\
     "variant": "classical",
     "mode": "play",
     "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -",
-    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwY2hlc3MubmV0IiwiaWF0IjoxNjkzOTI5MDUzLCJleHAiOjE2OTM5MzI2NTMsInZhcmlhbnQiOiJjbGFzc2ljYWwiLCJzdWJtb2RlIjoiZnJpZW5kIiwiY29sb3IiOiJ3IiwibWluIjo1LCJpbmNyZW1lbnQiOjMsImZlbiI6InJuYnFrYm5yL3BwcHBwcHBwLzgvOC84LzgvUFBQUFBQUFAvUk5CUUtCTlIgdyBLUWtxIC0ifQ.1rdf1MMR3vsYMDYZ0LroMlTbYRFp3j1ctd1lshW0XV4",
-    "hash": "0151f4d3af859a6aa14abd3e0ee57f2a"
+    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjaGVzc2xhYmxhYi5uZXQiLCJpYXQiOjE3MDQ5NjYwNTMsImV4cCI6MTcwNDk2OTY1MywidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJmcmllbmQiLCJjb2xvciI6InciLCJtaW4iOjUsImluY3JlbWVudCI6MywiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9._ehztodTLYkyovW82I1qyGdNkFwGFdTKn3O7EBr3cHo",
+    "hash": "b4f1c0d0b28cad147968729f6bb76558"
   }
 }
 ```
