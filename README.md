@@ -1,6 +1,6 @@
 ## PHP Chess Server
 
-PHP Ratchet WebSocket server using [PHP Chess](https://github.com/chesslablab/php-chess).
+Asynchronous PHP server using the [PHP Chess](https://github.com/chesslablab/php-chess) library.
 
 ### Documentation
 
