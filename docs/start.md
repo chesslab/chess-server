@@ -121,6 +121,24 @@ ws.send('/start classical stockfish b');
 }
 ```
 
+### Start a classical game to play online
+
+```js
+ws.send('/start classical play {"min":5,"increment":3,"color":"b","submode":"online"}');
+```
+
+```text
+{
+  "/start": {
+    "variant": "classical",
+    "mode": "play",
+    "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -",
+    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjaGVzc2xhYmxhYi5uZXQiLCJpYXQiOjE3MDQ5ODM1NzUsImV4cCI6MTcwNDk4NzE3NSwidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJvbmxpbmUiLCJjb2xvciI6ImIiLCJtaW4iOjUsImluY3JlbWVudCI6MywiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9.DMIDU7I52Reuz0VNHTXlGn6FLv3dc6KMEZRf9ephh1k",
+    "hash": "3d5f1b067edae5a59a2a9595e96bde54"
+  }
+}
+```
+
 ### Create an invite code to play a classical game
 
 | Name | Description | Required |
