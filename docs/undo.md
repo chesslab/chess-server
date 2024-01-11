@@ -24,6 +24,7 @@ ws.send('/undo');
     "castlingAbility": "KQkq",
     "movetext": "1.e4 e5",
     "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6",
+    "isCapture": false,
     "isCheck": false,
     "isMate": false,
     "isStalemate": false,
