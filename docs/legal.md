@@ -10,7 +10,7 @@ Returns the legal FEN positions of a piece.
 
 ### Example
 
-Start a classical game to find out the legal squares of the piece on e2.
+Start a classical game to find out the legal moves of the piece on e2.
 
 ```js
 ws.send('/start classical fen');
