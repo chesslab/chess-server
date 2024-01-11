@@ -6,6 +6,10 @@ Similar to the [Chess API](https://chess-api.readthedocs.io/en/latest/), it can 
 
 The chess commands are intended to run very quickly almost in real-time.
 
+## Object-Oriented
+
+The socket, the game modes and the chess commands are all implemented using OOP principles.
+
 ## Lightweight
 
 Dependencies required:
