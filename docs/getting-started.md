@@ -1,6 +1,6 @@
 # Getting Started
 
-Probably the easiest way to get familiar with the chess commands is by reading the WebSocket messages sent back and forth between the web browser and the chess server. To do this, you may want to use the [React Chess](https://github.com/chesslablab/react-chess) application as shown in the example below.
+Probably the easiest way to get familiar with the chess commands is by reading the WebSocket messages sent back and forth between the web browser and the chess server as you interact with a web app. To do this, you may want to use the [React Chess](https://github.com/chesslablab/react-chess) application as shown in the example below.
 
 **Figure 1**. Open Google Chrome developer tools for command examples.
 ![Figure 1](https://raw.githubusercontent.com/chesslablab/chess-server/master/docs/getting-started_01.png)
