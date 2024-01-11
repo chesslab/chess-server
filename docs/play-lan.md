@@ -26,6 +26,7 @@ ws.send('/play_lan w e2e4');
     "castlingAbility": "KQkq",
     "movetext": "1.e4",
     "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3",
+    "isCapture": false,
     "isCheck": false,
     "isMate": false,
     "isStalemate": false,
