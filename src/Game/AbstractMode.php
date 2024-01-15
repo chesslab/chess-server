@@ -6,13 +6,23 @@ use Chess\FenToBoard;
 use Chess\Function\StandardFunction;
 use Chess\Heuristics\FenHeuristics;
 use Chess\Movetext\NagMovetext;
+use Chess\Tutor\FenExplanation;
 use Chess\UciEngine\Stockfish;
+use Chess\Variant\Capablanca\Board as CapablancaBoard;
+use Chess\Variant\Capablanca\FEN\StrToBoard as CapablancaFenStrToBoard;
+use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
+use Chess\Variant\CapablancaFischer\FEN\StrToBoard as CapablancaFischerStrToBoard;
+use Chess\Variant\Chess960\Board as Chess960Board;
+use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
+use Chess\Variant\Classical\Board as ClassicalBoard;
+use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use ChessServer\Game\Game;
 use ChessServer\Command\HeuristicsCommand;
 use ChessServer\Command\LegalCommand;
 use ChessServer\Command\PlayLanCommand;
 use ChessServer\Command\StockfishCommand;
 use ChessServer\Command\StockfishEvalCommand;
+use ChessServer\Command\TutorFenCommand;
 use ChessServer\Command\UndoCommand;
 use ChessServer\Exception\InternalErrorException;
 
@@ -104,6 +114,22 @@ abstract class AbstractMode
                     $nag = $stockfish->evalNag($board->toFen(), 'Final');
                     return [
                         $cmd->name => NagMovetext::glyph($nag),
+                    ];
+                case TutorFenCommand::class:
+                    if ($argv[1] === Chess960Board::VARIANT) {
+                        $startPos = str_split($argv[3]);
+                        $board = (new Chess960FenStrToBoard($argv[2], $startPos))->create();
+                    } elseif ($argv[1] === CapablancaBoard::VARIANT) {
+                        $board = (new CapablancaFenStrToBoard($argv[2]))->create();
+                    } elseif ($argv[1] === CapablancaFischerBoard::VARIANT) {
+                        $startPos = str_split($argv[3]);
+                        $board = (new CapablancaFischerStrToBoard($argv[2], $startPos))->create();
+                    } elseif ($argv[1] === ClassicalBoard::VARIANT) {
+                        $board = (new ClassicalFenStrToBoard($argv[2]))->create();
+                    }
+                    $paragraph = (new FenExplanation($board))->getParagraph();
+                    return [
+                        $cmd->name => implode(' ', $paragraph),
                     ];
                 case UndoCommand::class:
                     $board = $this->game->getBoard()->undo();
