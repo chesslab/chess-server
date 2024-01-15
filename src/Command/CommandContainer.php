@@ -18,6 +18,7 @@ use ChessServer\Command\StartCommand;
 use ChessServer\Command\StockfishCommand;
 use ChessServer\Command\StockfishEvalCommand;
 use ChessServer\Command\TakebackCommand;
+use ChessServer\Command\TutorFenCommand;
 use ChessServer\Command\UndoCommand;
 
 class CommandContainer
@@ -43,6 +44,7 @@ class CommandContainer
         $this->obj->attach(new StockfishCommand());
         $this->obj->attach(new StockfishEvalCommand());
         $this->obj->attach(new TakebackCommand());
+        $this->obj->attach(new TutorFenCommand());
         $this->obj->attach(new UndoCommand());
     }
 
