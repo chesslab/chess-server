@@ -4,7 +4,6 @@ namespace ChessServer\Command;
 
 use ChessServer\Socket\ChesslaBlab;
 use ChessServer\Exception\InternalErrorException;
-use ChessServer\Game\PlayMode;
 
 class HeuristicsCommand extends AbstractCommand
 {
