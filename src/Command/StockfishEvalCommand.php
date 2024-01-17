@@ -12,7 +12,9 @@ class StockfishEvalCommand extends AbstractCommand
         $this->name = '/stockfish_eval';
         $this->description = "Returns Stockfish's evaluation for the given position.";
         $this->params = [
+            // mandatory params
             'fen' => '<string>',
+            'variant' => '<string>',
         ];
     }
 

@@ -109,11 +109,20 @@ abstract class AbstractMode
                         ],
                     ];
                 case StockfishEvalCommand::class:
-                    $board = FenToBoard::create($argv[1]);
-                    $stockfish = new Stockfish($board);
-                    $nag = $stockfish->evalNag($board->toFen(), 'Final');
+                    if (
+                        $argv[2] === ClassicalBoard::VARIANT ||
+                        $argv[2] === Chess960Board::VARIANT 
+                    ) {
+                        $board = FenToBoard::create($argv[1]);
+                        $stockfish = new Stockfish($board);
+                        $nag = $stockfish->evalNag($board->toFen(), 'Final');
+                        return [
+                            $cmd->name => NagMovetext::glyph($nag),
+                        ];
+                    }
+
                     return [
-                        $cmd->name => NagMovetext::glyph($nag),
+                        $cmd->name => null,
                     ];
                 case TutorFenCommand::class:
                     if ($argv[2] === Chess960Board::VARIANT) {
