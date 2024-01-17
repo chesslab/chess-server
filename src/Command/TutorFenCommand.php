@@ -13,8 +13,8 @@ class TutorFenCommand extends AbstractCommand
         $this->description = "Explains a FEN position in terms of chess concepts.";
         $this->params = [
             // mandatory params
-            'variant' => '<string>',
             'fen' => '<string>',
+            'variant' => '<string>',
             // optional params
             'startPos' => '<string>',
         ];

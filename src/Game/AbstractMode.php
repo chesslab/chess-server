@@ -116,16 +116,16 @@ abstract class AbstractMode
                         $cmd->name => NagMovetext::glyph($nag),
                     ];
                 case TutorFenCommand::class:
-                    if ($argv[1] === Chess960Board::VARIANT) {
+                    if ($argv[2] === Chess960Board::VARIANT) {
                         $startPos = str_split($argv[3]);
-                        $board = (new Chess960FenStrToBoard($argv[2], $startPos))->create();
-                    } elseif ($argv[1] === CapablancaBoard::VARIANT) {
-                        $board = (new CapablancaFenStrToBoard($argv[2]))->create();
-                    } elseif ($argv[1] === CapablancaFischerBoard::VARIANT) {
+                        $board = (new Chess960FenStrToBoard($argv[1], $startPos))->create();
+                    } elseif ($argv[2] === CapablancaBoard::VARIANT) {
+                        $board = (new CapablancaFenStrToBoard($argv[1]))->create();
+                    } elseif ($argv[2] === CapablancaFischerBoard::VARIANT) {
                         $startPos = str_split($argv[3]);
-                        $board = (new CapablancaFischerStrToBoard($argv[2], $startPos))->create();
-                    } elseif ($argv[1] === ClassicalBoard::VARIANT) {
-                        $board = (new ClassicalFenStrToBoard($argv[2]))->create();
+                        $board = (new CapablancaFischerStrToBoard($argv[1], $startPos))->create();
+                    } elseif ($argv[2] === ClassicalBoard::VARIANT) {
+                        $board = (new ClassicalFenStrToBoard($argv[1]))->create();
                     }
                     $paragraph = (new FenExplanation($board))->getParagraph();
                     return [
