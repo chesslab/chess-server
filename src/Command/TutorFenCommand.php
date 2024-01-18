@@ -12,17 +12,14 @@ class TutorFenCommand extends AbstractCommand
         $this->name = '/tutor_fen';
         $this->description = "Explains a FEN position in terms of chess concepts.";
         $this->params = [
-            // mandatory params
             'fen' => '<string>',
             'variant' => '<string>',
-            // optional params
-            'startPos' => '<string>',
         ];
     }
 
     public function validate(array $argv)
     {
-        return count($argv) - 1 === count($this->params) || count($this->params) - 1;
+        return count($argv) - 1 === count($this->params);
     }
 
     public function run(ChesslaBlab $socket, array $argv, int $resourceId)

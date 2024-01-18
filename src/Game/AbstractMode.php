@@ -9,13 +9,8 @@ use Chess\Movetext\NagMovetext;
 use Chess\Tutor\FenExplanation;
 use Chess\UciEngine\Stockfish;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
-use Chess\Variant\Capablanca\FEN\StrToBoard as CapablancaFenStrToBoard;
-use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
-use Chess\Variant\CapablancaFischer\FEN\StrToBoard as CapablancaFischerStrToBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
-use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\Board as ClassicalBoard;
-use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use ChessServer\Game\Game;
 use ChessServer\Command\HeuristicsCommand;
 use ChessServer\Command\LegalCommand;
@@ -74,11 +69,18 @@ abstract class AbstractMode
         try {
             switch (get_class($cmd)) {
                 case HeuristicsCommand::class:
+                    if (
+                        $argv[2] === Game::VARIANT_CAPABLANCA ||
+                        $argv[2] === Game::VARIANT_CAPABLANCA_FISCHER
+                    ) {
+                        $board = FenToBoard::create($argv[1], new CapablancaBoard());
+                    } else {
+                        $board = FenToBoard::create($argv[1], new ClassicalBoard());
+                    }
                     return [
                         $cmd->name => [
                             'names' => (new StandardFunction())->names(),
-                            'balance' => (new FenHeuristics($argv[1], $argv[2]))
-                                ->getBalance(),
+                            'balance' => (new FenHeuristics($board))->getBalance(),
                         ],
                     ];
                 case LegalCommand::class:
@@ -111,7 +113,7 @@ abstract class AbstractMode
                 case StockfishEvalCommand::class:
                     if (
                         $argv[2] === ClassicalBoard::VARIANT ||
-                        $argv[2] === Chess960Board::VARIANT 
+                        $argv[2] === Chess960Board::VARIANT
                     ) {
                         $board = FenToBoard::create($argv[1]);
                         $stockfish = new Stockfish($board);
@@ -125,18 +127,15 @@ abstract class AbstractMode
                         $cmd->name => null,
                     ];
                 case TutorFenCommand::class:
-                    if ($argv[2] === Chess960Board::VARIANT) {
-                        $startPos = str_split($argv[3]);
-                        $board = (new Chess960FenStrToBoard($argv[1], $startPos))->create();
-                    } elseif ($argv[2] === CapablancaBoard::VARIANT) {
-                        $board = (new CapablancaFenStrToBoard($argv[1]))->create();
-                    } elseif ($argv[2] === CapablancaFischerBoard::VARIANT) {
-                        $startPos = str_split($argv[3]);
-                        $board = (new CapablancaFischerStrToBoard($argv[1], $startPos))->create();
-                    } elseif ($argv[2] === ClassicalBoard::VARIANT) {
-                        $board = (new ClassicalFenStrToBoard($argv[1]))->create();
+                    if (
+                        $argv[2] === Game::VARIANT_CAPABLANCA ||
+                        $argv[2] === Game::VARIANT_CAPABLANCA_FISCHER
+                    ) {
+                        $board = FenToBoard::create($argv[1], new CapablancaBoard());
+                    } else {
+                        $board = FenToBoard::create($argv[1], new ClassicalBoard());
                     }
-                    $paragraph = (new FenExplanation($board))->getParagraph();
+                    $paragraph = (new FenExplanation($board, $isEvaluated = true))->getParagraph();
                     return [
                         $cmd->name => implode(' ', $paragraph),
                     ];
