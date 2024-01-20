@@ -17,7 +17,7 @@ ws.send('/start classical fen');
 
 ### Documentation
 
-Read the latest docs [here](https://php-chess-server.readthedocs.io/en/latest/).
+Read the latest docs [here](https://github.com/chesslablab/chess-server/wiki).
 
 ### License
 

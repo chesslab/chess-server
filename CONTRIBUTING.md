@@ -23,8 +23,3 @@ $ git checkout -b issue/236-update-to-MUI-5
 ```
 
 That's it!
-
-For further information please visit:
-
-- [React Chess](https://github.com/chesslablab/react-chess)
-- [PHP Chess](https://github.com/chesslablab/php-chess)
