@@ -15,3 +15,5 @@
 /storage/*.log
 
 /.phpunit.result.cache
+
+/site/
