@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>/start - PHP Chess Server</title>
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "/start";
+    var mkdocs_page_input_path = "start.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> PHP Chess Server</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Features</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../getting-started/">Getting Started</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">/start</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#start-a-classical-game">Start a classical game</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#start-a-classical-game-from-a-fen-position">Start a classical game from a FEN position</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#start-a-classical-game-from-a-san-movetext">Start a classical game from a SAN movetext</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#start-a-chess960-game-from-a-san-movetext">Start a Chess960 game from a SAN movetext</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#start-a-classical-game-in-stockfish-mode">Start a classical game in Stockfish mode</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#start-a-classical-game-to-play-online">Start a classical game to play online</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#create-an-invite-code-to-play-a-classical-game">Create an invite code to play a classical game</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../legal/">/legal</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../play-lan/">/play_lan</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../heuristics/">/heuristics</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../undo/">/undo</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../accept/">/accept</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../takeback/">/takeback</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../draw/">/draw</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../resign/">/resign</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../leave/">/leave</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../rematch/">/rematch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../restart/">/restart</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../inbox/">/inbox</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../stockfish/">/stockfish</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../stockfish-eval/">/stockfish_eval</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../online-games/">/online_games</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">PHP Chess Server</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>/start</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="start">/start</h1>
+<p>Starts a new game.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>variant</code></td>
+<td><code>960</code><br/><code>capablanca</code><br/><code>capablanca-fischer</code><br/><code>classical</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>mode</code></td>
+<td><code>fen</code><br/><code>san</code><br/><code>play</code><br/><code>stockfish</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>add</code></td>
+<td><code>fen</code><br/><code>movetext</code><br/><code>startPos</code><br/><code>settings</code><br/><code>color</code></td>
+<td>Depends on the mode selected.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="usage">Usage</h2>
+<h3 id="start-a-classical-game">Start a classical game</h3>
+<pre><code class="language-js">ws.send('/start classical fen');
+</code></pre>
+<pre><code class="language-text">{
+  &quot;/start&quot;: {
+    &quot;variant&quot;: &quot;classical&quot;,
+    &quot;mode&quot;: &quot;fen&quot;,
+    &quot;fen&quot;: &quot;rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -&quot;
+  }
+}
+</code></pre>
+<h3 id="start-a-classical-game-from-a-fen-position">Start a classical game from a FEN position</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add</code></td>
+<td><code>fen</code></td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-js">ws.send('/start classical fen &quot;{\\&quot;fen\\&quot;:\\&quot;r1bqkbnr/pppppppp/2n5/8/3PP3/8/PPP2PPP/RNBQKBNR b KQkq d3\\&quot;}&quot;');
+</code></pre>
+<pre><code class="language-text">{
+  &quot;/start&quot;: {
+    &quot;variant&quot;: &quot;classical&quot;,
+    &quot;mode&quot;: &quot;fen&quot;,
+    &quot;fen&quot;: &quot;r1bqkbnr/pppppppp/2n5/8/3PP3/8/PPP2PPP/RNBQKBNR b KQkq -&quot;
+  }
+}
+</code></pre>
+<h3 id="start-a-classical-game-from-a-san-movetext">Start a classical game from a SAN movetext</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add</code></td>
+<td><code>movetext</code></td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-js">ws.send('/start classical san &quot;{\\&quot;movetext\\&quot;:\\&quot;1.e4 Nc6 2.d4\\&quot;}&quot;');
+</code></pre>
+<pre><code class="language-text">{
+  &quot;/start&quot;: {
+    &quot;variant&quot;: &quot;classical&quot;,
+    &quot;mode&quot;: &quot;san&quot;,
+    &quot;turn&quot;: &quot;b&quot;,
+    &quot;movetext&quot;: &quot;1.e4 Nc6 2.d4&quot;,
+    &quot;fen&quot;: [
+      &quot;rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -&quot;,
+      &quot;rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3&quot;,
+      &quot;r1bqkbnr/pppppppp/2n5/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq -&quot;,
+      &quot;r1bqkbnr/pppppppp/2n5/8/3PP3/8/PPP2PPP/RNBQKBNR b KQkq d3&quot;
+    ]
+  }
+}
+</code></pre>
+<h3 id="start-a-chess960-game-from-a-san-movetext">Start a Chess960 game from a SAN movetext</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add</code></td>
+<td><code>movetext</code><br/><code>startPos</code></td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-js">ws.send('/start 960 san &quot;{\\&quot;movetext\\&quot;:\\&quot;1.e4 Nc6 2.d4\\&quot;,\\&quot;startPos\\&quot;:\\&quot;BNRKQBRN\\&quot;}&quot;');
+</code></pre>
+<pre><code class="language-text">{
+  &quot;/start&quot;: {
+    &quot;variant&quot;: &quot;960&quot;,
+    &quot;mode&quot;: &quot;san&quot;,
+    &quot;turn&quot;: &quot;b&quot;,
+    &quot;movetext&quot;: &quot;1.e4 Nc6 2.d4&quot;,
+    &quot;fen&quot;: [
+      &quot;bnrkqbrn/pppppppp/8/8/8/8/PPPPPPPP/BNRKQBRN w KQkq -&quot;,
+      &quot;bnrkqbrn/pppppppp/8/8/4P3/8/PPPP1PPP/BNRKQBRN b KQkq e3&quot;,
+      &quot;b1rkqbrn/pppppppp/2n5/8/4P3/8/PPPP1PPP/BNRKQBRN w KQkq -&quot;,
+      &quot;b1rkqbrn/pppppppp/2n5/8/3PP3/8/PPP2PPP/BNRKQBRN b KQkq d3&quot;
+    ],
+    &quot;startPos&quot;: &quot;BNRKQBRN&quot;
+  }
+}
+</code></pre>
+<h3 id="start-a-classical-game-in-stockfish-mode">Start a classical game in Stockfish mode</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add</code></td>
+<td><code>color</code></td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-js">ws.send('/start classical stockfish b');
+</code></pre>
+<pre><code class="language-text">{
+  &quot;/start&quot;: {
+    &quot;variant&quot;: &quot;classical&quot;,
+    &quot;mode&quot;: &quot;stockfish&quot;,
+    &quot;color&quot;: &quot;b&quot;
+  }
+}
+</code></pre>
+<h3 id="start-a-classical-game-to-play-online">Start a classical game to play online</h3>
+<pre><code class="language-js">ws.send('/start classical play {&quot;min&quot;:5,&quot;increment&quot;:3,&quot;color&quot;:&quot;b&quot;,&quot;submode&quot;:&quot;online&quot;}');
+</code></pre>
+<pre><code class="language-text">{
+  &quot;/start&quot;: {
+    &quot;variant&quot;: &quot;classical&quot;,
+    &quot;mode&quot;: &quot;play&quot;,
+    &quot;fen&quot;: &quot;rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -&quot;,
+    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjaGVzc2xhYmxhYi5uZXQiLCJpYXQiOjE3MDQ5ODM1NzUsImV4cCI6MTcwNDk4NzE3NSwidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJvbmxpbmUiLCJjb2xvciI6ImIiLCJtaW4iOjUsImluY3JlbWVudCI6MywiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9.DMIDU7I52Reuz0VNHTXlGn6FLv3dc6KMEZRf9ephh1k&quot;,
+    &quot;hash&quot;: &quot;3d5f1b067edae5a59a2a9595e96bde54&quot;
+  }
+}
+</code></pre>
+<h3 id="create-an-invite-code-to-play-a-classical-game">Create an invite code to play a classical game</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add</code></td>
+<td><code>settings</code></td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-js">ws.send('/start classical play &quot;{\\&quot;min\\&quot;:5,\\&quot;increment\\&quot;:3,\\&quot;color\\&quot;:\\&quot;w\\&quot;,\\&quot;submode\\&quot;:\\&quot;friend\\&quot;}&quot;');
+</code></pre>
+<pre><code class="language-text">{
+  &quot;/start&quot;: {
+    &quot;variant&quot;: &quot;classical&quot;,
+    &quot;mode&quot;: &quot;play&quot;,
+    &quot;fen&quot;: &quot;rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -&quot;,
+    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjaGVzc2xhYmxhYi5uZXQiLCJpYXQiOjE3MDQ5NjYwNTMsImV4cCI6MTcwNDk2OTY1MywidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJmcmllbmQiLCJjb2xvciI6InciLCJtaW4iOjUsImluY3JlbWVudCI6MywiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9._ehztodTLYkyovW82I1qyGdNkFwGFdTKn3O7EBr3cHo&quot;,
+    &quot;hash&quot;: &quot;b4f1c0d0b28cad147968729f6bb76558&quot;
+  }
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../legal/" class="btn btn-neutral float-right" title="/legal">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../getting-started/" class="btn btn-neutral" title="Getting Started"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../getting-started/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../legal/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

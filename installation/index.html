@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Installation - PHP Chess Server</title>
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Installation";
+    var mkdocs_page_input_path = "installation.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> PHP Chess Server</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Features</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Installation</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#run-the-chess-server">Run the Chess Server</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#functional-testing">Functional Testing</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#simple-websocket-server">Simple WebSocket Server</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#staging">Staging</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#production">Production</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#run-the-chess-server-on-a-docker-container">Run the Chess Server on a Docker Container</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#functional-testing_1">Functional Testing</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#development">Development</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#staging_1">Staging</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#production_1">Production</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../getting-started/">Getting Started</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/">/start</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../legal/">/legal</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../play-lan/">/play_lan</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../heuristics/">/heuristics</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../undo/">/undo</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../accept/">/accept</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../takeback/">/takeback</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../draw/">/draw</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../resign/">/resign</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../leave/">/leave</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../rematch/">/rematch</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../restart/">/restart</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../inbox/">/inbox</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../stockfish/">/stockfish</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../stockfish-eval/">/stockfish_eval</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../online-games/">/online_games</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">PHP Chess Server</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Installation</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="installation">Installation</h1>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>PHP &gt;= 8.1</li>
+</ul>
+<p>You may want to optionally install Stockfish &gt;= 15.1 as it is described in <a href="https://php-chess.readthedocs.io/en/latest/play-computer/">Play Computer</a>.</p>
+<h2 id="setup">Setup</h2>
+<p>Clone the <code>chesslablab/chess-server</code> repo into your projects folder as it is described in the following example:</p>
+<pre><code>git clone git@github.com:chesslablab/chess-server.git
+</code></pre>
+<p>Then <code>cd</code> the <code>chess-server</code> directory and install the Composer dependencies:</p>
+<pre><code>composer install
+</code></pre>
+<p>Create an <code>.env</code> file:</p>
+<pre><code>cp .env.example .env
+</code></pre>
+<p>Finally, you may want to add the following entry to your <code>/etc/hosts</code> file if running the PHP chess server on your localhost along with <a href="https://github.com/chesslablab/react-chess">React Chess</a> as per the <code>REACT_APP_WS_HOST</code> variable defined in the <a href="https://github.com/chesslablab/react-chess/blob/master/.env.example">react-chess/.env.example</a> file.</p>
+<pre><code>127.0.0.1       chesslablab.net
+</code></pre>
+<h2 id="run-the-chess-server">Run the Chess Server</h2>
+<p>The chess server comes in four different flavors and can be run using a PHP script.</p>
+<table>
+<thead>
+<tr>
+<th>Script</th>
+<th>Description</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/testing.php">cli/testing.php</a></td>
+<td>TCP socket.</td>
+<td>Functional testing.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/dev.php">cli/dev.php</a></td>
+<td>Simple WebSocket server.</td>
+<td>Development.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/staging.php">cli/staging.php</a></td>
+<td>Secure WebSocket server.</td>
+<td>Staging.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/prod.php">cli/prod.php</a></td>
+<td>Secure WebSocket server.</td>
+<td>Production.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="functional-testing">Functional Testing</h3>
+<p>Run the TCP socket server.</p>
+<pre><code>php cli/testing.php
+</code></pre>
+<h3 id="simple-websocket-server">Simple WebSocket Server</h3>
+<p>Run the simple WebSocket server if you are not using an SSL/TLS certificate.</p>
+<pre><code>php cli/dev.php
+</code></pre>
+<h3 id="staging">Staging</h3>
+<blockquote>
+<p>Before starting the secure WebSocket server for the first time, make sure to have created the <code>certificate.crt</code> and <code>private.key</code> files into the <code>ssl</code> folder.</p>
+</blockquote>
+<p>Run the staging secure WebSocket server if you don't want to check the website's origin.</p>
+<pre><code>php cli/staging.php
+</code></pre>
+<p>This will allow any origin to send a request to it.</p>
+<h3 id="production">Production</h3>
+<blockquote>
+<p>Before starting the secure WebSocket server for the first time, make sure to have created the <code>certificate.crt</code> and <code>private.key</code> files into the <code>ssl</code> folder.</p>
+</blockquote>
+<p>Run the secure WebSocket server to check the website's origin as defined in the <code>WSS_ALLOWED</code> variable in the <code>.env.example</code> file.</p>
+<pre><code>php cli/prod.php
+</code></pre>
+<p>This will allow the <code>WSS_ALLOWED</code> website to send a request to it.</p>
+<h2 id="run-the-chess-server-on-a-docker-container">Run the Chess Server on a Docker Container</h2>
+<p>Alternatively, the chess server can run on a Docker container.</p>
+<h3 id="functional-testing_1">Functional Testing</h3>
+<pre><code>docker compose -f docker-compose.testing.yml up -d
+</code></pre>
+<h3 id="development">Development</h3>
+<pre><code>docker compose -f docker-compose.dev.yml up -d
+</code></pre>
+<h3 id="staging_1">Staging</h3>
+<pre><code>docker compose -f docker-compose.staging.yml up -d
+</code></pre>
+<h3 id="production_1">Production</h3>
+<pre><code>docker compose -f docker-compose.prod.yml up -d
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../getting-started/" class="btn btn-neutral float-right" title="Getting Started">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Features"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../getting-started/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
