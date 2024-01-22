@@ -15,7 +15,6 @@ nav:
   - /leave: leave.md
   - /rematch: rematch.md
   - /restart: restart.md
-  - /inbox: inbox.md
   - /stockfish: stockfish.md
   - /stockfish_eval: stockfish-eval.md
   - /online_games: online-games.md
