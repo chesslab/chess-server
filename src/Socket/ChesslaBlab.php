@@ -8,7 +8,6 @@ use ChessServer\Game\GameModeStorage;
 use Dotenv\Dotenv;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
-use SleekDB\Store as DbStore;
 
 /**
  * ChesslaBlab
@@ -46,13 +45,6 @@ class ChesslaBlab
     protected Grandmaster $gm;
 
     /**
-     * Correspondence chess games being played.
-     *
-     * @var \SleekDB\Store
-     */
-    protected DbStore $inboxStore;
-
-    /**
      * Games being played by the clients.
      *
      * @var \ChessServer\Game\GameModeStorage
@@ -81,9 +73,6 @@ class ChesslaBlab
 
         $this->gm = new Grandmaster(self::DATA_FOLDER.'/players.json');
 
-        $databaseDirectory = self::STORAGE_FOLDER;
-        $this->inboxStore = new DbStore("inbox", self::STORAGE_FOLDER);
-
         $this->gameModeStorage = new GameModeStorage();
 
         echo "Welcome to PHP Chess Server" . PHP_EOL;
@@ -102,16 +91,6 @@ class ChesslaBlab
     public function getGm(): Grandmaster
     {
         return $this->gm;
-    }
-
-    /**
-     * Returns the correspondence chess games.
-     *
-     * @return string
-     */
-    public function getInboxStore(): DbStore
-    {
-        return $this->inboxStore;
     }
 
     /**

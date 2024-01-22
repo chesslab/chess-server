@@ -5,7 +5,6 @@ namespace ChessServer\Command;
 use ChessServer\Command\AcceptPlayRequestCommand;
 use ChessServer\Command\DrawCommand;
 use ChessServer\Command\HeuristicsCommand;
-use ChessServer\Command\InboxCommand;
 use ChessServer\Command\LeaveCommand;
 use ChessServer\Command\LegalCommand;
 use ChessServer\Command\OnlineGamesCommand;
@@ -31,7 +30,6 @@ class CommandContainer
         $this->obj->attach(new AcceptPlayRequestCommand());
         $this->obj->attach(new DrawCommand());
         $this->obj->attach(new HeuristicsCommand());
-        $this->obj->attach(new InboxCommand());
         $this->obj->attach(new LeaveCommand());
         $this->obj->attach(new LegalCommand());
         $this->obj->attach(new OnlineGamesCommand());

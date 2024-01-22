@@ -19,4 +19,3 @@ Dependencies required:
 - PHP-JWT for encoding and decoding JSON Web Tokens (JWT).
 - PHP dotenv for loading environment variables.
 - Monolog for logging commands.
-- SleekDB for temporarily storing the correspondence chess inboxes.
