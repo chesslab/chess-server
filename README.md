@@ -11,7 +11,7 @@ Asynchronous PHP chess server.
 Open a console in your favorite browser and run the following commands:
 
 ```
-const ws = new WebSocket('wss://chesslablab.net:8443');
+const ws = new WebSocket('wss://async.chesslablab.net:8443');
 ws.send('/start classical fen');
 ```
 

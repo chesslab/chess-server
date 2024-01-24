@@ -14,7 +14,7 @@ ws.send('/online_games');
 {
   "/online_games": [
     {
-      "iss": "chesslablab.net",
+      "iss": "async.chesslablab.net",
       "iat": 1704983331,
       "exp": 1704986931,
       "variant": "classical",
@@ -26,7 +26,7 @@ ws.send('/online_games');
       "hash": "84a4e20138e54e1869b9b79e7d3111f1"
     },
     {
-      "iss": "chesslablab.net",
+      "iss": "async.chesslablab.net",
       "iat": 1704983347,
       "exp": 1704986947,
       "variant": "960",
@@ -39,7 +39,7 @@ ws.send('/online_games');
       "hash": "c6b79ac68055766c2a33364f69c72e4c"
     },
     {
-      "iss": "chesslablab.net",
+      "iss": "async.chesslablab.net",
       "iat": 1704983367,
       "exp": 1704986967,
       "variant": "capablanca",

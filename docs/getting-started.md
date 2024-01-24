@@ -11,7 +11,7 @@ Probably the easiest way to get familiar with the chess commands is by reading t
 Also a WebSocket connection with the chess server can be opened in the JavaScript console.
 
 ```js
-const ws = new WebSocket('wss://chesslablab.net:8443');
+const ws = new WebSocket('wss://async.chesslablab.net:8443');
 ```
 
 That's it!
@@ -101,7 +101,7 @@ Let's recap.
 Described below is the series of steps required to start a classical chess game with 1.e4 e5. Remember, computers and graphic user interfaces (GUIs) usually prefer the Long Algebraic Notation (LAN) format instead: e2e4 and e7e5.
 
 ```js
-const ws = new WebSocket('wss://chesslablab.net:8443');
+const ws = new WebSocket('wss://async.chesslablab.net:8443');
 ws.send('/start classical fen');
 ws.send('/play_lan w e2e4');
 ws.send('/play_lan b e7e5');
