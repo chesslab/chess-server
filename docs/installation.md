@@ -60,7 +60,7 @@ php cli/dev.php
 
 ### Staging
 
-> Before starting the secure WebSocket server for the first time, make sure to have created the `certificate.crt` and `private.key` files into the `ssl` folder.
+> Before starting the secure WebSocket server for the first time, make sure to have created the `fullchain.pem` and `privkey.pem` files into the `ssl` folder.
 
 Run the staging secure WebSocket server if you don't want to check the website's origin.
 
@@ -72,7 +72,7 @@ This will allow any origin to send a request to it.
 
 ### Production
 
-> Before starting the secure WebSocket server for the first time, make sure to have created the `certificate.crt` and `private.key` files into the `ssl` folder.
+> Before starting the secure WebSocket server for the first time, make sure to have created the `fullchain.pem` and `privkey.pem` files into the `ssl` folder.
 
 Run the secure WebSocket server to check the website's origin as defined in the `WSS_ALLOWED` variable in the `.env.example` file.
 
