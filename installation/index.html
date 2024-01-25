@@ -187,16 +187,16 @@
 <p>You may want to optionally install Stockfish &gt;= 15.1 as it is described in <a href="https://php-chess.readthedocs.io/en/latest/play-computer/">Play Computer</a>.</p>
 <h2 id="setup">Setup</h2>
 <p>Clone the <code>chesslablab/chess-server</code> repo into your projects folder as it is described in the following example:</p>
-<pre><code>git clone git@github.com:chesslablab/chess-server.git
+<pre><code class="language-txt">git clone git@github.com:chesslablab/chess-server.git
 </code></pre>
 <p>Then <code>cd</code> the <code>chess-server</code> directory and install the Composer dependencies:</p>
-<pre><code>composer install
+<pre><code class="language-txt">composer install
 </code></pre>
 <p>Create an <code>.env</code> file:</p>
-<pre><code>cp .env.example .env
+<pre><code class="language-txt">cp .env.example .env
 </code></pre>
 <p>Finally, you may want to add the following entry to your <code>/etc/hosts</code> file if running the PHP chess server on your localhost along with <a href="https://github.com/chesslablab/react-chess">React Chess</a> as per the <code>REACT_APP_WS_HOST</code> variable defined in the <a href="https://github.com/chesslablab/react-chess/blob/master/.env.example">react-chess/.env.example</a> file.</p>
-<pre><code>127.0.0.1       async.chesslablab.org
+<pre><code class="language-txt">127.0.0.1       async.chesslablab.org
 </code></pre>
 <h2 id="run-the-chess-server">Run the Chess Server</h2>
 <p>The chess server comes in four different flavors and can be run using a PHP script.</p>
@@ -237,37 +237,33 @@
 </code></pre>
 <h3 id="simple-websocket-server">Simple WebSocket Server</h3>
 <p>Run the simple WebSocket server if you are not using an SSL/TLS certificate.</p>
-<pre><code>php cli/dev.php
+<pre><code class="language-txt">php cli/dev.php
 </code></pre>
 <h3 id="staging">Staging</h3>
-<blockquote>
 <p>Before starting the secure WebSocket server for the first time, make sure to have created the <code>fullchain.pem</code> and <code>privkey.pem</code> files into the <code>ssl</code> folder.</p>
-</blockquote>
 <p>Run the staging secure WebSocket server if you don't want to check the website's origin.</p>
-<pre><code>php cli/staging.php
+<pre><code class="language-txt">php cli/staging.php
 </code></pre>
 <p>This will allow any origin to send a request to it.</p>
 <h3 id="production">Production</h3>
-<blockquote>
 <p>Before starting the secure WebSocket server for the first time, make sure to have created the <code>fullchain.pem</code> and <code>privkey.pem</code> files into the <code>ssl</code> folder.</p>
-</blockquote>
 <p>Run the secure WebSocket server to check the website's origin as defined in the <code>WSS_ALLOWED</code> variable in the <code>.env.example</code> file.</p>
-<pre><code>php cli/prod.php
+<pre><code class="language-txt">php cli/prod.php
 </code></pre>
 <p>This will allow the <code>WSS_ALLOWED</code> website to send a request to it.</p>
 <h2 id="run-the-chess-server-on-a-docker-container">Run the Chess Server on a Docker Container</h2>
 <p>Alternatively, the chess server can run on a Docker container.</p>
 <h3 id="functional-testing_1">Functional Testing</h3>
-<pre><code>docker compose -f docker-compose.testing.yml up -d
+<pre><code class="language-txt">docker compose -f docker-compose.testing.yml up -d
 </code></pre>
 <h3 id="development">Development</h3>
-<pre><code>docker compose -f docker-compose.dev.yml up -d
+<pre><code class="language-txt">docker compose -f docker-compose.dev.yml up -d
 </code></pre>
 <h3 id="staging_1">Staging</h3>
-<pre><code>docker compose -f docker-compose.staging.yml up -d
+<pre><code class="language-txt">docker compose -f docker-compose.staging.yml up -d
 </code></pre>
 <h3 id="production_1">Production</h3>
-<pre><code>docker compose -f docker-compose.prod.yml up -d
+<pre><code class="language-txt">docker compose -f docker-compose.prod.yml up -d
 </code></pre>
               
             </div>
