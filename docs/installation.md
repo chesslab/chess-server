@@ -27,7 +27,7 @@ cp .env.example .env
 Finally, you may want to add the following entry to your `/etc/hosts` file if running the PHP chess server on your localhost along with [React Chess](https://github.com/chesslablab/react-chess) as per the `REACT_APP_WS_HOST` variable defined in the [react-chess/.env.example](https://github.com/chesslablab/react-chess/blob/master/.env.example) file.
 
 ```
-127.0.0.1       async.chesslablab.net
+127.0.0.1       async.chesslablab.org
 ```
 
 ## Run the Chess Server
