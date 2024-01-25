@@ -1,4 +1,4 @@
-# Features
+# PHP Chess Server
 
 PHP Chess Server is an asynchronous PHP server that provides functionality to play chess online over a WebSocket connection as well as over a TCP connection.
 
