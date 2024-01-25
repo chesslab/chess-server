@@ -158,7 +158,7 @@
 <p><img alt="Figure 2" src="https://raw.githubusercontent.com/chesslablab/chess-server/master/docs/getting-started_02.png" />
 <strong>Figure 2</strong>. As chess moves are played, the chess server response is displayed on the <strong>Network &gt; WS &gt; Messages</strong> tab.</p>
 <p>Also a WebSocket connection with the chess server can be opened in the JavaScript console.</p>
-<pre><code class="language-js">const ws = new WebSocket('wss://async.chesslablab.net:8443');
+<pre><code class="language-js">const ws = new WebSocket('wss://async.chesslablab.org:8443');
 </code></pre>
 <p>That's it!</p>
 <p>Now you're set up to start playing chess.</p>
@@ -221,7 +221,7 @@
 </code></pre>
 <p>Let's recap.</p>
 <p>Described below is the series of steps required to start a classical chess game with 1.e4 e5. Remember, computers and graphic user interfaces (GUIs) usually prefer the Long Algebraic Notation (LAN) format instead: e2e4 and e7e5.</p>
-<pre><code class="language-js">const ws = new WebSocket('wss://async.chesslablab.net:8443');
+<pre><code class="language-js">const ws = new WebSocket('wss://async.chesslablab.org:8443');
 ws.send('/start classical fen');
 ws.send('/play_lan w e2e4');
 ws.send('/play_lan b e7e5');

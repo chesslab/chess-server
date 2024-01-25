@@ -196,7 +196,7 @@
 <pre><code>cp .env.example .env
 </code></pre>
 <p>Finally, you may want to add the following entry to your <code>/etc/hosts</code> file if running the PHP chess server on your localhost along with <a href="https://github.com/chesslablab/react-chess">React Chess</a> as per the <code>REACT_APP_WS_HOST</code> variable defined in the <a href="https://github.com/chesslablab/react-chess/blob/master/.env.example">react-chess/.env.example</a> file.</p>
-<pre><code>127.0.0.1       async.chesslablab.net
+<pre><code>127.0.0.1       async.chesslablab.org
 </code></pre>
 <h2 id="run-the-chess-server">Run the Chess Server</h2>
 <p>The chess server comes in four different flavors and can be run using a PHP script.</p>
@@ -241,7 +241,7 @@
 </code></pre>
 <h3 id="staging">Staging</h3>
 <blockquote>
-<p>Before starting the secure WebSocket server for the first time, make sure to have created the <code>certificate.crt</code> and <code>private.key</code> files into the <code>ssl</code> folder.</p>
+<p>Before starting the secure WebSocket server for the first time, make sure to have created the <code>fullchain.pem</code> and <code>privkey.pem</code> files into the <code>ssl</code> folder.</p>
 </blockquote>
 <p>Run the staging secure WebSocket server if you don't want to check the website's origin.</p>
 <pre><code>php cli/staging.php
@@ -249,7 +249,7 @@
 <p>This will allow any origin to send a request to it.</p>
 <h3 id="production">Production</h3>
 <blockquote>
-<p>Before starting the secure WebSocket server for the first time, make sure to have created the <code>certificate.crt</code> and <code>private.key</code> files into the <code>ssl</code> folder.</p>
+<p>Before starting the secure WebSocket server for the first time, make sure to have created the <code>fullchain.pem</code> and <code>privkey.pem</code> files into the <code>ssl</code> folder.</p>
 </blockquote>
 <p>Run the secure WebSocket server to check the website's origin as defined in the <code>WSS_ALLOWED</code> variable in the <code>.env.example</code> file.</p>
 <pre><code>php cli/prod.php
