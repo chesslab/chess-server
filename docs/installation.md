@@ -27,7 +27,7 @@ cp .env.example .env
 Finally, you may want to add the following entry to your `/etc/hosts` file if running the PHP chess server on your localhost along with [React Chess](https://github.com/chesslablab/react-chess) as per the `REACT_APP_WS_HOST` variable defined in the [react-chess/.env.example](https://github.com/chesslablab/react-chess/blob/master/.env.example) file.
 
 ```
-127.0.0.1       async.chesslablab.net
+127.0.0.1       async.chesslablab.org
 ```
 
 ## Run the Chess Server
@@ -60,7 +60,7 @@ php cli/dev.php
 
 ### Staging
 
-> Before starting the secure WebSocket server for the first time, make sure to have created the `certificate.crt` and `private.key` files into the `ssl` folder.
+> Before starting the secure WebSocket server for the first time, make sure to have created the `fullchain.pem` and `privkey.pem` files into the `ssl` folder.
 
 Run the staging secure WebSocket server if you don't want to check the website's origin.
 
@@ -72,7 +72,7 @@ This will allow any origin to send a request to it.
 
 ### Production
 
-> Before starting the secure WebSocket server for the first time, make sure to have created the `certificate.crt` and `private.key` files into the `ssl` folder.
+> Before starting the secure WebSocket server for the first time, make sure to have created the `fullchain.pem` and `privkey.pem` files into the `ssl` folder.
 
 Run the secure WebSocket server to check the website's origin as defined in the `WSS_ALLOWED` variable in the `.env.example` file.
 

@@ -22,8 +22,8 @@ $loop = Factory::create();
 $server = new Server("0.0.0.0:{$_ENV['WSS_PORT']}", $loop);
 
 $secureServer = new SecureServer($server, $loop, [
-    'local_cert'  => __DIR__  . '/../ssl/certificate.crt',
-    'local_pk' => __DIR__  . '/../ssl/private.key',
+    'local_cert'  => __DIR__  . '/../ssl/fullchain.pem',
+    'local_pk' => __DIR__  . '/../ssl/privkey.pem',
     'verify_peer' => false,
 ]);
 
