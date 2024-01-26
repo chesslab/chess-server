@@ -1,6 +1,6 @@
 ## PHP Chess Server
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/license/mit/)
 [![Contributors](https://img.shields.io/github/contributors/chesslablab/chess-server)](https://github.com/chesslablab/chess-server/graphs/contributors)
 
 Asynchronous PHP chess server.
@@ -15,9 +15,7 @@ The GNU General Public License.
 
 ### Contributions
 
-See the [contributing guidelines](https://github.com/chesslablab/chess-server/blob/master/CONTRIBUTING.md).
-
-Happy learning and coding!
+See the [contributing guidelines](https://github.com/chesslablab/chess-server/blob/master/CONTRIBUTING.md). Happy learning and coding!
 
 <a href="https://github.com/chesslablab/chess-server/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=chesslablab/chess-server" />
