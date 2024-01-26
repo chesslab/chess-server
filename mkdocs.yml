@@ -1,6 +1,6 @@
 site_name: PHP Chess Server
 nav:
-  - PHP Chess Server: index.md
+  - Home: index.md
   - Installation: installation.md
   - Getting Started: getting-started.md
   - /start: start.md
