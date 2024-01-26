@@ -15,7 +15,7 @@ The GNU General Public License.
 
 ### Contributions
 
-See the [contributing guidelines](https://github.com/chesslablab/chess-server/blob/master/CONTRIBUTING.md). Happy learning and coding!
+We encourage you to contribute to PHP Chess Server! Please follow the [Contributing Guidelines](https://github.com/chesslablab/chess-server/blob/master/CONTRIBUTING.md).
 
 <a href="https://github.com/chesslablab/chess-server/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=chesslablab/chess-server" />
