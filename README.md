@@ -11,7 +11,7 @@ Read the latest docs [here](https://chess-server.docs.chesslablab.org/).
 
 ### License
 
-[The GNU General Public License](https://github.com/chesslablab/chess-server/blob/master/LICENSE).
+The GNU General Public License.
 
 ### Contributions
 
