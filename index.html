@@ -1,161 +1,121 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="None">
-  
-  
-  <link rel="shortcut icon" href="img/favicon.ico">
-  <title>PHP Chess Server</title>
-  <link rel="stylesheet" href="css/theme.css" />
-  <link rel="stylesheet" href="css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
-  
-  <script>
-    // Current page data
-    var mkdocs_page_name = "PHP Chess Server";
-    var mkdocs_page_input_path = "index.md";
-    var mkdocs_page_url = null;
-  </script>
-  
-  <script src="js/jquery-2.1.1.min.js" defer></script>
-  <script src="js/modernizr-2.8.3.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
-  
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>PHP Chess Server</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Home";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
   <div class="wy-grid-for-nav">
-
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-        <a href="." class="icon icon-home"> PHP Chess Server</a>
-        <div role="search">
+          <a href="." class="icon icon-home"> PHP Chess Server
+        </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href=".">PHP Chess Server</a>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#object-oriented">Object-Oriented</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#lightweight">Lightweight</a>
     </li>
     </ul>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="installation/">Installation</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="getting-started/">Getting Started</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="start/">/start</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="legal/">/legal</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="play-lan/">/play_lan</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="heuristics/">/heuristics</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="undo/">/undo</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="accept/">/accept</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="takeback/">/takeback</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="draw/">/draw</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="resign/">/resign</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="leave/">/leave</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="rematch/">/rematch</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="restart/">/restart</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="stockfish/">/stockfish</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="stockfish-eval/">/stockfish_eval</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="online-games/">/online_games</a>
-                    </li>
-                </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="installation/">Installation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="getting-started/">Getting Started</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Commands</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="start/">/start</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="legal/">/legal</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="play-lan/">/play_lan</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="heuristics/">/heuristics</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="undo/">/undo</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="accept/">/accept</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="takeback/">/takeback</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="draw/">/draw</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="resign/">/resign</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="leave/">/leave</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="rematch/">/rematch</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="restart/">/restart</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="stockfish/">/stockfish</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="stockfish-eval/">/stockfish_eval</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="online-games/">/online_games</a>
+                  </li>
+              </ul>
       </div>
     </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href=".">PHP Chess Server</a>
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">PHP Chess Server</a>
+        
       </nav>
-
-      
       <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".">Docs</a> &raquo;</li>
-    
-      
-    
-    <li>PHP Chess Server</li>
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Home</li>
     <li class="wy-breadcrumbs-aside">
-      
     </li>
   </ul>
-  
   <hr/>
 </div>
-          <div role="main">
-            <div class="section">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
               
                 <h1 id="php-chess-server">PHP Chess Server</h1>
+<p><a href="https://www.gnu.org/licenses/gpl-3.0"><img alt="License: GPL v3" src="https://img.shields.io/badge/License-GPL%20v3-blue.svg" /></a>
+<a href="https://github.com/chesslablab/chess-server/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/chesslablab/chess-server" /></a></p>
 <p>PHP Chess Server is an asynchronous PHP server that provides functionality to play chess online over a WebSocket connection as well as over a TCP connection.</p>
 <p>Similar to the <a href="https://chess-api.readthedocs.io/en/latest/">Chess API</a>, it can be hosted on a custom domain. However, while the API endpoints may take few seconds to execute — for example, a file download or a database query — the event-driven, non-blocking architecture of the chess server allows to handle multiple concurrent connections in an efficient way.</p>
 <p>The chess commands are intended to run very quickly almost in real-time.</p>
@@ -172,27 +132,20 @@
 </ul>
               
             </div>
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="installation/" class="btn btn-neutral float-right" title="Installation">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-    
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-      
+          
         </div>
       </div>
 
@@ -200,28 +153,30 @@
 
   </div>
 
-  <div class="rst-versions" role="note" aria-label="versions">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      
-      
-      
-        <span style="margin-left: 15px"><a href="installation/" style="color: #fcfcfc">Next &raquo;</a></span>
-      
-    </span>
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+      <span><a href="installation/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
 </div>
-    <script>var base_url = '.';</script>
-    <script src="js/theme.js" defer></script>
-      <script src="search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);
-        };
+        });
     </script>
 
 </body>
 </html>
 
 <!--
-MkDocs version : 1.1.2
-Build Date UTC : 2024-01-25 16:59:04.527228+00:00
+MkDocs version : 1.5.3
+Build Date UTC : 2024-01-26 12:39:08.023995+00:00
 -->
