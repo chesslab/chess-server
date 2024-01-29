@@ -1,8 +1,8 @@
 <?php
 
-namespace ChessServer\Cli;
+namespace ChessServer\Cli\Ratchet;
 
-use ChessServer\Socket\WebSocket;
+use ChessServer\Socket\WebSocket\RatchetWebSocket;
 use Dotenv\Dotenv;
 use Ratchet\Http\HttpServer;
 use Ratchet\Http\OriginCheck;
@@ -13,9 +13,9 @@ use React\Socket\LimitingServer;
 use React\Socket\Server;
 use React\Socket\SecureServer;
 
-require __DIR__  . '/../vendor/autoload.php';
+require __DIR__  . '/../../vendor/autoload.php';
 
-$dotenv = Dotenv::createImmutable(__DIR__.'/../');
+$dotenv = Dotenv::createImmutable(__DIR__.'/../../');
 $dotenv->load();
 
 $allowed = [
@@ -37,7 +37,7 @@ $limitingServer = new LimitingServer($secureServer, 50);
 $httpServer = new HttpServer(
     new OriginCheck(
       new WsServer(
-          new WebSocket()
+          new RatchetWebSocket()
       ),
       $allowed,
     )

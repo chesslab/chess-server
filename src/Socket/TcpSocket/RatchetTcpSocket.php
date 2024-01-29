@@ -1,15 +1,17 @@
 <?php
 
-namespace ChessServer\Socket;
+namespace ChessServer\Socket\TcpSocket;
 
 use ChessServer\Command\LeaveCommand;
 use ChessServer\Game\PlayMode;
 use ChessServer\Exception\InternalErrorException;
 use ChessServer\Exception\ParserException;
+use ChessServer\Socket\ChesslaBlab;
+use ChessServer\Socket\SendInterface;
 use React\Socket\ConnectionInterface;
 use React\Socket\TcpServer;
 
-class TcpSocket extends ChesslaBlab implements SendInterface
+class RatchetTcpSocket extends ChesslaBlab implements SendInterface
 {
     private TcpServer $server;
 

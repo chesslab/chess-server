@@ -1,15 +1,17 @@
 <?php
 
-namespace ChessServer\Socket;
+namespace ChessServer\Socket\WebSocket;
 
 use ChessServer\Command\LeaveCommand;
 use ChessServer\Game\PlayMode;
 use ChessServer\Exception\InternalErrorException;
 use ChessServer\Exception\ParserException;
+use ChessServer\Socket\ChesslaBlab;
+use ChessServer\Socket\SendInterface;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
-class WebSocket extends ChesslaBlab implements MessageComponentInterface, SendInterface
+class RatchetWebSocket extends ChesslaBlab implements MessageComponentInterface, SendInterface
 {
     public function onOpen(ConnectionInterface $conn)
     {
