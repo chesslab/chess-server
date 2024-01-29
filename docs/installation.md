@@ -34,14 +34,14 @@ Finally, you may want to add the following entry to your `/etc/hosts` file if ru
 
 ## Run the Chess Server
 
-The chess server comes in four different flavors and can be run using a PHP script.
+The chess server runs by default using Ratchet-PHP WebSockets and comes in four different flavors.
 
 | Script | Description | Use |
 | ------ | ----------- | --- |
-| [cli/testing.php](https://github.com/chesslablab/chess-server/blob/master/cli/testing.php) | TCP socket. | Functional testing. |
-| [cli/dev.php](https://github.com/chesslablab/chess-server/blob/master/cli/dev.php) | Simple WebSocket server. | Development. |
-| [cli/staging.php](https://github.com/chesslablab/chess-server/blob/master/cli/staging.php) | Secure WebSocket server. | Staging. |
-| [cli/prod.php](https://github.com/chesslablab/chess-server/blob/master/cli/prod.php) | Secure WebSocket server. | Production. |
+| [cli/ratchet/testing.php](https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/testing.php) | TCP socket. | Functional testing. |
+| [cli/ratchet/dev.php](https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/dev.php) | Simple WebSocket server. | Development. |
+| [cli/ratchet/staging.php](https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/staging.php) | Secure WebSocket server. | Staging. |
+| [cli/ratchet/prod.php](https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/prod.php) | Secure WebSocket server. | Production. |
 
 
 ### Functional Testing
@@ -49,7 +49,7 @@ The chess server comes in four different flavors and can be run using a PHP scri
 Run the TCP socket server.
 
 ```
-php cli/testing.php
+php cli/ratchet/testing.php
 ```
 
 ### Simple WebSocket Server
@@ -57,7 +57,7 @@ php cli/testing.php
 Run the simple WebSocket server if you are not using an SSL/TLS certificate.
 
 ```txt
-php cli/dev.php
+php cli/ratchet/dev.php
 ```
 
 ### Staging
@@ -67,7 +67,7 @@ Before starting the secure WebSocket server for the first time, make sure to hav
 Run the staging secure WebSocket server if you don't want to check the website's origin.
 
 ```txt
-php cli/staging.php
+php cli/ratchet/staging.php
 ```
 
 This will allow any origin to send a request to it.
@@ -79,7 +79,7 @@ Before starting the secure WebSocket server for the first time, make sure to hav
 Run the secure WebSocket server to check the website's origin as defined in the `WSS_ALLOWED` variable in the `.env.example` file.
 
 ```txt
-php cli/prod.php
+php cli/ratchet/prod.php
 ```
 
 This will allow the `WSS_ALLOWED` website to send a request to it.
