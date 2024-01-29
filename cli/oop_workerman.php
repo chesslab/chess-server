@@ -2,10 +2,10 @@
 
 namespace ChessServer\Cli;
 
-use ChessServer\Socket\Workerman\WebSocket;
+use ChessServer\Socket\WebSocket\WorkermanSocket;
 
 require __DIR__  . '/../vendor/autoload.php';
 
-$webSocket = new WebSocket();
+$webSocket = new WorkermanSocket();
 
 $webSocket->runAll();

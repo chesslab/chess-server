@@ -1,12 +1,12 @@
 <?php
 
-namespace ChessServer\Socket\Workerman;
+namespace ChessServer\Socket\WebSocket;
 
 use ChessServer\Socket\ChesslaBlab;
 use Dotenv\Dotenv;
 use Workerman\Worker;
 
-class WebSocket extends ChesslaBlab
+class WorkermanSocket extends ChesslaBlab
 {
     private Worker $worker;
 
