@@ -157,7 +157,7 @@
 <pre><code class="language-txt">127.0.0.1       async.chesslablab.org
 </code></pre>
 <h2 id="run-the-chess-server">Run the Chess Server</h2>
-<p>The chess server comes in four different flavors and can be run using a PHP script.</p>
+<p>The chess server runs by default using Ratchet-PHP WebSockets and comes in four different flavors.</p>
 <table>
 <thead>
 <tr>
@@ -168,22 +168,22 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/testing.php">cli/testing.php</a></td>
+<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/testing.php">cli/ratchet/testing.php</a></td>
 <td>TCP socket.</td>
 <td>Functional testing.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/dev.php">cli/dev.php</a></td>
+<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/dev.php">cli/ratchet/dev.php</a></td>
 <td>Simple WebSocket server.</td>
 <td>Development.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/staging.php">cli/staging.php</a></td>
+<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/staging.php">cli/ratchet/staging.php</a></td>
 <td>Secure WebSocket server.</td>
 <td>Staging.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/prod.php">cli/prod.php</a></td>
+<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/prod.php">cli/ratchet/prod.php</a></td>
 <td>Secure WebSocket server.</td>
 <td>Production.</td>
 </tr>
@@ -191,22 +191,22 @@
 </table>
 <h3 id="functional-testing">Functional Testing</h3>
 <p>Run the TCP socket server.</p>
-<pre><code>php cli/testing.php
+<pre><code>php cli/ratchet/testing.php
 </code></pre>
 <h3 id="simple-websocket-server">Simple WebSocket Server</h3>
 <p>Run the simple WebSocket server if you are not using an SSL/TLS certificate.</p>
-<pre><code class="language-txt">php cli/dev.php
+<pre><code class="language-txt">php cli/ratchet/dev.php
 </code></pre>
 <h3 id="staging">Staging</h3>
 <p>Before starting the secure WebSocket server for the first time, make sure to have created the <code>fullchain.pem</code> and <code>privkey.pem</code> files into the <code>ssl</code> folder.</p>
 <p>Run the staging secure WebSocket server if you don't want to check the website's origin.</p>
-<pre><code class="language-txt">php cli/staging.php
+<pre><code class="language-txt">php cli/ratchet/staging.php
 </code></pre>
 <p>This will allow any origin to send a request to it.</p>
 <h3 id="production">Production</h3>
 <p>Before starting the secure WebSocket server for the first time, make sure to have created the <code>fullchain.pem</code> and <code>privkey.pem</code> files into the <code>ssl</code> folder.</p>
 <p>Run the secure WebSocket server to check the website's origin as defined in the <code>WSS_ALLOWED</code> variable in the <code>.env.example</code> file.</p>
-<pre><code class="language-txt">php cli/prod.php
+<pre><code class="language-txt">php cli/ratchet/prod.php
 </code></pre>
 <p>This will allow the <code>WSS_ALLOWED</code> website to send a request to it.</p>
 <h2 id="run-the-chess-server-on-a-docker-container">Run the Chess Server on a Docker Container</h2>
