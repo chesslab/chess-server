@@ -12,30 +12,38 @@ class WorkermanSocket extends ChesslaBlab
     public function __construct(string $port, string $address)
     {
         $this->worker = new Worker("websocket://$address:$port");
+
+        $this->connect()->message()->close();
     }
 
-    public function onConnect($connection)
+    public function connect()
     {
         $this->worker->onConnect = function ($connection) {
             echo "New connection\n";
         };
+
+        return $this;
     }
 
-    public function onMessage($connection, $data)
+    public function message()
     {
         $this->worker->onMessage = function ($connection, $data) {
             $connection->send('Hello ' . $data);
         };
+
+        return $this;
     }
 
-    public function onClose($connection)
+    public function close()
     {
         $this->worker->onClose = function ($connection) {
             echo "Connection closed\n";
         };
+
+        return $this;
     }
 
-    public function runAll()
+    public function run()
     {
         $this->worker->runAll();
     }

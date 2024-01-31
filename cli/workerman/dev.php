@@ -10,6 +10,6 @@ require __DIR__  . '/../../vendor/autoload.php';
 $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
 $dotenv->load();
 
-$webSocket = new WorkermanSocket($_ENV['WS_PORT'], $_ENV['WS_ADDRESS']);
+$server = new WorkermanSocket($_ENV['WS_PORT'], $_ENV['WS_ADDRESS']);
 
-$webSocket->runAll();
+$server->run();
