@@ -23,7 +23,7 @@ class WorkermanSocket extends ChesslaBlab
             $this->worker = new Worker("websocket://$address:$port");
         }
 
-        $this->connect()->message()->close();
+        $this->connect()->message()->error()->close();
     }
 
     private function connect()
@@ -64,6 +64,17 @@ class WorkermanSocket extends ChesslaBlab
                     'error' => 'Internal server error',
                 ]);
             }
+        };
+
+        return $this;
+    }
+
+    private function error()
+    {
+        $this->worker->onError = function ($conn, $code, $msg) {
+            $conn->close();
+
+            $this->log->info('Occurred an error', ['message' => $msg]);
         };
 
         return $this;
