@@ -5,10 +5,9 @@ namespace ChessServer\Socket\WebSocket;
 use ChessServer\Exception\InternalErrorException;
 use ChessServer\Exception\ParserException;
 use ChessServer\Socket\ChesslaBlab;
-use ChessServer\Socket\SendInterface;
 use Workerman\Worker;
 
-class WorkermanSocket extends ChesslaBlab implements SendInterface
+class WorkermanSocket extends ChesslaBlab
 {
     private Worker $worker;
 
@@ -76,27 +75,5 @@ class WorkermanSocket extends ChesslaBlab implements SendInterface
     public function run()
     {
         $this->worker->runAll();
-    }
-
-    public function sendToOne(int $resourceId, array $res): void
-    {
-        if (isset($this->clients[$resourceId])) {
-            $this->clients[$resourceId]->send(json_encode($res));
-
-            $this->log->info('Sent message', [
-                'id' => $resourceId,
-                'cmd' => array_keys($res),
-            ]);
-        }
-    }
-
-    public function sendToMany(array $resourceIds, array $res): void
-    {
-        // TODO
-    }
-
-    public function sendToAll(): void
-    {
-        // TODO
     }
 }
