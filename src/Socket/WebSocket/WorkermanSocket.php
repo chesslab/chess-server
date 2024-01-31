@@ -12,6 +12,8 @@ class WorkermanSocket extends ChesslaBlab implements SendInterface
 
     public function __construct(string $port, string $address)
     {
+        parent::__construct();
+
         $this->worker = new Worker("websocket://$address:$port");
 
         $this->connect()->message()->close();
@@ -19,8 +21,13 @@ class WorkermanSocket extends ChesslaBlab implements SendInterface
 
     private function connect()
     {
-        $this->worker->onConnect = function ($connection) {
-            echo "New connection\n";
+        $this->worker->onConnect = function ($conn) {
+            $this->clients[$conn->id] = $conn;
+
+            $this->log->info('New connection', [
+                'id' => $conn->id,
+                'n' => count($this->clients)
+            ]);
         };
 
         return $this;
