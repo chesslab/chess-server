@@ -2,6 +2,8 @@
 
 namespace ChessServer\Socket\WebSocket;
 
+use ChessServer\Exception\InternalErrorException;
+use ChessServer\Exception\ParserException;
 use ChessServer\Socket\ChesslaBlab;
 use ChessServer\Socket\SendInterface;
 use Workerman\Worker;
@@ -35,8 +37,28 @@ class WorkermanSocket extends ChesslaBlab implements SendInterface
 
     private function message()
     {
-        $this->worker->onMessage = function ($connection, $data) {
-            $connection->send('Hello ' . $data);
+        $this->worker->onMessage = function ($conn, $msg) {
+            if (strlen($msg) > 4096) {
+                return $this->sendToOne($conn->id, [
+                    'error' => 'Internal server error',
+                ]);
+            }
+
+            try {
+                $cmd = $this->parser->validate($msg);
+            } catch (ParserException $e) {
+                return $this->sendToOne($conn->id, [
+                    'error' => 'Command parameters not valid',
+                ]);
+            }
+
+            try {
+                $cmd->run($this, $this->parser->argv, $conn->id);
+            } catch (InternalErrorException $e) {
+                return $this->sendToOne($conn->id, [
+                    'error' => 'Internal server error',
+                ]);
+            }
         };
 
         return $this;
@@ -58,7 +80,14 @@ class WorkermanSocket extends ChesslaBlab implements SendInterface
 
     public function sendToOne(int $resourceId, array $res): void
     {
-        // TODO
+        if (isset($this->clients[$resourceId])) {
+            $this->clients[$resourceId]->send(json_encode($res));
+
+            $this->log->info('Sent message', [
+                'id' => $resourceId,
+                'cmd' => array_keys($res),
+            ]);
+        }
     }
 
     public function sendToMany(array $resourceIds, array $res): void
