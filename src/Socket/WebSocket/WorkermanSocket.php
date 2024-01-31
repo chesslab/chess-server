@@ -3,19 +3,15 @@
 namespace ChessServer\Socket\WebSocket;
 
 use ChessServer\Socket\ChesslaBlab;
-use Dotenv\Dotenv;
 use Workerman\Worker;
 
 class WorkermanSocket extends ChesslaBlab
 {
     private Worker $worker;
 
-    public function __construct()
+    public function __construct(string $port, string $address)
     {
-        $dotenv = Dotenv::createImmutable(__DIR__.'/../../../');
-        $dotenv->load();
-
-        $this->worker = new Worker("websocket://{$_ENV['WS_ADDRESS']}:{$_ENV['WS_PORT']}");
+        $this->worker = new Worker("websocket://$address:$port");
     }
 
     public function onConnect($connection)

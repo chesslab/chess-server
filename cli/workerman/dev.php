@@ -1,21 +1,15 @@
 <?php
 
-use Workerman\Worker;
+namespace ChessServer\Cli\Workerman;
+
+use ChessServer\Socket\WebSocket\WorkermanSocket;
+use Dotenv\Dotenv;
 
 require __DIR__  . '/../../vendor/autoload.php';
 
-$worker = new Worker('websocket://0.0.0.0:2346');
+$dotenv = Dotenv::createImmutable(__DIR__.'/../../');
+$dotenv->load();
 
-$worker->onConnect = function ($connection) {
-    echo "New connection\n";
-};
+$webSocket = new WorkermanSocket($_ENV['WS_PORT'], $_ENV['WS_ADDRESS']);
 
-$worker->onMessage = function ($connection, $data) {
-    $connection->send('Hello ' . $data);
-};
-
-$worker->onClose = function ($connection) {
-    echo "Connection closed\n";
-};
-
-Worker::runAll();
+$webSocket->runAll();
