@@ -3,9 +3,10 @@
 namespace ChessServer\Socket\WebSocket;
 
 use ChessServer\Socket\ChesslaBlab;
+use ChessServer\Socket\SendInterface;
 use Workerman\Worker;
 
-class WorkermanSocket extends ChesslaBlab
+class WorkermanSocket extends ChesslaBlab implements SendInterface
 {
     private Worker $worker;
 
@@ -16,7 +17,7 @@ class WorkermanSocket extends ChesslaBlab
         $this->connect()->message()->close();
     }
 
-    public function connect()
+    private function connect()
     {
         $this->worker->onConnect = function ($connection) {
             echo "New connection\n";
@@ -25,7 +26,7 @@ class WorkermanSocket extends ChesslaBlab
         return $this;
     }
 
-    public function message()
+    private function message()
     {
         $this->worker->onMessage = function ($connection, $data) {
             $connection->send('Hello ' . $data);
@@ -34,7 +35,7 @@ class WorkermanSocket extends ChesslaBlab
         return $this;
     }
 
-    public function close()
+    private function close()
     {
         $this->worker->onClose = function ($connection) {
             echo "Connection closed\n";
@@ -46,5 +47,20 @@ class WorkermanSocket extends ChesslaBlab
     public function run()
     {
         $this->worker->runAll();
+    }
+
+    public function sendToOne(int $resourceId, array $res): void
+    {
+        // TODO
+    }
+
+    public function sendToMany(array $resourceIds, array $res): void
+    {
+        // TODO
+    }
+
+    public function sendToAll(): void
+    {
+        // TODO
     }
 }
