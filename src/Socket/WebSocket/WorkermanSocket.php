@@ -2,6 +2,7 @@
 
 namespace ChessServer\Socket\WebSocket;
 
+use ChessServer\Command\LeaveCommand;
 use ChessServer\Exception\InternalErrorException;
 use ChessServer\Exception\ParserException;
 use ChessServer\Socket\ChesslaBlab;
@@ -65,8 +66,24 @@ class WorkermanSocket extends ChesslaBlab
 
     private function close()
     {
-        $this->worker->onClose = function ($connection) {
-            echo "Connection closed\n";
+        $this->worker->onClose = function ($conn) {
+            if ($gameMode = $this->gameModeStorage->getByResourceId($conn->id)) {
+                $this->gameModeStorage->delete($gameMode);
+                $this->sendToMany($gameMode->getResourceIds(), [
+                    '/leave' => [
+                        'action' => LeaveCommand::ACTION_ACCEPT,
+                    ],
+                ]);
+            }
+
+            if (isset($this->clients[$conn->id])) {
+                unset($this->clients[$conn->id]);
+            }
+
+            $this->log->info('Closed connection', [
+                'id' => $conn->id,
+                'n' => count($this->clients)
+            ]);
         };
 
         return $this;
