@@ -19,6 +19,8 @@ use Monolog\Handler\StreamHandler;
  */
 class ChesslaBlab
 {
+    use SendToTrait;
+    
     const DATA_FOLDER = __DIR__.'/../../data';
 
     const STORAGE_FOLDER = __DIR__.'/../../storage';

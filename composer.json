@@ -21,7 +21,8 @@
     "firebase/php-jwt": "^6.8",
     "vlucas/phpdotenv": "^5.3",
     "monolog/monolog": "^2.3",
-    "react/async": "^4.1.0"
+    "react/async": "^4.1.0",
+    "workerman/workerman": "^4.1"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.5"

@@ -7,11 +7,10 @@ use ChessServer\Game\PlayMode;
 use ChessServer\Exception\InternalErrorException;
 use ChessServer\Exception\ParserException;
 use ChessServer\Socket\ChesslaBlab;
-use ChessServer\Socket\SendInterface;
 use React\Socket\ConnectionInterface;
 use React\Socket\TcpServer;
 
-class RatchetTcpSocket extends ChesslaBlab implements SendInterface
+class RatchetTcpSocket extends ChesslaBlab
 {
     private TcpServer $server;
 
@@ -86,43 +85,5 @@ class RatchetTcpSocket extends ChesslaBlab implements SendInterface
         });
 
         return $this;
-    }
-
-    public function sendToOne(int $resourceId, array $res): void
-    {
-        if (isset($this->clients[$resourceId])) {
-            $this->clients[$resourceId]->write(json_encode($res));
-
-            $this->log->info('Sent message', [
-                'id' => $resourceId,
-                'cmd' => array_keys($res),
-            ]);
-        }
-    }
-
-    public function sendToMany(array $resourceIds, array $res): void
-    {
-        foreach ($resourceIds as $resourceId) {
-            $this->clients[$resourceId]->write(json_encode($res));
-        }
-
-        $this->log->info('Sent message', [
-            'ids' => $resourceIds,
-            'cmd' => array_keys($res),
-        ]);
-    }
-
-    public function sendToAll(): void
-    {
-        $res = [
-            'broadcast' => [
-                'onlineGames' => $this->gameModeStorage
-                    ->decodeByPlayMode(PlayMode::STATUS_PENDING, PlayMode::SUBMODE_ONLINE),
-            ],
-        ];
-
-        foreach ($this->clients as $client) {
-            $client->write(json_encode($res));
-        }
     }
 }
