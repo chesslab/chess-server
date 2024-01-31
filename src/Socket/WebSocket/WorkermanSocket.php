@@ -12,11 +12,16 @@ class WorkermanSocket extends ChesslaBlab
 {
     private Worker $worker;
 
-    public function __construct(string $port, string $address)
+    public function __construct(string $port, string $address, array $context = [])
     {
         parent::__construct();
 
-        $this->worker = new Worker("websocket://$address:$port");
+        if (isset($context['ssl'])) {
+            $this->worker = new Worker("websocket://$address:$port", $context);
+            $this->worker->transport = 'ssl';
+        } else {
+            $this->worker = new Worker("websocket://$address:$port");
+        }
 
         $this->connect()->message()->close();
     }
