@@ -28,13 +28,18 @@ class WorkermanSocket extends ChesslaBlab
 
     private function connect()
     {
-        $this->worker->onConnect = function ($conn) {
-            $this->clients[$conn->id] = $conn;
-
-            $this->log->info('New connection', [
-                'id' => $conn->id,
-                'n' => count($this->clients)
-            ]);
+        $this->worker->onConnect = function($conn) {
+            $conn->onWebSocketConnect = function($conn , $httpBuffer) {
+                if (!str_starts_with($_SERVER['HTTP_ORIGIN'], "{$_ENV['WSS_ALLOWED_SCHEME']}://{$_ENV['WSS_ALLOWED_HOST']}")) {
+                    $conn->close();
+                } else {
+                    $this->clients[$conn->id] = $conn;
+                    $this->log->info('New connection', [
+                        'id' => $conn->id,
+                        'n' => count($this->clients)
+                    ]);
+                }
+            };
         };
 
         return $this;
