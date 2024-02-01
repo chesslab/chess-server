@@ -2,7 +2,7 @@
 
 namespace ChessServer\Cli\Ratchet;
 
-use ChessServer\Socket\TcpSocket\RatchetTcpSocket;
+use ChessServer\Socket\RatchetTcpSocket;
 use Dotenv\Dotenv;
 
 require __DIR__  . '/../../vendor/autoload.php';

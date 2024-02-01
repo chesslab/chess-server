@@ -2,7 +2,7 @@
 
 namespace ChessServer\Cli\Ratchet;
 
-use ChessServer\Socket\WebSocket\RatchetWebSocket;
+use ChessServer\Socket\RatchetWebSocket;
 use Dotenv\Dotenv;
 use Ratchet\Http\HttpServer;
 use Ratchet\Http\OriginCheck;

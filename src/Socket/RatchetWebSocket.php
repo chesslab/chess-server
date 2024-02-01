@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Socket\WebSocket;
+namespace ChessServer\Socket;
 
 use ChessServer\Command\LeaveCommand;
 use ChessServer\Game\PlayMode;

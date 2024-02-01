@@ -2,7 +2,7 @@
 
 namespace ChessServer\Cli\Workerman;
 
-use ChessServer\Socket\WebSocket\WorkermanWebSocket;
+use ChessServer\Socket\WorkermanWebSocket;
 use Dotenv\Dotenv;
 
 require __DIR__  . '/../../vendor/autoload.php';
