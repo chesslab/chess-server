@@ -1,4 +1,5 @@
 site_name: PHP Chess Server
+site_url: https://chess-server.docs.chesslablab.org/
 nav:
   - Home: index.md
   - Installation: installation.md
