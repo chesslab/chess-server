@@ -2,9 +2,9 @@
 
 namespace ChessServer\Command;
 
-use ChessServer\Socket\ChesslaBlab;
 use ChessServer\Exception\InternalErrorException;
 use ChessServer\Game\PlayMode;
+use ChessServer\Socket\ChesslaBlabSocket;
 
 class RematchCommand extends AbstractCommand
 {
@@ -37,7 +37,7 @@ class RematchCommand extends AbstractCommand
         return false;
     }
 
-    public function run(ChesslaBlab $socket, array $argv, int $resourceId)
+    public function run(ChesslaBlabSocket $socket, array $argv, int $resourceId)
     {
         $gameMode = $socket->getGameModeStorage()->getByResourceId($resourceId);
 

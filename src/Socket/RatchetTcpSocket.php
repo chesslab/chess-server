@@ -6,11 +6,10 @@ use ChessServer\Command\LeaveCommand;
 use ChessServer\Game\PlayMode;
 use ChessServer\Exception\InternalErrorException;
 use ChessServer\Exception\ParserException;
-use ChessServer\Socket\ChesslaBlab;
 use React\Socket\ConnectionInterface;
 use React\Socket\TcpServer;
 
-class RatchetTcpSocket extends ChesslaBlab
+class RatchetTcpSocket extends ChesslaBlabSocket
 {
     private TcpServer $server;
 

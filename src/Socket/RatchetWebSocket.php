@@ -6,11 +6,10 @@ use ChessServer\Command\LeaveCommand;
 use ChessServer\Game\PlayMode;
 use ChessServer\Exception\InternalErrorException;
 use ChessServer\Exception\ParserException;
-use ChessServer\Socket\ChesslaBlab;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
-class RatchetWebSocket extends ChesslaBlab implements MessageComponentInterface
+class RatchetWebSocket extends ChesslaBlabSocket implements MessageComponentInterface
 {
     public function onOpen(ConnectionInterface $conn)
     {

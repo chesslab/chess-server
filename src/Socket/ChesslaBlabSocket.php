@@ -12,12 +12,12 @@ use Monolog\Handler\StreamHandler;
 /**
  * ChesslaBlab
  *
- * Chess functionality to be extended by an object-oriented TCP socket.
+ * Chess functionality to be extended by a socket.
  *
  * @author Jordi Bassagaña
  * @license GPL
  */
-class ChesslaBlab
+class ChesslaBlabSocket
 {
     use SendToTrait;
 

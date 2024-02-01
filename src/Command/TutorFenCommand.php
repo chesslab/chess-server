@@ -2,8 +2,8 @@
 
 namespace ChessServer\Command;
 
-use ChessServer\Socket\ChesslaBlab;
 use ChessServer\Exception\InternalErrorException;
+use ChessServer\Socket\ChesslaBlabSocket;
 
 class TutorFenCommand extends AbstractCommand
 {
@@ -22,7 +22,7 @@ class TutorFenCommand extends AbstractCommand
         return count($argv) - 1 === count($this->params);
     }
 
-    public function run(ChesslaBlab $socket, array $argv, int $resourceId)
+    public function run(ChesslaBlabSocket $socket, array $argv, int $resourceId)
     {
         $gameMode = $socket->getGameModeStorage()->getByResourceId($resourceId);
 

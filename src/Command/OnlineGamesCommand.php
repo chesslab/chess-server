@@ -2,8 +2,8 @@
 
 namespace ChessServer\Command;
 
-use ChessServer\Socket\ChesslaBlab;
 use ChessServer\Game\PlayMode;
+use ChessServer\Socket\ChesslaBlabSocket;
 
 class OnlineGamesCommand extends AbstractCommand
 {
@@ -18,7 +18,7 @@ class OnlineGamesCommand extends AbstractCommand
         return count($argv) - 1 === 0;
     }
 
-    public function run(ChesslaBlab $socket, array $argv, int $resourceId)
+    public function run(ChesslaBlabSocket $socket, array $argv, int $resourceId)
     {
         return $socket->sendToOne($resourceId, [
             $this->name => $socket

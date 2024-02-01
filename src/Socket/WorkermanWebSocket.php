@@ -5,10 +5,9 @@ namespace ChessServer\Socket;
 use ChessServer\Command\LeaveCommand;
 use ChessServer\Exception\InternalErrorException;
 use ChessServer\Exception\ParserException;
-use ChessServer\Socket\ChesslaBlab;
 use Workerman\Worker;
 
-class WorkermanWebSocket extends ChesslaBlab
+class WorkermanWebSocket extends ChesslaBlabSocket
 {
     private Worker $worker;
 

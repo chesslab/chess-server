@@ -16,11 +16,11 @@ use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Game\Game;
-use ChessServer\Socket\ChesslaBlab;
 use ChessServer\Game\FenMode;
 use ChessServer\Game\PlayMode;
 use ChessServer\Game\SanMode;
 use ChessServer\Game\StockfishMode;
+use ChessServer\Socket\ChesslaBlabSocket;
 use Firebase\JWT\JWT;
 
 class StartCommand extends AbstractCommand
@@ -82,7 +82,7 @@ class StartCommand extends AbstractCommand
         return false;
     }
 
-    public function run(ChesslaBlab $socket, array $argv, int $resourceId)
+    public function run(ChesslaBlabSocket $socket, array $argv, int $resourceId)
     {
         if (FenMode::NAME === $argv[2]) {
             try {
