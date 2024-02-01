@@ -19,7 +19,7 @@ $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
 $dotenv->load();
 
 $allowed = [
-    $_ENV['WSS_ALLOWED'],
+    $_ENV['WSS_ALLOWED_HOST'],
 ];
 
 $loop = Factory::create();
