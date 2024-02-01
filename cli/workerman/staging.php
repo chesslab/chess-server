@@ -18,6 +18,6 @@ $context = [
     ],
 ];
 
-$server = new WorkermanSocket($_ENV['WSS_PORT'], $_ENV['WS_ADDRESS'], $context);
+$server = new WorkermanSocket($_ENV['WSS_PORT'], $_ENV['WSS_ADDRESS'], $context);
 
 $server->run();
