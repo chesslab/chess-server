@@ -5,7 +5,6 @@ namespace ChessServer\Socket;
 use Chess\Grandmaster;
 use ChessServer\Command\CommandParser;
 use ChessServer\Game\GameModeStorage;
-use Dotenv\Dotenv;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
@@ -65,9 +64,6 @@ class ChesslaBlabSocket
      */
     public function __construct()
     {
-        $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
-        $dotenv->load();
-
         $this->log = new Logger('log');
         $this->log->pushHandler(new StreamHandler(self::STORAGE_FOLDER.'/pchess.log', Logger::INFO));
 
