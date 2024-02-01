@@ -52,25 +52,17 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#run-the-chess-server">Run the Chess Server</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#functional-testing">Functional Testing</a>
+    <li class="toctree-l3"><a class="reference internal" href="#tcp-socket">TCP Socket</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#simple-websocket-server">Simple WebSocket Server</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#staging">Staging</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#production">Production</a>
+    <li class="toctree-l3"><a class="reference internal" href="#secure-websocket">Secure WebSocket</a>
     </li>
         </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#run-the-chess-server-on-a-docker-container">Run the Chess Server on a Docker Container</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#functional-testing_1">Functional Testing</a>
+    <li class="toctree-l3"><a class="reference internal" href="#tcp-socket_1">TCP Socket</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#development">Development</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#staging_1">Staging</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#production_1">Production</a>
+    <li class="toctree-l3"><a class="reference internal" href="#secure-websocket_1">Secure WebSocket</a>
     </li>
         </ul>
     </li>
@@ -141,10 +133,10 @@
 <h2 id="requirements">Requirements</h2>
 <ul>
 <li>PHP &gt;= 8.1</li>
+<li>Stockfish &gt;= 15.1</li>
 </ul>
-<p>You may want to optionally install Stockfish &gt;= 15.1 as it is described in <a href="https://php-chess.docs.chesslablab.org/play-chess/#play-computer">Play Computer</a>.</p>
 <h2 id="setup">Setup</h2>
-<p>Clone the <code>chesslablab/chess-server</code> repo into your projects folder as it is described in the following example:</p>
+<p>Clone the <code>chesslablab/chess-server</code> repo into your projects folder:</p>
 <pre><code class="language-txt">git clone git@github.com:chesslablab/chess-server.git
 </code></pre>
 <p>Then <code>cd</code> the <code>chess-server</code> directory and install the Composer dependencies:</p>
@@ -157,71 +149,60 @@
 <pre><code class="language-txt">127.0.0.1       async.chesslablab.org
 </code></pre>
 <h2 id="run-the-chess-server">Run the Chess Server</h2>
-<p>The chess server runs by default using Ratchet-PHP WebSockets and comes in four different flavors.</p>
+<p>PHP Chess Server uses Workerman WebSockets.</p>
 <table>
 <thead>
 <tr>
 <th>Script</th>
 <th>Description</th>
-<th>Use</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/testing.php">cli/ratchet/testing.php</a></td>
+<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/workerman/tcp.php">cli/workerman/tcp.php</a></td>
 <td>TCP socket.</td>
-<td>Functional testing.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/dev.php">cli/ratchet/dev.php</a></td>
-<td>Simple WebSocket server.</td>
-<td>Development.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/staging.php">cli/ratchet/staging.php</a></td>
-<td>Secure WebSocket server.</td>
-<td>Staging.</td>
-</tr>
-<tr>
-<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/prod.php">cli/ratchet/prod.php</a></td>
-<td>Secure WebSocket server.</td>
-<td>Production.</td>
+<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/workerman/wss.php">cli/workerman/wss.php</a></td>
+<td>Secure WebSocket.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="functional-testing">Functional Testing</h3>
-<p>Run the TCP socket server.</p>
-<pre><code>php cli/ratchet/testing.php
+<p>Alternatively, it can use Ratchet WebSockets.</p>
+<table>
+<thead>
+<tr>
+<th>Script</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/tcp.php">cli/ratchet/tcp.php</a></td>
+<td>TCP socket.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/wss.php">cli/ratchet/wss.php</a></td>
+<td>Secure WebSocket.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tcp-socket">TCP Socket</h3>
+<p>You may want to run the TCP socket server for testing purposes.</p>
+<pre><code>php cli/workerman/tcp.php
 </code></pre>
-<h3 id="simple-websocket-server">Simple WebSocket Server</h3>
-<p>Run the simple WebSocket server if you are not using an SSL/TLS certificate.</p>
-<pre><code class="language-txt">php cli/ratchet/dev.php
+<h3 id="secure-websocket">Secure WebSocket</h3>
+<p>Before starting the secure WebSocket server for the first time, make sure to have created the <code>fullchain.pem</code> and <code>privkey.pem</code> files in the <code>ssl</code> folder.</p>
+<pre><code class="language-txt">php cli/workerman/wss.php start -d
 </code></pre>
-<h3 id="staging">Staging</h3>
-<p>Before starting the secure WebSocket server for the first time, make sure to have created the <code>fullchain.pem</code> and <code>privkey.pem</code> files into the <code>ssl</code> folder.</p>
-<p>Run the staging secure WebSocket server if you don't want to check the website's origin.</p>
-<pre><code class="language-txt">php cli/ratchet/staging.php
-</code></pre>
-<p>This will allow any origin to send a request to it.</p>
-<h3 id="production">Production</h3>
-<p>Before starting the secure WebSocket server for the first time, make sure to have created the <code>fullchain.pem</code> and <code>privkey.pem</code> files into the <code>ssl</code> folder.</p>
-<p>Run the secure WebSocket server to check the website's origin as defined in the <code>WSS_ALLOWED</code> variable in the <code>.env.example</code> file.</p>
-<pre><code class="language-txt">php cli/ratchet/prod.php
-</code></pre>
-<p>This will allow the <code>WSS_ALLOWED</code> website to send a request to it.</p>
+<p>This will allow the <code>WSS_ALLOWED_HOST</code> defined in the <code>.env</code> file to send requests to the chess server.</p>
 <h2 id="run-the-chess-server-on-a-docker-container">Run the Chess Server on a Docker Container</h2>
 <p>Alternatively, the chess server can run on a Docker container.</p>
-<h3 id="functional-testing_1">Functional Testing</h3>
-<pre><code class="language-txt">docker compose -f docker-compose.testing.yml up -d
+<h3 id="tcp-socket_1">TCP Socket</h3>
+<pre><code class="language-txt">docker compose -f docker-compose.tcp.yml up -d
 </code></pre>
-<h3 id="development">Development</h3>
-<pre><code class="language-txt">docker compose -f docker-compose.dev.yml up -d
-</code></pre>
-<h3 id="staging_1">Staging</h3>
-<pre><code class="language-txt">docker compose -f docker-compose.staging.yml up -d
-</code></pre>
-<h3 id="production_1">Production</h3>
-<pre><code class="language-txt">docker compose -f docker-compose.prod.yml up -d
+<h3 id="secure-websocket_1">Secure WebSocket</h3>
+<pre><code class="language-txt">docker compose -f docker-compose.wss.yml up -d
 </code></pre>
               
             </div>
