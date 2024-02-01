@@ -3,8 +3,7 @@
 ## Requirements
 
 - PHP >= 8.1
-
-You may want to optionally install Stockfish >= 15.1 as it is described in [Play Computer](https://php-chess.docs.chesslablab.org/play-chess/#play-computer).
+- Stockfish >= 15.1
 
 ## Setup
 
@@ -51,7 +50,7 @@ Alternatively, it can use Ratchet WebSockets.
 
 ### TCP Socket
 
-It is recommended to run the TCP socket server for testing purposes.
+You may want to run the TCP socket server for testing purposes.
 
 ```
 php cli/workerman/tcp.php
@@ -62,10 +61,10 @@ php cli/workerman/tcp.php
 Before starting the secure WebSocket server for the first time, make sure to have created the `fullchain.pem` and `privkey.pem` files in the `ssl` folder.
 
 ```txt
-php cli/workerman/wss.php
+php cli/workerman/wss.php start -d
 ```
 
-This will allow the `WSS_ALLOWED_HOST` defined in the `.env` file to send requests to it.
+This will allow the `WSS_ALLOWED_HOST` defined in the `.env` file to send requests to the chess server.
 
 ## Run the Chess Server on a Docker Container
 

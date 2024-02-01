@@ -15,7 +15,7 @@ The socket, the game modes and the chess commands are all implemented using OOP 
 
 ## Async PHP Frameworks
 
-Multiple async PHP frameworks are supported, with the default one being Workerman.
+The flexible architecture of PHP Chess Server allows support for multiple async PHP frameworks, with the default one being Workerman.
 
 - Ratchet
 - Workerman
