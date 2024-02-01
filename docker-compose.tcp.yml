@@ -4,7 +4,7 @@ services:
   php_fpm:
       build:
         context: .
-        dockerfile: Dockerfile.testing
+        dockerfile: Dockerfile.tcp
       user: "${UID}:${GID}"
       container_name: chess_server_php_fpm
       ports:

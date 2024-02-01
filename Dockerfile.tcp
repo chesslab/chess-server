@@ -13,4 +13,4 @@ RUN pecl install msgpack \
 RUN curl --silent --show-error https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
 
-CMD ["php", "cli/ratchet/testing.php"]
+CMD ["php", "cli/ratchet/tcp.php"]
