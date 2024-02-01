@@ -8,7 +8,7 @@ You may want to optionally install Stockfish >= 15.1 as it is described in [Play
 
 ## Setup
 
-Clone the `chesslablab/chess-server` repo into your projects folder as it is described in the following example:
+Clone the `chesslablab/chess-server` repo into your projects folder:
 
 ```txt
 git clone git@github.com:chesslablab/chess-server.git
@@ -34,80 +34,51 @@ Finally, you may want to add the following entry to your `/etc/hosts` file if ru
 
 ## Run the Chess Server
 
-The chess server runs by default using Ratchet-PHP WebSockets and comes in four different flavors.
+PHP Chess Server uses Workerman WebSockets.
 
-| Script | Description | Use |
-| ------ | ----------- | --- |
-| [cli/ratchet/testing.php](https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/testing.php) | TCP socket. | Functional testing. |
-| [cli/ratchet/dev.php](https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/dev.php) | Simple WebSocket server. | Development. |
-| [cli/ratchet/staging.php](https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/staging.php) | Secure WebSocket server. | Staging. |
-| [cli/ratchet/prod.php](https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/prod.php) | Secure WebSocket server. | Production. |
+| Script | Description |
+| ------ | ----------- |
+| [cli/workerman/tcp.php](https://github.com/chesslablab/chess-server/blob/master/cli/workerman/tcp.php) | TCP socket. |
+| [cli/workerman/wss.php](https://github.com/chesslablab/chess-server/blob/master/cli/workerman/wss.php) | Secure WebSocket. |
+
+Alternatively, it can use Ratchet WebSockets.
+
+| Script | Description |
+| ------ | ----------- |
+| [cli/ratchet/tcp.php](https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/tcp.php) | TCP socket. |
+| [cli/ratchet/wss.php](https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/wss.php) | Secure WebSocket. |
 
 
-### Functional Testing
+### TCP Socket
 
-Run the TCP socket server.
+It is recommended to run the TCP socket server for testing purposes.
 
 ```
-php cli/ratchet/testing.php
+php cli/workerman/tcp.php
 ```
 
-### Simple WebSocket Server
+### Secure WebSocket
 
-Run the simple WebSocket server if you are not using an SSL/TLS certificate.
+Before starting the secure WebSocket server for the first time, make sure to have created the `fullchain.pem` and `privkey.pem` files in the `ssl` folder.
 
 ```txt
-php cli/ratchet/dev.php
+php cli/workerman/wss.php
 ```
 
-### Staging
-
-Before starting the secure WebSocket server for the first time, make sure to have created the `fullchain.pem` and `privkey.pem` files into the `ssl` folder.
-
-Run the staging secure WebSocket server if you don't want to check the website's origin.
-
-```txt
-php cli/ratchet/staging.php
-```
-
-This will allow any origin to send a request to it.
-
-### Production
-
-Before starting the secure WebSocket server for the first time, make sure to have created the `fullchain.pem` and `privkey.pem` files into the `ssl` folder.
-
-Run the secure WebSocket server to check the website's origin as defined in the `WSS_ALLOWED` variable in the `.env.example` file.
-
-```txt
-php cli/ratchet/prod.php
-```
-
-This will allow the `WSS_ALLOWED` website to send a request to it.
+This will allow the `WSS_ALLOWED_HOST` defined in the `.env` file to send requests to it.
 
 ## Run the Chess Server on a Docker Container
 
 Alternatively, the chess server can run on a Docker container.
 
-### Functional Testing
+### TCP Socket
 
 ```txt
-docker compose -f docker-compose.testing.yml up -d
+docker compose -f docker-compose.tcp.yml up -d
 ```
 
-### Development
+### Secure WebSocket
 
 ```txt
-docker compose -f docker-compose.dev.yml up -d
-```
-
-### Staging
-
-```txt
-docker compose -f docker-compose.staging.yml up -d
-```
-
-### Production
-
-```txt
-docker compose -f docker-compose.prod.yml up -d
+docker compose -f docker-compose.wss.yml up -d
 ```

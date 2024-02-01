@@ -13,12 +13,9 @@ The chess commands are intended to run very quickly almost in real-time.
 
 The socket, the game modes and the chess commands are all implemented using OOP principles.
 
-## Lightweight
+## Async PHP Frameworks
 
-Dependencies required:
+Multiple async PHP frameworks are supported, with the default one being Workerman.
 
-- PHP Chess for chess functionality.
-- Ratchet for asynchronously serving WebSockets.
-- PHP-JWT for encoding and decoding JSON Web Tokens (JWT).
-- PHP dotenv for loading environment variables.
-- Monolog for logging commands.
+- Ratchet
+- Workerman
