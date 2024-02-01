@@ -8,7 +8,7 @@ use ChessServer\Exception\ParserException;
 use ChessServer\Socket\ChesslaBlab;
 use Workerman\Worker;
 
-class WorkermanSocket extends ChesslaBlab
+class WorkermanWebSocket extends ChesslaBlab
 {
     private Worker $worker;
 

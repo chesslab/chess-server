@@ -2,7 +2,7 @@
 
 namespace ChessServer\Cli\Workerman;
 
-use ChessServer\Socket\WebSocket\WorkermanSocket;
+use ChessServer\Socket\WebSocket\WorkermanWebSocket;
 use Dotenv\Dotenv;
 
 require __DIR__  . '/../../vendor/autoload.php';
@@ -18,6 +18,6 @@ $context = [
     ],
 ];
 
-$server = new WorkermanSocket($_ENV['WSS_PORT'], $_ENV['WSS_ADDRESS'], $context);
+$server = new WorkermanWebSocket($_ENV['WSS_PORT'], $_ENV['WSS_ADDRESS'], $context);
 
 $server->run();
