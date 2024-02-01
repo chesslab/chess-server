@@ -6,8 +6,6 @@ use Workerman\Worker;
 
 class WorkermanWebSocket extends WorkermanSocket
 {
-    protected Worker $worker;
-
     public function __construct(string $port, string $address, array $context)
     {
         parent::__construct();

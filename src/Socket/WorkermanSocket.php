@@ -5,9 +5,12 @@ namespace ChessServer\Socket;
 use ChessServer\Command\LeaveCommand;
 use ChessServer\Exception\InternalErrorException;
 use ChessServer\Exception\ParserException;
+use Workerman\Worker;
 
 class WorkermanSocket extends ChesslaBlabSocket
 {
+    protected Worker $worker;
+
     protected function connect()
     {
         $this->worker->onConnect = function($conn) {
