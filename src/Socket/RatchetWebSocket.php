@@ -13,11 +13,11 @@ class RatchetWebSocket extends ChesslaBlabSocket implements MessageComponentInte
 {
     public function onOpen(ConnectionInterface $conn)
     {
-        $this->clientsStorage->attach($conn);
+        $this->clientStorage->attach($conn);
 
         $this->log->info('New connection', [
             'id' => $conn->resourceId,
-            'n' => $this->clientsStorage->count()
+            'n' => $this->clientStorage->count()
         ]);
     }
 
@@ -57,11 +57,11 @@ class RatchetWebSocket extends ChesslaBlabSocket implements MessageComponentInte
             ]);
         }
 
-        $this->clientsStorage->dettachById($conn->resourceId);
+        $this->clientStorage->dettachById($conn->resourceId);
 
         $this->log->info('Closed connection', [
             'id' => $conn->resourceId,
-            'n' => $this->clientsStorage->count()
+            'n' => $this->clientStorage->count()
         ]);
     }
 

@@ -55,7 +55,7 @@ class ChesslaBlabSocket
      *
      * @var \ChessServer\Socket\ClientsStorage
      */
-    protected ClientsStorage $clientsStorage;
+    protected ClientsStorage $clientStorage;
 
     /**
      * Constructor.
@@ -68,7 +68,7 @@ class ChesslaBlabSocket
         $this->parser = new CommandParser();
         $this->gm = new Grandmaster(self::DATA_FOLDER.'/players.json');
         $this->gameModeStorage = new GameModeStorage();
-        $this->clientsStorage = new ClientsStorage($this->log, $this->gameModeStorage);
+        $this->clientStorage = new ClientsStorage($this->log, $this->gameModeStorage);
 
         echo "Welcome to PHP Chess Server" . PHP_EOL;
         echo "Commands available:" . PHP_EOL;
@@ -105,6 +105,6 @@ class ChesslaBlabSocket
      */
     public function getClientsStorage(): ClientsStorage
     {
-        return $this->clientsStorage;
+        return $this->clientStorage;
     }
 }

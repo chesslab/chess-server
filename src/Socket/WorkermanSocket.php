@@ -18,10 +18,10 @@ class WorkermanSocket extends ChesslaBlabSocket
                 if (!str_starts_with($_SERVER['HTTP_ORIGIN'], "{$_ENV['WSS_ALLOWED_SCHEME']}://{$_ENV['WSS_ALLOWED_HOST']}")) {
                     $conn->close();
                 } else {
-                    $this->clientsStorage->attach($conn);
+                    $this->clientStorage->attach($conn);
                     $this->log->info('New connection', [
                         'id' => $conn->id,
-                        'n' => $this->clientsStorage->count()
+                        'n' => $this->clientStorage->count()
                     ]);
                 }
             };
@@ -82,11 +82,11 @@ class WorkermanSocket extends ChesslaBlabSocket
                 ]);
             }
 
-            $this->clientsStorage->dettachById($conn->id);
+            $this->clientStorage->dettachById($conn->id);
 
             $this->log->info('Closed connection', [
                 'id' => $conn->id,
-                'n' => $this->clientsStorage->count()
+                'n' => $this->clientStorage->count()
             ]);
         };
 
