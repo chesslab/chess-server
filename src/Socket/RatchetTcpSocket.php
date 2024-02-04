@@ -3,7 +3,6 @@
 namespace ChessServer\Socket;
 
 use ChessServer\Command\LeaveCommand;
-use ChessServer\Game\PlayMode;
 use ChessServer\Exception\InternalErrorException;
 use ChessServer\Exception\ParserException;
 use React\Socket\ConnectionInterface;
@@ -28,18 +27,18 @@ class RatchetTcpSocket extends ChesslaBlabSocket
         $this->server->on('connection', function (ConnectionInterface $conn) {
             $resourceId = get_resource_id($conn->stream);
 
-            $this->clients[$resourceId] = $conn;
+            $this->clientStorage->attach($conn);
 
-            $this->logger->info('New connection', [
+            $this->clientStorage->getLogger()->info('New connection', [
                 'id' => $resourceId,
-                'n' => count($this->clients)
+                'n' => $this->clientStorage->count()
             ]);
 
             $conn->on('data', function ($msg) use ($resourceId) {
                 try {
                     $cmd = $this->parser->validate($msg);
                 } catch (ParserException $e) {
-                    return $this->sendToOne($resourceId, [
+                    return $this->getClientStorage()->sendToOne($resourceId, [
                         'error' => 'Command parameters not valid',
                     ]);
                 }
@@ -47,7 +46,7 @@ class RatchetTcpSocket extends ChesslaBlabSocket
                 try {
                     $cmd->run($this, $this->parser->argv, $resourceId);
                 } catch (InternalErrorException $e) {
-                    return $this->sendToOne($resourceId, [
+                    return $this->getClientStorage()->sendToOne($resourceId, [
                         'error' => 'Internal server error',
                     ]);
                 }
@@ -56,20 +55,18 @@ class RatchetTcpSocket extends ChesslaBlabSocket
             $conn->on('close', function () use ($conn, $resourceId) {
                 if ($gameMode = $this->gameModeStorage->getById($resourceId)) {
                     $this->gameModeStorage->delete($gameMode);
-                    $this->sendToMany($gameMode->getResourceIds(), [
+                    $this->getClientStorage()->sendToMany($gameMode->getResourceIds(), [
                         '/leave' => [
                             'action' => LeaveCommand::ACTION_ACCEPT,
                         ],
                     ]);
                 }
 
-                if (isset($this->clients[$resourceId])) {
-                    unset($this->clients[$resourceId]);
-                }
+                $this->clientStorage->dettachById($resourceId);
 
-                $this->logger->info('Closed connection', [
+                $this->clientStorage->getLogger()->info('Closed connection', [
                     'id' => $resourceId,
-                    'n' => count($this->clients)
+                    'n' => $this->clientStorage->count()
                 ]);
             });
         });
@@ -80,7 +77,7 @@ class RatchetTcpSocket extends ChesslaBlabSocket
     public function onError()
     {
         $this->server->on('error', function (Exception $e) {
-            $this->logger->info('Occurred an error', ['message' => $e->getMessage()]);
+            $this->clientStorage->getLogger()->info('Occurred an error', ['message' => $e->getMessage()]);
         });
 
         return $this;
