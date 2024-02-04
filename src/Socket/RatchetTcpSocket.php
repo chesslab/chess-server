@@ -54,7 +54,7 @@ class RatchetTcpSocket extends ChesslaBlabSocket
             });
 
             $conn->on('close', function () use ($conn, $resourceId) {
-                if ($gameMode = $this->gameModeStorage->getByResourceId($resourceId)) {
+                if ($gameMode = $this->gameModeStorage->getById($resourceId)) {
                     $this->gameModeStorage->delete($gameMode);
                     $this->sendToMany($gameMode->getResourceIds(), [
                         '/leave' => [

@@ -61,8 +61,8 @@ class RandomizerCommand extends AbstractCommand
             if ($color !== Color::W && $color !== Color::B) {
                 return false;
             }
-            $ids = current($items);
-            if (!in_array($ids, self::cases())) {
+            $pieceIds = current($items);
+            if (!in_array($pieceIds, self::cases())) {
                 return false;
             }
         } else {
@@ -72,19 +72,19 @@ class RandomizerCommand extends AbstractCommand
         return true;
     }
 
-    public function run(ChesslaBlabSocket $socket, array $argv, int $resourceId)
+    public function run(ChesslaBlabSocket $socket, array $argv, int $id)
     {
         try {
             $items = json_decode(stripslashes($argv[2]), true);
             if (count($items) === 1) {
                 $color = array_key_first($items);
-                $ids = str_split(current($items));
-                if ($ids === ['B', 'B']) {
+                $pieceIds = str_split(current($items));
+                if ($pieceIds === ['B', 'B']) {
                     $board = (new TwoBishopsRandomizer($argv[1]))->getBoard();
-                } elseif ($ids === ['P']) {
+                } elseif ($pieceIds === ['P']) {
                     $board = (new PawnEndgameRandomizer($argv[1]))->getBoard();
                 } else {
-                    $board = (new Randomizer($argv[1], [$color => $ids]))->getBoard();
+                    $board = (new Randomizer($argv[1], [$color => $pieceIds]))->getBoard();
                 }
             } else {
                 $wIds = str_split($items[Color::W]);
@@ -94,14 +94,14 @@ class RandomizerCommand extends AbstractCommand
                     Color::B => $bIds,
                 ]))->getBoard();
             }
-            return $socket->getClientStorage()->sendToOne($resourceId, [
+            return $socket->getClientStorage()->sendToOne($id, [
                 $this->name => [
                     'turn' => $board->getTurn(),
                     'fen' => $board->toFen(),
                 ],
             ]);
         } catch (\Throwable $e) {
-            return $socket->getClientStorage()->sendToOne($resourceId, [
+            return $socket->getClientStorage()->sendToOne($id, [
                 $this->name => [
                     'message' => 'A random puzzle could not be loaded.',
                 ],

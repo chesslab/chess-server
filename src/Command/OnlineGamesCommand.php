@@ -18,9 +18,9 @@ class OnlineGamesCommand extends AbstractCommand
         return count($argv) - 1 === 0;
     }
 
-    public function run(ChesslaBlabSocket $socket, array $argv, int $resourceId)
+    public function run(ChesslaBlabSocket $socket, array $argv, int $id)
     {
-        return $socket->getClientStorage()->sendToOne($resourceId, [
+        return $socket->getClientStorage()->sendToOne($id, [
             $this->name => $socket
                 ->getGameModeStorage()
                 ->decodeByPlayMode(PlayMode::STATUS_PENDING, PlayMode::SUBMODE_ONLINE),

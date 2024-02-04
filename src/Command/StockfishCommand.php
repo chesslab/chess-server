@@ -58,16 +58,16 @@ class StockfishCommand extends AbstractCommand
         return true;
     }
 
-    public function run(ChesslaBlabSocket $socket, array $argv, int $resourceId)
+    public function run(ChesslaBlabSocket $socket, array $argv, int $id)
     {
-        $gameMode = $socket->getGameModeStorage()->getByResourceId($resourceId);
+        $gameMode = $socket->getGameModeStorage()->getById($id);
 
         if (!$gameMode) {
             throw new InternalErrorException();
         }
 
         return $socket->getClientStorage()->sendToOne(
-            $resourceId,
+            $id,
             $gameMode->res($argv, $this)
         );
     }

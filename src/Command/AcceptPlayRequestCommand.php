@@ -23,12 +23,12 @@ class AcceptPlayRequestCommand extends AbstractCommand
         return count($argv) - 1 === count($this->params);
     }
 
-    public function run(ChesslaBlabSocket $socket, array $argv, int $resourceId)
+    public function run(ChesslaBlabSocket $socket, array $argv, int $id)
     {
         $gameMode = $socket->getGameModeStorage()->getByHash($argv[1]);
 
         if (!$gameMode) {
-            return $socket->getClientStorage()->sendToOne($resourceId, [
+            return $socket->getClientStorage()->sendToOne($id, [
                 $this->name => [
                     'mode' => PlayMode::NAME,
                     'message' =>  'This friend request could not be accepted.',
@@ -38,8 +38,8 @@ class AcceptPlayRequestCommand extends AbstractCommand
 
         if ($gameMode->getStatus() === PlayMode::STATUS_PENDING) {
             $decoded = $gameMode->getJwtDecoded();
-            $resourceIds = [...$gameMode->getResourceIds(), $resourceId];
-            $gameMode->setResourceIds($resourceIds)
+            $ids = [...$gameMode->getResourceIds(), $id];
+            $gameMode->setResourceIds($ids)
                 ->setStatus(PlayMode::STATUS_ACCEPTED)
                 ->setStartedAt(time())
                 ->setUpdatedAt(time())
@@ -51,7 +51,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
             if ($decoded->submode === PlayMode::SUBMODE_ONLINE) {
                 $socket->getClientStorage()->sendToAll();
             }
-            return $socket->getClientStorage()->sendToMany($resourceIds, [
+            return $socket->getClientStorage()->sendToMany($ids, [
                 $this->name => [
                     'jwt' => $gameMode->getJwt(),
                     'hash' => md5($gameMode->getJwt()),

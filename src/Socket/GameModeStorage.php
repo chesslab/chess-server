@@ -4,7 +4,7 @@ namespace ChessServer\Game;
 
 class GameModeStorage extends \SplObjectStorage
 {
-    public function getByResourceId(int $resourceId): ?AbstractMode
+    public function getById(int $resourceId): ?AbstractMode
     {
         $this->rewind();
         while ($this->valid()) {
@@ -53,7 +53,7 @@ class GameModeStorage extends \SplObjectStorage
     public function set($gameMode): void
     {
         foreach ($resourceIds = $gameMode->getResourceIds() as $resourceId) {
-            if ($found = $this->getByResourceId($resourceId)) {
+            if ($found = $this->getById($resourceId)) {
                 $this->detach($found);
             }
         }

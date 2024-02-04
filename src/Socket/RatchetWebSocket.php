@@ -47,7 +47,7 @@ class RatchetWebSocket extends ChesslaBlabSocket implements MessageComponentInte
 
     public function onClose(ConnectionInterface $conn)
     {
-        if ($gameMode = $this->gameModeStorage->getByResourceId($conn->resourceId)) {
+        if ($gameMode = $this->gameModeStorage->getById($conn->resourceId)) {
             $this->gameModeStorage->delete($gameMode);
             $this->getClientStorage()->sendToMany($gameMode->getResourceIds(), [
                 '/leave' => [

@@ -21,5 +21,5 @@ abstract class AbstractCommand
 
     abstract public function validate(array $command);
 
-    abstract public function run(ChesslaBlabSocket $socket, array $argv, int $resourceId);
+    abstract public function run(ChesslaBlabSocket $socket, array $argv, int $id);
 }

@@ -31,9 +31,9 @@ class ResignCommand extends AbstractCommand
         return false;
     }
 
-    public function run(ChesslaBlabSocket $socket, array $argv, int $resourceId)
+    public function run(ChesslaBlabSocket $socket, array $argv, int $id)
     {
-        $gameMode = $socket->getGameModeStorage()->getByResourceId($resourceId);
+        $gameMode = $socket->getGameModeStorage()->getById($id);
 
         if (!$gameMode) {
             throw new InternalErrorException();

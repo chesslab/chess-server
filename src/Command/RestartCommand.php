@@ -27,7 +27,7 @@ class RestartCommand extends AbstractCommand
         return count($argv) - 1 === count($this->params);
     }
 
-    public function run(ChesslaBlabSocket $socket, array $argv, int $resourceId)
+    public function run(ChesslaBlabSocket $socket, array $argv, int $id)
     {
         if ($gameMode = $socket->getGameModeStorage()->getByHash($argv[1])) {
             $decoded = $gameMode->getJwtDecoded();
