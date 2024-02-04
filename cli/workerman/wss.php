@@ -19,6 +19,8 @@ $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/pchess.log',
 
 $clientStorage = new WorkermanClientStorage(new GameModeStorage(), $logger);
 
+$socketName = "websocket://{$_ENV['WSS_ADDRESS']}:{$_ENV['WSS_PORT']}";
+
 $context = [
     'ssl' => [
         'local_cert'  => __DIR__  . '/../../ssl/fullchain.pem',
@@ -27,7 +29,6 @@ $context = [
     ],
 ];
 
-$server = (new WorkermanWebSocket($_ENV['WSS_PORT'], $_ENV['WSS_ADDRESS'], $context))
-    ->init($clientStorage);
+$server = (new WorkermanWebSocket($socketName, $context))->init($clientStorage);
 
 $server->run();

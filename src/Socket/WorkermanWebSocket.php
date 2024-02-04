@@ -6,11 +6,11 @@ use Workerman\Worker;
 
 class WorkermanWebSocket extends WorkermanSocket
 {
-    public function __construct(string $port, string $address, array $context)
+    public function __construct(string $socketName, array $context)
     {
         parent::__construct();
 
-        $this->worker = new Worker("websocket://$address:$port", $context);
+        $this->worker = new Worker($socketName, $context);
         $this->worker->transport = 'ssl';
 
         $this->connect()->message()->error()->close();
