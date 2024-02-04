@@ -28,7 +28,7 @@ class ClientStorage extends \SplObjectStorage
         $this->gameModeStorage = $gameModeStorage;
     }
 
-    public function detachById(int $id): void
+    public function dettachById(int $id): void
     {
         $this->rewind();
         while ($this->valid()) {
