@@ -82,7 +82,7 @@ class WorkermanSocket extends ChesslaBlabSocket
                 ]);
             }
 
-            $this->clientStorage->dettachById($conn->id);
+            $this->clientStorage->detachById($conn->id);
 
             $this->clientStorage->getLogger()->info('Closed connection', [
                 'id' => $conn->id,

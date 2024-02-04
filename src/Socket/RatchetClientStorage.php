@@ -33,7 +33,7 @@ class RatchetClientStorage extends \SplObjectStorage implements ClientStorageInt
         return $this->logger;
     }
 
-    public function dettachById(int $id): void
+    public function detachById(int $id): void
     {
         $this->rewind();
         while ($this->valid()) {

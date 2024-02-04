@@ -62,7 +62,7 @@ class RatchetTcpSocket extends ChesslaBlabSocket
                     ]);
                 }
 
-                $this->clientStorage->dettachById($resourceId);
+                $this->clientStorage->detachById($resourceId);
 
                 $this->clientStorage->getLogger()->info('Closed connection', [
                     'id' => $resourceId,

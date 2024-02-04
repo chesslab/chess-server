@@ -56,7 +56,7 @@ class RatchetWebSocket extends ChesslaBlabSocket implements MessageComponentInte
             ]);
         }
 
-        $this->clientStorage->dettachById($conn->resourceId);
+        $this->clientStorage->detachById($conn->resourceId);
 
         $this->clientStorage->getLogger()->info('Closed connection', [
             'id' => $conn->resourceId,
