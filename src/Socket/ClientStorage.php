@@ -6,7 +6,7 @@ use ChessServer\Game\GameModeStorage;
 use ChessServer\Game\PlayMode;
 use Monolog\Logger;
 
-class ClientsStorage extends \SplObjectStorage
+class ClientStorage extends \SplObjectStorage
 {
     /**
      * Game modes.
