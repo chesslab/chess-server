@@ -49,7 +49,12 @@ class AcceptPlayRequestCommand extends AbstractCommand
                 ]);
             $socket->getGameModeStorage()->set($gameMode);
             if ($decoded->submode === PlayMode::SUBMODE_ONLINE) {
-                $socket->getClientStorage()->sendToAll();
+                $socket->getClientStorage()->sendToAll([
+                    'broadcast' => [
+                        'onlineGames' => $socket->getGameModeStorage()
+                            ->decodeByPlayMode(PlayMode::STATUS_PENDING, PlayMode::SUBMODE_ONLINE),
+                    ],
+                ]);
             }
             return $socket->getClientStorage()->sendToMany($ids, [
                 $this->name => [

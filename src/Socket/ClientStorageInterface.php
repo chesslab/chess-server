@@ -14,5 +14,5 @@ interface ClientStorageInterface
 
     public function sendToMany(array $ids, array $res): void;
 
-    public function sendToAll(): void;
+    public function sendToAll(array $res): void;
 }

@@ -282,7 +282,12 @@ class StartCommand extends AbstractCommand
             $playMode = new PlayMode($game, [$id], $jwt);
             $socket->getGameModeStorage()->set($playMode);
             if ($settings->submode === PlayMode::SUBMODE_ONLINE) {
-                $socket->getClientStorage()->sendToAll();
+                $socket->getClientStorage()->sendToAll([
+                    'broadcast' => [
+                        'onlineGames' => $socket->getGameModeStorage()
+                            ->decodeByPlayMode(PlayMode::STATUS_PENDING, PlayMode::SUBMODE_ONLINE),
+                    ],
+                ]);
             }
             return $socket->getClientStorage()->sendToOne($id, [
                 $this->name => [

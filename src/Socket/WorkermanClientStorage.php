@@ -74,15 +74,8 @@ class WorkermanClientStorage extends \SplObjectStorage implements ClientStorageI
         }
     }
 
-    public function sendToAll(): void
+    public function sendToAll(array $res): void
     {
-        $res = [
-            'broadcast' => [
-                'onlineGames' => $this->gameModeStorage
-                    ->decodeByPlayMode(PlayMode::STATUS_PENDING, PlayMode::SUBMODE_ONLINE),
-            ],
-        ];
-
         $this->rewind();
         while ($this->valid()) {
             $this->current()->send(json_encode($res));
