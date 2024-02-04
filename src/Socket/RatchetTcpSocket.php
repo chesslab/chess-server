@@ -38,7 +38,7 @@ class RatchetTcpSocket extends ChesslaBlabSocket
                 try {
                     $cmd = $this->parser->validate($msg);
                 } catch (ParserException $e) {
-                    return $this->getClientStorage()->sendToOne($resourceId, [
+                    return $this->clientStorage->sendToOne($resourceId, [
                         'error' => 'Command parameters not valid',
                     ]);
                 }
@@ -46,7 +46,7 @@ class RatchetTcpSocket extends ChesslaBlabSocket
                 try {
                     $cmd->run($this, $this->parser->argv, $resourceId);
                 } catch (InternalErrorException $e) {
-                    return $this->getClientStorage()->sendToOne($resourceId, [
+                    return $this->clientStorage->sendToOne($resourceId, [
                         'error' => 'Internal server error',
                     ]);
                 }
@@ -55,7 +55,7 @@ class RatchetTcpSocket extends ChesslaBlabSocket
             $conn->on('close', function () use ($conn, $resourceId) {
                 if ($gameMode = $this->gameModeStorage->getById($resourceId)) {
                     $this->gameModeStorage->delete($gameMode);
-                    $this->getClientStorage()->sendToMany($gameMode->getResourceIds(), [
+                    $this->clientStorage->sendToMany($gameMode->getResourceIds(), [
                         '/leave' => [
                             'action' => LeaveCommand::ACTION_ACCEPT,
                         ],
