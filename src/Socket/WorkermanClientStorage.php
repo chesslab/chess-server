@@ -6,7 +6,7 @@ use ChessServer\Game\GameModeStorage;
 use ChessServer\Game\PlayMode;
 use Monolog\Logger;
 
-class WorkermanClientStorage extends \SplObjectStorage
+class WorkermanClientStorage extends \SplObjectStorage implements ClientStorageInterface
 {
     /**
      * Game modes.
@@ -22,10 +22,15 @@ class WorkermanClientStorage extends \SplObjectStorage
      */
     private Logger $log;
 
-    public function __construct(Logger $log, GameModeStorage $gameModeStorage)
+    public function __construct(GameModeStorage $gameModeStorage, Logger $log)
     {
-        $this->log = $log;
         $this->gameModeStorage = $gameModeStorage;
+        $this->log = $log;
+    }
+
+    public function getLog(): Logger
+    {
+        return $this->log;
     }
 
     public function dettachById(int $id): void
