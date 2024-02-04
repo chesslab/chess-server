@@ -34,7 +34,7 @@ class WorkermanSocket extends ChesslaBlabSocket
     {
         $this->worker->onMessage = function ($conn, $msg) {
             if (strlen($msg) > 4096) {
-                return $this->clientStorage->sentToOne($conn->id, [
+                return $this->clientStorage->sendToOne($conn->id, [
                     'error' => 'Internal server error',
                 ]);
             }
@@ -42,7 +42,7 @@ class WorkermanSocket extends ChesslaBlabSocket
             try {
                 $cmd = $this->parser->validate($msg);
             } catch (ParserException $e) {
-                return $this->clientStorage->sentToOne($conn->id, [
+                return $this->clientStorage->sendToOne($conn->id, [
                     'error' => 'Command parameters not valid',
                 ]);
             }
@@ -50,7 +50,7 @@ class WorkermanSocket extends ChesslaBlabSocket
             try {
                 $cmd->run($this, $this->parser->argv, $conn->id);
             } catch (InternalErrorException $e) {
-                return $this->clientStorage->sentToOne($conn->id, [
+                return $this->clientStorage->sendToOne($conn->id, [
                     'error' => 'Internal server error',
                 ]);
             }
