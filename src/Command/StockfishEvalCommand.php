@@ -31,7 +31,7 @@ class StockfishEvalCommand extends AbstractCommand
             throw new InternalErrorException();
         }
 
-        return $socket->sendToOne(
+        return $socket->getClientsStorage()->sendToOne(
             $resourceId,
             $gameMode->res($argv, $this)
         );

@@ -18,8 +18,6 @@ use Monolog\Handler\StreamHandler;
  */
 class ChesslaBlabSocket
 {
-    use SendToTrait;
-
     const DATA_FOLDER = __DIR__.'/../../data';
 
     const STORAGE_FOLDER = __DIR__.'/../../storage';
@@ -46,18 +44,18 @@ class ChesslaBlabSocket
     protected Grandmaster $gm;
 
     /**
-     * Games being played by the clients.
+     * Game modes.
      *
      * @var \ChessServer\Game\GameModeStorage
      */
     protected GameModeStorage $gameModeStorage;
 
     /**
-     * Clients connected to the server.
+     * Clients.
      *
-     * @var array
+     * @var \ChessServer\Socket\ClientsStorage
      */
-    protected array $clients = [];
+    protected ClientsStorage $clientsStorage;
 
     /**
      * Constructor.
@@ -68,10 +66,9 @@ class ChesslaBlabSocket
         $this->log->pushHandler(new StreamHandler(self::STORAGE_FOLDER.'/pchess.log', Logger::INFO));
 
         $this->parser = new CommandParser();
-
         $this->gm = new Grandmaster(self::DATA_FOLDER.'/players.json');
-
         $this->gameModeStorage = new GameModeStorage();
+        $this->clientsStorage = new ClientsStorage($this->log, $this->gameModeStorage);
 
         echo "Welcome to PHP Chess Server" . PHP_EOL;
         echo "Commands available:" . PHP_EOL;
@@ -92,12 +89,22 @@ class ChesslaBlabSocket
     }
 
     /**
-     * Returns the chess games.
+     * Returns the game modes.
      *
      * @return string
      */
     public function getGameModeStorage(): GameModeStorage
     {
         return $this->gameModeStorage;
+    }
+
+    /**
+     * Returns the clients.
+     *
+     * @return string
+     */
+    public function getClientsStorage(): ClientsStorage
+    {
+        return $this->clientsStorage;
     }
 }

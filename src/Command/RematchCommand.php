@@ -46,7 +46,7 @@ class RematchCommand extends AbstractCommand
         }
 
         if (is_a($gameMode, PlayMode::class)) {
-            return $socket->sendToMany($gameMode->getResourceIds(), [
+            return $socket->getClientsStorage()->sendToMany($gameMode->getResourceIds(), [
                 $this->name => [
                     'action' => $argv[1],
                 ],

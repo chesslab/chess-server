@@ -32,13 +32,13 @@ class PlayLanCommand extends AbstractCommand
         }
 
         if (is_a($gameMode, PlayMode::class)) {
-            return $socket->sendToMany(
+            return $socket->getClientsStorage()->sendToMany(
                 $gameMode->getResourceIds(),
                 $gameMode->res($argv, $this)
             );
         }
 
-        return $socket->sendToOne(
+        return $socket->getClientsStorage()->sendToOne(
             $resourceId,
             $gameMode->res($argv, $this)
         );

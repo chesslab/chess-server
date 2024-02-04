@@ -61,7 +61,7 @@ class RestartCommand extends AbstractCommand
                 ]);
             $socket->getGameModeStorage()->set($newGameMode);
 
-            return $socket->sendToMany($newGameMode->getResourceIds(), [
+            return $socket->getClientsStorage()->sendToMany($newGameMode->getResourceIds(), [
                 $this->name => [
                     'jwt' => $newJwt,
                     'hash' => md5($newJwt),
