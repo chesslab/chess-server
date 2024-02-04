@@ -75,7 +75,7 @@ class WorkermanSocket extends ChesslaBlabSocket
         $this->worker->onClose = function ($conn) {
             if ($gameMode = $this->gameModeStorage->getByResourceId($conn->id)) {
                 $this->gameModeStorage->delete($gameMode);
-                $this->getClientsStorage()->sentToMany($gameMode->getResourceIds(), [
+                $this->getClientsStorage()->sendToMany($gameMode->getResourceIds(), [
                     '/leave' => [
                         'action' => LeaveCommand::ACTION_ACCEPT,
                     ],
