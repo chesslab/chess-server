@@ -30,7 +30,7 @@ class TutorFenCommand extends AbstractCommand
             throw new InternalErrorException();
         }
 
-        return $socket->getClientsStorage()->sendToOne(
+        return $socket->getClientStorage()->sendToOne(
             $resourceId,
             $gameMode->res($argv, $this)
         );

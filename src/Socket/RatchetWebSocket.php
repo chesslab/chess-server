@@ -23,7 +23,7 @@ class RatchetWebSocket extends ChesslaBlabSocket implements MessageComponentInte
     public function onMessage(ConnectionInterface $from, $msg)
     {
         if (strlen($msg) > 4096) {
-            return $this->getClientsStorage()->sendToOne($from->resourceId, [
+            return $this->getClientStorage()->sendToOne($from->resourceId, [
                 'error' => 'Internal server error',
             ]);
         }
@@ -31,7 +31,7 @@ class RatchetWebSocket extends ChesslaBlabSocket implements MessageComponentInte
         try {
             $cmd = $this->parser->validate($msg);
         } catch (ParserException $e) {
-            return $this->getClientsStorage()->sendToOne($from->resourceId, [
+            return $this->getClientStorage()->sendToOne($from->resourceId, [
                 'error' => 'Command parameters not valid',
             ]);
         }
@@ -39,7 +39,7 @@ class RatchetWebSocket extends ChesslaBlabSocket implements MessageComponentInte
         try {
             $cmd->run($this, $this->parser->argv, $from->resourceId);
         } catch (InternalErrorException $e) {
-            return $this->getClientsStorage()->sendToOne($from->resourceId, [
+            return $this->getClientStorage()->sendToOne($from->resourceId, [
                 'error' => 'Internal server error',
             ]);
         }
@@ -49,7 +49,7 @@ class RatchetWebSocket extends ChesslaBlabSocket implements MessageComponentInte
     {
         if ($gameMode = $this->gameModeStorage->getByResourceId($conn->resourceId)) {
             $this->gameModeStorage->delete($gameMode);
-            $this->getClientsStorage()->sendToMany($gameMode->getResourceIds(), [
+            $this->getClientStorage()->sendToMany($gameMode->getResourceIds(), [
                 '/leave' => [
                     'action' => LeaveCommand::ACTION_ACCEPT,
                 ],

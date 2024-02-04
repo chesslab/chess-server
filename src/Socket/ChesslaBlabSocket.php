@@ -91,7 +91,7 @@ class ChesslaBlabSocket
      *
      * @return string
      */
-    public function getClientsStorage(): ClientStorageInterface
+    public function getClientStorage(): ClientStorageInterface
     {
         return $this->clientStorage;
     }

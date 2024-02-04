@@ -94,14 +94,14 @@ class RandomizerCommand extends AbstractCommand
                     Color::B => $bIds,
                 ]))->getBoard();
             }
-            return $socket->getClientsStorage()->sendToOne($resourceId, [
+            return $socket->getClientStorage()->sendToOne($resourceId, [
                 $this->name => [
                     'turn' => $board->getTurn(),
                     'fen' => $board->toFen(),
                 ],
             ]);
         } catch (\Throwable $e) {
-            return $socket->getClientsStorage()->sendToOne($resourceId, [
+            return $socket->getClientStorage()->sendToOne($resourceId, [
                 $this->name => [
                     'message' => 'A random puzzle could not be loaded.',
                 ],

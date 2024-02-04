@@ -46,7 +46,7 @@ class TakebackCommand extends AbstractCommand
         }
 
         if (is_a($gameMode, PlayMode::class)) {
-            return $socket->getClientsStorage()->sendToMany($gameMode->getResourceIds(), [
+            return $socket->getClientStorage()->sendToMany($gameMode->getResourceIds(), [
                 $this->name => [
                     'action' => $argv[1],
                 ],

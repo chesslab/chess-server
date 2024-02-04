@@ -28,13 +28,13 @@ class UndoCommand extends AbstractCommand
         }
 
         if (is_a($gameMode, PlayMode::class)) {
-            return $socket->getClientsStorage()->sendToMany(
+            return $socket->getClientStorage()->sendToMany(
                 $gameMode->getResourceIds(),
                 $gameMode->res($argv, $this)
             );
         }
 
-        return $socket->getClientsStorage()->sendToOne(
+        return $socket->getClientStorage()->sendToOne(
             $resourceId,
             $gameMode->res($argv, $this)
         );
