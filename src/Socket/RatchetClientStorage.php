@@ -13,7 +13,7 @@ class RatchetClientStorage extends \SplObjectStorage implements ClientStorageInt
      *
      * @var \ChessServer\Game\GameModeStorage
      */
-    protected GameModeStorage $gameModeStorage;
+    private GameModeStorage $gameModeStorage;
 
     /**
      * Logger.

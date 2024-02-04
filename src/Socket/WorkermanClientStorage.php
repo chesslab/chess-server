@@ -13,7 +13,7 @@ class WorkermanClientStorage extends \SplObjectStorage implements ClientStorageI
      *
      * @var \ChessServer\Game\GameModeStorage
      */
-    protected GameModeStorage $gameModeStorage;
+    private GameModeStorage $gameModeStorage;
 
     /**
      * Logger.
