@@ -19,7 +19,7 @@ class WorkermanSocket extends ChesslaBlabSocket
                     $conn->close();
                 } else {
                     $this->clientStorage->attach($conn);
-                    $this->clientStorage->getLog()->info('New connection', [
+                    $this->clientStorage->getLogger()->info('New connection', [
                         'id' => $conn->id,
                         'n' => $this->clientStorage->count()
                     ]);
@@ -64,7 +64,7 @@ class WorkermanSocket extends ChesslaBlabSocket
         $this->worker->onError = function ($conn, $code, $msg) {
             $conn->close();
 
-            $this->clientStorage->getLog()->info('Occurred an error', ['message' => $msg]);
+            $this->clientStorage->getLogger()->info('Occurred an error', ['message' => $msg]);
         };
 
         return $this;
@@ -84,7 +84,7 @@ class WorkermanSocket extends ChesslaBlabSocket
 
             $this->clientStorage->dettachById($conn->id);
 
-            $this->clientStorage->getLog()->info('Closed connection', [
+            $this->clientStorage->getLogger()->info('Closed connection', [
                 'id' => $conn->id,
                 'n' => $this->clientStorage->count()
             ]);

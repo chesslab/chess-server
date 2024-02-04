@@ -30,7 +30,7 @@ class RatchetTcpSocket extends ChesslaBlabSocket
 
             $this->clients[$resourceId] = $conn;
 
-            $this->log->info('New connection', [
+            $this->logger->info('New connection', [
                 'id' => $resourceId,
                 'n' => count($this->clients)
             ]);
@@ -67,7 +67,7 @@ class RatchetTcpSocket extends ChesslaBlabSocket
                     unset($this->clients[$resourceId]);
                 }
 
-                $this->log->info('Closed connection', [
+                $this->logger->info('Closed connection', [
                     'id' => $resourceId,
                     'n' => count($this->clients)
                 ]);
@@ -80,7 +80,7 @@ class RatchetTcpSocket extends ChesslaBlabSocket
     public function onError()
     {
         $this->server->on('error', function (Exception $e) {
-            $this->log->info('Occurred an error', ['message' => $e->getMessage()]);
+            $this->logger->info('Occurred an error', ['message' => $e->getMessage()]);
         });
 
         return $this;

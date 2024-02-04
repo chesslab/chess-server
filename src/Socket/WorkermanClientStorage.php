@@ -20,17 +20,17 @@ class WorkermanClientStorage extends \SplObjectStorage implements ClientStorageI
      *
      * @var \Monolog\Logger
      */
-    private Logger $log;
+    private Logger $logger;
 
-    public function __construct(GameModeStorage $gameModeStorage, Logger $log)
+    public function __construct(GameModeStorage $gameModeStorage, Logger $logger)
     {
         $this->gameModeStorage = $gameModeStorage;
-        $this->log = $log;
+        $this->logger = $logger;
     }
 
-    public function getLog(): Logger
+    public function getLogger(): Logger
     {
-        return $this->log;
+        return $this->logger;
     }
 
     public function dettachById(int $id): void
@@ -50,7 +50,7 @@ class WorkermanClientStorage extends \SplObjectStorage implements ClientStorageI
         while ($this->valid()) {
             if ($id === $this->current()->id) {
                 $this->current()->send(json_encode($res));
-                $this->log->info('Sent message', [
+                $this->logger->info('Sent message', [
                     'id' => $id,
                     'cmd' => array_keys($res),
                 ]);
@@ -65,7 +65,7 @@ class WorkermanClientStorage extends \SplObjectStorage implements ClientStorageI
         while ($this->valid()) {
             if (in_array($this->current()->id, $ids)) {
                 $this->current()->send(json_encode($res));
-                $this->log->info('Sent message', [
+                $this->logger->info('Sent message', [
                     'ids' => $ids,
                     'cmd' => array_keys($res),
                 ]);

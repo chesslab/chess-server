@@ -14,10 +14,10 @@ require __DIR__  . '/../../vendor/autoload.php';
 $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
 $dotenv->load();
 
-$log = new Logger('log');
-$log->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/pchess.log', Logger::INFO));
+$logger = new Logger('log');
+$logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/pchess.log', Logger::INFO));
 
-$clientStorage = new WorkermanClientStorage(new GameModeStorage(), $log);
+$clientStorage = new WorkermanClientStorage(new GameModeStorage(), $logger);
 
 $context = [
     'ssl' => [

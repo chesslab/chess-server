@@ -6,7 +6,7 @@ use Monolog\Logger;
 
 interface ClientStorageInterface
 {
-    public function getLog(): Logger;
+    public function getLogger(): Logger;
 
     public function dettachById(int $id): void;
 
