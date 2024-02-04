@@ -37,26 +37,14 @@ PHP Chess Server uses Workerman WebSockets.
 
 | Script | Description |
 | ------ | ----------- |
-| [cli/workerman/tcp.php](https://github.com/chesslablab/chess-server/blob/master/cli/workerman/tcp.php) | TCP socket. |
 | [cli/workerman/wss.php](https://github.com/chesslablab/chess-server/blob/master/cli/workerman/wss.php) | Secure WebSocket. |
 
 Alternatively, it can use Ratchet WebSockets.
 
 | Script | Description |
 | ------ | ----------- |
-| [cli/ratchet/tcp.php](https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/tcp.php) | TCP socket. |
 | [cli/ratchet/wss.php](https://github.com/chesslablab/chess-server/blob/master/cli/ratchet/wss.php) | Secure WebSocket. |
 
-
-### TCP Socket
-
-You may want to run the TCP socket server for testing purposes.
-
-```
-php cli/workerman/tcp.php
-```
-
-### Secure WebSocket
 
 Before starting the secure WebSocket server for the first time, make sure to have created the `fullchain.pem` and `privkey.pem` files in the `ssl` folder.
 
@@ -68,15 +56,7 @@ This will allow the `WSS_ALLOWED_HOST` defined in the `.env` file to send reques
 
 ## Run the Chess Server on a Docker Container
 
-Alternatively, the chess server can run on a Docker container.
-
-### TCP Socket
-
-```txt
-docker compose -f docker-compose.tcp.yml up -d
-```
-
-### Secure WebSocket
+The chess server can also run on a Docker container.
 
 ```txt
 docker compose -f docker-compose.wss.yml up -d
