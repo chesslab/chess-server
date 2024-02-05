@@ -2,7 +2,6 @@
 
 namespace ChessServer\Cli\Workerman;
 
-use ChessServer\Game\GameModeStorage;
 use ChessServer\Socket\WorkermanClientStorage;
 use ChessServer\Socket\WorkermanWebSocket;
 use Dotenv\Dotenv;
@@ -17,7 +16,7 @@ $dotenv->load();
 $logger = new Logger('log');
 $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/pchess.log', Logger::INFO));
 
-$clientStorage = new WorkermanClientStorage(new GameModeStorage(), $logger);
+$clientStorage = new WorkermanClientStorage($logger);
 
 $socketName = "websocket://{$_ENV['WSS_ADDRESS']}:{$_ENV['WSS_PORT']}";
 

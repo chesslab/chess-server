@@ -2,7 +2,6 @@
 
 namespace ChessServer\Cli\Ratchet;
 
-use ChessServer\Game\GameModeStorage;
 use ChessServer\Socket\RatchetClientStorage;
 use ChessServer\Socket\RatchetWebSocket;
 use Dotenv\Dotenv;
@@ -25,7 +24,7 @@ $dotenv->load();
 $logger = new Logger('log');
 $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/pchess.log', Logger::INFO));
 
-$clientStorage = new RatchetClientStorage(new GameModeStorage(), $logger);
+$clientStorage = new RatchetClientStorage($logger);
 
 $webSocket = (new RatchetWebSocket())->init($clientStorage);
 

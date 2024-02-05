@@ -2,19 +2,11 @@
 
 namespace ChessServer\Socket;
 
-use ChessServer\Game\GameModeStorage;
 use ChessServer\Game\PlayMode;
 use Monolog\Logger;
 
 class RatchetClientStorage extends \SplObjectStorage implements ClientStorageInterface
 {
-    /**
-     * Game modes.
-     *
-     * @var \ChessServer\Game\GameModeStorage
-     */
-    private GameModeStorage $gameModeStorage;
-
     /**
      * Logger.
      *
@@ -22,9 +14,8 @@ class RatchetClientStorage extends \SplObjectStorage implements ClientStorageInt
      */
     private Logger $logger;
 
-    public function __construct(GameModeStorage $gameModeStorage, Logger $logger)
+    public function __construct(Logger $logger)
     {
-        $this->gameModeStorage = $gameModeStorage;
         $this->logger = $logger;
     }
 
