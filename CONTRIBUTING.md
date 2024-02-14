@@ -1,7 +1,8 @@
 # ChesslaBlab
+
 ## Open Source Community
 
-Chess is a perfect topic for learning full-stack web development as well as for playing around with machine learning libraries. A bunch of public chess repos ranging from React and JavaScript to PHP are available on the ChesslaBlab community on GitHub.
+Chess is a perfect topic for learning full-stack web development as well as for playing around with machine learning libraries. ChesslaBlab stands for chess laboratory, and the repositories can be used and extended by developers to create amazing chess web apps.
 
 ### Contributing guidelines
 
@@ -10,7 +11,7 @@ Chess is a perfect topic for learning full-stack web development as well as for 
 - Leave the following comment on the issue you want to be assigned to: "Hi there, happy learning and coding!"
 - Be prepared to create a friendly PR once the issue has been assigned to you.
 
-Once you're ready, [fork the repo](https://docs.github.com/get-started/quickstart/fork-a-repo) and create a new branch from `master` as per the following convention.
+Once you're ready, [fork the repo](https://docs.github.com/get-started/quickstart/fork-a-repo) and create a new branch from `main` as per the following convention.
 
 ```text
 $ git checkout -b issue/n-the-title-of-the-issue
