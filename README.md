@@ -11,7 +11,7 @@ Read the latest docs [here](https://chess-server.docs.chesslablab.org/).
 
 ### License
 
-The GNU General Public License.
+The PHP Chess Server is open-sourced software licensed under the MIT license.
 
 ### Contributions
 
