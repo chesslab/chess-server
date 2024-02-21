@@ -2,7 +2,6 @@
 
 namespace ChessServer\Command;
 
-use ChessServer\Exception\InternalErrorException;
 use ChessServer\Game\PlayMode;
 use ChessServer\Socket\ChesslaBlabSocket;
 
@@ -26,10 +25,6 @@ class PlayLanCommand extends AbstractCommand
     public function run(ChesslaBlabSocket $socket, array $argv, int $id)
     {
         $gameMode = $socket->getGameModeStorage()->getById($id);
-
-        if (!$gameMode) {
-            throw new InternalErrorException();
-        }
 
         if (is_a($gameMode, PlayMode::class)) {
             return $socket->getClientStorage()->sendToMany(

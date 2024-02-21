@@ -19,7 +19,6 @@ use ChessServer\Command\StockfishCommand;
 use ChessServer\Command\StockfishEvalCommand;
 use ChessServer\Command\TutorFenCommand;
 use ChessServer\Command\UndoCommand;
-use ChessServer\Exception\InternalErrorException;
 
 abstract class AbstractMode
 {
@@ -66,93 +65,95 @@ abstract class AbstractMode
 
     public function res($argv, $cmd)
     {
-        try {
-            switch (get_class($cmd)) {
-                case HeuristicsCommand::class:
-                    if (
-                        $argv[2] === Game::VARIANT_CAPABLANCA ||
-                        $argv[2] === Game::VARIANT_CAPABLANCA_FISCHER
-                    ) {
-                        $board = FenToBoard::create($argv[1], new CapablancaBoard());
-                    } else {
-                        $board = FenToBoard::create($argv[1], new ClassicalBoard());
-                    }
-                    return [
-                        $cmd->name => [
-                            'names' => (new StandardFunction())->names(),
-                            'balance' => (new FenHeuristics($board))->getBalance(),
-                        ],
-                    ];
-                case LegalCommand::class:
-                    return [
-                        $cmd->name => $this->game->getBoard()->legal($argv[1]),
-                    ];
-                case PlayLanCommand::class:
-                    $this->game->playLan($argv[1], $argv[2]);
-                    return [
-                        $cmd->name => [
-                          ... (array) $this->game->state(),
-                          'variant' =>  $this->game->getVariant(),
-                        ],
-                    ];
-                case StockfishCommand::class:
-                    if (!$this->game->state()->isMate && !$this->game->state()->isStalemate) {
-                        $options = json_decode(stripslashes($argv[1]), true);
-                        $params = json_decode(stripslashes($argv[2]), true);
-                        $ai = $this->game->ai($options, $params);
-                        if ($ai->move) {
-                            $this->game->play($this->game->state()->turn, $ai->move);
-                        }
-                    }
-                    return [
-                        $cmd->name => [
-                          ... (array) $this->game->state(),
-                          'variant' =>  $this->game->getVariant(),
-                        ],
-                    ];
-                case StockfishEvalCommand::class:
-                    if (
-                        $argv[2] === ClassicalBoard::VARIANT ||
-                        $argv[2] === Chess960Board::VARIANT
-                    ) {
-                        $board = FenToBoard::create($argv[1]);
-                        $stockfish = new Stockfish($board);
-                        $nag = $stockfish->evalNag($board->toFen(), 'Final');
-                        return [
-                            $cmd->name => NagMovetext::glyph($nag),
-                        ];
-                    }
+        switch (get_class($cmd)) {
+            case HeuristicsCommand::class:
+                if (
+                    $argv[2] === Game::VARIANT_CAPABLANCA ||
+                    $argv[2] === Game::VARIANT_CAPABLANCA_FISCHER
+                ) {
+                    $board = FenToBoard::create($argv[1], new CapablancaBoard());
+                } else {
+                    $board = FenToBoard::create($argv[1], new ClassicalBoard());
+                }
+                return [
+                    $cmd->name => [
+                        'names' => (new StandardFunction())->names(),
+                        'balance' => (new FenHeuristics($board))->getBalance(),
+                    ],
+                ];
 
-                    return [
-                        $cmd->name => null,
-                    ];
-                case TutorFenCommand::class:
-                    if (
-                        $argv[2] === Game::VARIANT_CAPABLANCA ||
-                        $argv[2] === Game::VARIANT_CAPABLANCA_FISCHER
-                    ) {
-                        $board = FenToBoard::create($argv[1], new CapablancaBoard());
-                    } else {
-                        $board = FenToBoard::create($argv[1], new ClassicalBoard());
+            case LegalCommand::class:
+                return [
+                    $cmd->name => $this->game->getBoard()->legal($argv[1]),
+                ];
+
+            case PlayLanCommand::class:
+                $this->game->playLan($argv[1], $argv[2]);
+                return [
+                    $cmd->name => [
+                      ... (array) $this->game->state(),
+                      'variant' =>  $this->game->getVariant(),
+                    ],
+                ];
+
+            case StockfishCommand::class:
+                if (!$this->game->state()->isMate && !$this->game->state()->isStalemate) {
+                    $options = json_decode(stripslashes($argv[1]), true);
+                    $params = json_decode(stripslashes($argv[2]), true);
+                    $ai = $this->game->ai($options, $params);
+                    if ($ai->move) {
+                        $this->game->play($this->game->state()->turn, $ai->move);
                     }
-                    $paragraph = (new FenExplanation($board, $isEvaluated = true))->getParagraph();
+                }
+                return [
+                    $cmd->name => [
+                      ... (array) $this->game->state(),
+                      'variant' =>  $this->game->getVariant(),
+                    ],
+                ];
+
+            case StockfishEvalCommand::class:
+                if (
+                    $argv[2] === ClassicalBoard::VARIANT ||
+                    $argv[2] === Chess960Board::VARIANT
+                ) {
+                    $board = FenToBoard::create($argv[1]);
+                    $stockfish = new Stockfish($board);
+                    $nag = $stockfish->evalNag($board->toFen(), 'Final');
                     return [
-                        $cmd->name => implode(' ', $paragraph),
+                        $cmd->name => NagMovetext::glyph($nag),
                     ];
-                case UndoCommand::class:
-                    $board = $this->game->getBoard()->undo();
-                    $this->game->setBoard($board);
-                    return [
-                        $cmd->name => [
-                          ... (array) $this->game->state(),
-                          'variant' =>  $this->game->getVariant(),
-                        ],
-                    ];
-                default:
-                    return null;
-            }
-        } catch (\Exception $e) {
-            throw new InternalErrorException();
+                }
+                return [
+                    $cmd->name => null,
+                ];
+
+            case TutorFenCommand::class:
+                if (
+                    $argv[2] === Game::VARIANT_CAPABLANCA ||
+                    $argv[2] === Game::VARIANT_CAPABLANCA_FISCHER
+                ) {
+                    $board = FenToBoard::create($argv[1], new CapablancaBoard());
+                } else {
+                    $board = FenToBoard::create($argv[1], new ClassicalBoard());
+                }
+                $paragraph = (new FenExplanation($board, $isEvaluated = true))->getParagraph();
+                return [
+                    $cmd->name => implode(' ', $paragraph),
+                ];
+
+            case UndoCommand::class:
+                $board = $this->game->getBoard()->undo();
+                $this->game->setBoard($board);
+                return [
+                    $cmd->name => [
+                      ... (array) $this->game->state(),
+                      'variant' =>  $this->game->getVariant(),
+                    ],
+                ];
+
+            default:
+                return null;
         }
     }
 }

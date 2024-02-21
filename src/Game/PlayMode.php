@@ -5,7 +5,6 @@ namespace ChessServer\Game;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Game\Game;
 use ChessServer\Command\PlayLanCommand;
-use ChessServer\Exception\InternalErrorException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -115,24 +114,21 @@ class PlayMode extends AbstractMode
 
     public function res($argv, $cmd)
     {
-        try {
-            switch (get_class($cmd)) {
-                case PlayLanCommand::class:
-                    $this->game->playLan($argv[1], $argv[2]);
-                    $this->updateTimer($argv[1]);
-                    return [
-                        $cmd->name => [
-                          ... (array) $this->game->state(),
-                          'variant' =>  $this->game->getVariant(),
-                          // play mode information
-                          'timer' => $this->timer,
-                        ],
-                    ];
-                default:
-                    return parent::res($argv, $cmd);
-            }
-        } catch (\Exception $e) {
-            throw new InternalErrorException();
+        switch (get_class($cmd)) {
+            case PlayLanCommand::class:
+                $this->game->playLan($argv[1], $argv[2]);
+                $this->updateTimer($argv[1]);
+                return [
+                    $cmd->name => [
+                      ... (array) $this->game->state(),
+                      'variant' =>  $this->game->getVariant(),
+                      // play mode information
+                      'timer' => $this->timer,
+                    ],
+                ];
+                
+            default:
+                return parent::res($argv, $cmd);
         }
     }
 }

@@ -2,7 +2,6 @@
 
 namespace ChessServer\Command;
 
-use ChessServer\Exception\InternalErrorException;
 use ChessServer\Socket\ChesslaBlabSocket;
 
 class LegalCommand extends AbstractCommand
@@ -24,10 +23,6 @@ class LegalCommand extends AbstractCommand
     public function run(ChesslaBlabSocket $socket, array $argv, int $id)
     {
         $gameMode = $socket->getGameModeStorage()->getById($id);
-
-        if (!$gameMode) {
-            throw new InternalErrorException();
-        }
 
         return $socket->getClientStorage()->sendToOne(
             $id,

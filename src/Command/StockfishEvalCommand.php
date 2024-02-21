@@ -2,7 +2,6 @@
 
 namespace ChessServer\Command;
 
-use ChessServer\Exception\InternalErrorException;
 use ChessServer\Socket\ChesslaBlabSocket;
 
 class StockfishEvalCommand extends AbstractCommand
@@ -26,10 +25,6 @@ class StockfishEvalCommand extends AbstractCommand
     public function run(ChesslaBlabSocket $socket, array $argv, int $id)
     {
         $gameMode = $socket->getGameModeStorage()->getById($id);
-
-        if (!$gameMode) {
-            throw new InternalErrorException();
-        }
 
         return $socket->getClientStorage()->sendToOne(
             $id,

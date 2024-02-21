@@ -3,7 +3,6 @@
 namespace ChessServer\Socket;
 
 use ChessServer\Command\LeaveCommand;
-use ChessServer\Exception\InternalErrorException;
 use ChessServer\Exception\ParserException;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
@@ -38,7 +37,8 @@ class RatchetWebSocket extends ChesslaBlabSocket implements MessageComponentInte
 
         try {
             $cmd->run($this, $this->parser->argv, $from->resourceId);
-        } catch (InternalErrorException $e) {
+        } catch (\Throwable $e) {
+            $this->clientStorage->getLogger()->error('Occurred an error', ['message' => $e->getMessage()]);
             return $this->clientStorage->sendToOne($from->resourceId, [
                 'error' => 'Internal server error',
             ]);
