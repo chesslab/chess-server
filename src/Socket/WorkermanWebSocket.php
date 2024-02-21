@@ -59,7 +59,11 @@ class WorkermanWebSocket extends ChesslaBlabSocket
             try {
                 $cmd->run($this, $this->parser->argv, $conn->id);
             } catch (\Throwable $e) {
-                $this->clientStorage->getLogger()->error('Occurred an error', ['message' => $e->getMessage()]);
+                $this->clientStorage->getLogger()->error('Occurred an error', [
+                    'message' => $e->getMessage(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                ]);
                 return $this->clientStorage->sendToOne($conn->id, [
                     'error' => 'Internal server error',
                 ]);
