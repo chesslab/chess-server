@@ -3,7 +3,6 @@
 namespace ChessServer\Command;
 
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Exception\InternalErrorException;
 use ChessServer\Game\PlayMode;
 use ChessServer\Socket\ChesslaBlabSocket;
 

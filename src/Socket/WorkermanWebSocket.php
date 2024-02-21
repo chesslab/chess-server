@@ -3,7 +3,6 @@
 namespace ChessServer\Socket;
 
 use ChessServer\Command\LeaveCommand;
-use ChessServer\Exception\InternalErrorException;
 use ChessServer\Exception\ParserException;
 use Workerman\Worker;
 
@@ -59,7 +58,12 @@ class WorkermanWebSocket extends ChesslaBlabSocket
 
             try {
                 $cmd->run($this, $this->parser->argv, $conn->id);
-            } catch (InternalErrorException $e) {
+            } catch (\Throwable $e) {
+                $this->clientStorage->getLogger()->error('Occurred an error', [
+                    'message' => $e->getMessage(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                ]);
                 return $this->clientStorage->sendToOne($conn->id, [
                     'error' => 'Internal server error',
                 ]);
@@ -74,7 +78,7 @@ class WorkermanWebSocket extends ChesslaBlabSocket
         $this->worker->onError = function ($conn, $code, $msg) {
             $conn->close();
 
-            $this->clientStorage->getLogger()->info('Occurred an error', ['message' => $msg]);
+            $this->clientStorage->getLogger()->error('Occurred an error', ['message' => $msg]);
         };
 
         return $this;
