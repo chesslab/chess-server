@@ -42,6 +42,7 @@ class RatchetWebSocket extends ChesslaBlabSocket implements MessageComponentInte
                 'message' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
             ]);
             return $this->clientStorage->sendToOne($from->resourceId, [
                 'error' => 'Internal server error',

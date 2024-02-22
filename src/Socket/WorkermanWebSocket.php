@@ -63,6 +63,7 @@ class WorkermanWebSocket extends ChesslaBlabSocket
                     'message' => $e->getMessage(),
                     'file' => $e->getFile(),
                     'line' => $e->getLine(),
+                    'trace' => $e->getTraceAsString(),
                 ]);
                 return $this->clientStorage->sendToOne($conn->id, [
                     'error' => 'Internal server error',
