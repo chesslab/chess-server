@@ -43,7 +43,7 @@ class WorkermanClientStorage extends \SplObjectStorage implements ClientStorageI
                 $this->current()->send(json_encode($res));
                 $this->logger->info('Sent message', [
                     'id' => $id,
-                    'cmd' => array_keys($res),
+                    'cmd' => $res,
                 ]);
             }
             $this->next();
@@ -58,7 +58,7 @@ class WorkermanClientStorage extends \SplObjectStorage implements ClientStorageI
                 $this->current()->send(json_encode($res));
                 $this->logger->info('Sent message', [
                     'ids' => $ids,
-                    'cmd' => array_keys($res),
+                    'cmd' => $res,
                 ]);
             }
             $this->next();
