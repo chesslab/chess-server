@@ -7,7 +7,6 @@ use Chess\Function\StandardFunction;
 use Chess\Heuristics\FenHeuristics;
 use Chess\Movetext\NagMovetext;
 use Chess\Tutor\FenExplanation;
-use Chess\UciEngine\Stockfish;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
@@ -16,7 +15,6 @@ use ChessServer\Command\HeuristicsCommand;
 use ChessServer\Command\LegalCommand;
 use ChessServer\Command\PlayLanCommand;
 use ChessServer\Command\StockfishCommand;
-use ChessServer\Command\StockfishEvalCommand;
 use ChessServer\Command\TutorFenCommand;
 use ChessServer\Command\UndoCommand;
 
@@ -110,22 +108,6 @@ abstract class AbstractMode
                       ... (array) $this->game->state(),
                       'variant' =>  $this->game->getVariant(),
                     ],
-                ];
-
-            case StockfishEvalCommand::class:
-                if (
-                    $argv[2] === ClassicalBoard::VARIANT ||
-                    $argv[2] === Chess960Board::VARIANT
-                ) {
-                    $board = FenToBoard::create($argv[1]);
-                    $stockfish = new Stockfish($board);
-                    $nag = $stockfish->evalNag($board->toFen(), 'Final');
-                    return [
-                        $cmd->name => NagMovetext::glyph($nag),
-                    ];
-                }
-                return [
-                    $cmd->name => null,
                 ];
 
             case TutorFenCommand::class:

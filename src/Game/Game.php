@@ -3,7 +3,8 @@
 namespace ChessServer\Game;
 
 use Chess\Grandmaster;
-use Chess\UciEngine\Stockfish;
+use Chess\UciEngine\UciEngine;
+use Chess\UciEngine\Details\Limit;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
 use Chess\Variant\CapablancaFischer\StartPosition as CapablancaFischerStartPosition;
@@ -162,13 +163,12 @@ class Game
             }
         }
 
-        $stockfish = (new Stockfish($this->board))
-            ->setOptions($options)
-            ->setParams($params);
+        $limit = (new Limit())->setDepth($params['depth']);
+        $stockfish = (new UciEngine('/usr/games/stockfish'))->setOption('Skill Level', $options['Skill Level']);
+        $analysis = $stockfish->analysis($this->board, $limit);
 
-        $lan = $stockfish->play($this->board->toFen());
         $clone = unserialize(serialize($this->board));
-        $clone->playLan($this->board->getTurn(), $lan);
+        $clone->playLan($this->board->getTurn(), $analysis['bestmove']);
         $history = $clone->getHistory();
         $end = end($history);
 
