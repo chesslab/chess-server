@@ -29,7 +29,7 @@ $clientStorage = new RatchetClientStorage($logger);
 $webSocket = (new RatchetWebSocket())->init($clientStorage);
 
 $allowed = [
-    $_ENV['WSS_ALLOWED_HOST'],
+    $_ENV['ALLOWED_USER_AGENT_HOST'],
 ];
 
 $loop = Factory::create();

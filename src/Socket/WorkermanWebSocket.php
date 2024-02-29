@@ -24,7 +24,7 @@ class WorkermanWebSocket extends ChesslaBlabSocket
     {
         $this->worker->onConnect = function($conn) {
             $conn->onWebSocketConnect = function($conn , $httpBuffer) {
-                if (!str_starts_with($_SERVER['HTTP_ORIGIN'], "{$_ENV['WSS_ALLOWED_SCHEME']}://{$_ENV['WSS_ALLOWED_HOST']}")) {
+                if (!str_starts_with($_SERVER['HTTP_ORIGIN'], "{$_ENV['WSS_ALLOWED_SCHEME']}://{$_ENV['ALLOWED_USER_AGENT_HOST']}")) {
                     $conn->close();
                 } else {
                     $this->clientStorage->attach($conn);
