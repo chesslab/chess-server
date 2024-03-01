@@ -124,10 +124,7 @@
 <li>Stockfish &gt;= 15.1</li>
 </ul>
 <h2 id="setup">Setup</h2>
-<p>Clone the <code>chesslablab/chess-server</code> repo into your projects folder:</p>
-<pre><code class="language-txt">git clone git@github.com:chesslablab/chess-server.git
-</code></pre>
-<p>Then <code>cd</code> the <code>chess-server</code> directory and install the Composer dependencies:</p>
+<p>Clone the <code>chesslablab/chess-server</code> repo into your projects folder. Then <code>cd</code> the <code>chess-server</code> directory and install the Composer dependencies:</p>
 <pre><code class="language-txt">composer install
 </code></pre>
 <p>Create an <code>.env</code> file:</p>
@@ -170,7 +167,7 @@
 <p>Before starting the secure WebSocket server for the first time, make sure to have created the <code>fullchain.pem</code> and <code>privkey.pem</code> files in the <code>ssl</code> folder.</p>
 <pre><code class="language-txt">php cli/workerman/wss.php start -d
 </code></pre>
-<p>This will allow the <code>WSS_ALLOWED_HOST</code> defined in the <code>.env</code> file to send requests to the chess server.</p>
+<p>This will allow the <code>ALLOWED_USER_AGENT_HOST</code> defined in the <code>.env</code> file to send requests to the chess server.</p>
 <h2 id="run-the-chess-server-on-a-docker-container">Run the Chess Server on a Docker Container</h2>
 <p>The chess server can also run on a Docker container.</p>
 <pre><code class="language-txt">docker compose -f docker-compose.wss.yml up -d
