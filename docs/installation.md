@@ -7,13 +7,7 @@
 
 ## Setup
 
-Clone the `chesslablab/chess-server` repo into your projects folder:
-
-```txt
-git clone git@github.com:chesslablab/chess-server.git
-```
-
-Then `cd` the `chess-server` directory and install the Composer dependencies:
+Clone the `chesslablab/chess-server` repo into your projects folder. Then `cd` the `chess-server` directory and install the Composer dependencies:
 
 ```txt
 composer install
