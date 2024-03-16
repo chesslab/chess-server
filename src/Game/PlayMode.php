@@ -35,7 +35,7 @@ class PlayMode extends AbstractMode
         parent::__construct($game, $resourceIds);
 
         $this->jwt = $jwt;
-        $this->hash = md5($jwt);
+        $this->hash = hash('sha256', $jwt);
         $this->status = self::STATUS_PENDING;
     }
 
@@ -126,7 +126,7 @@ class PlayMode extends AbstractMode
                       'timer' => $this->timer,
                     ],
                 ];
-                
+
             default:
                 return parent::res($argv, $cmd);
         }

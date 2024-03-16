@@ -133,8 +133,8 @@ ws.send('/start classical play {"min":5,"increment":3,"color":"b","submode":"onl
     "variant": "classical",
     "mode": "play",
     "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -",
-    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjaGVzc2xhYmxhYi5uZXQiLCJpYXQiOjE3MDQ5ODM1NzUsImV4cCI6MTcwNDk4NzE3NSwidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJvbmxpbmUiLCJjb2xvciI6ImIiLCJtaW4iOjUsImluY3JlbWVudCI6MywiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9.DMIDU7I52Reuz0VNHTXlGn6FLv3dc6KMEZRf9ephh1k",
-    "hash": "3d5f1b067edae5a59a2a9595e96bde54"
+    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MTA1MjM2MzUsImV4cCI6MTcxMDUyNzIzNSwidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJvbmxpbmUiLCJjb2xvciI6InciLCJtaW4iOiI1IiwiaW5jcmVtZW50IjoiMyIsImZlbiI6InJuYnFrYm5yL3BwcHBwcHBwLzgvOC84LzgvUFBQUFBQUFAvUk5CUUtCTlIgdyBLUWtxIC0ifQ.gGEgw7zZmJk3ftnS9Yu-RcvhFBzc9eKbvF_45hrEt4E",
+    "hash": "db4a87907dfaaede54c56b3edddbe7e3a8c01803f8906be7bb7a2e180353ce58"
   }
 }
 ```
@@ -155,8 +155,8 @@ ws.send('/start classical play "{\\"min\\":5,\\"increment\\":3,\\"color\\":\\"w\
     "variant": "classical",
     "mode": "play",
     "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -",
-    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjaGVzc2xhYmxhYi5uZXQiLCJpYXQiOjE3MDQ5NjYwNTMsImV4cCI6MTcwNDk2OTY1MywidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJmcmllbmQiLCJjb2xvciI6InciLCJtaW4iOjUsImluY3JlbWVudCI6MywiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9._ehztodTLYkyovW82I1qyGdNkFwGFdTKn3O7EBr3cHo",
-    "hash": "b4f1c0d0b28cad147968729f6bb76558"
+    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MTA1MjM5MzUsImV4cCI6MTcxMDUyNzUzNSwidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJmcmllbmQiLCJjb2xvciI6ImIiLCJtaW4iOiI1IiwiaW5jcmVtZW50IjoiMyIsImZlbiI6InJuYnFrYm5yL3BwcHBwcHBwLzgvOC84LzgvUFBQUFBQUFAvUk5CUUtCTlIgdyBLUWtxIC0ifQ.Tl_loA70IUidZ9XG9Pw9osC9MZIHbxjg_eDMkGS6des",
+    "hash": "7eb1642c7d5faf2dee2e5dd5aef871c55fe29b5791c8e67746664e8f2517727c"
   }
 }
 ```

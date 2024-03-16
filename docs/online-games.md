@@ -23,7 +23,7 @@ ws.send('/online_games');
       "min": 5,
       "increment": 1,
       "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -",
-      "hash": "84a4e20138e54e1869b9b79e7d3111f1"
+      "hash": "d1a4f2f3688e3211e94fe643a679204806cd196303e44522e833815e4f728c65"
     },
     {
       "iss": "async.chesslablab.org",
@@ -36,7 +36,7 @@ ws.send('/online_games');
       "increment": 5,
       "fen": "bqrnnbkr/pppppppp/8/8/8/8/PPPPPPPP/BQRNNBKR w KQkq -",
       "startPos": "BQRNNBKR",
-      "hash": "c6b79ac68055766c2a33364f69c72e4c"
+      "hash": "e71a27a35d021acfe9ad819348ec2c574f1962aa14fddc58df379d0b3c225cc8"
     },
     {
       "iss": "async.chesslablab.org",
@@ -48,7 +48,7 @@ ws.send('/online_games');
       "min": 30,
       "increment": 10,
       "fen": "rnabqkbcnr/pppppppppp/10/10/10/10/PPPPPPPPPP/RNABQKBCNR w KQkq -",
-      "hash": "076bafad0559def2db7866609680074c"
+      "hash": "2e2c447c902a34f55145769fe9454cf055a6b3e7658756ade2b2ac783d24c568"
     }
   ]
 }
