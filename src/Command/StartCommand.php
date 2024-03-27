@@ -307,36 +307,23 @@ class StartCommand extends AbstractCommand
                 ],
             ]);
         } elseif (StockfishMode::NAME === $argv[2]) {
-            if ($argv[3] === Color::W || $argv[3] === Color::B) {
-                $stockfishMode = new StockfishMode(
-                    new Game($argv[1], $argv[2], $socket->getGm()),
-                    [$id]
-                );
-                $socket->getGameModeStorage()->set($stockfishMode);
-                return $socket->getClientStorage()->sendToOne($id, [
-                    $this->name => [
-                        'variant' => $argv[1],
-                        'mode' => $argv[2],
-                        'color' => $argv[3],
-                    ],
-                ]);
-            } else {
-                $board = (new ClassicalFenStrToBoard($argv[3]))->create();
+            $settings = (object) json_decode(stripslashes($argv[3]), true);
+            if (isset($settings->fen)) {
+                $board = (new ClassicalFenStrToBoard($settings->fen))->create();
                 $game = (new Game($argv[1], $argv[2]))->setBoard($board);
-                $stockfishMode = new StockfishMode(
-                    $game,
-                    [$id],
-                );
-                $socket->getGameModeStorage()->set($stockfishMode);
-                return $socket->getClientStorage()->sendToOne($id, [
-                    $this->name => [
-                        'variant' => $argv[1],
-                        'mode' => $argv[2],
-                        'color' => $game->getBoard()->getTurn(),
-                        'fen' => $game->getBoard()->toFen(),
-                    ],
-                ]);
+            } else {
+                $game = new Game($argv[1], $argv[2], $socket->getGm());
             }
+            $stockfishMode = new StockfishMode($game, [$id]);
+            $socket->getGameModeStorage()->set($stockfishMode);
+            return $socket->getClientStorage()->sendToOne($id, [
+                $this->name => [
+                    'variant' => $argv[1],
+                    'mode' => $argv[2],
+                    'color' => $settings->color,
+                    'fen' => $game->getBoard()->toFen(),
+                ],
+            ]);
         }
     }
 }
