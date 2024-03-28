@@ -86,11 +86,12 @@ abstract class AbstractMode
                 ];
 
             case PlayLanCommand::class:
-                $this->game->playLan($argv[1], $argv[2]);
+                $isValid = $this->game->playLan($argv[1], $argv[2]);
                 return [
                     $cmd->name => [
                       ... (array) $this->game->state(),
                       'variant' =>  $this->game->getVariant(),
+                      'isValid' => $isValid,
                     ],
                 ];
 
