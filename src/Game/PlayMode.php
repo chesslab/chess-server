@@ -116,7 +116,7 @@ class PlayMode extends AbstractMode
     {
         switch (get_class($cmd)) {
             case PlayLanCommand::class:
-                $this->game->playLan($argv[1], $argv[2]);
+                $isValid = $this->game->playLan($argv[1], $argv[2]);
                 $this->updateTimer($argv[1]);
                 return [
                     $cmd->name => [
@@ -124,6 +124,7 @@ class PlayMode extends AbstractMode
                       'variant' =>  $this->game->getVariant(),
                       // play mode information
                       'timer' => $this->timer,
+                      'isValid' => $isValid,
                     ],
                 ];
 
