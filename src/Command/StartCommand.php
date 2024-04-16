@@ -295,7 +295,7 @@ class StartCommand extends AbstractCommand
                     'mode' => $argv[2],
                     'fen' => $game->getBoard()->toFen(),
                     'jwt' => $jwt,
-                    'hash' => hash('sha256', $jwt),
+                    'hash' => hash('adler32', $jwt),
                     ...($argv[1] === Game::VARIANT_960
                         ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
                         : []
