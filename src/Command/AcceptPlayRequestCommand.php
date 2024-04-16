@@ -58,7 +58,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
             return $socket->getClientStorage()->sendToMany($ids, [
                 $this->name => [
                     'jwt' => $gameMode->getJwt(),
-                    'hash' => hash('sha256', $gameMode->getJwt()),
+                    'hash' => hash('adler32', $gameMode->getJwt()),
                     'timer' => $gameMode->getTimer(),
                     'startedAt' => $gameMode->getStartedAt(),
                 ],
