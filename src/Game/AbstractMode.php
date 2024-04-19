@@ -2,7 +2,7 @@
 
 namespace ChessServer\Game;
 
-use Chess\FenToBoard;
+use Chess\FenToBoardFactory;
 use Chess\Function\StandardFunction;
 use Chess\Heuristics\FenHeuristics;
 use Chess\Movetext\NagMovetext;
@@ -69,9 +69,9 @@ abstract class AbstractMode
                     $argv[2] === Game::VARIANT_CAPABLANCA ||
                     $argv[2] === Game::VARIANT_CAPABLANCA_FISCHER
                 ) {
-                    $board = FenToBoard::create($argv[1], new CapablancaBoard());
+                    $board = FenToBoardFactory::create($argv[1], new CapablancaBoard());
                 } else {
-                    $board = FenToBoard::create($argv[1], new ClassicalBoard());
+                    $board = FenToBoardFactory::create($argv[1], new ClassicalBoard());
                 }
                 return [
                     $cmd->name => [
@@ -116,9 +116,9 @@ abstract class AbstractMode
                     $argv[2] === Game::VARIANT_CAPABLANCA ||
                     $argv[2] === Game::VARIANT_CAPABLANCA_FISCHER
                 ) {
-                    $board = FenToBoard::create($argv[1], new CapablancaBoard());
+                    $board = FenToBoardFactory::create($argv[1], new CapablancaBoard());
                 } else {
-                    $board = FenToBoard::create($argv[1], new ClassicalBoard());
+                    $board = FenToBoardFactory::create($argv[1], new ClassicalBoard());
                 }
                 $paragraph = (new FenExplanation($board, $isEvaluated = true))->getParagraph();
                 return [

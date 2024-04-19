@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command;
 
-use Chess\FenToBoard;
+use Chess\FenToBoardFactory;
 use Chess\Play\SanPlay;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\Capablanca\FEN\StrToBoard as CapablancaFenStrToBoard;
@@ -158,26 +158,26 @@ class StartCommand extends AbstractCommand
                     $startPos = str_split($settings->startPos);
                     $board = new Chess960Board($startPos);
                     if (isset($settings->fen)) {
-                        $board = FenToBoard::create($settings->fen, $board);
+                        $board = FenToBoardFactory::create($settings->fen, $board);
                     }
                     $sanPlay = new SanPlay($settings->movetext, $board);
                 } elseif ($argv[1] === Game::VARIANT_CAPABLANCA) {
                     $board = new CapablancaBoard();
                     if (isset($settings->fen)) {
-                        $board = FenToBoard::create($settings->fen, $board);
+                        $board = FenToBoardFactory::create($settings->fen, $board);
                     }
                     $sanPlay = new SanPlay($settings->movetext, $board);
                 } elseif ($argv[1] === Game::VARIANT_CAPABLANCA_FISCHER) {
                     $startPos = str_split($settings->startPos);
                     $board = new CapablancaFischerBoard($startPos);
                     if (isset($settings->fen)) {
-                        $board = FenToBoard::create($settings->fen, $board);
+                        $board = FenToBoardFactory::create($settings->fen, $board);
                     }
                     $sanPlay = new SanPlay($settings->movetext, $board);
                 } else {
                     $board = new ClassicalBoard();
                     if (isset($settings->fen)) {
-                        $board = FenToBoard::create($settings->fen, $board);
+                        $board = FenToBoardFactory::create($settings->fen, $board);
                     }
                     $sanPlay = new SanPlay($settings->movetext, $board);
                 }
