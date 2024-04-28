@@ -6,7 +6,7 @@ use Chess\FenToBoardFactory;
 use Chess\Function\StandardFunction;
 use Chess\Heuristics\FenHeuristics;
 use Chess\Movetext\NagMovetext;
-use Chess\Tutor\FenExplanation;
+use Chess\Tutor\FenEvaluation;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
@@ -120,7 +120,7 @@ abstract class AbstractMode
                 } else {
                     $board = FenToBoardFactory::create($argv[1], new ClassicalBoard());
                 }
-                $paragraph = (new FenExplanation($board, $isEvaluated = true))->getParagraph();
+                $paragraph = (new FenEvaluation($board))->getParagraph();
                 return [
                     $cmd->name => implode(' ', $paragraph),
                 ];
