@@ -99,9 +99,9 @@ abstract class AbstractMode
                 if (!$this->game->state()->isMate && !$this->game->state()->isStalemate) {
                     $options = json_decode(stripslashes($argv[1]), true);
                     $params = json_decode(stripslashes($argv[2]), true);
-                    $ai = $this->game->ai($options, $params);
-                    if ($ai->move) {
-                        $this->game->play($this->game->state()->turn, $ai->move);
+                    $computer = $this->game->computer($options, $params);
+                    if ($computer->pgn) {
+                        $this->game->play($this->game->state()->turn, $computer->pgn);
                     }
                 }
                 return [

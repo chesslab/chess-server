@@ -2,7 +2,7 @@
 
 namespace ChessServer\Game;
 
-use Chess\Grandmaster;
+use Chess\Computer\GrandmasterComputer;
 use Chess\UciEngine\UciEngine;
 use Chess\UciEngine\Details\Limit;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
@@ -15,7 +15,7 @@ use Chess\Variant\Classical\Board as ClassicalBoard;
 /**
  * Game
  *
- * @author Jordi Bassagañas
+ * @author Jordi Bassagaña
  * @license GPL
  */
 class Game
@@ -52,20 +52,27 @@ class Game
     private string $mode;
 
     /**
-     * Grandmaster.
+     * Grandmaster computer.
      *
-     * @var Grandmaster
+     * @var \Chess\Computer\GrandmasterComputer
      */
-    private null|Grandmaster $gm;
+    private null|GrandmasterComputer $gmComputer;
 
+    /**
+     * Constructor.
+     *
+     * @param string $variant
+     * @param string $mode
+     * @param GrandmasterComputer|null \Chess\Computer\GrandmasterComputer|null
+     */
     public function __construct(
         string $variant,
         string $mode,
-        null|Grandmaster $gm = null
+        null|GrandmasterComputer $gmComputer = null
     ) {
         $this->variant = $variant;
         $this->mode = $mode;
-        $this->gm = $gm;
+        $this->gmComputer = $gmComputer;
 
         if ($this->variant === self::VARIANT_960) {
             $startPos = (new Chess960StartPosition())->create();
@@ -81,7 +88,7 @@ class Game
     }
 
     /**
-     * Returns the Chess\Board object.
+     * Returns the chess board object.
      *
      * @return \Chess\Variant\Classical\Board
      */
@@ -111,7 +118,7 @@ class Game
     }
 
     /**
-     * Sets the Chess\Board object.
+     * Sets the chess board object.
      *
      * @param \Chess\Variant\Classical\Board $board
      * @return \ChessServer\Game
@@ -155,10 +162,10 @@ class Game
      * @param array $params
      * @return object|null
      */
-    public function ai(array $options = [], array $params = []): ?object
+    public function computer(array $options = [], array $params = []): ?object
     {
-        if ($this->gm) {
-            if ($move = $this->gm->move($this->board)) {
+        if ($this->gmComputer) {
+            if ($move = $this->gmComputer->move($this->board)) {
                 return $move;
             }
         }
@@ -173,7 +180,7 @@ class Game
         $end = end($history);
 
         return (object) [
-            'move' => $end->move->pgn,
+            'pgn' => $end->move->pgn,
         ];
     }
 

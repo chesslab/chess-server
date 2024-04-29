@@ -2,7 +2,7 @@
 
 namespace ChessServer\Socket;
 
-use Chess\Grandmaster;
+use Chess\Computer\GrandmasterComputer;
 use ChessServer\Command\CommandParser;
 use ChessServer\Game\GameModeStorage;
 
@@ -24,11 +24,11 @@ class ChesslaBlabSocket
     protected CommandParser $parser;
 
     /**
-     * Chess grandmaster.
+     * Grandmaster computer.
      *
-     * @var \Chess\Grandmaster
+     * @var \Chess\Computer\GrandmasterComputer
      */
-    protected Grandmaster $gm;
+    protected GrandmasterComputer $gmComputer;
 
     /**
      * Game modes.
@@ -50,7 +50,7 @@ class ChesslaBlabSocket
     public function __construct()
     {
         $this->parser = new CommandParser();
-        $this->gm = new Grandmaster(self::DATA_FOLDER.'/players.json');
+        $this->gmComputer = new GrandmasterComputer(self::DATA_FOLDER.'/players.json');
         $this->gameModeStorage = new GameModeStorage();
 
         echo "Welcome to PHP Chess Server" . PHP_EOL;
@@ -67,13 +67,13 @@ class ChesslaBlabSocket
     }
 
     /**
-     * Returns the chess grandmaster.
+     * Returns the grandmaster computer.
      *
      * @return string
      */
-    public function getGm(): Grandmaster
+    public function getGmComputer(): GrandmasterComputer
     {
-        return $this->gm;
+        return $this->gmComputer;
     }
 
     /**
