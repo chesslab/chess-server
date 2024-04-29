@@ -67,11 +67,11 @@ class ChesslaBlabSocket
     }
 
     /**
-     * Returns the grandmaster computer.
+     * Returns the grandmaster move.
      *
      * @return string
      */
-    public function getGmComputer(): GrandmasterMove
+    public function getGmMove(): GrandmasterMove
     {
         return $this->gmMove;
     }

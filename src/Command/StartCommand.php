@@ -312,7 +312,7 @@ class StartCommand extends AbstractCommand
                 $board = (new ClassicalFenStrToBoard($settings->fen))->create();
                 $game = (new Game($argv[1], $argv[2]))->setBoard($board);
             } else {
-                $game = new Game($argv[1], $argv[2], $socket->getGmComputer());
+                $game = new Game($argv[1], $argv[2], $socket->getGmMove());
             }
             $stockfishMode = new StockfishMode($game, [$id]);
             $socket->getGameModeStorage()->set($stockfishMode);
