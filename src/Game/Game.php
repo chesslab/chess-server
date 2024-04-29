@@ -2,7 +2,7 @@
 
 namespace ChessServer\Game;
 
-use Chess\Computer\GrandmasterComputer;
+use Chess\Computer\GrandmasterMove;
 use Chess\UciEngine\UciEngine;
 use Chess\UciEngine\Details\Limit;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
@@ -54,25 +54,25 @@ class Game
     /**
      * Grandmaster computer.
      *
-     * @var \Chess\Computer\GrandmasterComputer
+     * @var \Chess\Computer\GrandmasterMove
      */
-    private null|GrandmasterComputer $gmComputer;
+    private null|GrandmasterMove $gmMove;
 
     /**
      * Constructor.
      *
      * @param string $variant
      * @param string $mode
-     * @param GrandmasterComputer|null \Chess\Computer\GrandmasterComputer|null
+     * @param GrandmasterMove|null \Chess\Computer\GrandmasterMove|null
      */
     public function __construct(
         string $variant,
         string $mode,
-        null|GrandmasterComputer $gmComputer = null
+        null|GrandmasterMove $gmMove = null
     ) {
         $this->variant = $variant;
         $this->mode = $mode;
-        $this->gmComputer = $gmComputer;
+        $this->gmMove = $gmMove;
 
         if ($this->variant === self::VARIANT_960) {
             $startPos = (new Chess960StartPosition())->create();
@@ -164,8 +164,8 @@ class Game
      */
     public function computer(array $options = [], array $params = []): ?object
     {
-        if ($this->gmComputer) {
-            if ($move = $this->gmComputer->move($this->board)) {
+        if ($this->gmMove) {
+            if ($move = $this->gmMove->move($this->board)) {
                 return $move;
             }
         }
