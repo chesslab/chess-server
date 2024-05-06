@@ -19,7 +19,7 @@ Create an `.env` file:
 cp .env.example .env
 ```
 
-Finally, you may want to add the following entry to your `/etc/hosts` file if running the PHP chess server on your localhost along with [React Chess](https://github.com/chesslablab/spablab) as per the `REACT_APP_WS_HOST` variable defined in the [spablab/.env.example](https://github.com/chesslablab/spablab/blob/main/.env.example) file.
+Finally, you may want to add the following entry to your `/etc/hosts` file if running the chess server on your localhost along with the [ChesslaBlab website](https://github.com/chesslablab/website) as per the `WEBSOCKET_HOST` variable defined in the [assets/env.example.js](https://github.com/chesslablab/website/blob/main/assets/env.example.js) file.
 
 ```txt
 127.0.0.1       async.chesslablab.org
