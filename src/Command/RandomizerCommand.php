@@ -2,10 +2,10 @@
 
 namespace ChessServer\Command;
 
+use Chess\Randomizer\Randomizer;
+use Chess\Randomizer\Checkmate\TwoBishopsRandomizer;
+use Chess\Randomizer\Endgame\PawnEndgameRandomizer;
 use Chess\Variant\Classical\PGN\AN\Color;
-use Chess\Variant\Classical\Randomizer\Randomizer;
-use Chess\Variant\Classical\Randomizer\Checkmate\TwoBishopsRandomizer;
-use Chess\Variant\Classical\Randomizer\Endgame\PawnEndgameRandomizer;
 use ChessServer\Game\PlayMode;
 use ChessServer\Socket\ChesslaBlabSocket;
 
