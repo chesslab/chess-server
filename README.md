@@ -7,7 +7,7 @@ Asynchronous PHP chess server.
 
 ### Documentation
 
-Read the latest docs [here](https://chess-server.docs.chesslablab.org/).
+Read the latest docs [here](https://chesslablab.github.io/chess-server/).
 
 ### License
 
