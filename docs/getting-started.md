@@ -1,11 +1,13 @@
 # Getting Started
 
-Probably the easiest way to get familiar with the chess commands is by reading the WebSocket messages sent back and forth between the web browser and the chess server as you interact with a web app. To do this, you may want to use the [React Chess](https://github.com/chesslablab/spablab) application as shown in the example below.
+Probably the easiest way to get familiar with the chess commands is by reading the WebSocket messages sent back and forth between the web browser and the chess server as you interact with a web app. To do this, you may want to use the [website](https://github.com/chesslablab/website) as shown in the example below.
 
 ![Figure 1](https://raw.githubusercontent.com/chesslablab/chess-server/main/docs/getting-started_01.png)
+
 **Figure 1**. Open Google Chrome developer tools for command examples.
 
 ![Figure 2](https://raw.githubusercontent.com/chesslablab/chess-server/main/docs/getting-started_02.png)
+
 **Figure 2**. As chess moves are played, the chess server response is displayed on the **Network > WS > Messages** tab.
 
 Also a WebSocket connection with the chess server can be opened in the JavaScript console.
@@ -22,7 +24,7 @@ Now you're set up to start playing chess.
 ws.send('/start classical fen');
 ```
 
-The `/start` command above starts a new classical chess game and retrieves a JSON response from the server.
+The `/start` command starts a new classical chess game and retrieves a JSON response from the server.
 
 ```text
 {
@@ -40,7 +42,7 @@ Let's make the very first move.
 
 What about 1.e4?
 
-This is the so-called King's Pawn Game, one of the most popular chess openings, in Portable Game Notation (PGN) format. Humans can understand chess games in PGN easily but this format is not that great for computers as well as for graphic user interfaces (GUI) which may prefer the Long Algebraic Notation (LAN) format instead.
+This is the so-called King's Pawn Game, one of the most popular chess openings, in Portable Game Notation (PGN) format. Humans can understand chess games in PGN easily but this format is not that great for computers and for graphic user interfaces (GUI) which often prefer the Long Algebraic Notation (LAN) format instead.
 
 Let's play 1.e4 in LAN format.
 
@@ -64,7 +66,8 @@ The `/play_lan` command above retrieves the following JSON response.
     "isStalemate": false,
     "isFivefoldRepetition": false,
     "mode": "fen",
-    "variant": "classical"
+    "variant": "classical",
+    "isValid": true
   }
 }
 ```
@@ -91,7 +94,8 @@ Once again the `/play_lan` command makes a chess move, this time retrieving the 
     "isStalemate": false,
     "isFivefoldRepetition": false,
     "mode": "fen",
-    "variant": "classical"
+    "variant": "classical",
+    "isValid": true
   }
 }
 ```
