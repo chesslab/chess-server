@@ -17,13 +17,13 @@ ws.send('/accept e69e3228e22dbcab5c2274646ae9a23647b222d084e26dea3216016d026f710
 ```text
 {
   "/accept": {
-    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwY2hlc3MubmV0IiwiaWF0IjoxNjk0NDQxOTcxLCJleHAiOjE2OTQ0NDU1NzEsInZhcmlhbnQiOiJjbGFzc2ljYWwiLCJzdWJtb2RlIjoiZnJpZW5kIiwiY29sb3IiOiJ3IiwibWluIjo1LCJpbmNyZW1lbnQiOjMsImZlbiI6InJuYnFrYm5yL3BwcHBwcHBwLzgvOC84LzgvUFBQUFBQUFAvUk5CUUtCTlIgdyBLUWtxIC0ifQ.POuK_cR3U_bblLa8LFyGg1AJEE5_iW_AquuNn7K4qHI",
-    "hash": "e69e3228e22dbcab5c2274646ae9a23647b222d084e26dea3216016d026f7108",
+    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MTYzOTMxOTQsImV4cCI6MTcxNjM5Njc5NCwidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJvbmxpbmUiLCJjb2xvciI6ImIiLCJtaW4iOjUsImluY3JlbWVudCI6MywiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9.uEVe0vMgOroQCKqTtXqvFZvTidHlESeaVqQXj7_FcdA",
+    "hash": "74cf7843",
     "timer": {
       "w": 300,
       "b": 300
     },
-    "startedAt": 1694441992
+    "startedAt": 1716393248
   }
 }
 ```

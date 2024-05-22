@@ -31,8 +31,11 @@ ws.send('/play_lan w e2e4');
     "isMate": false,
     "isStalemate": false,
     "isFivefoldRepetition": false,
+    "isFiftyMoveDraw": false,
+    "isDeadPositionDraw": false,
     "mode": "fen",
-    "variant": "classical"
+    "variant": "classical",
+    "isValid": true
   }
 }
 ```

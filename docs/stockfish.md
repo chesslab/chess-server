@@ -23,15 +23,17 @@ ws.send('/stockfish "{\\"Skill Level\\":20}" "{\\"depth\\":12}"');
 {
   "/stockfish": {
     "turn": "w",
-    "pgn": "c5",
+    "pgn": "e5",
     "castlingAbility": "KQkq",
-    "movetext": "1.e4 c5",
-    "fen": "rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6",
+    "movetext": "1.e4 e5",
+    "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6",
     "isCapture": false,
     "isCheck": false,
     "isMate": false,
     "isStalemate": false,
     "isFivefoldRepetition": false,
+    "isFiftyMoveDraw": false,
+    "isDeadPositionDraw": false,
     "mode": "stockfish",
     "variant": "classical"
   }

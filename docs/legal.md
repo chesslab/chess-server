@@ -1,6 +1,6 @@
 # /legal
 
-Returns the legal FEN positions of a piece.
+Returns the legal moves of a piece.
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
@@ -19,13 +19,9 @@ ws.send('/legal e2');
 
 ```text
 {
-  "/legal": {
-    "color": "w",
-    "id": "P",
-    "fen": {
-      "e3": "rnbqkbnr/pppppppp/8/8/8/4P3/PPPP1PPP/RNBQKBNR b KQkq -",
-      "e4": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3"
-    }
-  }
+  "/legal": [
+    "e3",
+    "e4"
+  ]
 }
 ```

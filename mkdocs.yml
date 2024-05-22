@@ -18,6 +18,5 @@ nav:
     - /rematch: rematch.md
     - /restart: restart.md
     - /stockfish: stockfish.md
-    - /stockfish_eval: stockfish-eval.md
     - /online_games: online-games.md
 theme: readthedocs
