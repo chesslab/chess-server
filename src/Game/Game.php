@@ -151,6 +151,7 @@ class Game
             'isMate' => $this->board->isMate(),
             'isStalemate' => $this->board->isStalemate(),
             'isFivefoldRepetition' => $this->board->isFivefoldRepetition(),
+            'isFiftyMoveDraw' => $this->board->isFiftyMoveDraw(),
             'mode' => $this->getMode(),
         ];
     }
