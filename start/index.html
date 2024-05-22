@@ -99,8 +99,6 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../stockfish/">/stockfish</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../stockfish-eval/">/stockfish_eval</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../online-games/">/online_games</a>
                   </li>
               </ul>
@@ -281,13 +279,14 @@
 </tr>
 </tbody>
 </table>
-<pre><code class="language-js">ws.send('/start classical stockfish b');
+<pre><code class="language-js">ws.send('/start classical stockfish {&quot;color&quot;:&quot;b&quot;}');
 </code></pre>
 <pre><code class="language-text">{
   &quot;/start&quot;: {
     &quot;variant&quot;: &quot;classical&quot;,
     &quot;mode&quot;: &quot;stockfish&quot;,
-    &quot;color&quot;: &quot;b&quot;
+    &quot;color&quot;: &quot;b&quot;,
+    &quot;fen&quot;: &quot;rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -&quot;
   }
 }
 </code></pre>
@@ -299,8 +298,8 @@
     &quot;variant&quot;: &quot;classical&quot;,
     &quot;mode&quot;: &quot;play&quot;,
     &quot;fen&quot;: &quot;rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -&quot;,
-    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MTA1MjM2MzUsImV4cCI6MTcxMDUyNzIzNSwidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJvbmxpbmUiLCJjb2xvciI6InciLCJtaW4iOiI1IiwiaW5jcmVtZW50IjoiMyIsImZlbiI6InJuYnFrYm5yL3BwcHBwcHBwLzgvOC84LzgvUFBQUFBQUFAvUk5CUUtCTlIgdyBLUWtxIC0ifQ.gGEgw7zZmJk3ftnS9Yu-RcvhFBzc9eKbvF_45hrEt4E&quot;,
-    &quot;hash&quot;: &quot;db4a87907dfaaede54c56b3edddbe7e3a8c01803f8906be7bb7a2e180353ce58&quot;
+    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MTYzOTE1MTMsImV4cCI6MTcxNjM5NTExMywidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJvbmxpbmUiLCJjb2xvciI6ImIiLCJtaW4iOjUsImluY3JlbWVudCI6MywiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9.BBJROgd2AP9_65QM3UIuxHk9HJ7ySwb_Y7HlVFFxnQE&quot;,
+    &quot;hash&quot;: &quot;2a2c768c&quot;
   }
 }
 </code></pre>
@@ -328,8 +327,8 @@
     &quot;variant&quot;: &quot;classical&quot;,
     &quot;mode&quot;: &quot;play&quot;,
     &quot;fen&quot;: &quot;rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -&quot;,
-    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MTA1MjM5MzUsImV4cCI6MTcxMDUyNzUzNSwidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJmcmllbmQiLCJjb2xvciI6ImIiLCJtaW4iOiI1IiwiaW5jcmVtZW50IjoiMyIsImZlbiI6InJuYnFrYm5yL3BwcHBwcHBwLzgvOC84LzgvUFBQUFBQUFAvUk5CUUtCTlIgdyBLUWtxIC0ifQ.Tl_loA70IUidZ9XG9Pw9osC9MZIHbxjg_eDMkGS6des&quot;,
-    &quot;hash&quot;: &quot;7eb1642c7d5faf2dee2e5dd5aef871c55fe29b5791c8e67746664e8f2517727c&quot;
+    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MTYzOTE1NTAsImV4cCI6MTcxNjM5NTE1MCwidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJmcmllbmQiLCJjb2xvciI6InciLCJtaW4iOjUsImluY3JlbWVudCI6MywiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9.t40rbfZJb8JF8QpVMx9v96yQXzw54gLALMnKRS6qFdE&quot;,
+    &quot;hash&quot;: &quot;c13d765b&quot;
   }
 }
 </code></pre>

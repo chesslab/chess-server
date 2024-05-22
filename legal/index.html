@@ -87,8 +87,6 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../stockfish/">/stockfish</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../stockfish-eval/">/stockfish_eval</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../online-games/">/online_games</a>
                   </li>
               </ul>
@@ -117,7 +115,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="legal">/legal</h1>
-<p>Returns the legal FEN positions of a piece.</p>
+<p>Returns the legal moves of a piece.</p>
 <table>
 <thead>
 <tr>
@@ -141,14 +139,10 @@
 ws.send('/legal e2');
 </code></pre>
 <pre><code class="language-text">{
-  &quot;/legal&quot;: {
-    &quot;color&quot;: &quot;w&quot;,
-    &quot;id&quot;: &quot;P&quot;,
-    &quot;fen&quot;: {
-      &quot;e3&quot;: &quot;rnbqkbnr/pppppppp/8/8/8/4P3/PPPP1PPP/RNBQKBNR b KQkq -&quot;,
-      &quot;e4&quot;: &quot;rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3&quot;
-    }
-  }
+  &quot;/legal&quot;: [
+    &quot;e3&quot;,
+    &quot;e4&quot;
+  ]
 }
 </code></pre>
               

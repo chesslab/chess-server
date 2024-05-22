@@ -71,11 +71,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://chesslablab.github.io/chess-server/stockfish-eval/</loc>
-         <lastmod>2024-05-22</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://chesslablab.github.io/chess-server/stockfish/</loc>
          <lastmod>2024-05-22</lastmod>
          <changefreq>daily</changefreq>
