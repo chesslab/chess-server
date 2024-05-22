@@ -110,11 +110,11 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="getting-started">Getting Started</h1>
-<p>Probably the easiest way to get familiar with the chess commands is by reading the WebSocket messages sent back and forth between the web browser and the chess server as you interact with a web app. To do this, you may want to use the <a href="https://github.com/chesslablab/spablab">React Chess</a> application as shown in the example below.</p>
-<p><img alt="Figure 1" src="https://raw.githubusercontent.com/chesslablab/chess-server/main/docs/getting-started_01.png" />
-<strong>Figure 1</strong>. Open Google Chrome developer tools for command examples.</p>
-<p><img alt="Figure 2" src="https://raw.githubusercontent.com/chesslablab/chess-server/main/docs/getting-started_02.png" />
-<strong>Figure 2</strong>. As chess moves are played, the chess server response is displayed on the <strong>Network &gt; WS &gt; Messages</strong> tab.</p>
+<p>Probably the easiest way to get familiar with the chess commands is by reading the WebSocket messages sent back and forth between the web browser and the chess server as you interact with a web app. To do this, you may want to use the <a href="https://github.com/chesslablab/website">website</a> as shown in the example below.</p>
+<p><img alt="Figure 1" src="https://raw.githubusercontent.com/chesslablab/chess-server/main/docs/getting-started_01.png" /></p>
+<p><strong>Figure 1</strong>. Open Google Chrome developer tools for command examples.</p>
+<p><img alt="Figure 2" src="https://raw.githubusercontent.com/chesslablab/chess-server/main/docs/getting-started_02.png" /></p>
+<p><strong>Figure 2</strong>. As chess moves are played, the chess server response is displayed on the <strong>Network &gt; WS &gt; Messages</strong> tab.</p>
 <p>Also a WebSocket connection with the chess server can be opened in the JavaScript console.</p>
 <pre><code class="language-js">const ws = new WebSocket('wss://async.chesslablab.org:8443');
 </code></pre>
@@ -122,7 +122,7 @@
 <p>Now you're set up to start playing chess.</p>
 <pre><code class="language-js">ws.send('/start classical fen');
 </code></pre>
-<p>The <code>/start</code> command above starts a new classical chess game and retrieves a JSON response from the server.</p>
+<p>The <code>/start</code> command starts a new classical chess game and retrieves a JSON response from the server.</p>
 <pre><code class="language-text">{
   &quot;/start&quot;: {
     &quot;variant&quot;: &quot;classical&quot;,
@@ -134,7 +134,7 @@
 <p>On successful server response a FEN string representing the starting position is returned as well as the chess variant and the game mode. This is the classical starting position in FEN format.</p>
 <p>Let's make the very first move.</p>
 <p>What about 1.e4?</p>
-<p>This is the so-called King's Pawn Game, one of the most popular chess openings, in Portable Game Notation (PGN) format. Humans can understand chess games in PGN easily but this format is not that great for computers as well as for graphic user interfaces (GUI) which may prefer the Long Algebraic Notation (LAN) format instead.</p>
+<p>This is the so-called King's Pawn Game, one of the most popular chess openings, in Portable Game Notation (PGN) format. Humans can understand chess games in PGN easily but this format is not that great for computers and for graphic user interfaces (GUI) which often prefer the Long Algebraic Notation (LAN) format instead.</p>
 <p>Let's play 1.e4 in LAN format.</p>
 <pre><code class="language-js">ws.send('/play_lan w e2e4');
 </code></pre>
@@ -152,7 +152,8 @@
     &quot;isStalemate&quot;: false,
     &quot;isFivefoldRepetition&quot;: false,
     &quot;mode&quot;: &quot;fen&quot;,
-    &quot;variant&quot;: &quot;classical&quot;
+    &quot;variant&quot;: &quot;classical&quot;,
+    &quot;isValid&quot;: true
   }
 }
 </code></pre>
@@ -173,7 +174,8 @@
     &quot;isStalemate&quot;: false,
     &quot;isFivefoldRepetition&quot;: false,
     &quot;mode&quot;: &quot;fen&quot;,
-    &quot;variant&quot;: &quot;classical&quot;
+    &quot;variant&quot;: &quot;classical&quot;,
+    &quot;isValid&quot;: true
   }
 }
 </code></pre>
