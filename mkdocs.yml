@@ -9,6 +9,7 @@ nav:
     - /legal: legal.md
     - /play_lan: play-lan.md
     - /heuristics: heuristics.md
+    - /tutor_fen: tutor-fen.md
     - /undo: undo.md
     - /accept: accept.md
     - /takeback: takeback.md
