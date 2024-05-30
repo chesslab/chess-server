@@ -7,7 +7,6 @@ use Chess\Function\StandardFunction;
 use Chess\Heuristics\FenHeuristics;
 use Chess\Movetext\NagMovetext;
 use Chess\Tutor\FenEvaluation;
-use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use ChessServer\Game\Game;
@@ -65,14 +64,7 @@ abstract class AbstractMode
     {
         switch (get_class($cmd)) {
             case HeuristicsCommand::class:
-                if (
-                    $argv[2] === Game::VARIANT_CAPABLANCA ||
-                    $argv[2] === Game::VARIANT_CAPABLANCA_FISCHER
-                ) {
-                    $board = FenToBoardFactory::create($argv[1], new CapablancaBoard());
-                } else {
-                    $board = FenToBoardFactory::create($argv[1], new ClassicalBoard());
-                }
+                $board = FenToBoardFactory::create($argv[1], new ClassicalBoard());
                 return [
                     $cmd->name => [
                         'names' => (new StandardFunction())->names(),
@@ -112,14 +104,7 @@ abstract class AbstractMode
                 ];
 
             case TutorFenCommand::class:
-                if (
-                    $argv[2] === Game::VARIANT_CAPABLANCA ||
-                    $argv[2] === Game::VARIANT_CAPABLANCA_FISCHER
-                ) {
-                    $board = FenToBoardFactory::create($argv[1], new CapablancaBoard());
-                } else {
-                    $board = FenToBoardFactory::create($argv[1], new ClassicalBoard());
-                }
+                $board = FenToBoardFactory::create($argv[1], new ClassicalBoard());
                 $paragraph = (new FenEvaluation($board))->getParagraph();
                 return [
                     $cmd->name => implode(' ', $paragraph),

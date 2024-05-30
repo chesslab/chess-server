@@ -2,7 +2,6 @@
 
 namespace ChessServer\Command;
 
-use Chess\Variant\CapablancaFischer\FEN\StrToBoard as CapablancaFischerFenStrToBoard;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Game\Game;
@@ -35,12 +34,6 @@ class RestartCommand extends AbstractCommand
             if ($decoded->variant === Game::VARIANT_960) {
                 $startPos = str_split($decoded->startPos);
                 $board = (new Chess960FenStrToBoard($decoded->fen, $startPos))->create();
-                $game = (new Game($decoded->variant, Game::MODE_PLAY))->setBoard($board);
-            } elseif ($decoded->variant === Game::VARIANT_CAPABLANCA) {
-                $game = new Game($decoded->variant, Game::MODE_PLAY);
-            } elseif ($decoded->variant === Game::VARIANT_CAPABLANCA_FISCHER) {
-                $startPos = str_split($decoded->startPos);
-                $board = (new CapablancaFischerFenStrToBoard($decoded->fen, $startPos))->create();
                 $game = (new Game($decoded->variant, Game::MODE_PLAY))->setBoard($board);
             } else {
                 $game = new Game($decoded->variant, Game::MODE_PLAY);
