@@ -2,14 +2,10 @@
 
 namespace ChessServer\Game;
 
-use Chess\FenToBoardFactory;
-use Chess\Tutor\FenEvaluation;
-use Chess\Variant\Classical\Board as ClassicalBoard;
 use ChessServer\Game\Game;
 use ChessServer\Command\LegalCommand;
 use ChessServer\Command\PlayLanCommand;
 use ChessServer\Command\StockfishCommand;
-use ChessServer\Command\TutorFenCommand;
 use ChessServer\Command\UndoCommand;
 
 abstract class AbstractMode
@@ -87,13 +83,6 @@ abstract class AbstractMode
                       ... (array) $this->game->state(),
                       'variant' =>  $this->game->getVariant(),
                     ],
-                ];
-
-            case TutorFenCommand::class:
-                $board = FenToBoardFactory::create($argv[1], new ClassicalBoard());
-                $paragraph = (new FenEvaluation($board))->getParagraph();
-                return [
-                    $cmd->name => implode(' ', $paragraph),
                 ];
 
             case UndoCommand::class:
