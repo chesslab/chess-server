@@ -3,14 +3,9 @@
 namespace ChessServer\Game;
 
 use Chess\FenToBoardFactory;
-use Chess\Function\StandardFunction;
-use Chess\Heuristics\FenHeuristics;
-use Chess\Movetext\NagMovetext;
 use Chess\Tutor\FenEvaluation;
-use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use ChessServer\Game\Game;
-use ChessServer\Command\HeuristicsCommand;
 use ChessServer\Command\LegalCommand;
 use ChessServer\Command\PlayLanCommand;
 use ChessServer\Command\StockfishCommand;
@@ -63,15 +58,6 @@ abstract class AbstractMode
     public function res($argv, $cmd)
     {
         switch (get_class($cmd)) {
-            case HeuristicsCommand::class:
-                $board = FenToBoardFactory::create($argv[1], new ClassicalBoard());
-                return [
-                    $cmd->name => [
-                        'names' => (new StandardFunction())->names(),
-                        'balance' => (new FenHeuristics($board))->getBalance(),
-                    ],
-                ];
-
             case LegalCommand::class:
                 return [
                     $cmd->name => $this->game->getBoard()->legal($argv[1]),
