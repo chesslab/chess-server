@@ -80,11 +80,11 @@ class RandomizerCommand extends AbstractCommand
                 $color = array_key_first($items);
                 $pieceIds = str_split(current($items));
                 if ($pieceIds === ['B', 'B']) {
-                    $board = (new TwoBishopsRandomizer($argv[1]))->getBoard();
+                    $board = (new TwoBishopsRandomizer($argv[1]))->board;
                 } elseif ($pieceIds === ['P']) {
-                    $board = (new PawnEndgameRandomizer($argv[1]))->getBoard();
+                    $board = (new PawnEndgameRandomizer($argv[1]))->board;
                 } else {
-                    $board = (new Randomizer($argv[1], [$color => $pieceIds]))->getBoard();
+                    $board = (new Randomizer($argv[1], [$color => $pieceIds]))->board;
                 }
             } else {
                 $wIds = str_split($items[Color::W]);
@@ -92,11 +92,11 @@ class RandomizerCommand extends AbstractCommand
                 $board = (new Randomizer($argv[1], [
                     Color::W => $wIds,
                     Color::B => $bIds,
-                ]))->getBoard();
+                ]))->board;
             }
             return $socket->getClientStorage()->sendToOne($id, [
                 $this->name => [
-                    'turn' => $board->getTurn(),
+                    'turn' => $board->turn,
                     'fen' => $board->toFen(),
                 ],
             ]);

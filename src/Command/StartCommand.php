@@ -143,9 +143,8 @@ class StartCommand extends AbstractCommand
                     $sanPlay = new SanPlay($settings->movetext, $board);
                 }
                 $sanPlay->validate();
-                $board = $sanPlay->getBoard();
                 $sanMode = new SanMode(new Game($argv[1], $argv[2]), [$id]);
-                $game = $sanMode->getGame()->setBoard($board);
+                $game = $sanMode->getGame()->setBoard($sanPlay->board);
                 $sanMode->setGame($game);
                 $socket->getGameModeStorage()->set($sanMode);
                 return $socket->getClientStorage()->sendToOne($id, [
@@ -153,8 +152,8 @@ class StartCommand extends AbstractCommand
                         'variant' => $argv[1],
                         'mode' => $argv[2],
                         'turn' => $game->state()->turn,
-                        'movetext' => $sanPlay->getSanMovetext()->validate(),
-                        'fen' => $sanPlay->getFen(),
+                        'movetext' => $sanPlay->sanMovetext->validate(),
+                        'fen' => $sanPlay->fen,
                         ...($argv[1] === Game::VARIANT_960
                             ? ['startPos' =>  $settings->startPos]
                             : []

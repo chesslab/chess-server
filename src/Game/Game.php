@@ -127,16 +127,16 @@ class Game
      */
     public function state(): object
     {
-        $history = $this->board->getHistory();
+        $history = $this->board->history;
         $end = end($history);
 
         return (object) [
-            'turn' => $this->board->getTurn(),
-            'pgn' => $end ? $end->move->pgn : null,
-            'castlingAbility' => $this->board->getCastlingAbility(),
-            'movetext' => $this->board->getMovetext(),
+            'turn' => $this->board->turn,
+            'pgn' => $end ? $end['move']['pgn'] : null,
+            'castlingAbility' => $this->board->castlingAbility,
+            'movetext' => $this->board->movetext(),
             'fen' => $this->board->toFen(),
-            'isCapture' => $end ? $end->move->isCapture : false,
+            'isCapture' => $end ? $end['move']['isCapture'] : false,
             'isCheck' => $this->board->isCheck(),
             'isMate' => $this->board->isMate(),
             'isStalemate' => $this->board->isStalemate(),
@@ -152,9 +152,9 @@ class Game
      *
      * @param array $options
      * @param array $params
-     * @return object|null
+     * @return array|null
      */
-    public function computer(array $options = [], array $params = []): ?object
+    public function computer(array $options = [], array $params = []): ?array
     {
         if ($this->gmMove) {
             if ($move = $this->gmMove->move($this->board)) {
@@ -162,17 +162,18 @@ class Game
             }
         }
 
-        $limit = (new Limit())->setDepth($params['depth']);
+        $limit = new Limit();
+        $limit->depth = $params['depth'];
         $stockfish = (new UciEngine('/usr/games/stockfish'))->setOption('Skill Level', $options['Skill Level']);
         $analysis = $stockfish->analysis($this->board, $limit);
 
-        $clone = unserialize(serialize($this->board));
-        $clone->playLan($this->board->getTurn(), $analysis['bestmove']);
-        $history = $clone->getHistory();
+        $clone = $this->board->clone();
+        $clone->playLan($this->board->turn, $analysis['bestmove']);
+        $history = $clone->history;
         $end = end($history);
 
-        return (object) [
-            'pgn' => $end->move->pgn,
+        return [
+            'pgn' => $end['move']['pgn'],
         ];
     }
 

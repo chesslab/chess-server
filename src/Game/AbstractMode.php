@@ -74,8 +74,8 @@ abstract class AbstractMode
                     $options = json_decode(stripslashes($argv[1]), true);
                     $params = json_decode(stripslashes($argv[2]), true);
                     $computer = $this->game->computer($options, $params);
-                    if ($computer->pgn) {
-                        $this->game->play($this->game->state()->turn, $computer->pgn);
+                    if ($computer['pgn']) {
+                        $this->game->play($this->game->state()->turn, $computer['pgn']);
                     }
                 }
                 return [
