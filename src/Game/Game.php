@@ -5,6 +5,7 @@ namespace ChessServer\Game;
 use Chess\Computer\GrandmasterMove;
 use Chess\UciEngine\UciEngine;
 use Chess\UciEngine\Details\Limit;
+use Chess\Variant\AbstractBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\StartPosition as Chess960StartPosition;
 use Chess\Variant\Classical\Board as ClassicalBoard;
@@ -28,9 +29,9 @@ class Game
     /**
      * Chess board.
      *
-     * @var \Chess\Variant\Classical\Board
+     * @var \Chess\Variant\AbstractBoard
      */
-    private ClassicalBoard $board;
+    private AbstractBoard $board;
 
     /**
      * Variant.
@@ -80,9 +81,9 @@ class Game
     /**
      * Returns the chess board object.
      *
-     * @return \Chess\Variant\Classical\Board
+     * @return \Chess\Variant\AbstractBoard
      */
-    public function getBoard(): ClassicalBoard
+    public function getBoard(): AbstractBoard
     {
         return $this->board;
     }
@@ -110,10 +111,10 @@ class Game
     /**
      * Sets the chess board object.
      *
-     * @param \Chess\Variant\Classical\Board $board
+     * @param \Chess\Variant\AbstractBoard $board
      * @return \ChessServer\Game
      */
-    public function setBoard(ClassicalBoard $board): Game
+    public function setBoard(AbstractBoard $board): Game
     {
         $this->board = $board;
 
