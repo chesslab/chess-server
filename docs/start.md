@@ -5,7 +5,7 @@ Starts a new game.
 | Name | Description | Required |
 | ---- | ----------- | -------- |
 | `variant` | `960`<br/>`capablanca`<br/>`capablanca-fischer`<br/>`classical` | Yes |
-| `mode` | `fen`<br/>`san`<br/>`play`<br/>`stockfish` | Yes. `fen` stands for Forsyth-Edwards Notation and is the standard way for starting games from specific chess positions. The `san` mode stands for Standard Algebraic Notation and is often used to load chess games annotated by humans always from the starting position. The `play` mode allows to play chess online with other players while the `stockfish` mode is used to play chess against the computer. |
+| `mode` | `fen`<br/>`san`<br/>`play`<br/>`stockfish` | Yes. `fen` stands for Forsyth-Edwards Notation and is the standard way for starting games from specific chess positions. The `san` mode stands for Standard Algebraic Notation and is often used to load chess games from the starting position. The `play` mode allows to play chess online with other players while the `stockfish` mode is used to play chess against the computer. |
 | `add` | `fen`<br/>`movetext`<br/>`startPos`<br/>`settings`<br/>`color` | Additional parameters may be required depending on the mode selected as shown in the examples below. |
 
 ## Usage
