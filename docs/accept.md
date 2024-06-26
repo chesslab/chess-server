@@ -2,9 +2,9 @@
 
 Accepts an invitation to play online with an opponent.
 
-| Name | Description | Required |
-| ---- | ----------- | -------- |
-| `hash` | The unique hash of the game. | Yes |
+### `hash`
+
+The unique hash of the game.
 
 ## Usage
 
