@@ -2,9 +2,13 @@
 
 Allows to take back a move.
 
-| Name | Description | Required |
-| ---- | ----------- | -------- |
-| `action` | `propose`<br/>`decline`<br/>`accept` | Yes |
+## `action`
+
+The action to take as per these options.
+
+- `propose`
+- `decline`
+- `accept`
 
 ## Usage
 
