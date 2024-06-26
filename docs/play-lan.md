@@ -4,7 +4,7 @@ Plays a chess move in long algebraic notation.
 
 ### `color`
 
-The color as described in the following options.
+The color as per these options.
 
 - `w` for the white pieces.
 - `b` for the black pieces.
