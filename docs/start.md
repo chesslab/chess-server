@@ -6,8 +6,8 @@ Starts a new game.
 
 The chess variant as per these options.
 
-- `960`
-- `classical`
+- `classical` chess, also known as standard or slow chess.
+- `960` is the same as classical chess except that the starting position of the pieces is randomized.
 
 ## `mode`
 
@@ -20,13 +20,15 @@ The game mode as per these options.
 
 ## `add` (optional)
 
-Additional parameters may be required depending on the mode selected as shown in the examples below.
+Additional optional parameters may be required depending on the mode selected as shown in the examples below.
 
 - `fen`
 - `movetext`
 - `startPos`
 - `settings`
 - `color`
+
+---
 
 ## Usage
 
