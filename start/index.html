@@ -135,8 +135,8 @@
 <h2 id="variant"><code>variant</code></h2>
 <p>The chess variant as per these options.</p>
 <ul>
-<li><code>960</code></li>
-<li><code>classical</code></li>
+<li><code>classical</code> chess, also known as standard or slow chess.</li>
+<li><code>960</code> is the same as classical chess except that the starting position of the pieces is randomized.</li>
 </ul>
 <h2 id="mode"><code>mode</code></h2>
 <p>The game mode as per these options.</p>
@@ -147,7 +147,7 @@
 <li><code>stockfish</code> allows to play chess against the computer.</li>
 </ul>
 <h2 id="add-optional"><code>add</code> (optional)</h2>
-<p>Additional parameters may be required depending on the mode selected as shown in the examples below.</p>
+<p>Additional optional parameters may be required depending on the mode selected as shown in the examples below.</p>
 <ul>
 <li><code>fen</code></li>
 <li><code>movetext</code></li>
@@ -155,6 +155,7 @@
 <li><code>settings</code></li>
 <li><code>color</code></li>
 </ul>
+<hr />
 <h2 id="usage">Usage</h2>
 <h3 id="start-a-classical-game">Start a classical game</h3>
 <pre><code class="language-js">ws.send('/start classical fen');
