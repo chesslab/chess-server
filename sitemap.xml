@@ -76,11 +76,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://chesslablab.github.io/chess-server/tutor-fen/</loc>
-         <lastmod>2024-06-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://chesslablab.github.io/chess-server/undo/</loc>
          <lastmod>2024-06-26</lastmod>
          <changefreq>daily</changefreq>
