@@ -4,12 +4,16 @@ Starts a new game.
 
 ### `variant`
 
+The chess variant as described in the following options.
+
 - `960`
 - `capablanca`
 - `capablanca-fischer`
 - `classical`
 
 ### `mode`
+
+The game mode as described in the following options.
 
 - `fen` is used to start games from specific chess positions.
 - `san` is used to load games from the starting position.
