@@ -2,9 +2,9 @@
 
 Returns the legal moves of a piece.
 
-| Name | Description | Required |
-| ---- | ----------- | -------- |
-| `position` | The location of the piece on the board. | Yes |
+### `position`
+
+The location of the piece on the board.
 
 ## Usage
 
