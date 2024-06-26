@@ -2,9 +2,9 @@
 
 Restarts an existing game.
 
-| Name | Description | Required |
-| ---- | ----------- | -------- |
-| `hash` | The unique hash of the game. | Yes |
+## `hash`
+
+The unique hash of the game.
 
 ## Usage
 

@@ -2,9 +2,11 @@
 
 Allows to resign a game.
 
-| Name | Description | Required |
-| ---- | ----------- | -------- |
-| `action` | `accept` | Yes |
+## `action`
+
+The action to take as per these options.
+
+- `accept`
 
 ## Usage
 

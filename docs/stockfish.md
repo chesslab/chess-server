@@ -2,10 +2,13 @@
 
 Returns Stockfish's response to the current position.
 
-| Name | Description | Required |
-| ---- | ----------- | -------- |
-| `Skill Level` | The skill level. | Yes |
-| `depth` | The number of half moves the engine looks ahead. | Yes |
+## `Skill Level`
+
+The skill level.
+
+## `depth`
+
+The number of half moves the engine looks ahead.
 
 ## Usage
 

@@ -2,11 +2,31 @@
 
 Starts a new game.
 
-| Name | Description | Required |
-| ---- | ----------- | -------- |
-| `variant` | `960`<br/>`capablanca`<br/>`capablanca-fischer`<br/>`classical` | Yes |
-| `mode` | `fen` is used to start games from specific chess positions.<br/><br/>`san` is used to load games from the starting position.<br/><br/>`play` allows to play chess online with other players.<br/><br/>`stockfish` allows to play chess against the computer. | Yes |
-| `add` | `fen`<br/>`movetext`<br/>`startPos`<br/>`settings`<br/>`color` | Additional parameters may be required depending on the mode selected as shown in the examples below. |
+## `variant`
+
+The chess variant as per these options.
+
+- `960`
+- `classical`
+
+## `mode`
+
+The game mode as per these options.
+
+- `fen` is used to start games from specific chess positions.
+- `san` is used to load games from the starting position.
+- `play` allows to play chess online with other players.
+- `stockfish` allows to play chess against the computer.
+
+## `add` (optional)
+
+Additional parameters may be required depending on the mode selected as shown in the examples below.
+
+- `fen`
+- `movetext`
+- `startPos`
+- `settings`
+- `color`
 
 ## Usage
 

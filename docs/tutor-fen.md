@@ -2,10 +2,16 @@
 
 Explains a FEN position in terms of chess concepts.
 
-| Name | Description | Required |
-| ---- | ----------- | -------- |
-| `fen` | A FEN string. | Yes |
-| `variant` | `960`<br/>`capablanca`<br/>`capablanca-fischer`<br/>`classical` | Yes |
+## `variant`
+
+The chess variant as per these options.
+
+- `960`
+- `classical`
+
+## `fen`
+
+A FEN string.
 
 ## Usage
 
