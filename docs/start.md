@@ -7,8 +7,6 @@ Starts a new game.
 The chess variant as per these options.
 
 - `960`
-- `capablanca`
-- `capablanca-fischer`
 - `classical`
 
 ### `mode`
