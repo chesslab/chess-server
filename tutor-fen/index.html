@@ -59,10 +59,12 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../play-lan/">/play_lan</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../heuristics/">/heuristics</a>
-                  </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">/tutor_fen</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#variant">variant</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#fen">fen</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#example">Example</a>
@@ -118,27 +120,14 @@
               
                 <h1 id="tutor_fen">/tutor_fen</h1>
 <p>Explains a FEN position in terms of chess concepts.</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-<th>Required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>fen</code></td>
-<td>A FEN string.</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><code>variant</code></td>
-<td><code>960</code><br/><code>capablanca</code><br/><code>capablanca-fischer</code><br/><code>classical</code></td>
-<td>Yes</td>
-</tr>
-</tbody>
-</table>
+<h2 id="variant"><code>variant</code></h2>
+<p>The chess variant as per these options.</p>
+<ul>
+<li><code>960</code></li>
+<li><code>classical</code></li>
+</ul>
+<h2 id="fen"><code>fen</code></h2>
+<p>A FEN string.</p>
 <h2 id="usage">Usage</h2>
 <h3 id="example">Example</h3>
 <pre><code class="language-js">ws.send('/start classical fen');
@@ -152,7 +141,7 @@ ws.send('/tutor_fen &quot;rnbqkb1r/p1pp1ppp/1p2pn2/8/2PP4/2N2N2/PP2PPPP/R1BQKB1R
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../heuristics/" class="btn btn-neutral float-left" title="/heuristics"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../play-lan/" class="btn btn-neutral float-left" title="/play_lan"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../undo/" class="btn btn-neutral float-right" title="/undo">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -176,7 +165,7 @@ ws.send('/tutor_fen &quot;rnbqkb1r/p1pp1ppp/1p2pn2/8/2PP4/2N2N2/PP2PPPP/R1BQKB1R
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../heuristics/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../play-lan/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../undo/" style="color: #fcfcfc">Next &raquo;</a></span>

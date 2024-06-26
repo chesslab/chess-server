@@ -55,6 +55,12 @@
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">/start</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#variant">variant</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mode">mode</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#add-optional">add (optional)</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#start-a-classical-game">Start a classical game</a>
@@ -78,8 +84,6 @@
                   <li class="toctree-l1"><a class="reference internal" href="../legal/">/legal</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../play-lan/">/play_lan</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../heuristics/">/heuristics</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutor-fen/">/tutor_fen</a>
                   </li>
@@ -130,32 +134,29 @@
               
                 <h1 id="start">/start</h1>
 <p>Starts a new game.</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-<th>Required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>variant</code></td>
-<td><code>960</code><br/><code>capablanca</code><br/><code>capablanca-fischer</code><br/><code>classical</code></td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><code>mode</code></td>
-<td><code>fen</code> is used to start games from specific chess positions.<br/><br/><code>san</code> is used to load games from the starting position.<br/><br/><code>play</code> allows to play chess online with other players.<br/><br/><code>stockfish</code> allows to play chess against the computer.</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><code>add</code></td>
-<td><code>fen</code><br/><code>movetext</code><br/><code>startPos</code><br/><code>settings</code><br/><code>color</code></td>
-<td>Additional parameters may be required depending on the mode selected as shown in the examples below.</td>
-</tr>
-</tbody>
-</table>
+<h2 id="variant"><code>variant</code></h2>
+<p>The chess variant as per these options.</p>
+<ul>
+<li><code>960</code></li>
+<li><code>classical</code></li>
+</ul>
+<h2 id="mode"><code>mode</code></h2>
+<p>The game mode as per these options.</p>
+<ul>
+<li><code>fen</code> is used to start games from specific chess positions.</li>
+<li><code>san</code> is used to load games from the starting position.</li>
+<li><code>play</code> allows to play chess online with other players.</li>
+<li><code>stockfish</code> allows to play chess against the computer.</li>
+</ul>
+<h2 id="add-optional"><code>add</code> (optional)</h2>
+<p>Additional parameters may be required depending on the mode selected as shown in the examples below.</p>
+<ul>
+<li><code>fen</code></li>
+<li><code>movetext</code></li>
+<li><code>startPos</code></li>
+<li><code>settings</code></li>
+<li><code>color</code></li>
+</ul>
 <h2 id="usage">Usage</h2>
 <h3 id="start-a-classical-game">Start a classical game</h3>
 <pre><code class="language-js">ws.send('/start classical fen');

@@ -59,14 +59,14 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../play-lan/">/play_lan</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../heuristics/">/heuristics</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutor-fen/">/tutor_fen</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../undo/">/undo</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">/accept</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#hash">hash</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#example">Example</a>
@@ -118,22 +118,8 @@
               
                 <h1 id="accept">/accept</h1>
 <p>Accepts an invitation to play online with an opponent.</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-<th>Required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>hash</code></td>
-<td>The unique hash of the game.</td>
-<td>Yes</td>
-</tr>
-</tbody>
-</table>
+<h2 id="hash"><code>hash</code></h2>
+<p>The unique hash of the game.</p>
 <h2 id="usage">Usage</h2>
 <h3 id="example">Example</h3>
 <pre><code class="language-js">ws.send('/accept 876d7a7b');

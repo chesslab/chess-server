@@ -59,8 +59,6 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../play-lan/">/play_lan</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../heuristics/">/heuristics</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutor-fen/">/tutor_fen</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../undo/">/undo</a>
@@ -77,6 +75,8 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">/rematch</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#action">action</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#propose-a-rematch">Propose a rematch</a>
@@ -122,22 +122,13 @@
               
                 <h1 id="rematch">/rematch</h1>
 <p>Allows to offer a rematch.</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-<th>Required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>action</code></td>
-<td><code>propose</code><br/><code>decline</code><br/><code>accept</code></td>
-<td>Yes</td>
-</tr>
-</tbody>
-</table>
+<h2 id="action"><code>action</code></h2>
+<p>The action to take as per these options.</p>
+<ul>
+<li><code>propose</code></li>
+<li><code>decline</code></li>
+<li><code>accept</code></li>
+</ul>
 <h2 id="usage">Usage</h2>
 <h3 id="propose-a-rematch">Propose a rematch</h3>
 <pre><code class="language-js">ws.send('/rematch propose');

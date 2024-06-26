@@ -59,8 +59,6 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../play-lan/">/play_lan</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../heuristics/">/heuristics</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../tutor-fen/">/tutor_fen</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../undo/">/undo</a>
@@ -81,6 +79,10 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">/stockfish</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#skill-level">Skill Level</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#depth">depth</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#example">Example</a>
@@ -118,27 +120,10 @@
               
                 <h1 id="stockfish">/stockfish</h1>
 <p>Returns Stockfish's response to the current position.</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-<th>Required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Skill Level</code></td>
-<td>The skill level.</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><code>depth</code></td>
-<td>The number of half moves the engine looks ahead.</td>
-<td>Yes</td>
-</tr>
-</tbody>
-</table>
+<h2 id="skill-level"><code>Skill Level</code></h2>
+<p>The skill level.</p>
+<h2 id="depth"><code>depth</code></h2>
+<p>The number of half moves the engine looks ahead.</p>
 <h2 id="usage">Usage</h2>
 <h3 id="example">Example</h3>
 <p>Start a classical game, play <code>e2e4</code> and use Stockfish to respond with a move.</p>

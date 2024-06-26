@@ -21,11 +21,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://chesslablab.github.io/chess-server/heuristics/</loc>
-         <lastmod>2024-06-26</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://chesslablab.github.io/chess-server/installation/</loc>
          <lastmod>2024-06-26</lastmod>
          <changefreq>daily</changefreq>
