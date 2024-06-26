@@ -2,10 +2,16 @@
 
 Plays a chess move in long algebraic notation.
 
-| Name | Description | Required |
-| ---- | ----------- | -------- |
-| `color` | The player's turn. | Yes |
-| `lan` | The chess move in LAN format. | Yes |
+### `color`
+
+The color as described in the following options.
+
+- `w` for the white pieces.
+- `b` for the black pieces.
+
+### `lan`
+
+The chess move in LAN format.
 
 ## Usage
 
