@@ -6,6 +6,8 @@ Accepts an invitation to play online with an opponent.
 
 The unique hash of the game.
 
+---
+
 ## Usage
 
 ### Example

@@ -13,6 +13,8 @@ The color as per these options.
 
 The chess move in LAN format.
 
+---
+
 ## Usage
 
 ### Example

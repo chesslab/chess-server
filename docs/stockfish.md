@@ -10,6 +10,8 @@ The skill level.
 
 The number of half moves the engine looks ahead.
 
+---
+
 ## Usage
 
 ### Example

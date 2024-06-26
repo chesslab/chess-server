@@ -6,6 +6,8 @@ Returns the legal moves of a piece.
 
 The location of the piece on the board.
 
+---
+
 ## Usage
 
 ### Example

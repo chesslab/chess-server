@@ -8,6 +8,8 @@ The action to take as per these options.
 
 - `accept`
 
+---
+
 ## Usage
 
 ### Example

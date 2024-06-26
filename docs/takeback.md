@@ -10,6 +10,8 @@ The action to take as per these options.
 - `decline`
 - `accept`
 
+---
+
 ## Usage
 
 ### Propose a take back

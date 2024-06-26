@@ -2,6 +2,8 @@
 
 Returns the online games waiting to be accepted.
 
+---
+
 ## Usage
 
 ### Example

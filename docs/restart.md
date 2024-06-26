@@ -6,6 +6,8 @@ Restarts an existing game.
 
 The unique hash of the game.
 
+---
+
 ## Usage
 
 ### Example

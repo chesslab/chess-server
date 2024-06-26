@@ -2,6 +2,8 @@
 
 Undoes the last move.
 
+---
+
 ## Usage
 
 ### Example
