@@ -2,14 +2,14 @@
 
 Plays a chess move in long algebraic notation.
 
-### `color`
+## `color`
 
 The color as per these options.
 
 - `w` for the white pieces.
 - `b` for the black pieces.
 
-### `lan`
+## `lan`
 
 The chess move in LAN format.
 

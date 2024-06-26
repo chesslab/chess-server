@@ -2,7 +2,7 @@
 
 Accepts an invitation to play online with an opponent.
 
-### `hash`
+## `hash`
 
 The unique hash of the game.
 

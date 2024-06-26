@@ -2,14 +2,14 @@
 
 Explains a FEN position in terms of chess concepts.
 
-### `variant`
+## `variant`
 
 The chess variant as per these options.
 
 - `960`
 - `classical`
 
-### `fen`
+## `fen`
 
 A FEN string.
 

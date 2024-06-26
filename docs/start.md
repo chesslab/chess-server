@@ -2,14 +2,14 @@
 
 Starts a new game.
 
-### `variant`
+## `variant`
 
 The chess variant as per these options.
 
 - `960`
 - `classical`
 
-### `mode`
+## `mode`
 
 The game mode as per these options.
 
@@ -18,7 +18,7 @@ The game mode as per these options.
 - `play` allows to play chess online with other players.
 - `stockfish` allows to play chess against the computer.
 
-### `add` (optional)
+## `add` (optional)
 
 Additional parameters may be required depending on the mode selected as shown in the examples below.
 
