@@ -1,6 +1,6 @@
 # /randomizer
 
-Provide FEN data based on requested parameters to start a random position.
+Starts a random position.
 
 ## `turn`
 
