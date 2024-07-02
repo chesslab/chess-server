@@ -18,4 +18,5 @@ nav:
     - /restart: restart.md
     - /stockfish: stockfish.md
     - /online_games: online-games.md
+    - /randomizer: randomizer.md
 theme: readthedocs
