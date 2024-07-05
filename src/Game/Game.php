@@ -9,6 +9,7 @@ use Chess\Variant\AbstractBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\StartPosition as Chess960StartPosition;
 use Chess\Variant\Classical\Board as ClassicalBoard;
+use Chess\Variant\Dunsany\Board as DunsanyBoard;
 
 /**
  * Game
@@ -20,6 +21,7 @@ class Game
 {
     const VARIANT_960 = Chess960Board::VARIANT;
     const VARIANT_CLASSICAL = ClassicalBoard::VARIANT;
+    const VARIANT_DUNSANY = DunsanyBoard::VARIANT;
 
     const MODE_FEN = 'fen';
     const MODE_PLAY = 'play';
@@ -75,6 +77,8 @@ class Game
             $this->board = new Chess960Board($startPos);
         } elseif ($this->variant === self::VARIANT_CLASSICAL) {
             $this->board = new ClassicalBoard();
+        } elseif ($this->variant === self::VARIANT_DUNSANY) {
+            $this->board = new DunsanyBoard();
         }
     }
 
