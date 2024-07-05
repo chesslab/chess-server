@@ -10,6 +10,8 @@ use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
+use Chess\Variant\Dunsany\Board as DunsanyBoard;
+use Chess\Variant\Dunsany\FEN\StrToBoard as DunsanyFenStrToBoard;
 use ChessServer\Game\Game;
 use ChessServer\Game\FenMode;
 use ChessServer\Game\PlayMode;
@@ -29,6 +31,7 @@ class StartCommand extends AbstractCommand
             'variant' => [
                 Game::VARIANT_960,
                 Game::VARIANT_CLASSICAL,
+                Game::VARIANT_DUNSANY,
             ],
             // mandatory param
             'mode' => [
@@ -91,6 +94,12 @@ class StartCommand extends AbstractCommand
                         $startPos = (new Chess960StartPosition())->create();
                         $board = new Chess960Board($startPos);
                     }
+                } elseif ($argv[1] === Game::VARIANT_DUNSANY) {
+                    if (isset($settings->fen)) {
+                        $board = (new DunsanyFenStrToBoard($settings->fen))->create();
+                    } else {
+                        $board =  new DunsanyBoard();
+                    }
                 } else {
                     if (isset($settings->fen)) {
                         $board = (new ClassicalFenStrToBoard($settings->fen))->create();
@@ -131,6 +140,12 @@ class StartCommand extends AbstractCommand
                 if ($argv[1] === Game::VARIANT_960) {
                     $startPos = str_split($settings->startPos);
                     $board = new Chess960Board($startPos);
+                    if (isset($settings->fen)) {
+                        $board = FenToBoardFactory::create($settings->fen, $board);
+                    }
+                    $sanPlay = new SanPlay($settings->movetext, $board);
+                } elseif ($argv[1] === Game::VARIANT_DUNSANY) {
+                    $board = new DunsanyBoard();
                     if (isset($settings->fen)) {
                         $board = FenToBoardFactory::create($settings->fen, $board);
                     }
@@ -177,6 +192,9 @@ class StartCommand extends AbstractCommand
                         $startPos = str_split($settings->startPos);
                         $board = (new Chess960FenStrToBoard($settings->fen, $startPos))
                             ->create();
+                    } elseif ($argv[1] === Game::VARIANT_DUNSANY) {
+                        $board = (new DunsanyFenStrToBoard($settings->fen))
+                            ->create();
                     } else {
                         $board = (new ClassicalFenStrToBoard($settings->fen))
                             ->create();
@@ -194,6 +212,8 @@ class StartCommand extends AbstractCommand
                 if ($argv[1] === Game::VARIANT_960) {
                     $startPos = (new Chess960StartPosition())->create();
                     $board = new Chess960Board($startPos);
+                } elseif ($argv[1] === Game::VARIANT_DUNSANY) {
+                    $board = new DunsanyBoard();
                 } else {
                     $board = new ClassicalBoard();
                 }
