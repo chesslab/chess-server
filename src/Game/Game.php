@@ -10,6 +10,7 @@ use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\StartPosition as Chess960StartPosition;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Dunsany\Board as DunsanyBoard;
+use Chess\Variant\RacingKings\Board as RacingKingsBoard;
 
 /**
  * Game
@@ -22,6 +23,7 @@ class Game
     const VARIANT_960 = Chess960Board::VARIANT;
     const VARIANT_CLASSICAL = ClassicalBoard::VARIANT;
     const VARIANT_DUNSANY = DunsanyBoard::VARIANT;
+    const VARIANT_RACING_KINGS = RacingKingsBoard::VARIANT;
 
     const MODE_FEN = 'fen';
     const MODE_PLAY = 'play';
@@ -79,6 +81,8 @@ class Game
             $this->board = new ClassicalBoard();
         } elseif ($this->variant === self::VARIANT_DUNSANY) {
             $this->board = new DunsanyBoard();
+        } elseif ($this->variant === self::VARIANT_RACING_KINGS) {
+            $this->board = new RacingKingsBoard();
         }
     }
 
