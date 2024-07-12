@@ -152,6 +152,8 @@ class Game
             'isFivefoldRepetition' => $this->board->isFivefoldRepetition(),
             'isFiftyMoveDraw' => $this->board->isFiftyMoveDraw(),
             'isDeadPositionDraw' => $this->board->isDeadPositionDraw(),
+            'doesDraw' => $this->board->doesDraw(),
+            'doesWin' => $this->board->doesWin(),
             'mode' => $this->getMode(),
         ];
     }
