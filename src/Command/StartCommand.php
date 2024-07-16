@@ -12,6 +12,8 @@ use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Dunsany\Board as DunsanyBoard;
 use Chess\Variant\Dunsany\FEN\StrToBoard as DunsanyFenStrToBoard;
+use Chess\Variant\Losing\Board as LosingBoard;
+use Chess\Variant\Losing\FEN\StrToBoard as LosingFenStrToBoard;
 use Chess\Variant\RacingKings\Board as RacingKingsBoard;
 use Chess\Variant\RacingKings\FEN\StrToBoard as RacingKingsFenStrToBoard;
 use ChessServer\Game\Game;
@@ -34,6 +36,7 @@ class StartCommand extends AbstractCommand
                 Game::VARIANT_960,
                 Game::VARIANT_CLASSICAL,
                 Game::VARIANT_DUNSANY,
+                Game::VARIANT_LOSING,
                 Game::VARIANT_RACING_KINGS,
             ],
             // mandatory param
@@ -103,6 +106,12 @@ class StartCommand extends AbstractCommand
                     } else {
                         $board =  new DunsanyBoard();
                     }
+                } elseif ($argv[1] === Game::VARIANT_LOSING) {
+                    if (isset($settings->fen)) {
+                        $board = (new LosingFenStrToBoard($settings->fen))->create();
+                    } else {
+                        $board =  new LosingBoard();
+                    }
                 } elseif ($argv[1] === Game::VARIANT_RACING_KINGS) {
                     if (isset($settings->fen)) {
                         $board = (new RacingKingsFenStrToBoard($settings->fen))->create();
@@ -159,6 +168,12 @@ class StartCommand extends AbstractCommand
                         $board = FenToBoardFactory::create($settings->fen, $board);
                     }
                     $sanPlay = new SanPlay($settings->movetext, $board);
+                } elseif ($argv[1] === Game::VARIANT_LOSING) {
+                    $board = new LosingBoard();
+                    if (isset($settings->fen)) {
+                        $board = FenToBoardFactory::create($settings->fen, $board);
+                    }
+                    $sanPlay = new SanPlay($settings->movetext, $board);
                 } elseif ($argv[1] === Game::VARIANT_RACING_KINGS) {
                     $board = new RacingKingsBoard();
                     if (isset($settings->fen)) {
@@ -210,6 +225,9 @@ class StartCommand extends AbstractCommand
                     } elseif ($argv[1] === Game::VARIANT_DUNSANY) {
                         $board = (new DunsanyFenStrToBoard($settings->fen))
                             ->create();
+                    } elseif ($argv[1] === Game::VARIANT_LOSING) {
+                        $board = (new LosingFenStrToBoard($settings->fen))
+                            ->create();
                     } elseif ($argv[1] === Game::VARIANT_RACING_KINGS) {
                         $board = (new RacingKingsFenStrToBoard($settings->fen))
                             ->create();
@@ -232,6 +250,8 @@ class StartCommand extends AbstractCommand
                     $board = new Chess960Board($startPos);
                 } elseif ($argv[1] === Game::VARIANT_DUNSANY) {
                     $board = new DunsanyBoard();
+                } elseif ($argv[1] === Game::VARIANT_LOSING) {
+                    $board = new LosingBoard();
                 } elseif ($argv[1] === Game::VARIANT_RACING_KINGS) {
                     $board = new RacingKingsBoard();
                 } else {
