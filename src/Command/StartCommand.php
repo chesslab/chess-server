@@ -17,7 +17,6 @@ use Chess\Variant\Losing\FEN\StrToBoard as LosingFenStrToBoard;
 use Chess\Variant\RacingKings\Board as RacingKingsBoard;
 use Chess\Variant\RacingKings\FEN\StrToBoard as RacingKingsFenStrToBoard;
 use ChessServer\Game\Game;
-use ChessServer\Game\FenMode;
 use ChessServer\Game\PlayMode;
 use ChessServer\Game\SanMode;
 use ChessServer\Game\StockfishMode;
@@ -41,7 +40,6 @@ class StartCommand extends AbstractCommand
             ],
             // mandatory param
             'mode' => [
-                FenMode::NAME,
                 SanMode::NAME,
                 PlayMode::NAME,
                 StockfishMode::NAME,
@@ -54,7 +52,6 @@ class StartCommand extends AbstractCommand
                 ],
                 'fen' => '<string>',
                 'movetext' => '<string>',
-                'settings' => '<string>',
                 'startPos' => '<string>',
             ],
         ];
@@ -65,11 +62,8 @@ class StartCommand extends AbstractCommand
         if (in_array($argv[1], $this->params['variant'])) {
             if (in_array($argv[2], $this->params['mode'])) {
                 switch ($argv[2]) {
-                    case FenMode::NAME:
-                        return count($argv) - 1 === 3 ||
-                            count($argv) - 1 === 2;
                     case SanMode::NAME:
-                        return count($argv) - 1 === 3;
+                        return count($argv) - 1 === 3 || count($argv) - 1 === 2;
                     case PlayMode::NAME:
                         return count($argv) - 1 === 3;
                     case StockfishMode::NAME:
@@ -86,75 +80,12 @@ class StartCommand extends AbstractCommand
 
     public function run(ChesslaBlabSocket $socket, array $argv, int $id)
     {
-        if (FenMode::NAME === $argv[2]) {
+        if (SanMode::NAME === $argv[2]) {
             try {
-                if (isset($argv[3])) {
-                    $settings = (object) json_decode(stripslashes($argv[3]), true);
-                }
-                if ($argv[1] === Game::VARIANT_960) {
-                    if (isset($settings->fen) && isset($settings->startPos)) {
-                        $startPos = str_split($settings->startPos);
-                        $board = (new Chess960FenStrToBoard($settings->fen, $startPos))
-                            ->create();
-                    } else {
-                        $startPos = (new Chess960StartPosition())->create();
-                        $board = new Chess960Board($startPos);
-                    }
-                } elseif ($argv[1] === Game::VARIANT_DUNSANY) {
-                    if (isset($settings->fen)) {
-                        $board = (new DunsanyFenStrToBoard($settings->fen))->create();
-                    } else {
-                        $board =  new DunsanyBoard();
-                    }
-                } elseif ($argv[1] === Game::VARIANT_LOSING) {
-                    if (isset($settings->fen)) {
-                        $board = (new LosingFenStrToBoard($settings->fen))->create();
-                    } else {
-                        $board =  new LosingBoard();
-                    }
-                } elseif ($argv[1] === Game::VARIANT_RACING_KINGS) {
-                    if (isset($settings->fen)) {
-                        $board = (new RacingKingsFenStrToBoard($settings->fen))->create();
-                    } else {
-                        $board =  new RacingKingsBoard();
-                    }
-                } else {
-                    if (isset($settings->fen)) {
-                        $board = (new ClassicalFenStrToBoard($settings->fen))->create();
-                    } else {
-                        $board =  new ClassicalBoard();
-                    }
-                }
-                $fenMode = new FenMode(
-                    new Game($argv[1], $argv[2]),
-                    [$id],
-                    $board->toFen()
-                );
-                $fenMode->getGame()->setBoard($board);
-                $socket->getGameModeStorage()->set($fenMode);
-                return $socket->getClientStorage()->sendToOne($id, [
-                    $this->name => [
-                        'variant' => $argv[1],
-                        'mode' => $argv[2],
-                        'fen' => $board->toFen(),
-                        ...($argv[1] === Game::VARIANT_960
-                            ? ['startPos' => implode('', $startPos)]
-                            : []
-                        ),
-                    ],
-                ]);
-            } catch (\Throwable $e) {
-                return $socket->getClientStorage()->sendToOne($id, [
-                    $this->name => [
-                        'variant' => $argv[1],
-                        'mode' => $argv[2],
-                        'message' => 'This FEN string could not be loaded.',
-                    ],
-                ]);
-            }
-        } elseif (SanMode::NAME === $argv[2]) {
-            try {
-                $settings = (object) json_decode(stripslashes($argv[3]), true);
+                $settings = isset($argv[3])
+                    ? (object) json_decode(stripslashes($argv[3]), true)
+                    : new \StdClass();
+                $settings->movetext = $settings->movetext ?? '';
                 if ($argv[1] === Game::VARIANT_960) {
                     $startPos = str_split($settings->startPos);
                     $board = new Chess960Board($startPos);
@@ -210,7 +141,7 @@ class StartCommand extends AbstractCommand
                     $this->name => [
                         'variant' => $argv[1],
                         'mode' => $argv[2],
-                        'message' => 'This PGN movetext could not be loaded.',
+                        'message' => 'This game could not be loaded.',
                     ],
                 ]);
             }
