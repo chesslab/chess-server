@@ -84,40 +84,38 @@ class StartCommand extends AbstractCommand
             try {
                 $settings = isset($argv[3])
                     ? (object) json_decode(stripslashes($argv[3]), true)
-                    : new \StdClass();
-                $settings->movetext = $settings->movetext ?? '';
+                    : (object) [];
                 if ($argv[1] === Game::VARIANT_960) {
-                    $startPos = str_split($settings->startPos);
-                    $board = new Chess960Board($startPos);
-                    if (isset($settings->fen)) {
+                    if (isset($settings->startPos) && isset($settings->fen)) {
+                        $startPos = str_split($settings->startPos);
+                        $board = new Chess960Board($startPos);
                         $board = FenToBoardFactory::create($settings->fen, $board);
+                    } else {
+                        $startPos = (new Chess960StartPosition())->create();
+                        $board = new Chess960Board($startPos);
                     }
-                    $sanPlay = new SanPlay($settings->movetext, $board);
                 } elseif ($argv[1] === Game::VARIANT_DUNSANY) {
                     $board = new DunsanyBoard();
                     if (isset($settings->fen)) {
                         $board = FenToBoardFactory::create($settings->fen, $board);
                     }
-                    $sanPlay = new SanPlay($settings->movetext, $board);
                 } elseif ($argv[1] === Game::VARIANT_LOSING) {
                     $board = new LosingBoard();
                     if (isset($settings->fen)) {
                         $board = FenToBoardFactory::create($settings->fen, $board);
                     }
-                    $sanPlay = new SanPlay($settings->movetext, $board);
                 } elseif ($argv[1] === Game::VARIANT_RACING_KINGS) {
                     $board = new RacingKingsBoard();
                     if (isset($settings->fen)) {
                         $board = FenToBoardFactory::create($settings->fen, $board);
                     }
-                    $sanPlay = new SanPlay($settings->movetext, $board);
                 } else {
                     $board = new ClassicalBoard();
                     if (isset($settings->fen)) {
                         $board = FenToBoardFactory::create($settings->fen, $board);
                     }
-                    $sanPlay = new SanPlay($settings->movetext, $board);
                 }
+                $sanPlay = new SanPlay($settings->movetext ?? '', $board);
                 $sanPlay->validate();
                 $sanMode = new SanMode(new Game($argv[1], $argv[2]), [$id]);
                 $game = $sanMode->getGame()->setBoard($sanPlay->board);
@@ -131,7 +129,7 @@ class StartCommand extends AbstractCommand
                         'movetext' => $sanPlay->sanMovetext->validate(),
                         'fen' => $sanPlay->fen,
                         ...($argv[1] === Game::VARIANT_960
-                            ? ['startPos' =>  $settings->startPos]
+                            ? ['startPos' =>  implode('', $startPos)]
                             : []
                         ),
                     ],
