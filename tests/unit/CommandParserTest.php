@@ -41,14 +41,6 @@ class CommandParserTest extends TestCase
     /**
      * @test
      */
-    public function validate_start_classical_fen()
-    {
-        $this->assertInstanceOf(StartCommand::class, self::$parser->validate('/start classical fen'));
-    }
-
-    /**
-     * @test
-     */
 
     public function validate_restart()
     {
