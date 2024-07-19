@@ -21,7 +21,7 @@ That's it!
 Now you're set up to start playing chess.
 
 ```js
-ws.send('/start classical fen');
+ws.send('/start classical analysis');
 ```
 
 The `/start` command starts a new classical chess game and retrieves a JSON response from the server.
@@ -30,8 +30,12 @@ The `/start` command starts a new classical chess game and retrieves a JSON resp
 {
   "/start": {
     "variant": "classical",
-    "mode": "fen",
-    "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -"
+    "mode": "analysis",
+    "turn": "w",
+    "movetext": "",
+    "fen": [
+      "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -"
+    ]
   }
 }
 ```
@@ -65,7 +69,11 @@ The `/play_lan` command above retrieves the following JSON response.
     "isMate": false,
     "isStalemate": false,
     "isFivefoldRepetition": false,
-    "mode": "fen",
+    "isFiftyMoveDraw": false,
+    "isDeadPositionDraw": false,
+    "doesDraw": false,
+    "doesWin": false,
+    "mode": "analysis",
     "variant": "classical",
     "isValid": true
   }
@@ -93,7 +101,11 @@ Once again the `/play_lan` command makes a chess move, this time retrieving the 
     "isMate": false,
     "isStalemate": false,
     "isFivefoldRepetition": false,
-    "mode": "fen",
+    "isFiftyMoveDraw": false,
+    "isDeadPositionDraw": false,
+    "doesDraw": false,
+    "doesWin": false,
+    "mode": "analysis",
     "variant": "classical",
     "isValid": true
   }
@@ -106,7 +118,7 @@ Described below is the series of steps required to start a classical chess game 
 
 ```js
 const ws = new WebSocket('wss://async.chesslablab.org:8443');
-ws.send('/start classical fen');
+ws.send('/start classical analysis');
 ws.send('/play_lan w e2e4');
 ws.send('/play_lan b e7e5');
 ```
