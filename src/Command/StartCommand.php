@@ -91,25 +91,21 @@ class StartCommand extends AbstractCommand
                         $board = new Chess960Board($startPos);
                     }
                 } elseif ($argv[1] === Game::VARIANT_DUNSANY) {
-                    $board = new DunsanyBoard();
-                    if (isset($settings->fen)) {
-                        $board = FenToBoardFactory::create($settings->fen, $board);
-                    }
+                    $board = isset($settings->fen)
+                        ? FenToBoardFactory::create($settings->fen, new DunsanyBoard())
+                        : new DunsanyBoard();
                 } elseif ($argv[1] === Game::VARIANT_LOSING) {
-                    $board = new LosingBoard();
-                    if (isset($settings->fen)) {
-                        $board = FenToBoardFactory::create($settings->fen, $board);
-                    }
+                    $board = isset($settings->fen)
+                        ? FenToBoardFactory::create($settings->fen, new LosingBoard())
+                        : new LosingBoard();
                 } elseif ($argv[1] === Game::VARIANT_RACING_KINGS) {
-                    $board = new RacingKingsBoard();
-                    if (isset($settings->fen)) {
-                        $board = FenToBoardFactory::create($settings->fen, $board);
-                    }
+                    $board = isset($settings->fen)
+                        ? FenToBoardFactory::create($settings->fen, new RacingKingsBoard())
+                        : new RacingKingsBoard();
                 } else {
-                    $board = new ClassicalBoard();
-                    if (isset($settings->fen)) {
-                        $board = FenToBoardFactory::create($settings->fen, $board);
-                    }
+                    $board = isset($settings->fen)
+                        ? FenToBoardFactory::create($settings->fen, new ClassicalBoard())
+                        : new ClassicalBoard();
                 }
                 $sanPlay = new SanPlay($settings->movetext ?? '', $board);
                 $sanPlay->validate();
@@ -135,7 +131,7 @@ class StartCommand extends AbstractCommand
                     $this->name => [
                         'variant' => $argv[1],
                         'mode' => $argv[2],
-                        'message' => 'This game could not be loaded.',
+                        'message' => 'This game could not be created.',
                     ],
                 ]);
             }
@@ -152,25 +148,21 @@ class StartCommand extends AbstractCommand
                         $board = new Chess960Board($startPos);
                     }
                 } elseif ($argv[1] === Game::VARIANT_DUNSANY) {
-                    $board = new DunsanyBoard();
-                    if (isset($settings->fen)) {
-                        $board = FenToBoardFactory::create($settings->fen, $board);
-                    }
+                    $board = isset($settings->fen)
+                        ? FenToBoardFactory::create($settings->fen, new DunsanyBoard())
+                        : new DunsanyBoard();
                 } elseif ($argv[1] === Game::VARIANT_LOSING) {
-                    $board = new LosingBoard();
-                    if (isset($settings->fen)) {
-                        $board = FenToBoardFactory::create($settings->fen, $board);
-                    }
+                    $board = isset($settings->fen)
+                        ? FenToBoardFactory::create($settings->fen, new LosingBoard())
+                        : new LosingBoard();
                 } elseif ($argv[1] === Game::VARIANT_RACING_KINGS) {
-                    $board = new RacingKingsBoard();
-                    if (isset($settings->fen)) {
-                        $board = FenToBoardFactory::create($settings->fen, $board);
-                    }
+                    $board = isset($settings->fen)
+                        ? FenToBoardFactory::create($settings->fen, new RacingKingsBoard())
+                        : new RacingKingsBoard();
                 } else {
-                    $board = new ClassicalBoard();
-                    if (isset($settings->fen)) {
-                        $board = FenToBoardFactory::create($settings->fen, $board);
-                    }
+                    $board = isset($settings->fen)
+                        ? FenToBoardFactory::create($settings->fen, new ClassicalBoard())
+                        : new ClassicalBoard();
                 }
                 $game = (new Game($argv[1], $argv[2]))->setBoard($board);
                 $payload = [
@@ -221,7 +213,7 @@ class StartCommand extends AbstractCommand
                     $this->name => [
                         'variant' => $argv[1],
                         'mode' => $argv[2],
-                        'message' => 'This game could not be loaded.',
+                        'message' => 'This game could not be created.',
                     ],
                 ]);
             }
