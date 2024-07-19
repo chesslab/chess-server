@@ -8,14 +8,10 @@ use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\StartPosition as Chess960StartPosition;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\Board as ClassicalBoard;
-use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Dunsany\Board as DunsanyBoard;
-use Chess\Variant\Dunsany\FEN\StrToBoard as DunsanyFenStrToBoard;
 use Chess\Variant\Losing\Board as LosingBoard;
-use Chess\Variant\Losing\FEN\StrToBoard as LosingFenStrToBoard;
 use Chess\Variant\RacingKings\Board as RacingKingsBoard;
-use Chess\Variant\RacingKings\FEN\StrToBoard as RacingKingsFenStrToBoard;
 use ChessServer\Game\Game;
 use ChessServer\Game\AnalysisMode;
 use ChessServer\Game\PlayMode;
@@ -152,17 +148,13 @@ class StartCommand extends AbstractCommand
                         $board = (new Chess960FenStrToBoard($settings->fen, $startPos))
                             ->create();
                     } elseif ($argv[1] === Game::VARIANT_DUNSANY) {
-                        $board = (new DunsanyFenStrToBoard($settings->fen))
-                            ->create();
+                        $board = FenToBoardFactory::create($settings->fen, new DunsanyBoard());
                     } elseif ($argv[1] === Game::VARIANT_LOSING) {
-                        $board = (new LosingFenStrToBoard($settings->fen))
-                            ->create();
+                        $board = FenToBoardFactory::create($settings->fen, new LosingBoard());
                     } elseif ($argv[1] === Game::VARIANT_RACING_KINGS) {
-                        $board = (new RacingKingsFenStrToBoard($settings->fen))
-                            ->create();
+                        $board = FenToBoardFactory::create($settings->fen, new RacingKingsBoard());
                     } else {
-                        $board = (new ClassicalFenStrToBoard($settings->fen))
-                            ->create();
+                        $board = FenToBoardFactory::create($settings->fen, new ClassicalBoard());
                     }
                 } catch (\Throwable $e) {
                     return $socket->getClientStorage()->sendToOne($id, [
@@ -234,7 +226,8 @@ class StartCommand extends AbstractCommand
         } elseif (StockfishMode::NAME === $argv[2]) {
             $settings = (object) json_decode(stripslashes($argv[3]), true);
             if (isset($settings->fen)) {
-                $board = (new ClassicalFenStrToBoard($settings->fen))->create();
+                $board = new ClassicalBoard();
+                $board = FenToBoardFactory::create($settings->fen, $board);
                 $game = (new Game($argv[1], $argv[2]))->setBoard($board);
             } else {
                 $game = new Game($argv[1], $argv[2], $socket->getGmMove());
