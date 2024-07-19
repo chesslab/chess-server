@@ -15,7 +15,7 @@ The location of the piece on the board.
 Start a classical game to find out the legal moves of the piece on e2.
 
 ```js
-ws.send('/start classical fen');
+ws.send('/start classical analysis');
 ws.send('/legal e2');
 ```
 

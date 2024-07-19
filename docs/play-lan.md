@@ -22,7 +22,7 @@ The chess move in LAN format.
 Starts a classical game to play 1.e4.
 
 ```js
-ws.send('/start classical fen');
+ws.send('/start classical analysis');
 ws.send('/play_lan w e2e4');
 ```
 
@@ -41,7 +41,9 @@ ws.send('/play_lan w e2e4');
     "isFivefoldRepetition": false,
     "isFiftyMoveDraw": false,
     "isDeadPositionDraw": false,
-    "mode": "fen",
+    "doesDraw": false,
+    "doesWin": false,
+    "mode": "analysis",
     "variant": "classical",
     "isValid": true
   }
