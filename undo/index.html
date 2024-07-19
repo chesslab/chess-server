@@ -120,7 +120,7 @@
 <h2 id="usage">Usage</h2>
 <h3 id="example">Example</h3>
 <p>Starts a classical game to play 1.e4 e5 2.f4 undoing the last move.</p>
-<pre><code class="language-js">ws.send('/start classical fen');
+<pre><code class="language-js">ws.send('/start classical analysis');
 ws.send('/play_lan w e2e4');
 ws.send('/play_lan b e7e5');
 ws.send('/play_lan w f2f4');
@@ -138,7 +138,11 @@ ws.send('/undo');
     &quot;isMate&quot;: false,
     &quot;isStalemate&quot;: false,
     &quot;isFivefoldRepetition&quot;: false,
-    &quot;mode&quot;: &quot;fen&quot;,
+    &quot;isFiftyMoveDraw&quot;: false,
+    &quot;isDeadPositionDraw&quot;: false,
+    &quot;doesDraw&quot;: false,
+    &quot;doesWin&quot;: false,
+    &quot;mode&quot;: &quot;analysis&quot;,
     &quot;variant&quot;: &quot;classical&quot;
   }
 }

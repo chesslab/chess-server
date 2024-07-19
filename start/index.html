@@ -59,7 +59,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#mode">mode</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#add-optional">add (optional)</a>
+    <li class="toctree-l2"><a class="reference internal" href="#settings-optional">settings (optional)</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
         <ul>
@@ -139,34 +139,42 @@
 <ul>
 <li><code>classical</code> chess, also known as standard or slow chess.</li>
 <li><code>960</code> is the same as classical chess except that the starting position of the pieces is randomized.</li>
+<li><code>dunsany</code> is an asymmetric variant in which Black has the standard chess army and White has 32 pawns.</li>
+<li><code>losing</code> chess, the objective of each player is to lose all of their pieces or be stalemated.</li>
+<li><code>racing-kings</code> consists of being the first player to move their king to the eighth row.</li>
 </ul>
 <h2 id="mode"><code>mode</code></h2>
 <p>The game mode as per these options.</p>
 <ul>
-<li><code>fen</code> is used to start games from specific chess positions.</li>
-<li><code>san</code> is used to load games from the starting position.</li>
+<li><code>analysis</code> is used to start games for further analysis.</li>
 <li><code>play</code> allows to play chess online with other players.</li>
 <li><code>stockfish</code> allows to play chess against the computer.</li>
 </ul>
-<h2 id="add-optional"><code>add</code> (optional)</h2>
+<h2 id="settings-optional"><code>settings</code> (optional)</h2>
 <p>Additional optional parameters may be required depending on the mode selected as shown in the examples below.</p>
 <ul>
+<li><code>color</code></li>
 <li><code>fen</code></li>
+<li><code>increment</code></li>
+<li><code>min</code></li>
 <li><code>movetext</code></li>
 <li><code>startPos</code></li>
-<li><code>settings</code></li>
-<li><code>color</code></li>
+<li><code>submode</code></li>
 </ul>
 <hr />
 <h2 id="usage">Usage</h2>
 <h3 id="start-a-classical-game">Start a classical game</h3>
-<pre><code class="language-js">ws.send('/start classical fen');
+<pre><code class="language-js">ws.send('/start classical analysis');
 </code></pre>
 <pre><code class="language-text">{
   &quot;/start&quot;: {
     &quot;variant&quot;: &quot;classical&quot;,
-    &quot;mode&quot;: &quot;fen&quot;,
-    &quot;fen&quot;: &quot;rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -&quot;
+    &quot;mode&quot;: &quot;analysis&quot;,
+    &quot;turn&quot;: &quot;w&quot;,
+    &quot;movetext&quot;: &quot;&quot;,
+    &quot;fen&quot;: [
+      &quot;rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -&quot;
+    ]
   }
 }
 </code></pre>
@@ -181,19 +189,23 @@
 </thead>
 <tbody>
 <tr>
-<td><code>add</code></td>
+<td><code>settings</code></td>
 <td><code>fen</code></td>
 <td>Yes</td>
 </tr>
 </tbody>
 </table>
-<pre><code class="language-js">ws.send('/start classical fen &quot;{\\&quot;fen\\&quot;:\\&quot;r1bqkbnr/pppppppp/2n5/8/3PP3/8/PPP2PPP/RNBQKBNR b KQkq d3\\&quot;}&quot;');
+<pre><code class="language-js">ws.send('/start classical analysis &quot;{\\&quot;fen\\&quot;:\\&quot;r1bqkbnr/pppppppp/2n5/8/3PP3/8/PPP2PPP/RNBQKBNR b KQkq d3\\&quot;}&quot;');
 </code></pre>
 <pre><code class="language-text">{
   &quot;/start&quot;: {
     &quot;variant&quot;: &quot;classical&quot;,
-    &quot;mode&quot;: &quot;fen&quot;,
-    &quot;fen&quot;: &quot;r1bqkbnr/pppppppp/2n5/8/3PP3/8/PPP2PPP/RNBQKBNR b KQkq -&quot;
+    &quot;mode&quot;: &quot;analysis&quot;,
+    &quot;turn&quot;: &quot;b&quot;,
+    &quot;movetext&quot;: &quot;&quot;,
+    &quot;fen&quot;: [
+      &quot;r1bqkbnr/pppppppp/2n5/8/3PP3/8/PPP2PPP/RNBQKBNR b KQkq -&quot;
+    ]
   }
 }
 </code></pre>
@@ -208,18 +220,18 @@
 </thead>
 <tbody>
 <tr>
-<td><code>add</code></td>
+<td><code>settings</code></td>
 <td><code>movetext</code></td>
 <td>Yes</td>
 </tr>
 </tbody>
 </table>
-<pre><code class="language-js">ws.send('/start classical san &quot;{\\&quot;movetext\\&quot;:\\&quot;1.e4 Nc6 2.d4\\&quot;}&quot;');
+<pre><code class="language-js">ws.send('/start classical analysis &quot;{\\&quot;movetext\\&quot;:\\&quot;1.e4 Nc6 2.d4\\&quot;}&quot;');
 </code></pre>
 <pre><code class="language-text">{
   &quot;/start&quot;: {
     &quot;variant&quot;: &quot;classical&quot;,
-    &quot;mode&quot;: &quot;san&quot;,
+    &quot;mode&quot;: &quot;analysis&quot;,
     &quot;turn&quot;: &quot;b&quot;,
     &quot;movetext&quot;: &quot;1.e4 Nc6 2.d4&quot;,
     &quot;fen&quot;: [
@@ -242,27 +254,27 @@
 </thead>
 <tbody>
 <tr>
-<td><code>add</code></td>
+<td><code>settings</code></td>
 <td><code>movetext</code><br/><code>startPos</code></td>
 <td>Yes</td>
 </tr>
 </tbody>
 </table>
-<pre><code class="language-js">ws.send('/start 960 san &quot;{\\&quot;movetext\\&quot;:\\&quot;1.e4 Nc6 2.d4\\&quot;,\\&quot;startPos\\&quot;:\\&quot;BNRKQBRN\\&quot;}&quot;');
+<pre><code class="language-js">ws.send('/start 960 analysis &quot;{\\&quot;movetext\\&quot;:\\&quot;1.e4 Nc6 2.d4\\&quot;,\\&quot;startPos\\&quot;:\\&quot;BNRKQBRN\\&quot;}&quot;');
 </code></pre>
 <pre><code class="language-text">{
   &quot;/start&quot;: {
     &quot;variant&quot;: &quot;960&quot;,
-    &quot;mode&quot;: &quot;san&quot;,
+    &quot;mode&quot;: &quot;analysis&quot;,
     &quot;turn&quot;: &quot;b&quot;,
     &quot;movetext&quot;: &quot;1.e4 Nc6 2.d4&quot;,
     &quot;fen&quot;: [
-      &quot;bnrkqbrn/pppppppp/8/8/8/8/PPPPPPPP/BNRKQBRN w KQkq -&quot;,
-      &quot;bnrkqbrn/pppppppp/8/8/4P3/8/PPPP1PPP/BNRKQBRN b KQkq e3&quot;,
-      &quot;b1rkqbrn/pppppppp/2n5/8/4P3/8/PPPP1PPP/BNRKQBRN w KQkq -&quot;,
-      &quot;b1rkqbrn/pppppppp/2n5/8/3PP3/8/PPP2PPP/BNRKQBRN b KQkq d3&quot;
+      &quot;rnbkqbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBKQBNR w KQkq -&quot;,
+      &quot;rnbkqbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBKQBNR b KQkq e3&quot;,
+      &quot;r1bkqbnr/pppppppp/2n5/8/4P3/8/PPPP1PPP/RNBKQBNR w KQkq -&quot;,
+      &quot;r1bkqbnr/pppppppp/2n5/8/3PP3/8/PPP2PPP/RNBKQBNR b KQkq d3&quot;
     ],
-    &quot;startPos&quot;: &quot;BNRKQBRN&quot;
+    &quot;startPos&quot;: &quot;RNBKQBNR&quot;
   }
 }
 </code></pre>
@@ -277,7 +289,7 @@
 </thead>
 <tbody>
 <tr>
-<td><code>add</code></td>
+<td><code>settings</code></td>
 <td><code>color</code></td>
 <td>Yes</td>
 </tr>
@@ -302,8 +314,8 @@
     &quot;variant&quot;: &quot;classical&quot;,
     &quot;mode&quot;: &quot;play&quot;,
     &quot;fen&quot;: &quot;rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -&quot;,
-    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MTYzOTE1MTMsImV4cCI6MTcxNjM5NTExMywidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJvbmxpbmUiLCJjb2xvciI6ImIiLCJtaW4iOjUsImluY3JlbWVudCI6MywiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9.BBJROgd2AP9_65QM3UIuxHk9HJ7ySwb_Y7HlVFFxnQE&quot;,
-    &quot;hash&quot;: &quot;2a2c768c&quot;
+    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjE0MDIyNzksImV4cCI6MTcyMTQwNTg3OSwidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJvbmxpbmUiLCJjb2xvciI6ImIiLCJtaW4iOjUsImluY3JlbWVudCI6MywiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9.ftJf7UkcL7EwrjsKQh29VgLHKVtKXggl5TZIruRdKoA&quot;,
+    &quot;hash&quot;: &quot;70a777dd&quot;
   }
 }
 </code></pre>
@@ -318,8 +330,8 @@
 </thead>
 <tbody>
 <tr>
-<td><code>add</code></td>
 <td><code>settings</code></td>
+<td><code>min</code><br/><code>increment</code><br/><code>color</code><br/><code>submode</code></td>
 <td>Yes</td>
 </tr>
 </tbody>
@@ -331,8 +343,8 @@
     &quot;variant&quot;: &quot;classical&quot;,
     &quot;mode&quot;: &quot;play&quot;,
     &quot;fen&quot;: &quot;rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -&quot;,
-    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MTYzOTE1NTAsImV4cCI6MTcxNjM5NTE1MCwidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJmcmllbmQiLCJjb2xvciI6InciLCJtaW4iOjUsImluY3JlbWVudCI6MywiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9.t40rbfZJb8JF8QpVMx9v96yQXzw54gLALMnKRS6qFdE&quot;,
-    &quot;hash&quot;: &quot;c13d765b&quot;
+    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjE0MDI1MDYsImV4cCI6MTcyMTQwNjEwNiwidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJmcmllbmQiLCJjb2xvciI6InciLCJtaW4iOjUsImluY3JlbWVudCI6MywiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9.myjbwTAy_z8CxnPwIQiJqzqYpGmj8bg52R89HB53NrQ&quot;,
+    &quot;hash&quot;: &quot;3b9777a6&quot;
   }
 }
 </code></pre>
