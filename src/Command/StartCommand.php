@@ -117,10 +117,10 @@ class StartCommand extends AbstractCommand
                 }
                 $sanPlay = new SanPlay($settings->movetext ?? '', $board);
                 $sanPlay->validate();
-                $sanMode = new AnalysisMode(new Game($argv[1], $argv[2]), [$id]);
-                $game = $sanMode->getGame()->setBoard($sanPlay->board);
-                $sanMode->setGame($game);
-                $socket->getGameModeStorage()->set($sanMode);
+                $mode = new AnalysisMode(new Game($argv[1], $argv[2]), [$id]);
+                $game = $mode->getGame()->setBoard($sanPlay->board);
+                $mode->setGame($game);
+                $socket->getGameModeStorage()->set($mode);
                 return $socket->getClientStorage()->sendToOne($id, [
                     $this->name => [
                         'variant' => $argv[1],
