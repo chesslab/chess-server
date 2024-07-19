@@ -17,8 +17,8 @@ use Chess\Variant\Losing\FEN\StrToBoard as LosingFenStrToBoard;
 use Chess\Variant\RacingKings\Board as RacingKingsBoard;
 use Chess\Variant\RacingKings\FEN\StrToBoard as RacingKingsFenStrToBoard;
 use ChessServer\Game\Game;
+use ChessServer\Game\AnalysisMode;
 use ChessServer\Game\PlayMode;
-use ChessServer\Game\SanMode;
 use ChessServer\Game\StockfishMode;
 use ChessServer\Socket\ChesslaBlabSocket;
 use Firebase\JWT\JWT;
@@ -40,7 +40,7 @@ class StartCommand extends AbstractCommand
             ],
             // mandatory param
             'mode' => [
-                SanMode::NAME,
+                AnalysisMode::NAME,
                 PlayMode::NAME,
                 StockfishMode::NAME,
             ],
@@ -62,7 +62,7 @@ class StartCommand extends AbstractCommand
         if (in_array($argv[1], $this->params['variant'])) {
             if (in_array($argv[2], $this->params['mode'])) {
                 switch ($argv[2]) {
-                    case SanMode::NAME:
+                    case AnalysisMode::NAME:
                         return count($argv) - 1 === 3 || count($argv) - 1 === 2;
                     case PlayMode::NAME:
                         return count($argv) - 1 === 3;
@@ -80,7 +80,7 @@ class StartCommand extends AbstractCommand
 
     public function run(ChesslaBlabSocket $socket, array $argv, int $id)
     {
-        if (SanMode::NAME === $argv[2]) {
+        if (AnalysisMode::NAME === $argv[2]) {
             try {
                 $settings = isset($argv[3])
                     ? (object) json_decode(stripslashes($argv[3]), true)
@@ -117,10 +117,10 @@ class StartCommand extends AbstractCommand
                 }
                 $sanPlay = new SanPlay($settings->movetext ?? '', $board);
                 $sanPlay->validate();
-                $sanMode = new SanMode(new Game($argv[1], $argv[2]), [$id]);
-                $game = $sanMode->getGame()->setBoard($sanPlay->board);
-                $sanMode->setGame($game);
-                $socket->getGameModeStorage()->set($sanMode);
+                $mode = new AnalysisMode(new Game($argv[1], $argv[2]), [$id]);
+                $game = $mode->getGame()->setBoard($sanPlay->board);
+                $mode->setGame($game);
+                $socket->getGameModeStorage()->set($mode);
                 return $socket->getClientStorage()->sendToOne($id, [
                     $this->name => [
                         'variant' => $argv[1],
@@ -208,8 +208,8 @@ class StartCommand extends AbstractCommand
                 ),
             ];
             $jwt = JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256');
-            $playMode = new PlayMode($game, [$id], $jwt);
-            $socket->getGameModeStorage()->set($playMode);
+            $mode = new PlayMode($game, [$id], $jwt);
+            $socket->getGameModeStorage()->set($mode);
             if ($settings->submode === PlayMode::SUBMODE_ONLINE) {
                 $socket->getClientStorage()->sendToAll([
                     'broadcast' => [
@@ -239,8 +239,8 @@ class StartCommand extends AbstractCommand
             } else {
                 $game = new Game($argv[1], $argv[2], $socket->getGmMove());
             }
-            $stockfishMode = new StockfishMode($game, [$id]);
-            $socket->getGameModeStorage()->set($stockfishMode);
+            $mode = new StockfishMode($game, [$id]);
+            $socket->getGameModeStorage()->set($mode);
             return $socket->getClientStorage()->sendToOne($id, [
                 $this->name => [
                     'variant' => $argv[1],

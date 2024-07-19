@@ -27,8 +27,8 @@ class Game
     const VARIANT_LOSING = LosingBoard::VARIANT;
     const VARIANT_RACING_KINGS = RacingKingsBoard::VARIANT;
 
+    const MODE_ANALYSIS = 'analysis';
     const MODE_PLAY = 'play';
-    const MODE_SAN = 'san';
     const MODE_STOCKFISH = 'stockfish';
 
     /**
