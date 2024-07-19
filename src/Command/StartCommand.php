@@ -84,8 +84,7 @@ class StartCommand extends AbstractCommand
                 if ($argv[1] === Game::VARIANT_960) {
                     if (isset($settings->startPos) && isset($settings->fen)) {
                         $startPos = str_split($settings->startPos);
-                        $board = new Chess960Board($startPos);
-                        $board = FenToBoardFactory::create($settings->fen, $board);
+                        $board = FenToBoardFactory::create($settings->fen, new Chess960Board($startPos));
                     } else {
                         $startPos = (new Chess960StartPosition())->create();
                         $board = new Chess960Board($startPos);
@@ -141,8 +140,7 @@ class StartCommand extends AbstractCommand
                 if ($argv[1] === Game::VARIANT_960) {
                     if (isset($settings->startPos) && isset($settings->fen)) {
                         $startPos = str_split($settings->startPos);
-                        $board = new Chess960Board($startPos);
-                        $board = FenToBoardFactory::create($settings->fen, $board);
+                        $board = FenToBoardFactory::create($settings->fen, new Chess960Board($startPos));
                     } else {
                         $startPos = (new Chess960StartPosition())->create();
                         $board = new Chess960Board($startPos);
@@ -220,8 +218,7 @@ class StartCommand extends AbstractCommand
         } elseif (StockfishMode::NAME === $argv[2]) {
             $settings = (object) json_decode(stripslashes($argv[3]), true);
             if (isset($settings->fen)) {
-                $board = new ClassicalBoard();
-                $board = FenToBoardFactory::create($settings->fen, $board);
+                $board = FenToBoardFactory::create($settings->fen, new ClassicalBoard());
                 $game = (new Game($argv[1], $argv[2]))->setBoard($board);
             } else {
                 $game = new Game($argv[1], $argv[2], $socket->getGmMove());
