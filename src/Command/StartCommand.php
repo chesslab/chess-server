@@ -239,8 +239,8 @@ class StartCommand extends AbstractCommand
             } else {
                 $game = new Game($argv[1], $argv[2], $socket->getGmMove());
             }
-            $stockfishMode = new StockfishMode($game, [$id]);
-            $socket->getGameModeStorage()->set($stockfishMode);
+            $mode = new StockfishMode($game, [$id]);
+            $socket->getGameModeStorage()->set($mode);
             return $socket->getClientStorage()->sendToOne($id, [
                 $this->name => [
                     'variant' => $argv[1],
