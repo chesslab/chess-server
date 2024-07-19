@@ -121,16 +121,16 @@ ws.send('/start 960 analysis "{\\"movetext\\":\\"1.e4 Nc6 2.d4\\",\\"startPos\\"
 {
   "/start": {
     "variant": "960",
-    "mode": "san",
+    "mode": "analysis",
     "turn": "b",
     "movetext": "1.e4 Nc6 2.d4",
     "fen": [
-      "bnrkqbrn/pppppppp/8/8/8/8/PPPPPPPP/BNRKQBRN w KQkq -",
-      "bnrkqbrn/pppppppp/8/8/4P3/8/PPPP1PPP/BNRKQBRN b KQkq e3",
-      "b1rkqbrn/pppppppp/2n5/8/4P3/8/PPPP1PPP/BNRKQBRN w KQkq -",
-      "b1rkqbrn/pppppppp/2n5/8/3PP3/8/PPP2PPP/BNRKQBRN b KQkq d3"
+      "rnbkqbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBKQBNR w KQkq -",
+      "rnbkqbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBKQBNR b KQkq e3",
+      "r1bkqbnr/pppppppp/2n5/8/4P3/8/PPPP1PPP/RNBKQBNR w KQkq -",
+      "r1bkqbnr/pppppppp/2n5/8/3PP3/8/PPP2PPP/RNBKQBNR b KQkq d3"
     ],
-    "startPos": "BNRKQBRN"
+    "startPos": "RNBKQBNR"
   }
 }
 ```
