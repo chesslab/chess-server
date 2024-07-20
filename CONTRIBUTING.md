@@ -11,7 +11,7 @@ Chess is a perfect topic for learning full-stack web development as well as for 
 - Add the following comment to the issue you want to be assigned to: "Hi there, happy learning and coding!"
 - Be prepared to create a friendly PR once the issue has been assigned to you.
 
-Once you're ready, [fork the repo](https://docs.github.com/es/get-started/quickstart/fork-a-repo) and create a new branch from `main` as per the following convention.
+Once you're ready, fork the repo and create a new branch from `main` as per the following convention.
 
 ```text
 $ git checkout -b issue/n-the-title-of-the-issue
