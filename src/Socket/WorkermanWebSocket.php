@@ -24,15 +24,11 @@ class WorkermanWebSocket extends ChesslaBlabSocket
     {
         $this->worker->onConnect = function($conn) {
             $conn->onWebSocketConnect = function($conn , $httpBuffer) {
-                if (!str_starts_with($_SERVER['HTTP_ORIGIN'], "{$_ENV['ALLOWED_USER_AGENT_SCHEME']}://{$_ENV['ALLOWED_USER_AGENT_HOST']}")) {
-                    $conn->close();
-                } else {
-                    $this->clientStorage->attach($conn);
-                    $this->clientStorage->getLogger()->info('New connection', [
-                        'id' => $conn->id,
-                        'n' => $this->clientStorage->count()
-                    ]);
-                }
+                $this->clientStorage->attach($conn);
+                $this->clientStorage->getLogger()->info('New connection', [
+                    'id' => $conn->id,
+                    'n' => $this->clientStorage->count()
+                ]);
             };
         };
 

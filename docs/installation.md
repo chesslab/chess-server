@@ -46,8 +46,6 @@ Before starting the secure WebSocket server for the first time, make sure to hav
 php cli/workerman/wss.php start -d
 ```
 
-This will allow the `ALLOWED_USER_AGENT_HOST` defined in the `.env` file to send requests to the chess server.
-
 ## Run the Chess Server on a Docker Container
 
 The chess server can also run on a Docker container.

@@ -8,7 +8,6 @@ use Dotenv\Dotenv;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Ratchet\Http\HttpServer;
-use Ratchet\Http\OriginCheck;
 use Ratchet\Server\IoServer;
 use Ratchet\WebSocket\WsServer;
 use React\EventLoop\Factory;
@@ -28,10 +27,6 @@ $clientStorage = new RatchetClientStorage($logger);
 
 $webSocket = (new RatchetWebSocket())->init($clientStorage);
 
-$allowed = [
-    $_ENV['ALLOWED_USER_AGENT_HOST'],
-];
-
 $loop = Factory::create();
 
 $server = new Server("{$_ENV['WSS_ADDRESS']}:{$_ENV['WSS_PORT']}", $loop);
@@ -44,12 +39,7 @@ $secureServer = new SecureServer($server, $loop, [
 
 $limitingServer = new LimitingServer($secureServer, 50);
 
-$httpServer = new HttpServer(
-    new OriginCheck(
-      new WsServer($webSocket),
-      $allowed,
-    )
-);
+$httpServer = new HttpServer(new WsServer($webSocket));
 
 $ioServer = new IoServer($httpServer, $limitingServer, $loop);
 
