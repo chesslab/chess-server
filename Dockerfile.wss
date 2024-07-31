@@ -29,8 +29,8 @@ RUN composer install \
 # By default, Composer runs as root inside the container.
 # This can lead to permission issues on your host filesystem.
 
-RUN chown -R 1000:1000 /usr/share/chess-server/vendor
+RUN chown -R 1000:1000 vendor
 
-RUN chmod -R 775 /usr/share/chess-server/vendor
+RUN chmod -R 775 vendor
 
 CMD ["php", "cli/workerman/wss.php", "start", "--d"]
