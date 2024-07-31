@@ -6,7 +6,7 @@ Clone the `chesslablab/chess-server` repo into your projects folder. Then `cd` t
 cp .env.example .env
 ```
 
-Before starting the secure WebSocket server for the first time, make sure to have installed the `fullchain.pem` and `privkey.pem` files in the `ssl` folder.
+Make sure to have installed the `fullchain.pem` and `privkey.pem` files in the `ssl` folder.
 
 Run the Docker container in detached mode in the background:
 
