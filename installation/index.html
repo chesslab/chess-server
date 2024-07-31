@@ -111,6 +111,9 @@
 <p>Clone the <code>chesslablab/chess-server</code> repo into your projects folder. Then <code>cd</code> the <code>chess-server</code> directory and create an <code>.env</code> file:</p>
 <pre><code class="language-txt">cp .env.example .env
 </code></pre>
+<p>Create an empty <code>pchess.log</code> file:</p>
+<pre><code class="language-txt">touch storage/pchess.log
+</code></pre>
 <p>Make sure to have installed the <code>fullchain.pem</code> and <code>privkey.pem</code> files in the <code>ssl</code> folder.</p>
 <p>Run the Docker container in detached mode in the background:</p>
 <pre><code class="language-txt">docker compose -f docker-compose.wss.yml up -d
