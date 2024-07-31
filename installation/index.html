@@ -46,14 +46,6 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Installation</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#run-the-chess-server">Run the Chess Server</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#run-the-chess-server-on-a-docker-container">Run the Chess Server on a Docker Container</a>
-    </li>
     </ul>
                 </li>
               </ul>
@@ -116,58 +108,16 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="installation">Installation</h1>
-<h2 id="requirements">Requirements</h2>
-<ul>
-<li>PHP &gt;= 8.1</li>
-<li>Stockfish &gt;= 15.1</li>
-</ul>
-<h2 id="setup">Setup</h2>
-<p>Clone the <code>chesslablab/chess-server</code> repo into your projects folder. Then <code>cd</code> the <code>chess-server</code> directory and install the Composer dependencies:</p>
-<pre><code class="language-txt">composer install
-</code></pre>
-<p>Create an <code>.env</code> file:</p>
+<p>Clone the <code>chesslablab/chess-server</code> repo into your projects folder.</p>
+<p>Then <code>cd</code> the <code>chess-server</code> directory and create an <code>.env</code> file:</p>
 <pre><code class="language-txt">cp .env.example .env
 </code></pre>
-<p>Finally, you may want to add the following entry to your <code>/etc/hosts</code> file if running the chess server on your localhost along with the <a href="https://github.com/chesslablab/website">ChesslaBlab website</a> as per the <code>WEBSOCKET_HOST</code> variable defined in the <a href="https://github.com/chesslablab/website/blob/main/assets/env.example.js">assets/env.example.js</a> file.</p>
-<pre><code class="language-txt">127.0.0.1       async.chesslablab.org
-</code></pre>
-<h2 id="run-the-chess-server">Run the Chess Server</h2>
-<p>PHP Chess Server uses Workerman WebSockets.</p>
-<table>
-<thead>
-<tr>
-<th>Script</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://github.com/chesslablab/chess-server/blob/main/cli/workerman/wss.php">cli/workerman/wss.php</a></td>
-<td>Secure WebSocket.</td>
-</tr>
-</tbody>
-</table>
-<p>Alternatively, it can use Ratchet WebSockets.</p>
-<table>
-<thead>
-<tr>
-<th>Script</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://github.com/chesslablab/chess-server/blob/main/cli/ratchet/wss.php">cli/ratchet/wss.php</a></td>
-<td>Secure WebSocket.</td>
-</tr>
-</tbody>
-</table>
-<p>Before starting the secure WebSocket server for the first time, make sure to have created the <code>fullchain.pem</code> and <code>privkey.pem</code> files in the <code>ssl</code> folder.</p>
-<pre><code class="language-txt">php cli/workerman/wss.php start -d
-</code></pre>
-<h2 id="run-the-chess-server-on-a-docker-container">Run the Chess Server on a Docker Container</h2>
-<p>The chess server can also run on a Docker container.</p>
+<p>Before starting the secure WebSocket server for the first time, make sure to have installed the <code>fullchain.pem</code> and <code>privkey.pem</code> files in the <code>ssl</code> folder.</p>
+<p>Run the Docker container in detached mode in the background:</p>
 <pre><code class="language-txt">docker compose -f docker-compose.wss.yml up -d
+</code></pre>
+<p>Finally, if you are running the chess server on your localhost along with the <a href="https://github.com/chesslablab/website">website</a>, you may want to add an entry to your <code>/etc/hosts</code> file as per the <code>WEBSOCKET</code> variable defined in the <a href="https://github.com/chesslablab/website/blob/main/assets/env.example.js">assets/env.example.js</a> file.</p>
+<pre><code class="language-txt">127.0.0.1       async.chesslablab.org
 </code></pre>
               
             </div>
