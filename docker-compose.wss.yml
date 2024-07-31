@@ -1,10 +1,10 @@
 services:
-  php_fpm:
+  php:
       build:
         context: .
         dockerfile: Dockerfile.wss
       user: 1000:1000
-      container_name: chess_server_php_fpm
+      container_name: chess_server_php
       ports:
           - ${WSS_PORT}:${WSS_PORT}
       restart: always
