@@ -1,8 +1,6 @@
 # Installation
 
-Clone the `chesslablab/chess-server` repo into your projects folder.
-
-Then `cd` the `chess-server` directory and create an `.env` file:
+Clone the `chesslablab/chess-server` repo into your projects folder. Then `cd` the `chess-server` directory and create an `.env` file:
 
 ```txt
 cp .env.example .env
