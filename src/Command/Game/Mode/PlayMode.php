@@ -1,10 +1,10 @@
 <?php
 
-namespace ChessServer\Game;
+namespace ChessServer\Command\Game\Mode;
 
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Game\Game;
-use ChessServer\Command\PlayLanCommand;
+use ChessServer\Command\Game\Game;
+use ChessServer\Command\Game\PlayLanCommand;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 

@@ -4,7 +4,7 @@ namespace ChessServer\Command\Game;
 
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Game\PlayMode;
+use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\ChesslaBlabSocket;
 
 class AcceptPlayRequestCommand extends AbstractCommand

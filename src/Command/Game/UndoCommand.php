@@ -3,7 +3,7 @@
 namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Game\PlayMode;
+use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\ChesslaBlabSocket;
 
 class UndoCommand extends AbstractCommand

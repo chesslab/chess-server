@@ -7,7 +7,7 @@ use Chess\Randomizer\Checkmate\TwoBishopsRandomizer;
 use Chess\Randomizer\Endgame\PawnEndgameRandomizer;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Game\PlayMode;
+use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\ChesslaBlabSocket;
 
 class RandomizerCommand extends AbstractCommand

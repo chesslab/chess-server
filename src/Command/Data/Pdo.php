@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Data;
+namespace ChessServer\Command\Data;
 
 /**
  * Pdo class.

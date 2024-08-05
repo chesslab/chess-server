@@ -1,8 +1,8 @@
 <?php
 
-namespace ChessServer\Game;
+namespace ChessServer\Command\Game\Mode;
 
-use ChessServer\Game\Game;
+use ChessServer\Command\Game\Game;
 
 class StockfishMode extends AbstractMode
 {

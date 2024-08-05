@@ -4,7 +4,7 @@ namespace ChessServer\Socket;
 
 use Chess\Computer\GrandmasterMove;
 use ChessServer\Command\CommandParser;
-use ChessServer\Game\GameModeStorage;
+use ChessServer\Command\Game\GameModeStorage;
 
 /**
  * ChesslaBlabSocket

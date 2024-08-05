@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Game;
+namespace ChessServer\Command\Game;
 
 use Chess\Computer\GrandmasterMove;
 use Chess\UciEngine\UciEngine;
