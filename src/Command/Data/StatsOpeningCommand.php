@@ -10,7 +10,7 @@ class StatsOpeningCommand extends AbstractCommand
 {
     public function __construct()
     {
-        $this->name = '/stats_openings';
+        $this->name = '/stats_opening';
         $this->description = 'Stats for chess openings.';
     }
 
