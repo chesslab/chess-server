@@ -10,7 +10,7 @@ class CommandParser
 
     protected $cli;
 
-    public function __construct($cli)
+    public function __construct(AbstractCommandContainer $cli)
     {
         $this->cli = $cli;
     }
