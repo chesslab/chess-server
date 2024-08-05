@@ -21,8 +21,6 @@ class StatsOpeningCommand extends AbstractCommand
 
     public function run(ChesslaBlabSocket $socket, array $argv, int $id)
     {
-        $conf = include(__DIR__.'/../../../config/database.php');
-
         $sql = "SELECT ECO, COUNT(*) AS total
           FROM games
           WHERE Result = '1/2-1/2'
@@ -31,7 +29,7 @@ class StatsOpeningCommand extends AbstractCommand
           ORDER BY total DESC
           LIMIT 50";
 
-        $drawRate = Pdo::getInstance($conf)
+        $drawRate = Pdo::getInstance($this->conf()['database'])
           ->query($sql)
           ->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -43,7 +41,7 @@ class StatsOpeningCommand extends AbstractCommand
           ORDER BY total DESC
           LIMIT 50";
 
-        $winRateForWhite = Pdo::getInstance($conf)
+        $winRateForWhite = Pdo::getInstance($this->conf()['database'])
           ->query($sql)
           ->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -55,7 +53,7 @@ class StatsOpeningCommand extends AbstractCommand
           ORDER BY total DESC
           LIMIT 50";
 
-        $winRateForBlack = Pdo::getInstance($conf)
+        $winRateForBlack = Pdo::getInstance($this->conf()['database'])
           ->query($sql)
           ->fetchAll(\PDO::FETCH_ASSOC);
 

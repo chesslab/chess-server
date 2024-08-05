@@ -19,6 +19,15 @@ abstract class AbstractCommand
         }
     }
 
+    public function conf()
+    {
+        $conf = [
+            'database' => include(__DIR__.'/../../config/database.php'),
+        ];
+
+        return $conf;
+    }
+
     abstract public function validate(array $command);
 
     abstract public function run(ChesslaBlabSocket $socket, array $argv, int $id);

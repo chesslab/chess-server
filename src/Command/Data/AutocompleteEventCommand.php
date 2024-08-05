@@ -24,8 +24,6 @@ class AutocompleteEventCommand extends AbstractCommand
 
     public function run(ChesslaBlabSocket $socket, array $argv, int $id)
     {
-        $conf = include(__DIR__.'/../../../config/database.php');
-
         $params = json_decode(stripslashes($argv[1]), true);
 
         $key = key($params);
@@ -38,7 +36,7 @@ class AutocompleteEventCommand extends AbstractCommand
 
         $sql = "SELECT DISTINCT $key FROM games WHERE $key LIKE :$key LIMIT 10";
 
-        $arr = Pdo::getInstance($conf)
+        $arr = Pdo::getInstance($this->conf()['database'])
             ->query($sql, $values)
             ->fetchAll(\PDO::FETCH_COLUMN);
 
