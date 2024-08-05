@@ -12,5 +12,6 @@ class CommandContainer extends AbstractCommandContainer
         $this->obj->attach(new AutocompleteEventCommand());
         $this->obj->attach(new AutocompletePlayerCommand());
         $this->obj->attach(new StatsOpeningCommand());
+        $this->obj->attach(new StatsPlayerCommand());
     }
 }
