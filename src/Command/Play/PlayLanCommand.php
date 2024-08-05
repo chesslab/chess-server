@@ -1,21 +1,25 @@
 <?php
 
-namespace ChessServer\Command;
+namespace ChessServer\Command\Play;
 
 use ChessServer\Game\PlayMode;
 use ChessServer\Socket\ChesslaBlabSocket;
 
-class UndoCommand extends AbstractCommand
+class PlayLanCommand extends AbstractCommand
 {
     public function __construct()
     {
-        $this->name = '/undo';
-        $this->description = 'Undoes the last move.';
+        $this->name = '/play_lan';
+        $this->description = 'Plays a chess move in long algebraic notation.';
+        $this->params = [
+            'color' => '<string>',
+            'lan' => '<string>',
+        ];
     }
 
     public function validate(array $argv)
     {
-        return count($argv) - 1 === 0;
+        return count($argv) - 1 === count($this->params);
     }
 
     public function run(ChesslaBlabSocket $socket, array $argv, int $id)

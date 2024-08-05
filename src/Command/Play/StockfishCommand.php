@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command;
+namespace ChessServer\Command\Play;
 
 use ChessServer\Game\PlayMode;
 use ChessServer\Socket\ChesslaBlabSocket;

@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command;
+namespace ChessServer\Command\Play;
 
 use Chess\FenToBoardFactory;
 use Chess\Play\SanPlay;

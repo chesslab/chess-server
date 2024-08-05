@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command;
+namespace ChessServer\Command\Play;
 
 use Chess\Randomizer\Randomizer;
 use Chess\Randomizer\Checkmate\TwoBishopsRandomizer;
