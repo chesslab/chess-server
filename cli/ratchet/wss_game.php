@@ -2,6 +2,8 @@
 
 namespace ChessServer\Cli\Ratchet;
 
+use ChessServer\Command\CommandParser;
+use ChessServer\Command\Play\CommandContainer;
 use ChessServer\Socket\RatchetClientStorage;
 use ChessServer\Socket\RatchetWebSocket;
 use Dotenv\Dotenv;
@@ -25,11 +27,13 @@ $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/pchess.log',
 
 $clientStorage = new RatchetClientStorage($logger);
 
-$webSocket = (new RatchetWebSocket())->init($clientStorage);
+$parser = new CommandParser(new CommandContainer());
+
+$webSocket = (new RatchetWebSocket($parser))->init($clientStorage);
 
 $loop = Factory::create();
 
-$server = new Server("{$_ENV['WSS_ADDRESS']}:{$_ENV['WSS_PORT']}", $loop);
+$server = new Server("{$_ENV['WSS_ADDRESS']}:{$_ENV['WSS_GAME_PORT']}", $loop);
 
 $secureServer = new SecureServer($server, $loop, [
     'local_cert'  => __DIR__  . '/../../ssl/fullchain.pem',

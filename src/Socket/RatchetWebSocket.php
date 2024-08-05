@@ -2,13 +2,19 @@
 
 namespace ChessServer\Socket;
 
-use ChessServer\Command\LeaveCommand;
+use ChessServer\Command\CommandParser;
+use ChessServer\Command\Play\LeaveCommand;
 use ChessServer\Exception\ParserException;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
 class RatchetWebSocket extends ChesslaBlabSocket implements MessageComponentInterface
 {
+    public function __construct(CommandParser $parser)
+    {
+        parent::__construct($parser);
+    }
+
     public function onOpen(ConnectionInterface $conn)
     {
         $this->clientStorage->attach($conn);

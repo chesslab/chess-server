@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command;
+namespace ChessServer\Command\Play;
 
 use Chess\FenToBoardFactory;
 use Chess\Play\SanPlay;
@@ -12,6 +12,7 @@ use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Dunsany\Board as DunsanyBoard;
 use Chess\Variant\Losing\Board as LosingBoard;
 use Chess\Variant\RacingKings\Board as RacingKingsBoard;
+use ChessServer\Command\AbstractCommand;
 use ChessServer\Game\Game;
 use ChessServer\Game\AnalysisMode;
 use ChessServer\Game\PlayMode;

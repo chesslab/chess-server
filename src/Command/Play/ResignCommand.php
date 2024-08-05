@@ -1,28 +1,23 @@
 <?php
 
-namespace ChessServer\Command;
+namespace ChessServer\Command\Play;
 
+use ChessServer\Command\AbstractCommand;
 use ChessServer\Game\PlayMode;
 use ChessServer\Socket\ChesslaBlabSocket;
 
-class RematchCommand extends AbstractCommand
+class ResignCommand extends AbstractCommand
 {
     const ACTION_ACCEPT    = 'accept';
 
-    const ACTION_DECLINE   = 'decline';
-
-    const ACTION_PROPOSE   = 'propose';
-
     public function __construct()
     {
-        $this->name = '/rematch';
-        $this->description = 'Allows to offer a rematch.';
+        $this->name = '/resign';
+        $this->description = 'Allows to resign a game.';
         $this->params = [
             // mandatory param
             'action' => [
                 self::ACTION_ACCEPT,
-                self::ACTION_DECLINE,
-                self::ACTION_PROPOSE,
             ],
         ];
     }

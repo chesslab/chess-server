@@ -2,6 +2,8 @@
 
 namespace ChessServer\Cli\Workerman;
 
+use ChessServer\Command\CommandParser;
+use ChessServer\Command\Play\CommandContainer;
 use ChessServer\Socket\WorkermanClientStorage;
 use ChessServer\Socket\WorkermanWebSocket;
 use Dotenv\Dotenv;
@@ -18,7 +20,7 @@ $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/pchess.log',
 
 $clientStorage = new WorkermanClientStorage($logger);
 
-$socketName = "websocket://{$_ENV['WSS_ADDRESS']}:{$_ENV['WSS_PORT']}";
+$socketName = "websocket://{$_ENV['WSS_ADDRESS']}:{$_ENV['WSS_GAME_PORT']}";
 
 $context = [
     'ssl' => [
@@ -28,6 +30,8 @@ $context = [
     ],
 ];
 
-$server = (new WorkermanWebSocket($socketName, $context))->init($clientStorage);
+$parser = new CommandParser(new CommandContainer());
+
+$server = (new WorkermanWebSocket($socketName, $context, $parser))->init($clientStorage);
 
 $server->run();

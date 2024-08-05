@@ -1,8 +1,9 @@
 <?php
 
-namespace ChessServer\Command;
+namespace ChessServer\Command\Play;
 
 use Chess\Variant\Classical\PGN\AN\Color;
+use ChessServer\Command\AbstractCommand;
 use ChessServer\Game\PlayMode;
 use ChessServer\Socket\ChesslaBlabSocket;
 

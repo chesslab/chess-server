@@ -1,11 +1,12 @@
 <?php
 
-namespace ChessServer\Command;
+namespace ChessServer\Command\Play;
 
 use Chess\Randomizer\Randomizer;
 use Chess\Randomizer\Checkmate\TwoBishopsRandomizer;
 use Chess\Randomizer\Endgame\PawnEndgameRandomizer;
 use Chess\Variant\Classical\PGN\AN\Color;
+use ChessServer\Command\AbstractCommand;
 use ChessServer\Game\PlayMode;
 use ChessServer\Socket\ChesslaBlabSocket;
 

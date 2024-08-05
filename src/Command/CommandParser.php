@@ -10,9 +10,9 @@ class CommandParser
 
     protected $cli;
 
-    public function __construct()
+    public function __construct(AbstractCommandContainer $cli)
     {
-        $this->cli = new CommandContainer();
+        $this->cli = $cli;
     }
 
     public function __get($property)

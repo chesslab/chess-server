@@ -46,10 +46,12 @@ class ChesslaBlabSocket
 
     /**
      * Constructor.
+     *
+     * @param \ChessServer\Command\CommandParser $parser
      */
-    public function __construct()
+    public function __construct(CommandParser $parser)
     {
-        $this->parser = new CommandParser();
+        $this->parser = $parser;
         $this->gmMove = new GrandmasterMove(self::DATA_FOLDER.'/players.json');
         $this->gameModeStorage = new GameModeStorage();
 
