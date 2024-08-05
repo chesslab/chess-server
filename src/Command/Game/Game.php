@@ -13,12 +13,6 @@ use Chess\Variant\Dunsany\Board as DunsanyBoard;
 use Chess\Variant\Losing\Board as LosingBoard;
 use Chess\Variant\RacingKings\Board as RacingKingsBoard;
 
-/**
- * Game
- *
- * @author Jordi Bassagaña
- * @license GPL
- */
 class Game
 {
     const VARIANT_960 = Chess960Board::VARIANT;
@@ -31,41 +25,14 @@ class Game
     const MODE_PLAY = 'play';
     const MODE_STOCKFISH = 'stockfish';
 
-    /**
-     * Chess board.
-     *
-     * @var \Chess\Variant\AbstractBoard
-     */
     private AbstractBoard $board;
 
-    /**
-     * Variant.
-     *
-     * @var string
-     */
     private string $variant;
 
-    /**
-     * Mode.
-     *
-     * @var string
-     */
     private string $mode;
 
-    /**
-     * Grandmaster computer.
-     *
-     * @var \Chess\Computer\GrandmasterMove
-     */
     private null|GrandmasterMove $gmMove;
 
-    /**
-     * Constructor.
-     *
-     * @param string $variant
-     * @param string $mode
-     * @param GrandmasterMove|null \Chess\Computer\GrandmasterMove|null
-     */
     public function __construct(
         string $variant,
         string $mode,
@@ -89,42 +56,21 @@ class Game
         }
     }
 
-    /**
-     * Returns the chess board object.
-     *
-     * @return \Chess\Variant\AbstractBoard
-     */
     public function getBoard(): AbstractBoard
     {
         return $this->board;
     }
 
-    /**
-     * Returns the game variant.
-     *
-     * @return string
-     */
     public function getVariant(): string
     {
         return $this->variant;
     }
 
-    /**
-     * Returns the game mode.
-     *
-     * @return string
-     */
     public function getMode(): string
     {
         return $this->mode;
     }
 
-    /**
-     * Sets the chess board object.
-     *
-     * @param \Chess\Variant\AbstractBoard $board
-     * @return \ChessServer\Game
-     */
     public function setBoard(AbstractBoard $board): Game
     {
         $this->board = $board;
@@ -132,11 +78,6 @@ class Game
         return $this;
     }
 
-    /**
-     * Returns the state of the board.
-     *
-     * @return object
-     */
     public function state(): object
     {
         $history = $this->board->history;
@@ -161,13 +102,6 @@ class Game
         ];
     }
 
-    /**
-     * Returns a computer generated response to the current position.
-     *
-     * @param array $options
-     * @param array $params
-     * @return array|null
-     */
     public function computer(array $options = [], array $params = []): ?array
     {
         if ($this->gmMove) {
@@ -191,25 +125,11 @@ class Game
         ];
     }
 
-    /**
-     * Makes a move.
-     *
-     * @param string $color
-     * @param string $pgn
-     * @return bool true if the move can be made; otherwise false
-     */
     public function play(string $color, string $pgn): bool
     {
         return $this->board->play($color, $pgn);
     }
 
-    /**
-     * Makes a move in long algebraic notation.
-     *
-     * @param string $color
-     * @param string $lan
-     * @return bool true if the move can be made; otherwise false
-     */
     public function playLan(string $color, string $lan): bool
     {
         return $this->board->playLan($color, $lan);
