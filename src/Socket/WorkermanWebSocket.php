@@ -2,7 +2,8 @@
 
 namespace ChessServer\Socket;
 
-use ChessServer\Command\LeaveCommand;
+use ChessServer\Command\CommandParser;
+use ChessServer\Command\Play\LeaveCommand;
 use ChessServer\Exception\ParserException;
 use Workerman\Worker;
 
@@ -10,7 +11,7 @@ class WorkermanWebSocket extends ChesslaBlabSocket
 {
     private Worker $worker;
 
-    public function __construct(string $socketName, array $context, $parser)
+    public function __construct(string $socketName, array $context, CommandParser $parser)
     {
         parent::__construct($parser);
 
