@@ -10,9 +10,9 @@ class WorkermanWebSocket extends ChesslaBlabSocket
 {
     private Worker $worker;
 
-    public function __construct(string $socketName, array $context)
+    public function __construct(string $socketName, array $context, $parser)
     {
-        parent::__construct();
+        parent::__construct($parser);
 
         $this->worker = new Worker($socketName, $context);
         $this->worker->transport = 'ssl';
