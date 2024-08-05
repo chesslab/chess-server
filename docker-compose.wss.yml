@@ -6,7 +6,7 @@ services:
       user: 1000:1000
       container_name: chess_server_php
       ports:
-          - ${WSS_PORT}:${WSS_PORT}
+          - ${WSS_GAME_PORT}:${WSS_GAME_PORT}
       restart: always
       volumes:
           - ./:/usr/share/chess-server

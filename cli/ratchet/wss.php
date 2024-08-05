@@ -29,7 +29,7 @@ $webSocket = (new RatchetWebSocket())->init($clientStorage);
 
 $loop = Factory::create();
 
-$server = new Server("{$_ENV['WSS_ADDRESS']}:{$_ENV['WSS_PORT']}", $loop);
+$server = new Server("{$_ENV['WSS_ADDRESS']}:{$_ENV['WSS_GAME_PORT']}", $loop);
 
 $secureServer = new SecureServer($server, $loop, [
     'local_cert'  => __DIR__  . '/../../ssl/fullchain.pem',
