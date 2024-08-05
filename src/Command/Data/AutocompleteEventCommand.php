@@ -2,8 +2,8 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Data\Pdo;
 use ChessServer\Command\AbstractCommand;
+use ChessServer\Data\Pdo;
 use ChessServer\Socket\ChesslaBlabSocket;
 
 class AutocompleteEventCommand extends AbstractCommand
