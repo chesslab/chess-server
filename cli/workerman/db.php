@@ -3,6 +3,7 @@
 namespace ChessServer\Cli\Workerman;
 
 use ChessServer\Command\CommandParser;
+use ChessServer\Command\Db\CommandContainer;
 use ChessServer\Socket\WorkermanClientStorage;
 use ChessServer\Socket\WorkermanWebSocket;
 use Dotenv\Dotenv;
@@ -29,6 +30,8 @@ $context = [
     ],
 ];
 
-$server = (new WorkermanWebSocket($socketName, $context))->init($clientStorage);
+$parser = new CommandParser(new CommandContainer());
+
+$server = (new WorkermanWebSocket($socketName, $context, $parser))->init($clientStorage);
 
 $server->run();
