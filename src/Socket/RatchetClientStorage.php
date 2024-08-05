@@ -7,11 +7,6 @@ use Monolog\Logger;
 
 class RatchetClientStorage extends \SplObjectStorage implements ClientStorageInterface
 {
-    /**
-     * Logger.
-     *
-     * @var \Monolog\Logger
-     */
     private Logger $logger;
 
     public function __construct(Logger $logger)
