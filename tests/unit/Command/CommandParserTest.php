@@ -1,11 +1,12 @@
 <?php
 
-namespace ChessServer\Tests\Unit;
+namespace ChessServer\Tests\Unit\Command;
 
-use ChessServer\Command\AcceptPlayRequestCommand;
 use ChessServer\Command\CommandParser;
-use ChessServer\Command\RestartCommand;
-use ChessServer\Command\StartCommand;
+use ChessServer\Command\Play\AcceptPlayRequestCommand;
+use ChessServer\Command\Play\CommandContainer;
+use ChessServer\Command\Play\RestartCommand;
+use ChessServer\Command\Play\StartCommand;
 use ChessServer\Exception\ParserException;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +16,7 @@ class CommandParserTest extends TestCase
 
     public function setUp(): void
     {
-        self::$parser = new CommandParser();
+        self::$parser = new CommandParser(new CommandContainer());
     }
 
     /**
