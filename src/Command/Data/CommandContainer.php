@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Db;
+namespace ChessServer\Command\Data;
 
 use ChessServer\Command\AbstractCommandContainer;
 

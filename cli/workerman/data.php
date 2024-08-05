@@ -3,7 +3,7 @@
 namespace ChessServer\Cli\Workerman;
 
 use ChessServer\Command\CommandParser;
-use ChessServer\Command\Db\CommandContainer;
+use ChessServer\Command\Data\CommandContainer;
 use ChessServer\Socket\WorkermanClientStorage;
 use ChessServer\Socket\WorkermanWebSocket;
 use Dotenv\Dotenv;
