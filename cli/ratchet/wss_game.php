@@ -3,7 +3,7 @@
 namespace ChessServer\Cli\Ratchet;
 
 use ChessServer\Command\CommandParser;
-use ChessServer\Command\Play\CommandContainer;
+use ChessServer\Command\Game\CommandContainer;
 use ChessServer\Socket\RatchetClientStorage;
 use ChessServer\Socket\RatchetWebSocket;
 use Dotenv\Dotenv;

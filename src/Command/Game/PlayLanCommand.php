@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Play;
+namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Game\PlayMode;

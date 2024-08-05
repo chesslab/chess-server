@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Play;
+namespace ChessServer\Command\Game;
 
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\AbstractCommand;

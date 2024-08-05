@@ -1,12 +1,12 @@
 <?php
 
-namespace ChessServer\Command\Play;
+namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Game\PlayMode;
 use ChessServer\Socket\ChesslaBlabSocket;
 
-class DrawCommand extends AbstractCommand
+class TakebackCommand extends AbstractCommand
 {
     const ACTION_ACCEPT    = 'accept';
 
@@ -16,8 +16,8 @@ class DrawCommand extends AbstractCommand
 
     public function __construct()
     {
-        $this->name = '/draw';
-        $this->description = 'Allows to offer a draw.';
+        $this->name = '/takeback';
+        $this->description = 'Allows to takeback a move.';
         $this->params = [
             // mandatory param
             'action' => [

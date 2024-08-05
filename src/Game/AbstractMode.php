@@ -3,10 +3,10 @@
 namespace ChessServer\Game;
 
 use ChessServer\Game\Game;
-use ChessServer\Command\Play\LegalCommand;
-use ChessServer\Command\Play\PlayLanCommand;
-use ChessServer\Command\Play\StockfishCommand;
-use ChessServer\Command\Play\UndoCommand;
+use ChessServer\Command\Game\LegalCommand;
+use ChessServer\Command\Game\PlayLanCommand;
+use ChessServer\Command\Game\StockfishCommand;
+use ChessServer\Command\Game\UndoCommand;
 
 abstract class AbstractMode
 {

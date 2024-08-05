@@ -1,29 +1,23 @@
 <?php
 
-namespace ChessServer\Command\Play;
+namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Game\PlayMode;
 use ChessServer\Socket\ChesslaBlabSocket;
 
-class TakebackCommand extends AbstractCommand
+class LeaveCommand extends AbstractCommand
 {
     const ACTION_ACCEPT    = 'accept';
 
-    const ACTION_DECLINE   = 'decline';
-
-    const ACTION_PROPOSE   = 'propose';
-
     public function __construct()
     {
-        $this->name = '/takeback';
-        $this->description = 'Allows to takeback a move.';
+        $this->name = '/leave';
+        $this->description = 'Allows to leave a game.';
         $this->params = [
             // mandatory param
             'action' => [
                 self::ACTION_ACCEPT,
-                self::ACTION_DECLINE,
-                self::ACTION_PROPOSE,
             ],
         ];
     }
