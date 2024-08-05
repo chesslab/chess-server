@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Play;
+namespace ChessServer\Command;
 
 use ChessServer\Exception\ParserException;
 
