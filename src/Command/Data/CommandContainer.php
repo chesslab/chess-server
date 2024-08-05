@@ -10,6 +10,7 @@ class CommandContainer extends AbstractCommandContainer
     {
         $this->obj = new \SplObjectStorage;
         $this->obj->attach(new AutocompleteEventCommand());
+        $this->obj->attach(new AutocompletePlayerCommand());
         $this->obj->attach(new StatsOpeningCommand());
     }
 }
