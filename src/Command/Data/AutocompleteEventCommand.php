@@ -13,7 +13,7 @@ class AutocompleteEventCommand extends AbstractCommand
         $this->name = '/autocomplete_event';
         $this->description = 'Autocomplete data for chess events.';
         $this->params = [
-            'event' => '<string>',
+            'settings' => '<string>',
         ];
     }
 
@@ -26,13 +26,17 @@ class AutocompleteEventCommand extends AbstractCommand
     {
         $conf = include(__DIR__.'/../../../config/database.php');
 
+        $params = json_decode(stripslashes($argv[1]), true);
+
+        $key = key($params);
+
         $values[] = [
-            'param' => ":Event",
-            'value' => '%'. $argv[1] .'%',
+            'param' => ":$key",
+            'value' => '%'. current($params) .'%',
             'type' => \PDO::PARAM_STR,
         ];
 
-        $sql = "SELECT DISTINCT Event FROM games WHERE Event LIKE :Event LIMIT 10";
+        $sql = "SELECT DISTINCT $key FROM games WHERE $key LIKE :$key LIMIT 10";
 
         $arr = Pdo::getInstance($conf)
             ->query($sql, $values)
