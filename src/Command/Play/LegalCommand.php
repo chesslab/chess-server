@@ -2,6 +2,7 @@
 
 namespace ChessServer\Command\Play;
 
+use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\ChesslaBlabSocket;
 
 class LegalCommand extends AbstractCommand
