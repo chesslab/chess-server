@@ -5,7 +5,7 @@ namespace ChessServer\Command\Game;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Game\Game;
+use ChessServer\Command\Game\Game;
 use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\ChesslaBlabSocket;
 use Firebase\JWT\JWT;
