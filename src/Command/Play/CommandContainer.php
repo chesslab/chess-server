@@ -2,21 +2,6 @@
 
 namespace ChessServer\Command\Play;
 
-use ChessServer\Command\AcceptPlayRequestCommand;
-use ChessServer\Command\DrawCommand;
-use ChessServer\Command\LeaveCommand;
-use ChessServer\Command\LegalCommand;
-use ChessServer\Command\OnlineGamesCommand;
-use ChessServer\Command\PlayLanCommand;
-use ChessServer\Command\RandomizerCommand;
-use ChessServer\Command\RematchCommand;
-use ChessServer\Command\ResignCommand;
-use ChessServer\Command\RestartCommand;
-use ChessServer\Command\StartCommand;
-use ChessServer\Command\StockfishCommand;
-use ChessServer\Command\TakebackCommand;
-use ChessServer\Command\UndoCommand;
-
 class CommandContainer
 {
     private $obj;
