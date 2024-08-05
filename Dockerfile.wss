@@ -35,4 +35,4 @@ RUN chown -R 1000:1000 vendor
 
 RUN chmod -R 775 vendor
 
-CMD ["php", "cli/workerman/play.php", "start", "--d"]
+CMD ["php", "cli/workerman/game.php", "start", "--d"]
