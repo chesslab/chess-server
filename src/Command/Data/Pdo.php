@@ -2,6 +2,8 @@
 
 namespace ChessServer\Command\Data;
 
+use \PDO;
+
 /**
  * Pdo class.
  */
@@ -14,19 +16,9 @@ class Pdo
      */
     private static $instance;
 
-    /**
-     * DSN.
-     *
-     * @var string
-     */
-    private $dsn;
+    private string $dsn;
 
-    /**
-     * PDO handler.
-     *
-     * @var \PDO
-     */
-    private $pdo;
+    private PDO $pdo;
 
     /**
      * Returns the current instance.
@@ -48,7 +40,7 @@ class Pdo
     {
         $this->dsn = $conf['driver'] . ':host=' . $conf['host'] . ';dbname=' . $conf['database'];
 
-        $this->pdo = new \PDO(
+        $this->pdo = new PDO(
             $this->dsn,
             $conf['username'],
             $conf['password'],
