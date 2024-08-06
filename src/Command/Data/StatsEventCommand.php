@@ -67,6 +67,8 @@ class StatsEventCommand extends AbstractCommand
             ->query($sql, $values)
             ->fetchAll(\PDO::FETCH_ASSOC);
 
-        return $socket->getClientStorage()->sendToOne($id, $arr);
+        return $socket->getClientStorage()->sendToOne($id, [
+            $this->name => $arr,
+        ]);
     }
 }

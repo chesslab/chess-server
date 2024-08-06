@@ -28,6 +28,8 @@ class AnnotationsGameCommand extends AbstractCommand
 
         $arr = json_decode($contents);
 
-        return $socket->getClientStorage()->sendToOne($id, $arr);
+        return $socket->getClientStorage()->sendToOne($id, [
+            $this->name => $arr,
+        ]);
     }
 }

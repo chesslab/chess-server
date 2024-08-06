@@ -57,7 +57,7 @@ class StatsOpeningCommand extends AbstractCommand
           ->query($sql)
           ->fetchAll(\PDO::FETCH_ASSOC);
 
-        $res = [
+        $arr = [
             $this->name => [
               'drawRate' => $drawRate,
               'winRateForWhite' => $winRateForWhite,
@@ -65,6 +65,8 @@ class StatsOpeningCommand extends AbstractCommand
             ],
         ];
 
-        return $socket->getClientStorage()->sendToOne($id, $res);
+        return $socket->getClientStorage()->sendToOne($id, [
+            $this->name => $arr,
+        ]);
     }
 }

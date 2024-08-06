@@ -40,6 +40,8 @@ class AutocompleteEventCommand extends AbstractCommand
             ->query($sql, $values)
             ->fetchAll(\PDO::FETCH_COLUMN);
 
-        return $socket->getClientStorage()->sendToOne($id, $arr);
+        return $socket->getClientStorage()->sendToOne($id, [
+            $this->name => $arr,
+        ]);
     }
 }
