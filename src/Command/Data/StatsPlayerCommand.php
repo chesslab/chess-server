@@ -3,7 +3,6 @@
 namespace ChessServer\Command\Data;
 
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Command\Data\Pdo;
 use ChessServer\Socket\ChesslaBlabSocket;
 
 class StatsPlayerCommand extends AbstractCommand
