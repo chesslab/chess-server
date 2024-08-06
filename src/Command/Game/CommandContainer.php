@@ -15,6 +15,7 @@ class CommandContainer extends AbstractCommandContainer
         $this->obj->attach(new LegalCommand());
         $this->obj->attach(new OnlineGamesCommand());
         $this->obj->attach(new PlayLanCommand());
+        $this->obj->attach(new PlayRavCommand());
         $this->obj->attach(new RandomizerCommand());
         $this->obj->attach(new RematchCommand());
         $this->obj->attach(new ResignCommand());
