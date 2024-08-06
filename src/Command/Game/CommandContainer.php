@@ -23,6 +23,7 @@ class CommandContainer extends AbstractCommandContainer
         $this->obj->attach(new StartCommand());
         $this->obj->attach(new StockfishCommand());
         $this->obj->attach(new TakebackCommand());
+        $this->obj->attach(new TutorFenCommand());
         $this->obj->attach(new UndoCommand());
     }
 }
