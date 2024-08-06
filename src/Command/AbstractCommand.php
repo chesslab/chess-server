@@ -21,11 +21,7 @@ abstract class AbstractCommand
 
     public function conf()
     {
-        $conf = [
-            'database' => include(__DIR__.'/../../config/database.php'),
-        ];
-
-        return $conf;
+        return require(__DIR__.'/../../config/database.php');
     }
 
     abstract public function validate(array $command);
