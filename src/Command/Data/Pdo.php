@@ -36,11 +36,7 @@ class Pdo
      */
     public static function getInstance(array $conf)
     {
-        if (null === static::$instance) {
-            static::$instance = new static($conf);
-        }
-
-        return static::$instance;
+        return static::$instance ?? static::$instance = new static($conf);
     }
 
     /**
@@ -55,10 +51,9 @@ class Pdo
         $this->pdo = new \PDO(
             $this->dsn,
             $conf['username'],
-            $conf['password']
+            $conf['password'],
+            [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION],
         );
-
-        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
     /**
