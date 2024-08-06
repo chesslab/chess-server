@@ -46,19 +46,19 @@ class PlayRavCommand extends AbstractCommand
 
         $board = $ravPlay->validate()->board;
 
-        $arr = [
-            'variant' => $params['variant'],
-            'turn' => $board->turn,
-            'filtered' => $ravPlay->ravMovetext->filtered(),
-            'movetext' => $ravPlay->ravMovetext->main(),
-            'breakdown' => $ravPlay->ravMovetext->breakdown,
-            'fen' => $ravPlay->fen,
-            ...($params['variant'] === Chess960Board::VARIANT
-                ? ['startPos' =>  $params['startPos']]
-                : []
-            ),
-        ];
-
-        return $socket->getClientStorage()->sendToOne($id, $arr);
+        return $socket->getClientStorage()->sendToOne($id, [
+            $this->name => [
+                'variant' => $params['variant'],
+                'turn' => $board->turn,
+                'filtered' => $ravPlay->ravMovetext->filtered(),
+                'movetext' => $ravPlay->ravMovetext->main(),
+                'breakdown' => $ravPlay->ravMovetext->breakdown,
+                'fen' => $ravPlay->fen,
+                ...($params['variant'] === Chess960Board::VARIANT
+                    ? ['startPos' =>  $params['startPos']]
+                    : []
+                ),
+            ],
+        ]);
     }
 }
