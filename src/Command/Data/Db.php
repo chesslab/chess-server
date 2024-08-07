@@ -5,38 +5,19 @@ namespace ChessServer\Command\Data;
 use \PDO;
 use \PDOStatement;
 
-/**
- * Db class.
- */
 class Db
 {
-    /**
-     * Db instance.
-     *
-     * @var \ChessApi\Db
-     */
     private static $instance;
 
     private string $dsn;
 
     private PDO $pdo;
 
-    /**
-     * Returns the current instance.
-     *
-     * @param array $conf
-     * @return ChessServer\Command\Data\Db
-     */
     public static function getInstance(array $conf)
     {
         return static::$instance ?? static::$instance = new static($conf);
     }
 
-    /**
-     * Constructor.
-     *
-     * @param array $conf
-     */
     protected function __construct(array $conf)
     {
         $this->dsn = $conf['driver'] . ':host=' . $conf['host'] . ';dbname=' . $conf['database'];
@@ -63,13 +44,6 @@ class Db
     {
     }
 
-    /**
-     * Queries the database.
-     *
-     * @param string
-     * @param array
-     * @return bool
-     */
     public function query(string $sql, array $values = []): PDOStatement
     {
         $stmt = $this->pdo->prepare($sql);
