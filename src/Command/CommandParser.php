@@ -8,18 +8,12 @@ class CommandParser
 {
     protected $argv;
 
-    protected $cli;
-
-    public function __construct(AbstractCommandContainer $cli)
-    {
-        $this->cli = $cli;
-    }
+    public function __construct(protected AbstractCommandContainer $cli)
+    {}
 
     public function __get($property)
     {
-        if (property_exists($this, $property)) {
-            return $this->$property;
-        }
+        return $this->$property ?? null;
     }
 
     public function validate($string)
