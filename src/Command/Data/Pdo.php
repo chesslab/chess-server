@@ -77,7 +77,7 @@ class Pdo
      * @param array
      * @return bool
      */
-    public function query($sql, $values = [])
+    public function query(string $sql, array $values = [])
     {
         $stmt = $this->pdo->prepare($sql);
 
