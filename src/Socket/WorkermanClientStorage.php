@@ -62,9 +62,10 @@ class WorkermanClientStorage extends \SplObjectStorage implements ClientStorageI
 
     public function sendToAll(array $res): void
     {
-        $this->rewind();
+        $json = json_encode($res);
+        $this->rewind(); 
         while ($this->valid()) {
-            $this->current()->send(json_encode($res));
+            $this->current()->send($json);
             $this->next();
         }
     }
