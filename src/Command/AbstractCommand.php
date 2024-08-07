@@ -14,7 +14,9 @@ abstract class AbstractCommand
 
     public function __get($property)
     {
-        return $this->$property ?? null;
+        if (property_exists($this, $property)) {
+            return $this->$property;
+        }
     }
 
     public function conf()
