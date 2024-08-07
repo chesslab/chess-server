@@ -3,7 +3,7 @@
 namespace ChessServer\Command\Data;
 
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Command\Data\Pdo;
+use ChessServer\Command\Data\Db;
 use ChessServer\Socket\ChesslaBlabSocket;
 
 class StatsOpeningCommand extends AbstractCommand
@@ -29,7 +29,7 @@ class StatsOpeningCommand extends AbstractCommand
           ORDER BY total DESC
           LIMIT 50";
 
-        $drawRate = Pdo::getInstance($this->conf()['database'])
+        $drawRate = Db::getInstance($this->conf()['database'])
           ->query($sql)
           ->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -41,7 +41,7 @@ class StatsOpeningCommand extends AbstractCommand
           ORDER BY total DESC
           LIMIT 50";
 
-        $winRateForWhite = Pdo::getInstance($this->conf()['database'])
+        $winRateForWhite = Db::getInstance($this->conf()['database'])
           ->query($sql)
           ->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -53,7 +53,7 @@ class StatsOpeningCommand extends AbstractCommand
           ORDER BY total DESC
           LIMIT 50";
 
-        $winRateForBlack = Pdo::getInstance($this->conf()['database'])
+        $winRateForBlack = Db::getInstance($this->conf()['database'])
           ->query($sql)
           ->fetchAll(\PDO::FETCH_ASSOC);
 

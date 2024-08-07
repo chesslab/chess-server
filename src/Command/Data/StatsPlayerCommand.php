@@ -63,7 +63,7 @@ class StatsPlayerCommand extends AbstractCommand
 
         $sql .= 'GROUP BY ECO ORDER BY total DESC';
 
-        $arr = Pdo::getInstance($this->conf()['database'])
+        $arr = Db::getInstance($this->conf()['database'])
             ->query($sql, $values)
             ->fetchAll(\PDO::FETCH_ASSOC);
 

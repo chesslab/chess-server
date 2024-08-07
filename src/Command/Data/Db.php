@@ -3,16 +3,17 @@
 namespace ChessServer\Command\Data;
 
 use \PDO;
+use \PDOStatement;
 
 /**
- * Pdo class.
+ * Db class.
  */
-class Pdo
+class Db
 {
     /**
-     * Pdo instance.
+     * Db instance.
      *
-     * @var \ChessApi\Pdo
+     * @var \ChessApi\Db
      */
     private static $instance;
 
@@ -24,7 +25,7 @@ class Pdo
      * Returns the current instance.
      *
      * @param array $conf
-     * @return \ChessData\Pdo
+     * @return ChessServer\Command\Data\Db
      */
     public static function getInstance(array $conf)
     {
@@ -69,7 +70,7 @@ class Pdo
      * @param array
      * @return bool
      */
-    public function query(string $sql, array $values = [])
+    public function query(string $sql, array $values = []): PDOStatement
     {
         $stmt = $this->pdo->prepare($sql);
 

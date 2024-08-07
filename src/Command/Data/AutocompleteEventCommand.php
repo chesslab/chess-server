@@ -3,7 +3,7 @@
 namespace ChessServer\Command\Data;
 
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Command\Data\Pdo;
+use ChessServer\Command\Data\Db;
 use ChessServer\Socket\ChesslaBlabSocket;
 
 class AutocompleteEventCommand extends AbstractCommand
@@ -36,7 +36,7 @@ class AutocompleteEventCommand extends AbstractCommand
 
         $sql = "SELECT DISTINCT $key FROM games WHERE $key LIKE :$key LIMIT 10";
 
-        $arr = Pdo::getInstance($this->conf()['database'])
+        $arr = Db::getInstance($this->conf()['database'])
             ->query($sql, $values)
             ->fetchAll(\PDO::FETCH_COLUMN);
 

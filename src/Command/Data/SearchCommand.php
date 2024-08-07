@@ -3,7 +3,7 @@
 namespace ChessServer\Command\Data;
 
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Command\Data\Pdo;
+use ChessServer\Command\Data\Db;
 use ChessServer\Socket\ChesslaBlabSocket;
 
 class SearchCommand extends AbstractCommand
@@ -72,7 +72,7 @@ class SearchCommand extends AbstractCommand
 
         $sql .= 'ORDER BY RAND() LIMIT 25';
 
-        $arr = Pdo::getInstance($this->conf()['database'])
+        $arr = Db::getInstance($this->conf()['database'])
             ->query($sql, $values)
             ->fetchAll(\PDO::FETCH_ASSOC);
 
