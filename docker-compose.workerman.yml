@@ -1,0 +1,31 @@
+services:
+  chess_server_game:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      user: 1000:1000
+      container_name: chess_server_game
+      ports:
+          - ${WSS_GAME_PORT}:${WSS_GAME_PORT}
+      restart: always
+      volumes:
+          - ./:/usr/share/chess-server
+          - /usr/share/chess-server/vendor
+          - ./docker/php/8.2/cli/php.ini:/usr/local/etc/php/php.ini
+      working_dir: /usr/share/chess-server
+      command: ["php", "cli/workerman/game.php", "start", "--d"]
+  chess_server_data:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      user: 1000:1000
+      container_name: chess_server_data
+      ports:
+          - ${WSS_DATA_PORT}:${WSS_DATA_PORT}
+      restart: always
+      volumes:
+          - ./:/usr/share/chess-server
+          - /usr/share/chess-server/vendor
+          - ./docker/php/8.2/cli/php.ini:/usr/local/etc/php/php.ini
+      working_dir: /usr/share/chess-server
+      command: ["php", "cli/workerman/data.php", "start", "--d"]

@@ -34,10 +34,3 @@ RUN composer install \
 RUN chown -R 1000:1000 vendor
 
 RUN chmod -R 775 vendor
-
-# Run multiple processes in a container.
-
-COPY cli/workerman/data.php cli/workerman/data.php
-COPY cli/workerman/game.php cli/workerman/game.php
-COPY bash/start.sh bash/start.sh
-CMD bash/start.sh
