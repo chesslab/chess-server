@@ -1,5 +1,5 @@
 services:
-  chess_server_game:
+  game:
       build:
         context: .
         dockerfile: Dockerfile
@@ -14,7 +14,7 @@ services:
           - ./docker/php/8.2/cli/php.ini:/usr/local/etc/php/php.ini
       working_dir: /usr/share/chess-server
       command: ["php", "cli/workerman/game.php", "start", "--d"]
-  chess_server_data:
+  data:
       build:
         context: .
         dockerfile: Dockerfile
