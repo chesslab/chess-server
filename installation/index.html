@@ -115,7 +115,7 @@
 <pre><code class="language-txt">touch storage/pchess.log
 </code></pre>
 <p>Make sure to have installed the <code>fullchain.pem</code> and <code>privkey.pem</code> files in the <code>ssl</code> folder, and run the Docker container in detached mode in the background:</p>
-<pre><code class="language-txt">docker compose -f docker-compose.wss.yml up -d
+<pre><code class="language-txt">docker compose -f docker-compose.workerman.yml up -d
 </code></pre>
 <p>Finally, if you are running the chess server in a local development environment along with the <a href="https://github.com/chesslablab/website">website</a>, you may want to add a domain name entry to your <code>/etc/hosts</code> file as per the <code>WEBSOCKET</code> variable defined in the <a href="https://github.com/chesslablab/website/blob/main/assets/env.example.js">assets/env.example.js</a> file.</p>
 <pre><code class="language-txt">127.0.0.1       async.chesslablab.org
