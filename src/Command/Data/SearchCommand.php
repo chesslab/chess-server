@@ -3,7 +3,6 @@
 namespace ChessServer\Command\Data;
 
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Command\Data\Db;
 use ChessServer\Socket\ChesslaBlabSocket;
 
 class SearchCommand extends AbstractCommand
