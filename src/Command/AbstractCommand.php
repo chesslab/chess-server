@@ -6,11 +6,11 @@ use ChessServer\Socket\ChesslaBlabSocket;
 
 abstract class AbstractCommand
 {
-    protected $name;
+    protected string $name;
 
-    protected $description;
+    protected string $description;
 
-    protected $params;
+    protected array $params;
 
     public function __get($property)
     {
