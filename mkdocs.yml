@@ -4,7 +4,7 @@ nav:
   - Home: index.md
   - Installation: installation.md
   - Getting Started: getting-started.md
-  - Commands:
+  - Game Commands:
     - /start: start.md
     - /legal: legal.md
     - /play_lan: play-lan.md
