@@ -10,7 +10,7 @@ abstract class AbstractCommand
 
     protected string $description;
 
-    protected array $params;
+    protected array $params = [];
 
     public function __get($property)
     {
