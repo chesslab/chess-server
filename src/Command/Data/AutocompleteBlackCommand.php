@@ -5,11 +5,11 @@ namespace ChessServer\Command\Data;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\ChesslaBlabSocket;
 
-class AutocompletePlayerCommand extends AbstractCommand
+class AutocompleteBlackCommand extends AbstractCommand
 {
     public function __construct()
     {
-        $this->name = '/autocomplete_player';
+        $this->name = '/autocomplete_black';
         $this->description = 'Autocomplete data for chess players.';
         $this->params = [
             'settings' => '<string>',
