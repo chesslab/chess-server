@@ -47,10 +47,11 @@ class WorkermanClientStorage extends \SplObjectStorage implements ClientStorageI
 
     public function sendToMany(array $ids, array $res): void
     {
+        $json = json_encode($res);
         $this->rewind();
         while ($this->valid()) {
             if (in_array($this->current()->id, $ids)) {
-                $this->current()->send(json_encode($res));
+                $this->current()->send($json);
                 $this->logger->info('Sent message', [
                     'ids' => $ids,
                     'cmd' => array_keys($res),
