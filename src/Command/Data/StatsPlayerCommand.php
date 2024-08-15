@@ -64,7 +64,7 @@ class StatsPlayerCommand extends DataCommand
 
         $sql .= 'GROUP BY ECO ORDER BY total DESC';
 
-        $arr = $this->db->query($sql, $values)->fetchAll(\PDO::FETCH_COLUMN);
+        $arr = $this->db->query($sql, $values)->fetchAll(\PDO::FETCH_ASSOC);
 
         return $socket->getClientStorage()->sendToOne($id, [
             $this->name => $arr,
