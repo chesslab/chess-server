@@ -72,7 +72,7 @@ class SearchCommand extends DataCommand
 
         $sql .= 'ORDER BY RAND() LIMIT 25';
 
-        $arr = $this->db->query($sql, $values)->fetchAll(\PDO::FETCH_COLUMN);
+        $arr = $this->db->query($sql, $values)->fetchAll(\PDO::FETCH_ASSOC);
 
         return $socket->getClientStorage()->sendToOne($id, [
             $this->name => $arr,
