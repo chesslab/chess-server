@@ -2,17 +2,18 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\ChesslaBlabSocket;
 
-class AnnotationsGameCommand extends AbstractCommand
+class AnnotationsGameCommand extends DataCommand
 {
     const DATA_FOLDER = __DIR__.'/../../../data';
 
     const ANNOTATIONS_GAMES_FILE = 'annotations_games.json';
 
-    public function __construct()
+    public function __construct(Db $db)
     {
+        parent::__construct($db);
+
         $this->name = '/annotations_game';
         $this->description = 'Annotated chess games available in the database.';
     }

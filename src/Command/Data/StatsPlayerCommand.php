@@ -2,10 +2,9 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\ChesslaBlabSocket;
 
-class StatsPlayerCommand extends AbstractCommand
+class StatsPlayerCommand extends DataCommand
 {
     const SQL_LIKE = [
 
@@ -17,8 +16,10 @@ class StatsPlayerCommand extends AbstractCommand
         'Result',
     ];
 
-    public function __construct()
+    public function __construct(Db $db)
     {
+        parent::__construct($db);
+
         $this->name = '/stats_player';
         $this->description = 'Statistics about opening results by chess player.';
         $this->params = [
@@ -63,9 +64,7 @@ class StatsPlayerCommand extends AbstractCommand
 
         $sql .= 'GROUP BY ECO ORDER BY total DESC';
 
-        $arr = Db::getInstance($this->conf()['database'])
-            ->query($sql, $values)
-            ->fetchAll(\PDO::FETCH_ASSOC);
+        $arr = $this->db->query($sql, $values)->fetchAll(\PDO::FETCH_ASSOC);
 
         return $socket->getClientStorage()->sendToOne($id, [
             $this->name => $arr,

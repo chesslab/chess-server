@@ -2,13 +2,14 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\ChesslaBlabSocket;
 
-class AutocompleteEventCommand extends AbstractCommand
+class AutocompleteEventCommand extends DataCommand
 {
-    public function __construct()
+    public function __construct(Db $db)
     {
+        parent::__construct($db);
+
         $this->name = '/autocomplete_event';
         $this->description = 'Autocomplete data for chess events.';
         $this->params = [
@@ -35,9 +36,7 @@ class AutocompleteEventCommand extends AbstractCommand
 
         $sql = "SELECT DISTINCT $key FROM games WHERE $key LIKE :$key LIMIT 10";
 
-        $arr = Db::getInstance($this->conf()['database'])
-            ->query($sql, $values)
-            ->fetchAll(\PDO::FETCH_COLUMN);
+        $arr = $this->db->query($sql, $values)->fetchAll(\PDO::FETCH_COLUMN);
 
         return $socket->getClientStorage()->sendToOne($id, [
             $this->name => $arr,

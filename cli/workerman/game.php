@@ -15,8 +15,8 @@ require __DIR__  . '/../../vendor/autoload.php';
 $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
 $dotenv->load();
 
-$logger = new Logger('log');
-$logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/pchess.log', Logger::INFO));
+$logger = new Logger('game');
+$logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/game.log', Logger::INFO));
 
 $clientStorage = new WorkermanClientStorage($logger);
 

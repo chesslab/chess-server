@@ -7,18 +7,11 @@ use \PDOStatement;
 
 class Db
 {
-    private static $instance;
-
     private string $dsn;
 
     private PDO $pdo;
 
-    public static function getInstance(array $conf)
-    {
-        return static::$instance ?? static::$instance = new static($conf);
-    }
-
-    protected function __construct(array $conf)
+    public function __construct(array $conf)
     {
         $this->dsn = $conf['driver'] . ':host=' . $conf['host'] . ';dbname=' . $conf['database'];
 
@@ -30,18 +23,9 @@ class Db
         );
     }
 
-    /**
-     * Prevents from cloning.
-     */
-    private function __clone()
+    public function getPdo(): PDO
     {
-    }
-
-    /**
-     * Prevents from unserializing.
-     */
-    public function __wakeup()
-    {
+        return $this->pdo;
     }
 
     public function query(string $sql, array $values = []): PDOStatement
