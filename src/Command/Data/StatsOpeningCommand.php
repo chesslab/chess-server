@@ -2,13 +2,14 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\ChesslaBlabSocket;
 
-class StatsOpeningCommand extends AbstractCommand
+class StatsOpeningCommand extends DataCommand
 {
-    public function __construct()
+    public function __construct(Db $db)
     {
+        parent::__construct($db);
+
         $this->name = '/stats_opening';
         $this->description = 'Stats for chess openings.';
     }
@@ -28,9 +29,7 @@ class StatsOpeningCommand extends AbstractCommand
           ORDER BY total DESC
           LIMIT 50";
 
-        $drawRate = Db::getInstance($this->conf()['database'])
-          ->query($sql)
-          ->fetchAll(\PDO::FETCH_ASSOC);
+        $drawRate = $this->db->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 
         $sql = "SELECT ECO, COUNT(*) AS total
           FROM games
@@ -40,9 +39,7 @@ class StatsOpeningCommand extends AbstractCommand
           ORDER BY total DESC
           LIMIT 50";
 
-        $winRateForWhite = Db::getInstance($this->conf()['database'])
-          ->query($sql)
-          ->fetchAll(\PDO::FETCH_ASSOC);
+        $winRateForWhite = $this->db->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 
         $sql = "SELECT ECO, COUNT(*) AS total
           FROM games
@@ -52,9 +49,7 @@ class StatsOpeningCommand extends AbstractCommand
           ORDER BY total DESC
           LIMIT 50";
 
-        $winRateForBlack = Db::getInstance($this->conf()['database'])
-          ->query($sql)
-          ->fetchAll(\PDO::FETCH_ASSOC);
+        $winRateForBlack = $this->db->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 
         $arr = [
             $this->name => [

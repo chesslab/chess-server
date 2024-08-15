@@ -2,10 +2,9 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\ChesslaBlabSocket;
 
-class SearchCommand extends AbstractCommand
+class SearchCommand extends DataCommand
 {
     const SQL_LIKE = [
         'Date',
@@ -20,8 +19,10 @@ class SearchCommand extends AbstractCommand
         'Result',
     ];
 
-    public function __construct()
+    public function __construct(Db $db)
     {
+        parent::__construct($db);
+
         $this->name = '/search';
         $this->description = 'Finds up to 25 games matching the criteria.';
         $this->params = [
@@ -71,9 +72,7 @@ class SearchCommand extends AbstractCommand
 
         $sql .= 'ORDER BY RAND() LIMIT 25';
 
-        $arr = Db::getInstance($this->conf()['database'])
-            ->query($sql, $values)
-            ->fetchAll(\PDO::FETCH_ASSOC);
+        $arr = $this->db->query($sql, $values)->fetchAll(\PDO::FETCH_COLUMN);
 
         return $socket->getClientStorage()->sendToOne($id, [
             $this->name => $arr,
