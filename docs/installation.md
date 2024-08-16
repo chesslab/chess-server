@@ -6,10 +6,16 @@ Clone the `chesslablab/chess-server` repo into your projects folder. Then `cd` t
 cp .env.example .env
 ```
 
-Create an empty `pchess.log` file:
+Create an empty `data.log` file:
 
 ```txt
-touch storage/pchess.log
+touch storage/data.log
+```
+
+Create an empty `game.log` file:
+
+```txt
+touch storage/game.log
 ```
 
 Make sure to have installed the `fullchain.pem` and `privkey.pem` files in the `ssl` folder, and run the Docker container in detached mode in the background:

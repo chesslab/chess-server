@@ -23,7 +23,7 @@ $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
 $dotenv->load();
 
 $logger = new Logger('log');
-$logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/pchess.log', Logger::INFO));
+$logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/data.log', Logger::INFO));
 
 $clientStorage = new RatchetClientStorage($logger);
 
