@@ -5,7 +5,7 @@ namespace ChessServer\Cli\Workerman;
 use ChessServer\Command\CommandParser;
 use ChessServer\Command\Game\CommandContainer;
 use ChessServer\Socket\WorkermanClientStorage;
-use ChessServer\Socket\WorkermanWebSocket;
+use ChessServer\Socket\WorkermanGameWebSocket;
 use Dotenv\Dotenv;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -32,6 +32,6 @@ $context = [
     ],
 ];
 
-$server = (new WorkermanWebSocket($socketName, $context, $parser))->init($clientStorage);
+$server = (new WorkermanGameWebSocket($socketName, $context, $parser))->init($clientStorage);
 
 $server->run();

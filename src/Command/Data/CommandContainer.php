@@ -11,7 +11,7 @@ class CommandContainer extends AbstractCommandContainer
     public function __construct(Db $db)
     {
         parent::__construct();
-        
+
         $this->db = $db;
         $this->commands->attach(new AnnotationsGameCommand($db));
         $this->commands->attach(new AutocompleteBlackCommand($db));
@@ -21,5 +21,10 @@ class CommandContainer extends AbstractCommandContainer
         $this->commands->attach(new StatsEventCommand($db));
         $this->commands->attach(new StatsOpeningCommand($db));
         $this->commands->attach(new StatsPlayerCommand($db));
+    }
+
+    public function getDb(): Db
+    {
+        return $this->db;
     }
 }
