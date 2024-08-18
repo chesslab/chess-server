@@ -27,7 +27,7 @@ $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/data.log', L
 
 $clientStorage = new RatchetClientStorage($logger);
 
-$parser = new CommandParser(new CommandContainer());
+$parser = new CommandParser(new CommandContainer($logger));
 
 $webSocket = (new RatchetWebSocket($parser))->init($clientStorage);
 

@@ -2,9 +2,20 @@
 
 namespace ChessServer\Command;
 
+use \SplObjectStorage;
+use Monolog\Logger;
+
 abstract class AbstractCommandContainer
 {
-    protected $obj;
+    protected Logger $logger;
+
+    protected SplObjectStorage $obj;
+
+    public function __construct(Logger $logger)
+    {
+        $this->obj = new SplObjectStorage;
+        $this->logger = $logger;
+    }
 
     public function findByName(string $name)
     {

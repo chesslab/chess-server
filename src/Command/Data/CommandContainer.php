@@ -8,11 +8,12 @@ class CommandContainer extends AbstractCommandContainer
 {
     private Db $db;
 
-    public function __construct()
+    public function __construct($logger)
     {
+        parent::__construct($logger);
+
         $conf = include(__DIR__.'/../../../config/database.php');
         $this->db = new Db($conf);
-        $this->obj = new \SplObjectStorage;
         $this->obj->attach(new AnnotationsGameCommand($this->db));
         $this->obj->attach(new AutocompleteBlackCommand($this->db));
         $this->obj->attach(new AutocompleteEventCommand($this->db));

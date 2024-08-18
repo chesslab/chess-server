@@ -30,7 +30,7 @@ $context = [
     ],
 ];
 
-$parser = new CommandParser(new CommandContainer());
+$parser = new CommandParser(new CommandContainer($logger));
 
 $server = (new WorkermanWebSocket($socketName, $context, $parser))->init($clientStorage);
 
