@@ -1,8 +1,9 @@
 <?php
 
-namespace ChessServer\Socket;
+namespace ChessServer\Socket\Ratchet;
 
 use ChessServer\Game\PlayMode;
+use ChessServer\Socket\ClientStorageInterface;
 use Monolog\Logger;
 
 class RatchetClientStorage extends \SplObjectStorage implements ClientStorageInterface

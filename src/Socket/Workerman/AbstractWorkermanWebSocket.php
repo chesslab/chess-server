@@ -1,9 +1,10 @@
 <?php
 
-namespace ChessServer\Socket;
+namespace ChessServer\Socket\Workerman;
 
 use ChessServer\Command\CommandParser;
 use ChessServer\Exception\ParserException;
+use ChessServer\Socket\AbstractChesslaBlabSocket;
 use Workerman\Worker;
 
 abstract class AbstractWorkermanWebSocket extends AbstractChesslaBlabSocket

@@ -4,8 +4,8 @@ namespace ChessServer\Cli\Workerman;
 
 use ChessServer\Command\CommandParser;
 use ChessServer\Command\Game\CommandContainer;
-use ChessServer\Socket\WorkermanClientStorage;
-use ChessServer\Socket\WorkermanGameWebSocket;
+use ChessServer\Socket\Workerman\WorkermanClientStorage;
+use ChessServer\Socket\Workerman\WorkermanGameWebSocket;
 use Dotenv\Dotenv;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;

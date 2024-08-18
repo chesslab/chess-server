@@ -1,9 +1,10 @@
 <?php
 
-namespace ChessServer\Socket;
+namespace ChessServer\Socket\Ratchet;
 
 use ChessServer\Command\CommandParser;
 use ChessServer\Exception\ParserException;
+use ChessServer\Socket\AbstractChesslaBlabSocket;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 use React\EventLoop\Factory;

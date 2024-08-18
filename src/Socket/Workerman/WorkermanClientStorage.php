@@ -1,8 +1,9 @@
 <?php
 
-namespace ChessServer\Socket;
+namespace ChessServer\Socket\Workerman;
 
 use ChessServer\Game\PlayMode;
+use ChessServer\Socket\ClientStorageInterface;
 use Monolog\Logger;
 
 class WorkermanClientStorage extends \SplObjectStorage implements ClientStorageInterface
@@ -64,7 +65,7 @@ class WorkermanClientStorage extends \SplObjectStorage implements ClientStorageI
     public function sendToAll(array $res): void
     {
         $json = json_encode($res);
-        $this->rewind(); 
+        $this->rewind();
         while ($this->valid()) {
             $this->current()->send($json);
             $this->next();

@@ -4,8 +4,8 @@ namespace ChessServer\Cli\Ratchet;
 
 use ChessServer\Command\CommandParser;
 use ChessServer\Command\Game\CommandContainer;
-use ChessServer\Socket\RatchetClientStorage;
-use ChessServer\Socket\RatchetGameWebSocket;
+use ChessServer\Socket\Ratchet\RatchetClientStorage;
+use ChessServer\Socket\Ratchet\RatchetGameWebSocket;
 use Dotenv\Dotenv;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;

@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Socket;
+namespace ChessServer\Socket\Ratchet;
 
 use ChessServer\Command\CommandParser;
 use ChessServer\Command\Game\LeaveCommand;
