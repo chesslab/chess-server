@@ -6,7 +6,7 @@ use ChessServer\Command\CommandParser;
 use ChessServer\Command\Data\CommandContainer;
 use ChessServer\Command\Data\Db;
 use ChessServer\Socket\RatchetClientStorage;
-use ChessServer\Socket\RatchetWebSocket;
+use ChessServer\Socket\RatchetDataWebSocket;
 use Dotenv\Dotenv;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -38,7 +38,7 @@ $parser = new CommandParser(new CommandContainer($db));
 
 $clientStorage = new RatchetClientStorage($logger);
 
-$webSocket = (new RatchetWebSocket($parser))->init($clientStorage);
+$webSocket = (new RatchetDataWebSocket($parser))->init($clientStorage);
 
 $loop = Factory::create();
 
