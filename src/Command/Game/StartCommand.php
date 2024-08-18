@@ -16,7 +16,7 @@ use ChessServer\Command\AbstractCommand;
 use ChessServer\Command\Game\Mode\AnalysisMode;
 use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Command\Game\Mode\StockfishMode;
-use ChessServer\Socket\ChesslaBlabSocket;
+use ChessServer\Socket\AbstractChesslaBlabSocket;
 use Firebase\JWT\JWT;
 
 class StartCommand extends AbstractCommand
@@ -74,7 +74,7 @@ class StartCommand extends AbstractCommand
         return false;
     }
 
-    public function run(ChesslaBlabSocket $socket, array $argv, int $id)
+    public function run(AbstractChesslaBlabSocket $socket, array $argv, int $id)
     {
         if (AnalysisMode::NAME === $argv[2]) {
             try {

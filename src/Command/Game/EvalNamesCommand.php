@@ -4,7 +4,7 @@ namespace ChessServer\Command\Game;
 
 use Chess\StandardFunction;
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Socket\ChesslaBlabSocket;
+use ChessServer\Socket\AbstractChesslaBlabSocket;
 
 class EvalNamesCommand extends AbstractCommand
 {
@@ -22,7 +22,7 @@ class EvalNamesCommand extends AbstractCommand
         return count($argv) - 1 === count($this->params);
     }
 
-    public function run(ChesslaBlabSocket $socket, array $argv, int $id)
+    public function run(AbstractChesslaBlabSocket $socket, array $argv, int $id)
     {
         $params = json_decode(stripslashes($argv[1]), true);
 

@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Socket\ChesslaBlabSocket;
+use ChessServer\Socket\AbstractChesslaBlabSocket;
 
 class AnnotationsGameCommand extends DataCommand
 {
@@ -23,7 +23,7 @@ class AnnotationsGameCommand extends DataCommand
         return count($argv) - 1 === 0;
     }
 
-    public function run(ChesslaBlabSocket $socket, array $argv, int $id)
+    public function run(AbstractChesslaBlabSocket $socket, array $argv, int $id)
     {
         $contents = file_get_contents(self::DATA_FOLDER.'/'.self::ANNOTATIONS_GAMES_FILE);
 

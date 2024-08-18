@@ -6,7 +6,7 @@ use Chess\Computer\GrandmasterMove;
 use ChessServer\Command\CommandParser;
 use ChessServer\Command\Game\GameModeStorage;
 
-class ChesslaBlabSocket
+abstract class AbstractChesslaBlabSocket
 {
     const DATA_FOLDER = __DIR__.'/../../data';
 
@@ -30,7 +30,7 @@ class ChesslaBlabSocket
         echo "Listening to commands..." . PHP_EOL;
     }
 
-    public function init(ClientStorageInterface $clientStorage): ChesslaBlabSocket
+    public function init(ClientStorageInterface $clientStorage): AbstractChesslaBlabSocket
     {
         $this->clientStorage = $clientStorage;
 

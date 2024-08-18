@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Socket\ChesslaBlabSocket;
+use ChessServer\Socket\AbstractChesslaBlabSocket;
 
 class StatsOpeningCommand extends DataCommand
 {
@@ -19,7 +19,7 @@ class StatsOpeningCommand extends DataCommand
         return count($argv) - 1 === 0;
     }
 
-    public function run(ChesslaBlabSocket $socket, array $argv, int $id)
+    public function run(AbstractChesslaBlabSocket $socket, array $argv, int $id)
     {
         $sql = "SELECT ECO, COUNT(*) AS total
           FROM games

@@ -8,7 +8,7 @@ use ChessServer\Exception\ParserException;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
-class RatchetWebSocket extends ChesslaBlabSocket implements MessageComponentInterface
+class RatchetWebSocket extends AbstractChesslaBlabSocket implements MessageComponentInterface
 {
     public function __construct(CommandParser $parser)
     {

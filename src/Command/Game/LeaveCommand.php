@@ -4,7 +4,7 @@ namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Command\Game\Mode\PlayMode;
-use ChessServer\Socket\ChesslaBlabSocket;
+use ChessServer\Socket\AbstractChesslaBlabSocket;
 
 class LeaveCommand extends AbstractCommand
 {
@@ -31,7 +31,7 @@ class LeaveCommand extends AbstractCommand
         return false;
     }
 
-    public function run(ChesslaBlabSocket $socket, array $argv, int $id)
+    public function run(AbstractChesslaBlabSocket $socket, array $argv, int $id)
     {
         $gameMode = $socket->getGameModeStorage()->getById($id);
 
