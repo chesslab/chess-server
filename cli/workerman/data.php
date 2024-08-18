@@ -29,8 +29,7 @@ $db = new Db([
 $logger = new Logger('data');
 $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/data.log', Logger::INFO));
 
-$commandContainer = new CommandContainer($db, $logger);
-$parser = new CommandParser($commandContainer);
+$parser = new CommandParser(new CommandContainer($db));
 
 $clientStorage = new WorkermanClientStorage($logger);
 
@@ -61,8 +60,7 @@ $worker->onWorkerStart = function(Worker $worker) use (&$db, $logger, $server) {
                    'username' => $_ENV['DB_USERNAME'],
                    'password' => $_ENV['DB_PASSWORD'],
                 ]);
-                $parser = new CommandParser(new CommandContainer($db, $logger));
-                $server->setParser($parser);
+                $server->setParser(new CommandParser(new CommandContainer($db)));
                 $logger->info('Successfully reconnected to Chess Data');
             } catch(\PDOException $e) {
                 // Trying to connect to Chess Data...

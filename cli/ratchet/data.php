@@ -34,7 +34,7 @@ $db = new Db([
 $logger = new Logger('log');
 $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/data.log', Logger::INFO));
 
-$parser = new CommandParser(new CommandContainer($db, $logger));
+$parser = new CommandParser(new CommandContainer($db));
 
 $clientStorage = new RatchetClientStorage($logger);
 

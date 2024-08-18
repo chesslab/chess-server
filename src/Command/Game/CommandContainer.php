@@ -8,7 +8,8 @@ class CommandContainer extends AbstractCommandContainer
 {
     public function __construct()
     {
-        $this->commands = new \SplObjectStorage;
+        parent::__construct();
+        
         $this->commands->attach(new AcceptPlayRequestCommand());
         $this->commands->attach(new DrawCommand());
         $this->commands->attach(new EvalNamesCommand());
