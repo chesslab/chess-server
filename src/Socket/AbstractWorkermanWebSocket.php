@@ -83,9 +83,4 @@ abstract class AbstractWorkermanWebSocket extends AbstractChesslaBlabSocket
 
         return $this;
     }
-
-    public function run(): void
-    {
-        $this->worker->runAll();
-    }
 }

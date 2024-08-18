@@ -43,4 +43,4 @@ $context = [
 
 $server = (new WorkermanDataWebSocket($socketName, $context, $parser))->init($clientStorage);
 
-$server->run();
+$server->getWorker()->runAll();
