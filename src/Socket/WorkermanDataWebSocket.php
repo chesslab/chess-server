@@ -13,11 +13,6 @@ class WorkermanDataWebSocket extends AbstractWorkermanWebSocket
     {
         parent::__construct($socketName, $context, $parser);
 
-        $this->start()->connect()->message()->error()->close();
-    }
-
-    protected function start()
-    {
         $this->worker->onWorkerStart = function() {
             Timer::add(5, function() {
                 try {
@@ -40,7 +35,7 @@ class WorkermanDataWebSocket extends AbstractWorkermanWebSocket
             });
         };
 
-        return $this;
+        $this->connect()->message()->error()->close();
     }
 
     protected function close()
