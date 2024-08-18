@@ -47,8 +47,8 @@ $server = (new WorkermanWebSocket($socketName, $context, $parser))->init($client
 
 $worker = $server->getWorker();
 
-$worker->onWorkerStart = function(Worker $worker) use (&$db, $logger, $server) {
-    Timer::add(5, function() use (&$db, $logger, $server) {
+$worker->onWorkerStart = function(Worker $worker) use ($logger, &$db, $server) {
+    Timer::add(5, function() use ($logger, &$db, $server) {
         try {
             $db->getPdo()->getAttribute(\PDO::ATTR_SERVER_INFO);
         } catch(\PDOException $e) {
