@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Socket\ChesslaBlabSocket;
+use ChessServer\Socket\AbstractChesslaBlabSocket;
 
 class StatsPlayerCommand extends DataCommand
 {
@@ -32,7 +32,7 @@ class StatsPlayerCommand extends DataCommand
         return count($argv) - 1 === count($this->params);
     }
 
-    public function run(ChesslaBlabSocket $socket, array $argv, int $id)
+    public function run(AbstractChesslaBlabSocket $socket, array $argv, int $id)
     {
         $params = json_decode(stripslashes($argv[1]), true);
 

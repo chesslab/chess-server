@@ -1,18 +1,29 @@
 <?php
 
-namespace ChessServer\Socket;
+namespace ChessServer\Socket\Ratchet;
 
 use ChessServer\Command\CommandParser;
-use ChessServer\Command\Game\LeaveCommand;
 use ChessServer\Exception\ParserException;
+use ChessServer\Socket\AbstractChesslaBlabSocket;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
+use React\EventLoop\Factory;
+use React\EventLoop\StreamSelectLoop;
 
-class RatchetWebSocket extends ChesslaBlabSocket implements MessageComponentInterface
+abstract class AbstractWebSocket extends AbstractChesslaBlabSocket implements MessageComponentInterface
 {
+    protected StreamSelectLoop $loop;
+
     public function __construct(CommandParser $parser)
     {
         parent::__construct($parser);
+
+        $this->loop = Factory::create();
+    }
+
+    public function getLoop()
+    {
+        return $this->loop;
     }
 
     public function onOpen(ConnectionInterface $conn)
@@ -54,25 +65,6 @@ class RatchetWebSocket extends ChesslaBlabSocket implements MessageComponentInte
                 'error' => 'Internal server error',
             ]);
         }
-    }
-
-    public function onClose(ConnectionInterface $conn)
-    {
-        if ($gameMode = $this->gameModeStorage->getById($conn->resourceId)) {
-            $this->gameModeStorage->delete($gameMode);
-            $this->clientStorage->sendToMany($gameMode->getResourceIds(), [
-                '/leave' => [
-                    'action' => LeaveCommand::ACTION_ACCEPT,
-                ],
-            ]);
-        }
-
-        $this->clientStorage->detachById($conn->resourceId);
-
-        $this->clientStorage->getLogger()->info('Closed connection', [
-            'id' => $conn->resourceId,
-            'n' => $this->clientStorage->count()
-        ]);
     }
 
     public function onError(ConnectionInterface $conn, \Exception $e)

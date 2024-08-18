@@ -6,7 +6,7 @@ use Chess\FenToBoardFactory;
 use Chess\Tutor\FenEvaluation;
 use Chess\Variant\Classical\Board;
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Socket\ChesslaBlabSocket;
+use ChessServer\Socket\AbstractChesslaBlabSocket;
 
 class TutorFenCommand extends AbstractCommand
 {
@@ -24,7 +24,7 @@ class TutorFenCommand extends AbstractCommand
         return count($argv) - 1 === count($this->params);
     }
 
-    public function run(ChesslaBlabSocket $socket, array $argv, int $id)
+    public function run(AbstractChesslaBlabSocket $socket, array $argv, int $id)
     {
         $params = json_decode(stripslashes($argv[1]), true);
 

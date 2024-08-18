@@ -4,8 +4,8 @@ namespace ChessServer\Cli\Ratchet;
 
 use ChessServer\Command\CommandParser;
 use ChessServer\Command\Game\CommandContainer;
-use ChessServer\Socket\RatchetClientStorage;
-use ChessServer\Socket\RatchetWebSocket;
+use ChessServer\Socket\Ratchet\ClientStorage;
+use ChessServer\Socket\Ratchet\GameWebSocket;
 use Dotenv\Dotenv;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -25,17 +25,15 @@ $dotenv->load();
 $logger = new Logger('log');
 $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/game.log', Logger::INFO));
 
-$clientStorage = new RatchetClientStorage($logger);
+$clientStorage = new ClientStorage($logger);
 
 $parser = new CommandParser(new CommandContainer($logger));
 
-$webSocket = (new RatchetWebSocket($parser))->init($clientStorage);
+$webSocket = (new GameWebSocket($parser))->init($clientStorage);
 
-$loop = Factory::create();
+$server = new Server("{$_ENV['WSS_ADDRESS']}:{$_ENV['WSS_GAME_PORT']}", $webSocket->getLoop());
 
-$server = new Server("{$_ENV['WSS_ADDRESS']}:{$_ENV['WSS_GAME_PORT']}", $loop);
-
-$secureServer = new SecureServer($server, $loop, [
+$secureServer = new SecureServer($server, $webSocket->getLoop(), [
     'local_cert'  => __DIR__  . '/../../ssl/fullchain.pem',
     'local_pk' => __DIR__  . '/../../ssl/privkey.pem',
     'verify_peer' => false,
@@ -45,6 +43,6 @@ $limitingServer = new LimitingServer($secureServer, 50);
 
 $httpServer = new HttpServer(new WsServer($webSocket));
 
-$ioServer = new IoServer($httpServer, $limitingServer, $loop);
+$ioServer = new IoServer($httpServer, $limitingServer, $webSocket->getLoop());
 
 $ioServer->run();

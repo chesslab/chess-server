@@ -1,15 +1,15 @@
 <?php
 
-namespace ChessServer\Socket;
+namespace ChessServer\Socket\Workerman;
 
 use ChessServer\Command\CommandParser;
-use ChessServer\Command\Game\LeaveCommand;
 use ChessServer\Exception\ParserException;
+use ChessServer\Socket\AbstractChesslaBlabSocket;
 use Workerman\Worker;
 
-class WorkermanWebSocket extends ChesslaBlabSocket
+abstract class AbstractWebSocket extends AbstractChesslaBlabSocket
 {
-    private Worker $worker;
+    protected Worker $worker;
 
     public function __construct(string $socketName, array $context, CommandParser $parser)
     {
@@ -17,8 +17,11 @@ class WorkermanWebSocket extends ChesslaBlabSocket
 
         $this->worker = new Worker($socketName, $context);
         $this->worker->transport = 'ssl';
+    }
 
-        $this->connect()->message()->error()->close();
+    public function getWorker()
+    {
+        return $this->worker;
     }
 
     protected function connect()
@@ -80,33 +83,5 @@ class WorkermanWebSocket extends ChesslaBlabSocket
         };
 
         return $this;
-    }
-
-    protected function close()
-    {
-        $this->worker->onClose = function ($conn) {
-            if ($gameMode = $this->gameModeStorage->getById($conn->id)) {
-                $this->gameModeStorage->delete($gameMode);
-                $this->clientStorage->sendToMany($gameMode->getResourceIds(), [
-                    '/leave' => [
-                        'action' => LeaveCommand::ACTION_ACCEPT,
-                    ],
-                ]);
-            }
-
-            $this->clientStorage->detachById($conn->id);
-
-            $this->clientStorage->getLogger()->info('Closed connection', [
-                'id' => $conn->id,
-                'n' => $this->clientStorage->count()
-            ]);
-        };
-
-        return $this;
-    }
-
-    public function run()
-    {
-        $this->worker->runAll();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command;
 
-use ChessServer\Socket\ChesslaBlabSocket;
+use ChessServer\Socket\AbstractChesslaBlabSocket;
 
 abstract class AbstractCommand
 {
@@ -21,5 +21,5 @@ abstract class AbstractCommand
 
     abstract public function validate(array $command);
 
-    abstract public function run(ChesslaBlabSocket $socket, array $argv, int $id);
+    abstract public function run(AbstractChesslaBlabSocket $socket, array $argv, int $id);
 }
