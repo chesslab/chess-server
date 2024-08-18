@@ -1,12 +1,12 @@
 <?php
 
-namespace ChessServer\Socket\Workerman;
+namespace ChessServer\Socket\Ratchet;
 
 use ChessServer\Game\PlayMode;
 use ChessServer\Socket\ClientStorageInterface;
 use Monolog\Logger;
 
-class WorkermanClientStorage extends \SplObjectStorage implements ClientStorageInterface
+class ClientStorage extends \SplObjectStorage implements ClientStorageInterface
 {
     private Logger $logger;
 
@@ -24,7 +24,7 @@ class WorkermanClientStorage extends \SplObjectStorage implements ClientStorageI
     {
         $this->rewind();
         while ($this->valid()) {
-            if ($id === $this->current()->id) {
+            if ($id === $this->current()->resourceId) {
                 $this->detach($this->current());
             }
             $this->next();
@@ -35,7 +35,7 @@ class WorkermanClientStorage extends \SplObjectStorage implements ClientStorageI
     {
         $this->rewind();
         while ($this->valid()) {
-            if ($id === $this->current()->id) {
+            if ($id === $this->current()->resourceId) {
                 $this->current()->send(json_encode($res));
                 $this->logger->info('Sent message', [
                     'id' => $id,
@@ -48,11 +48,10 @@ class WorkermanClientStorage extends \SplObjectStorage implements ClientStorageI
 
     public function sendToMany(array $ids, array $res): void
     {
-        $json = json_encode($res);
         $this->rewind();
         while ($this->valid()) {
-            if (in_array($this->current()->id, $ids)) {
-                $this->current()->send($json);
+            if (in_array($this->current()->resourceId, $ids)) {
+                $this->current()->send(json_encode($res));
                 $this->logger->info('Sent message', [
                     'ids' => $ids,
                     'cmd' => array_keys($res),
@@ -64,10 +63,9 @@ class WorkermanClientStorage extends \SplObjectStorage implements ClientStorageI
 
     public function sendToAll(array $res): void
     {
-        $json = json_encode($res);
         $this->rewind();
         while ($this->valid()) {
-            $this->current()->send($json);
+            $this->current()->send(json_encode($res));
             $this->next();
         }
     }

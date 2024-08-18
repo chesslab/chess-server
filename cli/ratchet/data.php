@@ -5,8 +5,8 @@ namespace ChessServer\Cli\Ratchet;
 use ChessServer\Command\CommandParser;
 use ChessServer\Command\Data\CommandContainer;
 use ChessServer\Command\Data\Db;
-use ChessServer\Socket\Ratchet\RatchetClientStorage;
-use ChessServer\Socket\Ratchet\RatchetDataWebSocket;
+use ChessServer\Socket\Ratchet\ClientStorage;
+use ChessServer\Socket\Ratchet\DataWebSocket;
 use Dotenv\Dotenv;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -36,9 +36,9 @@ $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/data.log', L
 
 $parser = new CommandParser(new CommandContainer($db));
 
-$clientStorage = new RatchetClientStorage($logger);
+$clientStorage = new ClientStorage($logger);
 
-$webSocket = (new RatchetDataWebSocket($parser))->init($clientStorage);
+$webSocket = (new DataWebSocket($parser))->init($clientStorage);
 
 $server = new Server("{$_ENV['WSS_ADDRESS']}:{$_ENV['WSS_DATA_PORT']}", $webSocket->getLoop());
 

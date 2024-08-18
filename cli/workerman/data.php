@@ -5,8 +5,8 @@ namespace ChessServer\Cli\Workerman;
 use ChessServer\Command\CommandParser;
 use ChessServer\Command\Data\CommandContainer;
 use ChessServer\Command\Data\Db;
-use ChessServer\Socket\Workerman\WorkermanClientStorage;
-use ChessServer\Socket\Workerman\WorkermanDataWebSocket;
+use ChessServer\Socket\Workerman\ClientStorage;
+use ChessServer\Socket\Workerman\DataWebSocket;
 use Dotenv\Dotenv;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -29,7 +29,7 @@ $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/data.log', L
 
 $parser = new CommandParser(new CommandContainer($db));
 
-$clientStorage = new WorkermanClientStorage($logger);
+$clientStorage = new ClientStorage($logger);
 
 $socketName = "websocket://{$_ENV['WSS_ADDRESS']}:{$_ENV['WSS_DATA_PORT']}";
 
@@ -41,6 +41,6 @@ $context = [
     ],
 ];
 
-$server = (new WorkermanDataWebSocket($socketName, $context, $parser))->init($clientStorage);
+$server = (new DataWebSocket($socketName, $context, $parser))->init($clientStorage);
 
 $server->getWorker()->runAll();

@@ -7,7 +7,7 @@ use ChessServer\Command\Data\CommandContainer;
 use ChessServer\Command\Data\Db;
 use Ratchet\ConnectionInterface;
 
-class RatchetDataWebSocket extends AbstractRatchetWebSocket
+class DataWebSocket extends AbstractWebSocket
 {
     private $timeInterval = 5;
 

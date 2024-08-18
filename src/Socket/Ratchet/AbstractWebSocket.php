@@ -9,7 +9,7 @@ use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 use React\EventLoop\Factory;
 
-abstract class AbstractRatchetWebSocket extends AbstractChesslaBlabSocket implements MessageComponentInterface
+abstract class AbstractWebSocket extends AbstractChesslaBlabSocket implements MessageComponentInterface
 {
     protected $loop;
 

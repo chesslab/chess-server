@@ -7,7 +7,7 @@ use ChessServer\Command\Data\CommandContainer;
 use ChessServer\Command\Data\Db;
 use Workerman\Timer;
 
-class WorkermanDataWebSocket extends AbstractWorkermanWebSocket
+class DataWebSocket extends AbstractWebSocket
 {
     private $timeInterval = 5;
 

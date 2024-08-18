@@ -6,7 +6,7 @@ use ChessServer\Command\CommandParser;
 use ChessServer\Command\Game\LeaveCommand;
 use Ratchet\ConnectionInterface;
 
-class RatchetGameWebSocket extends AbstractRatchetWebSocket
+class GameWebSocket extends AbstractWebSocket
 {
     public function __construct(CommandParser $parser)
     {
