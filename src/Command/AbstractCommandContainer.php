@@ -9,22 +9,22 @@ abstract class AbstractCommandContainer
 {
     protected Logger $logger;
 
-    protected SplObjectStorage $obj;
+    protected SplObjectStorage $commands;
 
     public function __construct(Logger $logger)
     {
-        $this->obj = new SplObjectStorage;
+        $this->commands = new SplObjectStorage;
         $this->logger = $logger;
     }
 
     public function findByName(string $name)
     {
-        $this->obj->rewind();
-        while ($this->obj->valid()) {
-            if ($this->obj->current()->name === $name) {
-                return $this->obj->current();
+        $this->commands->rewind();
+        while ($this->commands->valid()) {
+            if ($this->commands->current()->name === $name) {
+                return $this->commands->current();
             }
-            $this->obj->next();
+            $this->commands->next();
         }
 
         return null;
@@ -32,15 +32,17 @@ abstract class AbstractCommandContainer
 
     public function help()
     {
-        $o = '';
-        $this->obj->rewind();
-        while ($this->obj->valid()) {
-            $o .= $this->obj->current()->name;
-            $this->obj->current()->params ? $o .= ' ' . json_encode($this->obj->current()->params) : null;
-            $o .= ' ' . $this->obj->current()->description . PHP_EOL;
-            $this->obj->next();
+        $help = '';
+        $this->commands->rewind();
+        while ($this->commands->valid()) {
+            $help .= $this->commands->current()->name;
+            $this->commands->current()->params
+                ? $help .= ' ' . json_encode($this->commands->current()->params)
+                : null;
+            $help .= ' ' . $this->commands->current()->description . PHP_EOL;
+            $this->commands->next();
         }
 
-        return $o;
+        return $help;
     }
 }

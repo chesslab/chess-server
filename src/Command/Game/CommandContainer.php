@@ -8,24 +8,24 @@ class CommandContainer extends AbstractCommandContainer
 {
     public function __construct()
     {
-        $this->obj = new \SplObjectStorage;
-        $this->obj->attach(new AcceptPlayRequestCommand());
-        $this->obj->attach(new DrawCommand());
-        $this->obj->attach(new EvalNamesCommand());
-        $this->obj->attach(new HeuristicCommand());
-        $this->obj->attach(new LeaveCommand());
-        $this->obj->attach(new LegalCommand());
-        $this->obj->attach(new OnlineGamesCommand());
-        $this->obj->attach(new PlayLanCommand());
-        $this->obj->attach(new PlayRavCommand());
-        $this->obj->attach(new RandomizerCommand());
-        $this->obj->attach(new RematchCommand());
-        $this->obj->attach(new ResignCommand());
-        $this->obj->attach(new RestartCommand());
-        $this->obj->attach(new StartCommand());
-        $this->obj->attach(new StockfishCommand());
-        $this->obj->attach(new TakebackCommand());
-        $this->obj->attach(new TutorFenCommand());
-        $this->obj->attach(new UndoCommand());
+        $this->commands = new \SplObjectStorage;
+        $this->commands->attach(new AcceptPlayRequestCommand());
+        $this->commands->attach(new DrawCommand());
+        $this->commands->attach(new EvalNamesCommand());
+        $this->commands->attach(new HeuristicCommand());
+        $this->commands->attach(new LeaveCommand());
+        $this->commands->attach(new LegalCommand());
+        $this->commands->attach(new OnlineGamesCommand());
+        $this->commands->attach(new PlayLanCommand());
+        $this->commands->attach(new PlayRavCommand());
+        $this->commands->attach(new RandomizerCommand());
+        $this->commands->attach(new RematchCommand());
+        $this->commands->attach(new ResignCommand());
+        $this->commands->attach(new RestartCommand());
+        $this->commands->attach(new StartCommand());
+        $this->commands->attach(new StockfishCommand());
+        $this->commands->attach(new TakebackCommand());
+        $this->commands->attach(new TutorFenCommand());
+        $this->commands->attach(new UndoCommand());
     }
 }

@@ -14,13 +14,13 @@ class CommandContainer extends AbstractCommandContainer
         parent::__construct($logger);
 
         $this->db = $db;
-        $this->obj->attach(new AnnotationsGameCommand($db));
-        $this->obj->attach(new AutocompleteBlackCommand($db));
-        $this->obj->attach(new AutocompleteEventCommand($db));
-        $this->obj->attach(new AutocompleteWhiteCommand($db));
-        $this->obj->attach(new SearchCommand($db));
-        $this->obj->attach(new StatsEventCommand($db));
-        $this->obj->attach(new StatsOpeningCommand($db));
-        $this->obj->attach(new StatsPlayerCommand($db));
+        $this->commands->attach(new AnnotationsGameCommand($db));
+        $this->commands->attach(new AutocompleteBlackCommand($db));
+        $this->commands->attach(new AutocompleteEventCommand($db));
+        $this->commands->attach(new AutocompleteWhiteCommand($db));
+        $this->commands->attach(new SearchCommand($db));
+        $this->commands->attach(new StatsEventCommand($db));
+        $this->commands->attach(new StatsOpeningCommand($db));
+        $this->commands->attach(new StatsPlayerCommand($db));
     }
 }
