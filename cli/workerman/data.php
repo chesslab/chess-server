@@ -10,6 +10,8 @@ use ChessServer\Socket\WorkermanWebSocket;
 use Dotenv\Dotenv;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Workerman\Timer;
+use Workerman\Worker;
 
 require __DIR__  . '/../../vendor/autoload.php';
 
@@ -27,7 +29,8 @@ $db = new Db([
 $logger = new Logger('data');
 $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/data.log', Logger::INFO));
 
-$parser = new CommandParser(new CommandContainer($db, $logger));
+$commandContainer = new CommandContainer($db, $logger);
+$parser = new CommandParser($commandContainer);
 
 $clientStorage = new WorkermanClientStorage($logger);
 
@@ -42,5 +45,30 @@ $context = [
 ];
 
 $server = (new WorkermanWebSocket($socketName, $context, $parser))->init($clientStorage);
+
+$worker = $server->getWorker();
+
+$worker->onWorkerStart = function(Worker $worker) use (&$db, $logger, $server) {
+    Timer::add(5, function() use (&$db, $logger, $server) {
+        try {
+            $db->getPdo()->getAttribute(\PDO::ATTR_SERVER_INFO);
+        } catch(\PDOException $e) {
+            try {
+                $db = new Db([
+                   'driver' => $_ENV['DB_DRIVER'],
+                   'host' => $_ENV['DB_HOST'],
+                   'database' => $_ENV['DB_DATABASE'],
+                   'username' => $_ENV['DB_USERNAME'],
+                   'password' => $_ENV['DB_PASSWORD'],
+                ]);
+                $parser = new CommandParser(new CommandContainer($db, $logger));
+                $server->setParser($parser);
+                $logger->info('Successfully reconnected to Chess Data');
+            } catch(\PDOException $e) {
+                // Trying to connect to Chess Data...
+            }
+        }
+    });
+};
 
 $server->run();

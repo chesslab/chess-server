@@ -21,6 +21,11 @@ class WorkermanWebSocket extends ChesslaBlabSocket
         $this->connect()->message()->error()->close();
     }
 
+    public function getWorker()
+    {
+        return $this->worker;
+    }
+
     protected function connect()
     {
         $this->worker->onConnect = function($conn) {

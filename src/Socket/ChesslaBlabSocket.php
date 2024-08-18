@@ -51,4 +51,9 @@ class ChesslaBlabSocket
     {
         return $this->clientStorage;
     }
+
+    public function setParser(CommandParser $parser)
+    {
+        $this->parser = $parser;
+    }
 }
