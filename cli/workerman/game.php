@@ -32,6 +32,6 @@ $context = [
     ],
 ];
 
-$server = (new GameWebSocket($socketName, $context, $parser))->init($clientStorage);
+$webSocket = (new GameWebSocket($socketName, $context, $parser))->init($clientStorage);
 
-$server->getWorker()->runAll();
+$webSocket->getWorker()->runAll();

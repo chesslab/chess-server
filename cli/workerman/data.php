@@ -41,6 +41,6 @@ $context = [
     ],
 ];
 
-$server = (new DataWebSocket($socketName, $context, $parser))->init($clientStorage);
+$webSocket = (new DataWebSocket($socketName, $context, $parser))->init($clientStorage);
 
-$server->getWorker()->runAll();
+$webSocket->getWorker()->runAll();
