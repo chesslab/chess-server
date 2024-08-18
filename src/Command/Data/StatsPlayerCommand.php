@@ -4,7 +4,7 @@ namespace ChessServer\Command\Data;
 
 use ChessServer\Socket\AbstractChesslaBlabSocket;
 
-class StatsPlayerCommand extends DataCommand
+class StatsPlayerCommand extends AbstractDataCommand
 {
     const SQL_LIKE = [
 

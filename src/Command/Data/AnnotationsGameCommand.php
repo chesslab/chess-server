@@ -4,7 +4,7 @@ namespace ChessServer\Command\Data;
 
 use ChessServer\Socket\AbstractChesslaBlabSocket;
 
-class AnnotationsGameCommand extends DataCommand
+class AnnotationsGameCommand extends AbstractDataCommand
 {
     const DATA_FOLDER = __DIR__.'/../../../data';
 

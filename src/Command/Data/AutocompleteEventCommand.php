@@ -4,7 +4,7 @@ namespace ChessServer\Command\Data;
 
 use ChessServer\Socket\AbstractChesslaBlabSocket;
 
-class AutocompleteEventCommand extends DataCommand
+class AutocompleteEventCommand extends AbstractDataCommand
 {
     public function __construct(Db $db)
     {

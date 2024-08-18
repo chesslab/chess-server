@@ -4,7 +4,7 @@ namespace ChessServer\Command\Data;
 
 use ChessServer\Command\AbstractCommand;
 
-abstract class DataCommand extends AbstractCommand
+abstract class AbstractDataCommand extends AbstractCommand
 {
     protected Db $db;
 

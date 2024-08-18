@@ -4,7 +4,7 @@ namespace ChessServer\Command\Data;
 
 use ChessServer\Socket\AbstractChesslaBlabSocket;
 
-class StatsOpeningCommand extends DataCommand
+class StatsOpeningCommand extends AbstractDataCommand
 {
     public function __construct(Db $db)
     {
