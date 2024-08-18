@@ -6,12 +6,22 @@ use ChessServer\Command\CommandParser;
 use ChessServer\Exception\ParserException;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
+use React\EventLoop\Factory;
 
 abstract class AbstractRatchetWebSocket extends AbstractChesslaBlabSocket implements MessageComponentInterface
 {
+    protected $loop;
+
     public function __construct(CommandParser $parser)
     {
         parent::__construct($parser);
+
+        $this->loop = Factory::create();
+    }
+
+    public function getLoop()
+    {
+        return $this->loop;
     }
 
     public function onOpen(ConnectionInterface $conn)

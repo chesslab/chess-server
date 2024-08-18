@@ -18,9 +18,9 @@ abstract class AbstractWorkermanWebSocket extends AbstractChesslaBlabSocket
         $this->worker->transport = 'ssl';
     }
 
-    public function run(): void
+    public function getWorker()
     {
-        $this->worker->runAll();
+        return $this->worker;
     }
 
     protected function connect()
@@ -82,5 +82,10 @@ abstract class AbstractWorkermanWebSocket extends AbstractChesslaBlabSocket
         };
 
         return $this;
+    }
+
+    public function run(): void
+    {
+        $this->worker->runAll();
     }
 }

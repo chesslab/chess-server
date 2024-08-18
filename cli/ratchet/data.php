@@ -40,7 +40,7 @@ $clientStorage = new RatchetClientStorage($logger);
 
 $webSocket = (new RatchetDataWebSocket($parser))->init($clientStorage);
 
-$loop = Factory::create();
+$loop = $webSocket->getLoop();
 
 $server = new Server("{$_ENV['WSS_ADDRESS']}:{$_ENV['WSS_DATA_PORT']}", $loop);
 

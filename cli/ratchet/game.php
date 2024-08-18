@@ -31,7 +31,7 @@ $parser = new CommandParser(new CommandContainer($logger));
 
 $webSocket = (new RatchetGameWebSocket($parser))->init($clientStorage);
 
-$loop = Factory::create();
+$loop = $webSocket->getLoop();
 
 $server = new Server("{$_ENV['WSS_ADDRESS']}:{$_ENV['WSS_GAME_PORT']}", $loop);
 
