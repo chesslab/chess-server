@@ -3,24 +3,24 @@
 namespace ChessServer\Command\Data;
 
 use ChessServer\Command\AbstractCommandContainer;
+use Monolog\Logger;
 
 class CommandContainer extends AbstractCommandContainer
 {
     private Db $db;
 
-    public function __construct($logger)
+    public function __construct(Db $db, Logger $logger)
     {
         parent::__construct($logger);
 
-        $conf = include(__DIR__.'/../../../config/database.php');
-        $this->db = new Db($conf);
-        $this->obj->attach(new AnnotationsGameCommand($this->db));
-        $this->obj->attach(new AutocompleteBlackCommand($this->db));
-        $this->obj->attach(new AutocompleteEventCommand($this->db));
-        $this->obj->attach(new AutocompleteWhiteCommand($this->db));
-        $this->obj->attach(new SearchCommand($this->db));
-        $this->obj->attach(new StatsEventCommand($this->db));
-        $this->obj->attach(new StatsOpeningCommand($this->db));
-        $this->obj->attach(new StatsPlayerCommand($this->db));
+        $this->db = $db;
+        $this->obj->attach(new AnnotationsGameCommand($db));
+        $this->obj->attach(new AutocompleteBlackCommand($db));
+        $this->obj->attach(new AutocompleteEventCommand($db));
+        $this->obj->attach(new AutocompleteWhiteCommand($db));
+        $this->obj->attach(new SearchCommand($db));
+        $this->obj->attach(new StatsEventCommand($db));
+        $this->obj->attach(new StatsOpeningCommand($db));
+        $this->obj->attach(new StatsPlayerCommand($db));
     }
 }

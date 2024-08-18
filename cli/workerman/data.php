@@ -4,6 +4,7 @@ namespace ChessServer\Cli\Workerman;
 
 use ChessServer\Command\CommandParser;
 use ChessServer\Command\Data\CommandContainer;
+use ChessServer\Command\Data\Db;
 use ChessServer\Socket\WorkermanClientStorage;
 use ChessServer\Socket\WorkermanWebSocket;
 use Dotenv\Dotenv;
@@ -15,8 +16,18 @@ require __DIR__  . '/../../vendor/autoload.php';
 $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
 $dotenv->load();
 
+$db = new Db([
+   'driver' => $_ENV['DB_DRIVER'],
+   'host' => $_ENV['DB_HOST'],
+   'database' => $_ENV['DB_DATABASE'],
+   'username' => $_ENV['DB_USERNAME'],
+   'password' => $_ENV['DB_PASSWORD'],
+]);
+
 $logger = new Logger('data');
 $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/data.log', Logger::INFO));
+
+$parser = new CommandParser(new CommandContainer($db, $logger));
 
 $clientStorage = new WorkermanClientStorage($logger);
 
@@ -29,8 +40,6 @@ $context = [
         'verify_peer' => false,
     ],
 ];
-
-$parser = new CommandParser(new CommandContainer($logger));
 
 $server = (new WorkermanWebSocket($socketName, $context, $parser))->init($clientStorage);
 

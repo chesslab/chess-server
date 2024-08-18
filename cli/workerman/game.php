@@ -18,6 +18,8 @@ $dotenv->load();
 $logger = new Logger('game');
 $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/game.log', Logger::INFO));
 
+$parser = new CommandParser(new CommandContainer($logger));
+
 $clientStorage = new WorkermanClientStorage($logger);
 
 $socketName = "websocket://{$_ENV['WSS_ADDRESS']}:{$_ENV['WSS_GAME_PORT']}";
@@ -29,8 +31,6 @@ $context = [
         'verify_peer' => false,
     ],
 ];
-
-$parser = new CommandParser(new CommandContainer($logger));
 
 $server = (new WorkermanWebSocket($socketName, $context, $parser))->init($clientStorage);
 

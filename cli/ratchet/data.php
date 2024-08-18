@@ -4,6 +4,7 @@ namespace ChessServer\Cli\Ratchet;
 
 use ChessServer\Command\CommandParser;
 use ChessServer\Command\Data\CommandContainer;
+use ChessServer\Command\Data\Db;
 use ChessServer\Socket\RatchetClientStorage;
 use ChessServer\Socket\RatchetWebSocket;
 use Dotenv\Dotenv;
@@ -22,12 +23,20 @@ require __DIR__  . '/../../vendor/autoload.php';
 $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
 $dotenv->load();
 
+$db = new Db([
+   'driver' => $_ENV['DB_DRIVER'],
+   'host' => $_ENV['DB_HOST'],
+   'database' => $_ENV['DB_DATABASE'],
+   'username' => $_ENV['DB_USERNAME'],
+   'password' => $_ENV['DB_PASSWORD'],
+]);
+
 $logger = new Logger('log');
 $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/data.log', Logger::INFO));
 
-$clientStorage = new RatchetClientStorage($logger);
+$parser = new CommandParser(new CommandContainer($db, $logger));
 
-$parser = new CommandParser(new CommandContainer($logger));
+$clientStorage = new RatchetClientStorage($logger);
 
 $webSocket = (new RatchetWebSocket($parser))->init($clientStorage);
 
