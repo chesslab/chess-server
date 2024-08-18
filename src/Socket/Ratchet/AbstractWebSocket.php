@@ -8,10 +8,11 @@ use ChessServer\Socket\AbstractChesslaBlabSocket;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 use React\EventLoop\Factory;
+use React\EventLoop\StreamSelectLoop;
 
 abstract class AbstractWebSocket extends AbstractChesslaBlabSocket implements MessageComponentInterface
 {
-    protected $loop;
+    protected StreamSelectLoop $loop;
 
     public function __construct(CommandParser $parser)
     {
