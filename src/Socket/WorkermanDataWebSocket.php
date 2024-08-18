@@ -9,12 +9,14 @@ use Workerman\Timer;
 
 class WorkermanDataWebSocket extends AbstractWorkermanWebSocket
 {
+    private $timeInterval = 5;
+
     public function __construct(string $socketName, array $context, CommandParser $parser)
     {
         parent::__construct($socketName, $context, $parser);
 
         $this->worker->onWorkerStart = function() {
-            Timer::add(5, function() {
+            Timer::add($this->timeInterval, function() {
                 try {
                     $this->parser->cli->getDb()->getPdo()->getAttribute(\PDO::ATTR_SERVER_INFO);
                 } catch(\PDOException $e) {

@@ -5,16 +5,17 @@ namespace ChessServer\Socket;
 use ChessServer\Command\CommandParser;
 use ChessServer\Command\Data\CommandContainer;
 use ChessServer\Command\Data\Db;
-use ChessServer\Command\Game\LeaveCommand;
 use Ratchet\ConnectionInterface;
 
 class RatchetDataWebSocket extends AbstractRatchetWebSocket
 {
+    private $timeInterval = 5;
+
     public function __construct(CommandParser $parser)
     {
         parent::__construct($parser);
 
-        $this->loop->addPeriodicTimer(5, function() {
+        $this->loop->addPeriodicTimer($this->timeInterval, function() {
             try {
                 $this->parser->cli->getDb()->getPdo()->getAttribute(\PDO::ATTR_SERVER_INFO);
             } catch(\PDOException $e) {
