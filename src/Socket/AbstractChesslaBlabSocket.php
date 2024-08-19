@@ -3,14 +3,14 @@
 namespace ChessServer\Socket;
 
 use Chess\Computer\GrandmasterMove;
-use ChessServer\Command\CommandParser;
+use ChessServer\Command\Parser;
 use ChessServer\Command\Game\GameModeStorage;
 
 abstract class AbstractChesslaBlabSocket
 {
     const DATA_FOLDER = __DIR__.'/../../data';
 
-    protected CommandParser $parser;
+    protected Parser $parser;
 
     protected GrandmasterMove $gmMove;
 
@@ -18,7 +18,7 @@ abstract class AbstractChesslaBlabSocket
 
     protected ClientStorageInterface $clientStorage;
 
-    public function __construct(CommandParser $parser)
+    public function __construct(Parser $parser)
     {
         $this->parser = $parser;
         $this->gmMove = new GrandmasterMove(self::DATA_FOLDER.'/players.json');
@@ -52,7 +52,7 @@ abstract class AbstractChesslaBlabSocket
         return $this->clientStorage;
     }
 
-    public function setParser(CommandParser $parser)
+    public function setParser(Parser $parser)
     {
         $this->parser = $parser;
     }

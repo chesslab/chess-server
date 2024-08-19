@@ -4,7 +4,7 @@ namespace ChessServer\Command;
 
 use ChessServer\Exception\ParserException;
 
-class CommandParser
+class Parser
 {
     protected $argv;
 

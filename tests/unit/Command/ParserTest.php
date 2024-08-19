@@ -2,7 +2,7 @@
 
 namespace ChessServer\Tests\Unit\Command;
 
-use ChessServer\Command\CommandParser;
+use ChessServer\Command\Parser;
 use ChessServer\Command\Game\AcceptPlayRequestCommand;
 use ChessServer\Command\Game\Cli;
 use ChessServer\Command\Game\RestartCommand;
@@ -10,13 +10,13 @@ use ChessServer\Command\Game\StartCommand;
 use ChessServer\Exception\ParserException;
 use PHPUnit\Framework\TestCase;
 
-class CommandParserTest extends TestCase
+class ParserTest extends TestCase
 {
     protected static $parser;
 
     public function setUp(): void
     {
-        self::$parser = new CommandParser(new Cli());
+        self::$parser = new Parser(new Cli());
     }
 
     /**

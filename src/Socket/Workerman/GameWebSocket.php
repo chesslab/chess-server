@@ -2,12 +2,12 @@
 
 namespace ChessServer\Socket\Workerman;
 
-use ChessServer\Command\CommandParser;
+use ChessServer\Command\Parser;
 use ChessServer\Command\Game\LeaveCommand;
 
 class GameWebSocket extends AbstractWebSocket
 {
-    public function __construct(string $socketName, array $context, CommandParser $parser)
+    public function __construct(string $socketName, array $context, Parser $parser)
     {
         parent::__construct($socketName, $context, $parser);
 

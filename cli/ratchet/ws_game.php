@@ -2,7 +2,7 @@
 
 namespace ChessServer\Cli\Ratchet;
 
-use ChessServer\Command\CommandParser;
+use ChessServer\Command\Parser;
 use ChessServer\Command\Game\Cli;
 use ChessServer\Socket\Ratchet\ClientStorage;
 use ChessServer\Socket\Ratchet\GameWebSocket;
@@ -24,7 +24,7 @@ $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/game.log', L
 
 $clientStorage = new ClientStorage($logger);
 
-$parser = new CommandParser(new Cli($logger));
+$parser = new Parser(new Cli($logger));
 
 $webSocket = (new GameWebSocket($parser))->init($clientStorage);
 

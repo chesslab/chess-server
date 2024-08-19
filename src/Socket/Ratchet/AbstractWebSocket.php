@@ -2,7 +2,7 @@
 
 namespace ChessServer\Socket\Ratchet;
 
-use ChessServer\Command\CommandParser;
+use ChessServer\Command\Parser;
 use ChessServer\Exception\ParserException;
 use ChessServer\Socket\AbstractChesslaBlabSocket;
 use Ratchet\MessageComponentInterface;
@@ -14,7 +14,7 @@ abstract class AbstractWebSocket extends AbstractChesslaBlabSocket implements Me
 {
     protected StreamSelectLoop $loop;
 
-    public function __construct(CommandParser $parser)
+    public function __construct(Parser $parser)
     {
         parent::__construct($parser);
 

@@ -2,7 +2,7 @@
 
 namespace ChessServer\Socket\Workerman;
 
-use ChessServer\Command\CommandParser;
+use ChessServer\Command\Parser;
 use ChessServer\Command\Data\Cli;
 use ChessServer\Command\Data\Db;
 use Workerman\Timer;
@@ -11,7 +11,7 @@ class DataWebSocket extends AbstractWebSocket
 {
     private $timeInterval = 5;
 
-    public function __construct(string $socketName, array $context, CommandParser $parser)
+    public function __construct(string $socketName, array $context, Parser $parser)
     {
         parent::__construct($socketName, $context, $parser);
 
@@ -28,7 +28,7 @@ class DataWebSocket extends AbstractWebSocket
                            'username' => $_ENV['DB_USERNAME'],
                            'password' => $_ENV['DB_PASSWORD'],
                         ]);
-                        $this->setParser(new CommandParser(new Cli($db)));
+                        $this->setParser(new Parser(new Cli($db)));
                         $this->getClientStorage()->getLogger()->info('Successfully reconnected to Chess Data');
                     } catch(\PDOException $e) {
                         // Trying to connect to Chess Data...

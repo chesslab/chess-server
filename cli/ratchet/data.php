@@ -2,7 +2,7 @@
 
 namespace ChessServer\Cli\Ratchet;
 
-use ChessServer\Command\CommandParser;
+use ChessServer\Command\Parser;
 use ChessServer\Command\Data\Cli;
 use ChessServer\Command\Data\Db;
 use ChessServer\Socket\Ratchet\ClientStorage;
@@ -34,7 +34,7 @@ $db = new Db([
 $logger = new Logger('log');
 $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/data.log', Logger::INFO));
 
-$parser = new CommandParser(new Cli($db));
+$parser = new Parser(new Cli($db));
 
 $clientStorage = new ClientStorage($logger);
 

@@ -2,7 +2,7 @@
 
 namespace ChessServer\Socket\Workerman;
 
-use ChessServer\Command\CommandParser;
+use ChessServer\Command\Parser;
 use ChessServer\Exception\ParserException;
 use ChessServer\Socket\AbstractChesslaBlabSocket;
 use Workerman\Worker;
@@ -11,7 +11,7 @@ abstract class AbstractWebSocket extends AbstractChesslaBlabSocket
 {
     protected Worker $worker;
 
-    public function __construct(string $socketName, array $context, CommandParser $parser)
+    public function __construct(string $socketName, array $context, Parser $parser)
     {
         parent::__construct($parser);
 

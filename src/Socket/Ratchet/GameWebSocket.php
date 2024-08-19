@@ -2,13 +2,13 @@
 
 namespace ChessServer\Socket\Ratchet;
 
-use ChessServer\Command\CommandParser;
+use ChessServer\Command\Parser;
 use ChessServer\Command\Game\LeaveCommand;
 use Ratchet\ConnectionInterface;
 
 class GameWebSocket extends AbstractWebSocket
 {
-    public function __construct(CommandParser $parser)
+    public function __construct(Parser $parser)
     {
         parent::__construct($parser);
     }
