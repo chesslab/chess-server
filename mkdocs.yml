@@ -19,4 +19,7 @@ nav:
     - /stockfish: stockfish.md
     - /online_games: online-games.md
     - /randomizer: randomizer.md
+  - Data Commands:
+    - /annotations_game: annotations-game.md
+
 theme: readthedocs
