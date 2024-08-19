@@ -22,5 +22,6 @@ nav:
   - Data Commands:
     - /annotations_game: annotations-game.md
     - /autocomplete_black: autocomplete-black.md
+    - /autocomplete_event: autocomplete-event.md
 
 theme: readthedocs
