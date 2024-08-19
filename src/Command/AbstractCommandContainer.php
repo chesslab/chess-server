@@ -4,7 +4,7 @@ namespace ChessServer\Command;
 
 use \SplObjectStorage;
 
-abstract class AbstractCommandContainer
+abstract class AbstractCli
 {
     protected SplObjectStorage $commands;
 

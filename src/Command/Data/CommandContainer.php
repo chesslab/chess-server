@@ -2,9 +2,9 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Command\AbstractCommandContainer;
+use ChessServer\Command\AbstractCli;
 
-class CommandContainer extends AbstractCommandContainer
+class CommandContainer extends AbstractCli
 {
     private Db $db;
 
