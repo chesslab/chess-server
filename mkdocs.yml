@@ -25,5 +25,6 @@ nav:
     - /autocomplete_event: autocomplete-event.md
     - /autocomplete_white: autocomplete-white.md
     - /search: search.md
+    - /stats_event: stats-event.md
 
 theme: readthedocs
