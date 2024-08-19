@@ -1,6 +1,6 @@
 # /stats_event
 
-Chess openings results by event.
+Openings results by event.
 
 ## `settings`
 

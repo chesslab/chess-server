@@ -11,7 +11,7 @@ class StatsOpeningCommand extends AbstractDataCommand
         parent::__construct($db);
 
         $this->name = '/stats_opening';
-        $this->description = 'Chess openings results.';
+        $this->description = 'Openings results.';
     }
 
     public function validate(array $argv)
