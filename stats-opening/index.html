@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://chesslablab.github.io/chess-server/legal/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://chesslablab.github.io/chess-server/stats-opening/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>/legal - PHP Chess Server</title>
+    <title>/stats_opening - PHP Chess Server</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "/legal";
-        var mkdocs_page_input_path = "legal.md";
-        var mkdocs_page_url = "/chess-server/legal/";
+        var mkdocs_page_name = "/stats_opening";
+        var mkdocs_page_input_path = "stats-opening.md";
+        var mkdocs_page_url = "/chess-server/stats-opening/";
       </script>
     
     <!--[if lt IE 9]>
@@ -52,20 +52,10 @@
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Game Commands</span></p>
-              <ul class="current">
+              <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../start/">/start</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">/legal</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#position">position</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#example">Example</a>
-    </li>
-        </ul>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../legal/">/legal</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../play-lan/">/play_lan</a>
                   </li>
@@ -93,7 +83,7 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Data Commands</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../annotations-game/">/annotations_game</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../autocomplete-black/">/autocomplete_black</a>
@@ -106,7 +96,15 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../stats-event/">/stats_event</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../stats-opening/">/stats_opening</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">/stats_opening</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#example">Example</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../stats-player/">/stats_player</a>
                   </li>
@@ -125,8 +123,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Game Commands</li>
-      <li class="breadcrumb-item active">/legal</li>
+          <li class="breadcrumb-item">Data Commands</li>
+      <li class="breadcrumb-item active">/stats_opening</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -135,30 +133,59 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="legal">/legal</h1>
-<p>Returns the legal moves of a piece.</p>
-<h2 id="position"><code>position</code></h2>
-<p>The location of the piece on the board.</p>
+                <h1 id="stats_opening">/stats_opening</h1>
+<p>Openings results.</p>
 <hr />
 <h2 id="usage">Usage</h2>
 <h3 id="example">Example</h3>
-<p>Start a classical game to find out the legal moves of the piece on e2.</p>
-<pre><code class="language-js">ws.send('/start classical analysis');
-ws.send('/legal e2');
+<pre><code class="language-js">ws.send('/stats_opening');
 </code></pre>
 <pre><code class="language-text">{
-  &quot;/legal&quot;: [
-    &quot;e3&quot;,
-    &quot;e4&quot;
-  ]
+  &quot;/stats_opening&quot;: {
+    &quot;/stats_opening&quot;: {
+      &quot;drawRate&quot;: [
+        {
+          &quot;ECO&quot;: &quot;C42&quot;,
+          &quot;total&quot;: 286
+        },
+        ...
+        {
+          &quot;ECO&quot;: &quot;E06&quot;,
+          &quot;total&quot;: 100
+        }
+      ],
+      &quot;winRateForWhite&quot;: [
+        {
+          &quot;ECO&quot;: &quot;A45&quot;,
+          &quot;total&quot;: 218
+        },
+        ...
+        {
+          &quot;ECO&quot;: &quot;B33&quot;,
+          &quot;total&quot;: 104
+        }
+      ],
+      &quot;winRateForBlack&quot;: [
+        {
+          &quot;ECO&quot;: &quot;A07&quot;,
+          &quot;total&quot;: 129
+        },
+        ...
+        {
+          &quot;ECO&quot;: &quot;B10&quot;,
+          &quot;total&quot;: 103
+        }
+      ]
+    }
+  }
 }
 </code></pre>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../start/" class="btn btn-neutral float-left" title="/start"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../play-lan/" class="btn btn-neutral float-right" title="/play_lan">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../stats-event/" class="btn btn-neutral float-left" title="/stats_event"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../stats-player/" class="btn btn-neutral float-right" title="/stats_player">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -181,10 +208,10 @@ ws.send('/legal e2');
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../start/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../stats-event/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../play-lan/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../stats-player/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

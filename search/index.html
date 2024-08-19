@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://chesslablab.github.io/chess-server/legal/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://chesslablab.github.io/chess-server/search/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>/legal - PHP Chess Server</title>
+    <title>/search - PHP Chess Server</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "/legal";
-        var mkdocs_page_input_path = "legal.md";
-        var mkdocs_page_url = "/chess-server/legal/";
+        var mkdocs_page_name = "/search";
+        var mkdocs_page_input_path = "search.md";
+        var mkdocs_page_url = "/chess-server/search/";
       </script>
     
     <!--[if lt IE 9]>
@@ -52,20 +52,10 @@
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Game Commands</span></p>
-              <ul class="current">
+              <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../start/">/start</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">/legal</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#position">position</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#example">Example</a>
-    </li>
-        </ul>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../legal/">/legal</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../play-lan/">/play_lan</a>
                   </li>
@@ -93,7 +83,7 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Data Commands</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../annotations-game/">/annotations_game</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../autocomplete-black/">/autocomplete_black</a>
@@ -102,7 +92,17 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../autocomplete-white/">/autocomplete_white</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../search/">/search</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">/search</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#settings">settings</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#example">Example</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../stats-event/">/stats_event</a>
                   </li>
@@ -125,8 +125,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Game Commands</li>
-      <li class="breadcrumb-item active">/legal</li>
+          <li class="breadcrumb-item">Data Commands</li>
+      <li class="breadcrumb-item active">/search</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -135,21 +135,55 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="legal">/legal</h1>
-<p>Returns the legal moves of a piece.</p>
-<h2 id="position"><code>position</code></h2>
-<p>The location of the piece on the board.</p>
+                <h1 id="search">/search</h1>
+<p>Finds up to 25 games matching the criteria.</p>
+<h2 id="settings"><code>settings</code></h2>
+<p>The settings as per these options.</p>
+<ul>
+<li><code>Event</code> is the name of the event.</li>
+<li><code>Date</code> is the year the game was played.</li>
+<li><code>White</code> is the name of the player with the white pieces.</li>
+<li><code>Black</code> is the name of the player with the black pieces.</li>
+<li><code>Result</code> is the result of the game.</li>
+<li><code>ECO</code> is the ECO code of the opening used in the game.</li>
+<li><code>movetext</code> is a sequence of moves played in the game. </li>
+</ul>
 <hr />
 <h2 id="usage">Usage</h2>
 <h3 id="example">Example</h3>
-<p>Start a classical game to find out the legal moves of the piece on e2.</p>
-<pre><code class="language-js">ws.send('/start classical analysis');
-ws.send('/legal e2');
+<pre><code class="language-js">ws.send('/search &quot;{\\&quot;Event\\&quot;:\\&quot;\\&quot;,\\&quot;Date\\&quot;:\\&quot;2023\\&quot;,\\&quot;White\\&quot;:\\&quot;\\&quot;,\\&quot;Black\\&quot;:\\&quot;\\&quot;,\\&quot;Result\\&quot;:\\&quot;0-1\\&quot;,\\&quot;ECO\\&quot;:\\&quot;\\&quot;,\\&quot;movetext\\&quot;:\\&quot;\\&quot;}&quot;');
 </code></pre>
 <pre><code class="language-text">{
-  &quot;/legal&quot;: [
-    &quot;e3&quot;,
-    &quot;e4&quot;
+  &quot;/search&quot;: [
+    {
+      &quot;id&quot;: 10098,
+      &quot;Event&quot;: &quot;Titled Tue 12th Sep Late&quot;,
+      &quot;Site&quot;: &quot;chess.com INT&quot;,
+      &quot;Date&quot;: &quot;2023.09.12&quot;,
+      &quot;White&quot;: &quot;Deac,Bogdan-Daniel&quot;,
+      &quot;Black&quot;: &quot;Carlsen,M&quot;,
+      &quot;Result&quot;: &quot;0-1&quot;,
+      &quot;WhiteElo&quot;: &quot;2702&quot;,
+      &quot;BlackElo&quot;: &quot;2839&quot;,
+      &quot;ECO&quot;: &quot;D30&quot;,
+      &quot;FEN&quot;: null,
+      &quot;movetext&quot;: &quot;1.d4 d5 2.c4 e6 3.Nf3 c6 4.Nbd2 Nf6 5.g3 c5 6.cxd5 exd5 7.Bg2 Nc6 8.O-O h6 9.Re1 cxd4 10.Nb3 Bd6 11.Nbxd4 O-O 12.b3 Re8 13.Bb2 Bb4 14.Rf1 Nxd4 15.Qxd4 Ba5 16.Qd3 Bb6 17.Rad1 Be6 18.Nd4 Bg4 19.Rfe1 Rc8 20.h3 Bh5 21.g4 Bg6 22.Nf5 h5 23.Bf3 hxg4 24.hxg4 Ne4 25.Bxe4 Rxe4 26.Qxe4 dxe4 27.Rxd8+ Rxd8 28.Bc3 Bxf5 29.gxf5 Rd5 30.f6 g5 31.e3 Kh7 32.b4 Kg6 33.Rc1 a6 34.a4 Bc7 35.Kg2 Bd6 36.Bd4 Bxb4 37.Rc7 b5 38.axb5 axb5 39.Rb7 Bf8 40.f3 exf3+ 41.Kxf3 b4 42.Kg4 Bc5 43.Bxc5 Rxc5 44.Rxb4 Re5 45.e4 Kxf6 46.Rb6+ Re6 47.Rb4 Kg6 48.Rc4 Rxe4+ 49.Rxe4 f5+&quot;
+    },
+    ...
+    {
+      &quot;id&quot;: 9456,
+      &quot;Event&quot;: &quot;Titled Tue 31st Jan Late&quot;,
+      &quot;Site&quot;: &quot;chess.com INT&quot;,
+      &quot;Date&quot;: &quot;2023.01.31&quot;,
+      &quot;White&quot;: &quot;Sanchez,Robert&quot;,
+      &quot;Black&quot;: &quot;Carlsen,M&quot;,
+      &quot;Result&quot;: &quot;0-1&quot;,
+      &quot;WhiteElo&quot;: &quot;1971&quot;,
+      &quot;BlackElo&quot;: &quot;2859&quot;,
+      &quot;ECO&quot;: &quot;B46&quot;,
+      &quot;FEN&quot;: null,
+      &quot;movetext&quot;: &quot;1.e4 c5 2.Nf3 e6 3.d4 cxd4 4.Nxd4 Nc6 5.Nc3 a6 6.Nxc6 bxc6 7.Bd3 d5 8.O-O Nf6 9.Qe2 Bb7 10.f4 Be7 11.e5 Nd7 12.f5 exf5 13.Bxf5 O-O 14.Bf4 Nc5 15.Qg4 g6 16.Bh6 Qb6 17.Kh1 Qxb2 18.Bxf8 Rxf8 19.Qg3 d4 20.Ne4 Nxe4 21.Bxe4 Bc8 22.Rab1 Qxa2 23.Rb8 Be6 24.Rxf8+ Bxf8 25.h4 Qa5 26.h5 Bg7 27.hxg6 hxg6 28.Bxg6 fxg6 29.Qxg6 Qxe5 30.Qe8+ Kh7 31.Rf3 Qe1+ 32.Kh2 Be5+ 33.g3 Qe2+&quot;
+    }
   ]
 }
 </code></pre>
@@ -157,8 +191,8 @@ ws.send('/legal e2');
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../start/" class="btn btn-neutral float-left" title="/start"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../play-lan/" class="btn btn-neutral float-right" title="/play_lan">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../autocomplete-white/" class="btn btn-neutral float-left" title="/autocomplete_white"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../stats-event/" class="btn btn-neutral float-right" title="/stats_event">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -181,10 +215,10 @@ ws.send('/legal e2');
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../start/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../autocomplete-white/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../play-lan/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../stats-event/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
@@ -192,7 +226,7 @@ ws.send('/legal e2');
     <script>var base_url = "..";</script>
     <script src="../js/theme_extra.js"></script>
     <script src="../js/theme.js"></script>
-      <script src="../search/main.js"></script>
+      <script src="main.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);

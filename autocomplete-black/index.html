@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://chesslablab.github.io/chess-server/legal/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://chesslablab.github.io/chess-server/autocomplete-black/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>/legal - PHP Chess Server</title>
+    <title>/autocomplete_black - PHP Chess Server</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "/legal";
-        var mkdocs_page_input_path = "legal.md";
-        var mkdocs_page_url = "/chess-server/legal/";
+        var mkdocs_page_name = "/autocomplete_black";
+        var mkdocs_page_input_path = "autocomplete-black.md";
+        var mkdocs_page_url = "/chess-server/autocomplete-black/";
       </script>
     
     <!--[if lt IE 9]>
@@ -52,20 +52,10 @@
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Game Commands</span></p>
-              <ul class="current">
+              <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../start/">/start</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">/legal</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#position">position</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#example">Example</a>
-    </li>
-        </ul>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../legal/">/legal</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../play-lan/">/play_lan</a>
                   </li>
@@ -93,10 +83,20 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Data Commands</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../annotations-game/">/annotations_game</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../autocomplete-black/">/autocomplete_black</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">/autocomplete_black</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#settings">settings</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#example">Example</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../autocomplete-event/">/autocomplete_event</a>
                   </li>
@@ -125,8 +125,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Game Commands</li>
-      <li class="breadcrumb-item active">/legal</li>
+          <li class="breadcrumb-item">Data Commands</li>
+      <li class="breadcrumb-item active">/autocomplete_black</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -135,21 +135,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="legal">/legal</h1>
-<p>Returns the legal moves of a piece.</p>
-<h2 id="position"><code>position</code></h2>
-<p>The location of the piece on the board.</p>
+                <h1 id="autocomplete_black">/autocomplete_black</h1>
+<p>Autocomplete data for chess players.</p>
+<h2 id="settings"><code>settings</code></h2>
+<p>The settings as per these options.</p>
+<ul>
+<li><code>Black</code> is the name of the player with the black pieces.</li>
+</ul>
 <hr />
 <h2 id="usage">Usage</h2>
 <h3 id="example">Example</h3>
-<p>Start a classical game to find out the legal moves of the piece on e2.</p>
-<pre><code class="language-js">ws.send('/start classical analysis');
-ws.send('/legal e2');
+<pre><code class="language-js">ws.send('/autocomplete_black &quot;{\\&quot;Black\\&quot;:\\&quot;kas\\&quot;}&quot;');
 </code></pre>
 <pre><code class="language-text">{
-  &quot;/legal&quot;: [
-    &quot;e3&quot;,
-    &quot;e4&quot;
+  &quot;/autocomplete_black&quot;: [
+    &quot;Kasparov, Gary&quot;,
+    &quot;Malisauskas, Vidmantas&quot;,
+    &quot;Kasimdzhanov, Rustam&quot;,
+    &quot;Kasparov,G&quot;,
+    &quot;Kasimdzhanov,R&quot;,
+    &quot;Kashdan, Isaac&quot;,
+    &quot;Eliskases, Erich Gottlieb&quot;,
+    &quot;Kas Fromm, Rita&quot;,
+    &quot;Pourkashiyan,A&quot;,
+    &quot;Ladanyike Karakas, Eva&quot;
   ]
 }
 </code></pre>
@@ -157,8 +166,8 @@ ws.send('/legal e2');
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../start/" class="btn btn-neutral float-left" title="/start"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../play-lan/" class="btn btn-neutral float-right" title="/play_lan">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../annotations-game/" class="btn btn-neutral float-left" title="/annotations_game"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../autocomplete-event/" class="btn btn-neutral float-right" title="/autocomplete_event">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -181,10 +190,10 @@ ws.send('/legal e2');
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../start/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../annotations-game/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../play-lan/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../autocomplete-event/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
