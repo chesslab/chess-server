@@ -4,7 +4,7 @@ namespace ChessServer\Tests\Unit\Command;
 
 use ChessServer\Command\CommandParser;
 use ChessServer\Command\Game\AcceptPlayRequestCommand;
-use ChessServer\Command\Game\CommandContainer;
+use ChessServer\Command\Game\Cli;
 use ChessServer\Command\Game\RestartCommand;
 use ChessServer\Command\Game\StartCommand;
 use ChessServer\Exception\ParserException;
@@ -16,7 +16,7 @@ class CommandParserTest extends TestCase
 
     public function setUp(): void
     {
-        self::$parser = new CommandParser(new CommandContainer());
+        self::$parser = new CommandParser(new Cli());
     }
 
     /**

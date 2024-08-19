@@ -3,7 +3,7 @@
 namespace ChessServer\Cli\Workerman;
 
 use ChessServer\Command\CommandParser;
-use ChessServer\Command\Game\CommandContainer;
+use ChessServer\Command\Game\Cli;
 use ChessServer\Socket\Workerman\ClientStorage;
 use ChessServer\Socket\Workerman\GameWebSocket;
 use Dotenv\Dotenv;
@@ -18,7 +18,7 @@ $dotenv->load();
 $logger = new Logger('game');
 $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/game.log', Logger::INFO));
 
-$parser = new CommandParser(new CommandContainer($logger));
+$parser = new CommandParser(new Cli($logger));
 
 $clientStorage = new ClientStorage($logger);
 

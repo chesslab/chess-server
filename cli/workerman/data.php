@@ -3,7 +3,7 @@
 namespace ChessServer\Cli\Workerman;
 
 use ChessServer\Command\CommandParser;
-use ChessServer\Command\Data\CommandContainer;
+use ChessServer\Command\Data\Cli;
 use ChessServer\Command\Data\Db;
 use ChessServer\Socket\Workerman\ClientStorage;
 use ChessServer\Socket\Workerman\DataWebSocket;
@@ -27,7 +27,7 @@ $db = new Db([
 $logger = new Logger('data');
 $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/data.log', Logger::INFO));
 
-$parser = new CommandParser(new CommandContainer($db));
+$parser = new CommandParser(new Cli($db));
 
 $clientStorage = new ClientStorage($logger);
 

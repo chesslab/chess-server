@@ -4,7 +4,7 @@ namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCli;
 
-class CommandContainer extends AbstractCli
+class Cli extends AbstractCli
 {
     public function __construct()
     {
