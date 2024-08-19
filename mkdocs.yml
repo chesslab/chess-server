@@ -23,5 +23,6 @@ nav:
     - /annotations_game: annotations-game.md
     - /autocomplete_black: autocomplete-black.md
     - /autocomplete_event: autocomplete-event.md
+    - /autocomplete_white: autocomplete-white.md
 
 theme: readthedocs
