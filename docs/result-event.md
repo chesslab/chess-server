@@ -1,4 +1,4 @@
-# /stats_event
+# /result_event
 
 Openings results by event.
 
@@ -16,12 +16,12 @@ The settings as per these options.
 ### Example
 
 ```js
-ws.send('/stats_event "{\\"Event\\":\\"FIDE Candidates 2016\\",\\"Result\\":\\"1-0\\"}"');
+ws.send('/result_event "{\\"Event\\":\\"FIDE Candidates 2016\\",\\"Result\\":\\"1-0\\"}"');
 ```
 
 ```text
 {
-  "/stats_event": [
+  "/result_event": [
     {
       "ECO": "C65",
       "total": 2
