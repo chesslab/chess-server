@@ -19,7 +19,7 @@ class CommandContainer extends AbstractCommandContainer
         $this->commands->attach(new AutocompleteWhiteCommand($db));
         $this->commands->attach(new SearchCommand($db));
         $this->commands->attach(new StatsEventCommand($db));
-        $this->commands->attach(new StatsOpeningCommand($db));
+        $this->commands->attach(new ResultCommand($db));
         $this->commands->attach(new StatsPlayerCommand($db));
     }
 

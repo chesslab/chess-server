@@ -26,7 +26,7 @@ nav:
     - /autocomplete_white: autocomplete-white.md
     - /search: search.md
     - /stats_event: stats-event.md
-    - /stats_opening: stats-opening.md
+    - /result: result.md
     - /stats_player: stats-player.md
 
 theme: readthedocs

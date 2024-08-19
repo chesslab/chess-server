@@ -4,13 +4,13 @@ namespace ChessServer\Command\Data;
 
 use ChessServer\Socket\AbstractChesslaBlabSocket;
 
-class StatsOpeningCommand extends AbstractDataCommand
+class ResultCommand extends AbstractDataCommand
 {
     public function __construct(Db $db)
     {
         parent::__construct($db);
 
-        $this->name = '/stats_opening';
+        $this->name = '/result';
         $this->description = 'Openings results.';
     }
 

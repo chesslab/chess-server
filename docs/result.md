@@ -1,4 +1,4 @@
-# /stats_opening
+# /result
 
 Openings results.
 
@@ -9,13 +9,13 @@ Openings results.
 ### Example
 
 ```js
-ws.send('/stats_opening');
+ws.send('/result');
 ```
 
 ```text
 {
-  "/stats_opening": {
-    "/stats_opening": {
+  "/result": {
+    "/result": {
       "drawRate": [
         {
           "ECO": "C42",
