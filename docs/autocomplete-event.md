@@ -4,9 +4,9 @@ Autocomplete data for chess events.
 
 ## `settings`
 
-The name of the event.
+The settings as per these options.
 
-- `Event`
+- `Event` is the name of the event.
 
 ---
 

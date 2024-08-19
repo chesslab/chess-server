@@ -4,9 +4,9 @@ Autocomplete data for chess players.
 
 ## `settings`
 
-The name of the player with the white pieces.
+The settings as per these options.
 
-- `White`
+- `White` is the name of the player with the white pieces.
 
 ---
 
