@@ -24,9 +24,9 @@ nav:
     - /autocomplete_black: autocomplete-black.md
     - /autocomplete_event: autocomplete-event.md
     - /autocomplete_white: autocomplete-white.md
-    - /search: search.md
-    - /result: result.md
     - /result_event: result-event.md
-    - /stats_player: stats-player.md
+    - /result_player: result-player.md
+    - /result: result.md
+    - /search: search.md
 
 theme: readthedocs

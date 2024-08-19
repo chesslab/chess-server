@@ -52,11 +52,9 @@ class ResultCommand extends AbstractDataCommand
         $winRateForBlack = $this->db->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 
         $arr = [
-            $this->name => [
-              'drawRate' => $drawRate,
-              'winRateForWhite' => $winRateForWhite,
-              'winRateForBlack' => $winRateForBlack
-            ],
+            'drawRate' => $drawRate,
+            'winRateForWhite' => $winRateForWhite,
+            'winRateForBlack' => $winRateForBlack,
         ];
 
         return $socket->getClientStorage()->sendToOne($id, [

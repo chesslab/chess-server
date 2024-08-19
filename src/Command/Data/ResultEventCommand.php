@@ -19,7 +19,7 @@ class ResultEventCommand extends AbstractDataCommand
     {
         parent::__construct($db);
 
-        $this->name = '/stats_event';
+        $this->name = '/result_event';
         $this->description = 'Openings results by event.';
         $this->params = [
             'settings' => '<string>',
