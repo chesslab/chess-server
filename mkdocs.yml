@@ -19,4 +19,14 @@ nav:
     - /stockfish: stockfish.md
     - /online_games: online-games.md
     - /randomizer: randomizer.md
+  - Data Commands:
+    - /annotations_game: annotations-game.md
+    - /autocomplete_black: autocomplete-black.md
+    - /autocomplete_event: autocomplete-event.md
+    - /autocomplete_white: autocomplete-white.md
+    - /search: search.md
+    - /stats_event: stats-event.md
+    - /stats_opening: stats-opening.md
+    - /stats_player: stats-player.md
+
 theme: readthedocs

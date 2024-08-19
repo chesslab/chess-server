@@ -15,7 +15,7 @@ class AnnotationsGameCommand extends AbstractDataCommand
         parent::__construct($db);
 
         $this->name = '/annotations_game';
-        $this->description = 'Annotated chess games available in the database.';
+        $this->description = 'Annotated chess games.';
     }
 
     public function validate(array $argv)
