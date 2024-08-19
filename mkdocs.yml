@@ -4,7 +4,7 @@ nav:
   - Home: index.md
   - Installation: installation.md
   - Getting Started: getting-started.md
-  - Game Commands:
+  - Game:
     - /start: start.md
     - /legal: legal.md
     - /play_lan: play-lan.md
@@ -19,7 +19,7 @@ nav:
     - /stockfish: stockfish.md
     - /online_games: online-games.md
     - /randomizer: randomizer.md
-  - Data Commands:
+  - Data:
     - /annotations_game: annotations-game.md
     - /autocomplete_black: autocomplete-black.md
     - /autocomplete_event: autocomplete-event.md
