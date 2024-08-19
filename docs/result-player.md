@@ -1,4 +1,4 @@
-# /stats_player
+# /result_player
 
 Openings results by player.
 
@@ -17,12 +17,12 @@ The settings as per these options.
 ### Example
 
 ```js
-ws.send('/stats_player "{\\"White\\":\\"Anand,V\\",\\"Black\\":\\"Kasparov,G\\",\\"Result\\":\\"1-0\\"}"');
+ws.send('/result_player "{\\"White\\":\\"Anand,V\\",\\"Black\\":\\"Kasparov,G\\",\\"Result\\":\\"1-0\\"}"');
 ```
 
 ```text
 {
-  "/stats_player": [
+  "/result_player": [
     {
       "ECO": "B96",
       "total": 2

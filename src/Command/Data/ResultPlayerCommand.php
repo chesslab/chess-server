@@ -4,7 +4,7 @@ namespace ChessServer\Command\Data;
 
 use ChessServer\Socket\AbstractChesslaBlabSocket;
 
-class StatsPlayerCommand extends AbstractDataCommand
+class ResultPlayerCommand extends AbstractDataCommand
 {
     const SQL_LIKE = [
 
@@ -20,7 +20,7 @@ class StatsPlayerCommand extends AbstractDataCommand
     {
         parent::__construct($db);
 
-        $this->name = '/stats_player';
+        $this->name = '/result_player';
         $this->description = 'Openings results by player.';
         $this->params = [
             'settings' => '<string>',

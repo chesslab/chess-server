@@ -20,7 +20,7 @@ class CommandContainer extends AbstractCommandContainer
         $this->commands->attach(new SearchCommand($db));
         $this->commands->attach(new ResultEventCommand($db));
         $this->commands->attach(new ResultCommand($db));
-        $this->commands->attach(new StatsPlayerCommand($db));
+        $this->commands->attach(new ResultPlayerCommand($db));
     }
 
     public function getDb(): Db
