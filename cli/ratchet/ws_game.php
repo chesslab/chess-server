@@ -24,7 +24,7 @@ $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/game.log', L
 
 $clientStorage = new ClientStorage($logger);
 
-$parser = new Parser(new Cli($logger));
+$parser = new Parser(new Cli());
 
 $webSocket = (new GameWebSocket($parser))->init($clientStorage);
 

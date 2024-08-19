@@ -18,7 +18,7 @@ $dotenv->load();
 $logger = new Logger('game');
 $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/game.log', Logger::INFO));
 
-$parser = new Parser(new Cli($logger));
+$parser = new Parser(new Cli());
 
 $clientStorage = new ClientStorage($logger);
 
