@@ -27,5 +27,6 @@ nav:
     - /search: search.md
     - /stats_event: stats-event.md
     - /stats_opening: stats-opening.md
+    - /stats_player: stats-player.md
 
 theme: readthedocs
