@@ -21,7 +21,7 @@ class StatsPlayerCommand extends AbstractDataCommand
         parent::__construct($db);
 
         $this->name = '/stats_player';
-        $this->description = 'Statistics about opening results by chess player.';
+        $this->description = 'Openings by player.';
         $this->params = [
             'settings' => '<string>',
         ];

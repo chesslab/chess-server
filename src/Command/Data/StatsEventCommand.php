@@ -20,7 +20,7 @@ class StatsEventCommand extends AbstractDataCommand
         parent::__construct($db);
 
         $this->name = '/stats_event';
-        $this->description = 'Statistics about opening results in chess events.';
+        $this->description = 'Openings by event.';
         $this->params = [
             'settings' => '<string>',
         ];
