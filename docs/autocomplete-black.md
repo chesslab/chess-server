@@ -2,6 +2,12 @@
 
 Autocomplete data for chess players.
 
+## `settings`
+
+The name of the player with the black pieces.
+
+- `Black`
+
 ---
 
 ## Usage

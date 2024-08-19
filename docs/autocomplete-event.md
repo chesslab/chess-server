@@ -2,6 +2,12 @@
 
 Autocomplete data for chess events.
 
+## `settings`
+
+The name of the event.
+
+- `Event`
+
 ---
 
 ## Usage
