@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Socket\AbstractChesslaBlabSocket;
+use ChessServer\Socket\AbstractSocket;
 
 class ResultCommand extends AbstractDataCommand
 {
@@ -19,7 +19,7 @@ class ResultCommand extends AbstractDataCommand
         return count($argv) - 1 === 0;
     }
 
-    public function run(AbstractChesslaBlabSocket $socket, array $argv, int $id)
+    public function run(AbstractSocket $socket, array $argv, int $id)
     {
         $sql = "SELECT ECO, COUNT(*) AS total
           FROM games

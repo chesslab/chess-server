@@ -4,10 +4,10 @@ namespace ChessServer\Socket\Workerman;
 
 use ChessServer\Command\Parser;
 use ChessServer\Exception\ParserException;
-use ChessServer\Socket\AbstractChesslaBlabSocket;
+use ChessServer\Socket\AbstractSocket;
 use Workerman\Worker;
 
-abstract class AbstractWebSocket extends AbstractChesslaBlabSocket
+abstract class AbstractWebSocket extends AbstractSocket
 {
     protected Worker $worker;
 

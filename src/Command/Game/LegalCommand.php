@@ -3,7 +3,7 @@
 namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Socket\AbstractChesslaBlabSocket;
+use ChessServer\Socket\AbstractSocket;
 
 class LegalCommand extends AbstractCommand
 {
@@ -21,7 +21,7 @@ class LegalCommand extends AbstractCommand
         return count($argv) - 1 === count($this->params);
     }
 
-    public function run(AbstractChesslaBlabSocket $socket, array $argv, int $id)
+    public function run(AbstractSocket $socket, array $argv, int $id)
     {
         $gameMode = $socket->getGameModeStorage()->getById($id);
 

@@ -8,7 +8,7 @@ use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Socket\AbstractChesslaBlabSocket;
+use ChessServer\Socket\AbstractSocket;
 
 class HeuristicCommand extends AbstractCommand
 {
@@ -26,7 +26,7 @@ class HeuristicCommand extends AbstractCommand
         return count($argv) - 1 === count($this->params);
     }
 
-    public function run(AbstractChesslaBlabSocket $socket, array $argv, int $id)
+    public function run(AbstractSocket $socket, array $argv, int $id)
     {
         $params = json_decode(stripslashes($argv[1]), true);
 

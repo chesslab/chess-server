@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Socket\AbstractChesslaBlabSocket;
+use ChessServer\Socket\AbstractSocket;
 
 class AutocompleteBlackCommand extends AbstractDataCommand
 {
@@ -22,7 +22,7 @@ class AutocompleteBlackCommand extends AbstractDataCommand
         return count($argv) - 1 === count($this->params);
     }
 
-    public function run(AbstractChesslaBlabSocket $socket, array $argv, int $id)
+    public function run(AbstractSocket $socket, array $argv, int $id)
     {
         $params = json_decode(stripslashes($argv[1]), true);
 

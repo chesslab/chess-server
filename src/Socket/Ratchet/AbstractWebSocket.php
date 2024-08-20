@@ -4,13 +4,13 @@ namespace ChessServer\Socket\Ratchet;
 
 use ChessServer\Command\Parser;
 use ChessServer\Exception\ParserException;
-use ChessServer\Socket\AbstractChesslaBlabSocket;
+use ChessServer\Socket\AbstractSocket;
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 use React\EventLoop\Factory;
 use React\EventLoop\StreamSelectLoop;
 
-abstract class AbstractWebSocket extends AbstractChesslaBlabSocket implements MessageComponentInterface
+abstract class AbstractWebSocket extends AbstractSocket implements MessageComponentInterface
 {
     protected StreamSelectLoop $loop;
 

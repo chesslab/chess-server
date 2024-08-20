@@ -5,7 +5,7 @@ namespace ChessServer\Command\Game;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Command\Game\Mode\PlayMode;
-use ChessServer\Socket\AbstractChesslaBlabSocket;
+use ChessServer\Socket\AbstractSocket;
 
 class AcceptPlayRequestCommand extends AbstractCommand
 {
@@ -23,7 +23,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
         return count($argv) - 1 === count($this->params);
     }
 
-    public function run(AbstractChesslaBlabSocket $socket, array $argv, int $id)
+    public function run(AbstractSocket $socket, array $argv, int $id)
     {
         $gameMode = $socket->getGameModeStorage()->getByHash($argv[1]);
 
