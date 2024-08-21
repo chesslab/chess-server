@@ -38,12 +38,10 @@ class GameWebSocket extends AbstractWebSocket
                 ],
             ]);
         }
-
         $this->clientStorage->detachById($conn->resourceId);
-
         $this->clientStorage->getLogger()->info('Closed connection', [
             'id' => $conn->resourceId,
-            'n' => $this->clientStorage->count()
+            'n' => $this->clientStorage->count(),
         ]);
     }
 }

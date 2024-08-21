@@ -31,7 +31,7 @@ abstract class AbstractWebSocket extends AbstractSocket
                 $this->clientStorage->attach($conn);
                 $this->clientStorage->getLogger()->info('New connection', [
                     'id' => $conn->id,
-                    'n' => $this->clientStorage->count()
+                    'n' => $this->clientStorage->count(),
                 ]);
             };
         };
@@ -78,8 +78,9 @@ abstract class AbstractWebSocket extends AbstractSocket
     {
         $this->worker->onError = function ($conn, $code, $msg) {
             $conn->close();
-
-            $this->clientStorage->getLogger()->error('Occurred an error', ['message' => $msg]);
+            $this->clientStorage->getLogger()->error('Occurred an error', [
+                'message' => $msg,
+            ]);
         };
 
         return $this;

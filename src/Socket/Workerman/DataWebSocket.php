@@ -44,10 +44,9 @@ class DataWebSocket extends AbstractWebSocket
     {
         $this->worker->onClose = function ($conn) {
             $this->clientStorage->detachById($conn->id);
-
             $this->clientStorage->getLogger()->info('Closed connection', [
                 'id' => $conn->id,
-                'n' => $this->clientStorage->count()
+                'n' => $this->clientStorage->count(),
             ]);
         };
 

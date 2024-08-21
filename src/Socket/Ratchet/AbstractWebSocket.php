@@ -29,10 +29,9 @@ abstract class AbstractWebSocket extends AbstractSocket implements MessageCompon
     public function onOpen(ConnectionInterface $conn)
     {
         $this->clientStorage->attach($conn);
-
         $this->clientStorage->getLogger()->info('New connection', [
             'id' => $conn->resourceId,
-            'n' => $this->clientStorage->count()
+            'n' => $this->clientStorage->count(),
         ]);
     }
 
@@ -70,7 +69,8 @@ abstract class AbstractWebSocket extends AbstractSocket implements MessageCompon
     public function onError(ConnectionInterface $conn, \Exception $e)
     {
         $conn->close();
-
-        $this->clientStorage->getLogger()->info('Occurred an error', ['message' => $e->getMessage()]);
+        $this->clientStorage->getLogger()->info('Occurred an error', [
+            'message' => $e->getMessage(),
+        ]);
     }
 }
