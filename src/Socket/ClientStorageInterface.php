@@ -10,9 +10,9 @@ interface ClientStorageInterface
 
     public function detachById(int $id): void;
 
-    public function sendToOne(int $id, $res): void;
+    public function sendToOne(int $id, array|string $res): void;
 
-    public function sendToMany(array $ids, $res): void;
+    public function sendToMany(array $ids, array|string $res): void;
 
-    public function sendToAll($res): void;
+    public function sendToAll(array|string $res): void;
 }
