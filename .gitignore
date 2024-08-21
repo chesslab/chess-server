@@ -9,6 +9,8 @@
 /ssl/*.key
 
 /storage/*.log
+/storage/tmp/*
+!/storage/tmp/.gitkeep
 
 /.phpunit.result.cache
 

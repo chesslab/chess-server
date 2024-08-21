@@ -2,7 +2,6 @@
 
 namespace ChessServer\Socket\Workerman;
 
-use ChessServer\Game\PlayMode;
 use ChessServer\Socket\ClientStorageInterface;
 use Monolog\Logger;
 
@@ -31,43 +30,44 @@ class ClientStorage extends \SplObjectStorage implements ClientStorageInterface
         }
     }
 
-    public function sendToOne(int $id, array $res): void
+    public function sendToOne(int $id, array|string $res): void
     {
         $this->rewind();
         while ($this->valid()) {
             if ($id === $this->current()->id) {
-                $this->current()->send(json_encode($res));
+                $res = is_array($res) ? json_encode($res) : $res;
+                $this->current()->send($res);
                 $this->logger->info('Sent message', [
                     'id' => $id,
-                    'cmd' => array_keys($res),
+                    'cmd' => is_array($res) ? array_keys($res) : [$res],
                 ]);
             }
             $this->next();
         }
     }
 
-    public function sendToMany(array $ids, array $res): void
+    public function sendToMany(array $ids, array|string $res): void
     {
-        $json = json_encode($res);
+        $res = is_array($res) ? json_encode($res) : $res;
         $this->rewind();
         while ($this->valid()) {
             if (in_array($this->current()->id, $ids)) {
-                $this->current()->send($json);
+                $this->current()->send($res);
                 $this->logger->info('Sent message', [
                     'ids' => $ids,
-                    'cmd' => array_keys($res),
+                    'cmd' => is_array($res) ? array_keys($res) : [$res],
                 ]);
             }
             $this->next();
         }
     }
 
-    public function sendToAll(array $res): void
+    public function sendToAll(array|string $res): void
     {
-        $json = json_encode($res);
+        $res = is_array($res) ? json_encode($res) : $res;
         $this->rewind();
         while ($this->valid()) {
-            $this->current()->send($json);
+            $this->current()->send($res);
             $this->next();
         }
     }
