@@ -10,6 +10,6 @@ class Cli extends AbstractCli
     {
         parent::__construct();
 
-        $this->commands->attach(new TransmitCommand());
+        $this->commands->attach(new ImageCommand());
     }
 }

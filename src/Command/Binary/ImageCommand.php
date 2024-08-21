@@ -7,14 +7,14 @@ use Chess\Variant\Classical\FEN\StrToBoard as ClassicalStrToBoard;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class TransmitCommand extends AbstractCommand
+class ImageCommand extends AbstractCommand
 {
     const OUTPUT_FOLDER = __DIR__.'/../../../storage/tmp';
 
     public function __construct()
     {
-        $this->name = '/transmit';
-        $this->description = 'Transmission of binary data.';
+        $this->name = '/image';
+        $this->description = 'Transmits an image.';
         $this->params = [
             'settings' => '<string>',
         ];
