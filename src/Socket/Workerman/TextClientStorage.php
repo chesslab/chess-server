@@ -30,7 +30,7 @@ class TextClientStorage extends \SplObjectStorage implements ClientStorageInterf
         }
     }
 
-    public function sendToOne(int $id, array $res): void
+    public function sendToOne(int $id, $res): void
     {
         $this->rewind();
         while ($this->valid()) {
@@ -45,7 +45,7 @@ class TextClientStorage extends \SplObjectStorage implements ClientStorageInterf
         }
     }
 
-    public function sendToMany(array $ids, array $res): void
+    public function sendToMany(array $ids, $res): void
     {
         $json = json_encode($res);
         $this->rewind();
@@ -61,7 +61,7 @@ class TextClientStorage extends \SplObjectStorage implements ClientStorageInterf
         }
     }
 
-    public function sendToAll(array $res): void
+    public function sendToAll($res): void
     {
         $json = json_encode($res);
         $this->rewind();
