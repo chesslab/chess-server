@@ -31,6 +31,9 @@ class ImageCommand extends AbstractCommand
         $filename = (new BoardToPng($board, $params['flip']))->output(AbstractSocket::TMP_FOLDER);
         $contents = file_get_contents(AbstractSocket::TMP_FOLDER . "/$filename");
         $base64 = base64_encode($contents);
+        if (is_file(AbstractSocket::TMP_FOLDER . "/$filename")) {
+            unlink(AbstractSocket::TMP_FOLDER . "/$filename");
+        }
 
         return $socket->getClientStorage()->sendToOne($id, [
             $this->name => $base64,
