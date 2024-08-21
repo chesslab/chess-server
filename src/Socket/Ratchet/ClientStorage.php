@@ -39,7 +39,9 @@ class ClientStorage extends \SplObjectStorage implements ClientStorageInterface
                 $this->current()->send($res);
                 $this->logger->info('Sent message', [
                     'id' => $id,
-                    'cmd' => is_array($res) ? array_keys($res) : [$res],
+                    'cmd' => is_array($res)
+                        ? array_keys($res)
+                        : [mb_substr($res, 0, 32) . '...'],
                 ]);
             }
             $this->next();
@@ -55,7 +57,9 @@ class ClientStorage extends \SplObjectStorage implements ClientStorageInterface
                 $this->current()->send($res);
                 $this->logger->info('Sent message', [
                     'ids' => $ids,
-                    'cmd' => is_array($res) ? array_keys($res) : [$res],
+                    'cmd' => is_array($res)
+                        ? array_keys($res)
+                        : [mb_substr($res, 0, 32) . '...'],
                 ]);
             }
             $this->next();
