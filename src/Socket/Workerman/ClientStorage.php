@@ -35,10 +35,11 @@ class ClientStorage extends \SplObjectStorage implements ClientStorageInterface
         $this->rewind();
         while ($this->valid()) {
             if ($id === $this->current()->id) {
-                $this->current()->send(json_encode($res));
+                $res = is_array($res) ? json_encode($res) : $res;
+                $this->current()->send($res);
                 $this->logger->info('Sent message', [
                     'id' => $id,
-                    'cmd' => array_keys($res),
+                    'cmd' => is_array($res) ? array_keys($res) : [$res],
                 ]);
             }
             $this->next();
@@ -47,14 +48,14 @@ class ClientStorage extends \SplObjectStorage implements ClientStorageInterface
 
     public function sendToMany(array $ids, $res): void
     {
-        $json = json_encode($res);
+        $res = is_array($res) ? json_encode($res) : $res;
         $this->rewind();
         while ($this->valid()) {
             if (in_array($this->current()->id, $ids)) {
-                $this->current()->send($json);
+                $this->current()->send($res);
                 $this->logger->info('Sent message', [
                     'ids' => $ids,
-                    'cmd' => array_keys($res),
+                    'cmd' => is_array($res) ? array_keys($res) : [$res],
                 ]);
             }
             $this->next();
@@ -63,10 +64,10 @@ class ClientStorage extends \SplObjectStorage implements ClientStorageInterface
 
     public function sendToAll($res): void
     {
-        $json = json_encode($res);
+        $res = is_array($res) ? json_encode($res) : $res;
         $this->rewind();
         while ($this->valid()) {
-            $this->current()->send($json);
+            $this->current()->send($res);
             $this->next();
         }
     }
