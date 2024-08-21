@@ -2,10 +2,10 @@
 
 namespace ChessServer\Socket\Workerman;
 
-use ChessServer\Socket\BinaryClientStorageInterface;
+use ChessServer\Socket\ClientStorageInterface;
 use Monolog\Logger;
 
-class BinaryClientStorage extends \SplObjectStorage implements BinaryClientStorageInterface
+class BinaryClientStorage extends \SplObjectStorage implements ClientStorageInterface
 {
     private Logger $logger;
 
