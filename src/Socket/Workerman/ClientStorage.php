@@ -30,48 +30,44 @@ class ClientStorage extends \SplObjectStorage implements ClientStorageInterface
         }
     }
 
-    public function sendToOne(int $id, array|string $res): void
+    public function sendToOne(int $id, array $res): void
     {
         $this->rewind();
         while ($this->valid()) {
             if ($id === $this->current()->id) {
-                $res = is_array($res) ? json_encode($res) : $res;
-                $this->current()->send($res);
+                $json = json_encode($res);
+                $this->current()->send($json);
                 $this->logger->info('Sent message', [
                     'id' => $id,
-                    'cmd' => is_array($res)
-                        ? array_keys($res)
-                        : [mb_substr($res, 0, 32) . '...'],
+                    'cmd' => array_keys($res),
                 ]);
             }
             $this->next();
         }
     }
 
-    public function sendToMany(array $ids, array|string $res): void
+    public function sendToMany(array $ids, array $res): void
     {
-        $res = is_array($res) ? json_encode($res) : $res;
+        $json = json_encode($res);
         $this->rewind();
         while ($this->valid()) {
             if (in_array($this->current()->id, $ids)) {
-                $this->current()->send($res);
+                $this->current()->send($json);
                 $this->logger->info('Sent message', [
                     'ids' => $ids,
-                    'cmd' => is_array($res)
-                        ? array_keys($res)
-                        : [mb_substr($res, 0, 32) . '...'],
+                    'cmd' => array_keys($res),
                 ]);
             }
             $this->next();
         }
     }
 
-    public function sendToAll(array|string $res): void
+    public function sendToAll(array $res): void
     {
-        $res = is_array($res) ? json_encode($res) : $res;
+        $json = json_encode($res);
         $this->rewind();
         while ($this->valid()) {
-            $this->current()->send($res);
+            $this->current()->send($json);
             $this->next();
         }
     }

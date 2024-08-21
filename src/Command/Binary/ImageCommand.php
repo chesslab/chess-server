@@ -32,6 +32,8 @@ class ImageCommand extends AbstractCommand
         $contents = file_get_contents(AbstractSocket::TMP_FOLDER . "/$filename");
         $base64 = base64_encode($contents);
 
-        return $socket->getClientStorage()->sendToOne($id, $base64);
+        return $socket->getClientStorage()->sendToOne($id, [
+            $this->name => $base64,
+        ]);
     }
 }
