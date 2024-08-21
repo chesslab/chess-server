@@ -4,10 +4,13 @@ Openings results by event.
 
 ## `settings`
 
-The settings as per these options.
+### `Event`
 
-- `Event` is the name of the event.
-- `Result` is the result of the game.
+The name of the event.
+
+### `Result`
+
+The result of the game.
 
 ---
 

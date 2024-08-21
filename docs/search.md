@@ -4,15 +4,33 @@ Finds up to 25 games matching the criteria.
 
 ## `settings`
 
-The settings as per these options.
+### `Event`
 
-- `Event` is the name of the event.
-- `Date` is the year the game was played.
-- `White` is the name of the player with the white pieces.
-- `Black` is the name of the player with the black pieces.
-- `Result` is the result of the game.
-- `ECO` is the ECO code of the opening used in the game.
-- `movetext` is a sequence of moves played in the game. 
+The name of the event.
+
+### `Date`
+
+The year the game was played.
+
+### `White`
+
+The name of the player with the white pieces.
+
+### `Black`
+
+The name of the player with the black pieces.
+
+### `Result`
+
+The result of the game.
+
+### `ECO`
+
+The ECO code of the opening used in the game.
+
+### `movetext`
+
+A sequence of moves played in the game.
 
 ---
 

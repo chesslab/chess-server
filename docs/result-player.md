@@ -4,11 +4,17 @@ Openings results by player.
 
 ## `settings`
 
-The settings as per these options.
+### `White`
 
-- `White` is the name of the player with the white pieces.
-- `Black` is the name of the player with the black pieces.
-- `Result` is the result of the game.
+The name of the player with the white pieces.
+
+### `Black`
+
+The name of the player with the black pieces.
+
+### `Result`
+
+The result of the game.
 
 ---
 
