@@ -28,5 +28,7 @@ nav:
     - /result_player: result-player.md
     - /result: result.md
     - /search: search.md
+  - Binary:
+    - /image: image.md
 
 theme: readthedocs
