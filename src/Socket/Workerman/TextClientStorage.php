@@ -2,7 +2,6 @@
 
 namespace ChessServer\Socket\Workerman;
 
-use ChessServer\Game\PlayMode;
 use ChessServer\Socket\TextClientStorageInterface;
 use Monolog\Logger;
 

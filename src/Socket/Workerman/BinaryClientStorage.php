@@ -1,11 +1,11 @@
 <?php
 
-namespace ChessServer\Socket\Ratchet;
+namespace ChessServer\Socket\Workerman;
 
-use ChessServer\Socket\TextClientStorageInterface;
+use ChessServer\Socket\BinaryClientStorageInterface;
 use Monolog\Logger;
 
-class TextClientStorage extends \SplObjectStorage implements TextClientStorageInterface
+class BinaryClientStorage extends \SplObjectStorage implements BinaryClientStorageInterface
 {
     private Logger $logger;
 
@@ -23,18 +23,18 @@ class TextClientStorage extends \SplObjectStorage implements TextClientStorageIn
     {
         $this->rewind();
         while ($this->valid()) {
-            if ($id === $this->current()->resourceId) {
+            if ($id === $this->current()->id) {
                 $this->detach($this->current());
             }
             $this->next();
         }
     }
 
-    public function sendToOne(int $id, array $res): void
+    public function transmitToOne(int $id, array $res): void
     {
         $this->rewind();
         while ($this->valid()) {
-            if ($id === $this->current()->resourceId) {
+            if ($id === $this->current()->id) {
                 $this->current()->send(json_encode($res));
                 $this->logger->info('Sent message', [
                     'id' => $id,
@@ -45,12 +45,13 @@ class TextClientStorage extends \SplObjectStorage implements TextClientStorageIn
         }
     }
 
-    public function sendToMany(array $ids, array $res): void
+    public function transmitToMany(array $ids, array $res): void
     {
+        $json = json_encode($res);
         $this->rewind();
         while ($this->valid()) {
-            if (in_array($this->current()->resourceId, $ids)) {
-                $this->current()->send(json_encode($res));
+            if (in_array($this->current()->id, $ids)) {
+                $this->current()->send($json);
                 $this->logger->info('Sent message', [
                     'ids' => $ids,
                     'cmd' => array_keys($res),
@@ -60,11 +61,12 @@ class TextClientStorage extends \SplObjectStorage implements TextClientStorageIn
         }
     }
 
-    public function sendToAll(array $res): void
+    public function transmitToAll(array $res): void
     {
+        $json = json_encode($res);
         $this->rewind();
         while ($this->valid()) {
-            $this->current()->send(json_encode($res));
+            $this->current()->send($json);
             $this->next();
         }
     }
