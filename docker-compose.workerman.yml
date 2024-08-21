@@ -29,3 +29,18 @@ services:
           - ./docker/php/php.ini:/usr/local/etc/php/php.ini
       working_dir: /usr/share/chess-server
       command: ["php", "cli/workerman/data.php", "start", "--d"]
+  binary:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      user: 1000:1000
+      container_name: chess_server_binary
+      ports:
+          - ${WSS_BINARY_PORT}:${WSS_BINARY_PORT}
+      restart: always
+      volumes:
+          - ./:/usr/share/chess-server
+          - /usr/share/chess-server/vendor
+          - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+      working_dir: /usr/share/chess-server
+      command: ["php", "cli/workerman/binary.php", "start", "--d"]
