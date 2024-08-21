@@ -10,7 +10,7 @@ abstract class AbstractSocket
 
     protected Parser $parser;
 
-    protected TextClientStorageInterface $clientStorage;
+    protected ClientStorageInterface $clientStorage;
 
     public function __construct(Parser $parser)
     {
@@ -22,14 +22,14 @@ abstract class AbstractSocket
         echo "Listening to commands..." . PHP_EOL;
     }
 
-    public function init(TextClientStorageInterface $clientStorage): AbstractSocket
+    public function init(ClientStorageInterface $clientStorage): AbstractSocket
     {
         $this->clientStorage = $clientStorage;
 
         return $this;
     }
 
-    public function getClientStorage(): TextClientStorageInterface
+    public function getClientStorage(): ClientStorageInterface
     {
         return $this->clientStorage;
     }
