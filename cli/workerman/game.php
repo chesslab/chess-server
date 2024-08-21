@@ -16,7 +16,7 @@ $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
 $dotenv->load();
 
 $logger = new Logger('game');
-$logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/game.log', Logger::INFO));
+$logger->pushHandler(new StreamHandler(GameWebSocket::STORAGE_FOLDER . '/game.log', Logger::INFO));
 
 $parser = new Parser(new Cli());
 

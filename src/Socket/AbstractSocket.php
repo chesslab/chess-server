@@ -6,7 +6,11 @@ use ChessServer\Command\Parser;
 
 abstract class AbstractSocket
 {
-    const DATA_FOLDER = __DIR__.'/../../data';
+    const DATA_FOLDER = __DIR__ . '/../../data';
+
+    const STORAGE_FOLDER = __DIR__ . '/../../storage';
+
+    const TMP_FOLDER = __DIR__ . '/../../storage/tmp';
 
     protected Parser $parser;
 

@@ -9,8 +9,6 @@ use ChessServer\Socket\AbstractSocket;
 
 class ImageCommand extends AbstractCommand
 {
-    const OUTPUT_FOLDER = __DIR__.'/../../../storage/tmp';
-
     public function __construct()
     {
         $this->name = '/image';
@@ -30,8 +28,8 @@ class ImageCommand extends AbstractCommand
         $params = json_decode(stripslashes($argv[1]), true);
 
         $board = (new ClassicalStrToBoard($params['fen']))->create();
-        $filename = (new BoardToPng($board, $params['flip']))->output(self::OUTPUT_FOLDER);
-        $contents = file_get_contents(self::OUTPUT_FOLDER . "/$filename");
+        $filename = (new BoardToPng($board, $params['flip']))->output(AbstractSocket::TMP_FOLDER);
+        $contents = file_get_contents(AbstractSocket::TMP_FOLDER . "/$filename");
         $base64 = base64_encode($contents);
 
         return $socket->getClientStorage()->sendToOne($id, $base64);

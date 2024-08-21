@@ -25,7 +25,7 @@ $db = new Db([
 ]);
 
 $logger = new Logger('data');
-$logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/data.log', Logger::INFO));
+$logger->pushHandler(new StreamHandler(DataWebSocket::STORAGE_FOLDER . '/data.log', Logger::INFO));
 
 $parser = new Parser(new Cli($db));
 

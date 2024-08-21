@@ -6,8 +6,6 @@ use ChessServer\Socket\AbstractSocket;
 
 class AnnotationsGameCommand extends AbstractDataCommand
 {
-    const DATA_FOLDER = __DIR__.'/../../../data';
-
     const ANNOTATIONS_GAMES_FILE = 'annotations_games.json';
 
     public function __construct(Db $db)
@@ -25,7 +23,7 @@ class AnnotationsGameCommand extends AbstractDataCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $contents = file_get_contents(self::DATA_FOLDER.'/'.self::ANNOTATIONS_GAMES_FILE);
+        $contents = file_get_contents(AbstractSocket::DATA_FOLDER.'/'.self::ANNOTATIONS_GAMES_FILE);
 
         $arr = json_decode($contents);
 

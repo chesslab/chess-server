@@ -16,7 +16,7 @@ $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
 $dotenv->load();
 
 $logger = new Logger('binary');
-$logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/binary.log', Logger::INFO));
+$logger->pushHandler(new StreamHandler(BinaryWebSocket::STORAGE_FOLDER . '/binary.log', Logger::INFO));
 
 $parser = new Parser(new Cli());
 
