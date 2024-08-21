@@ -3,10 +3,10 @@
 namespace ChessServer\Socket\Ratchet;
 
 use ChessServer\Game\PlayMode;
-use ChessServer\Socket\ClientStorageInterface;
+use ChessServer\Socket\TextClientStorageInterface;
 use Monolog\Logger;
 
-class ClientStorage extends \SplObjectStorage implements ClientStorageInterface
+class ClientStorage extends \SplObjectStorage implements TextClientStorageInterface
 {
     private Logger $logger;
 

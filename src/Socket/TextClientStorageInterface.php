@@ -4,7 +4,7 @@ namespace ChessServer\Socket;
 
 use Monolog\Logger;
 
-interface ClientStorageInterface
+interface TextClientStorageInterface
 {
     public function getLogger(): Logger;
 
