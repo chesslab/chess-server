@@ -5,9 +5,10 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     unzip \
     zip \
+    libpng-dev \
     stockfish
 
-RUN docker-php-ext-install mysqli pdo_mysql
+RUN docker-php-ext-install mysqli pdo_mysql gd
 
 RUN docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install \
