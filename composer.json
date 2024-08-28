@@ -16,7 +16,7 @@
   ],
   "require": {
     "php": ">=8.1",
-    "chesslablab/php-chess": "dev-main",
+    "chesslablab/php-chess": "^1.4",
     "cboden/ratchet": "^0.4",
     "firebase/php-jwt": "^6.8",
     "vlucas/phpdotenv": "^5.3",

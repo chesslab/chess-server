@@ -3,6 +3,7 @@
 namespace ChessServer\Command\Game;
 
 use Chess\SanHeuristic;
+use Chess\Function\CompleteFunction;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\Board as ClassicalBoard;
@@ -30,6 +31,8 @@ class HeuristicCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
+        $function = new CompleteFunction();
+
         if ($params['variant'] === Chess960Board::VARIANT) {
             $startPos = str_split($params['startPos']);
             $board = isset($params['fen'])
@@ -41,7 +44,7 @@ class HeuristicCommand extends AbstractCommand
                 : new ClassicalBoard();
         }
 
-        $balance = (new SanHeuristic($params['name'], $params['movetext'], $board))
+        $balance = (new SanHeuristic($function, $params['name'], $params['movetext'], $board))
             ->getBalance();
 
         return $socket->getClientStorage()->sendToOne($id, [

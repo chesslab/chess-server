@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command\Game;
 
-use Chess\StandardFunction;
+use Chess\Function\FastFunction;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\AbstractSocket;
 
@@ -12,32 +12,17 @@ class EvalNamesCommand extends AbstractCommand
     {
         $this->name = '/eval_names';
         $this->description = 'Evaluation names.';
-        $this->params = [
-            'settings' => '<string>',
-        ];
     }
 
     public function validate(array $argv)
     {
-        return count($argv) - 1 === count($this->params);
+        return count($argv) - 1 === 0;
     }
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $params = json_decode(stripslashes($argv[1]), true);
-
-        if (isset($params['exclude'])) {
-            $exclude = explode(',', $params['exclude']);
-        } else {
-            $exclude = [];
-        }
-
-        $exclude = array_map('trim', $exclude);
-
-        $diff = array_diff((new StandardFunction())->names(), $exclude);
-
         return $socket->getClientStorage()->sendToOne($id, [
-            $this->name => $diff,
+            $this->name => (new FastFunction())->names(),
         ]);
     }
 }

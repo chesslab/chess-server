@@ -3,6 +3,7 @@
 namespace ChessServer\Command\Game;
 
 use Chess\FenToBoardFactory;
+use Chess\Function\CompleteFunction;
 use Chess\Tutor\FenEvaluation;
 use Chess\Variant\Classical\Board;
 use ChessServer\Command\AbstractCommand;
@@ -28,9 +29,11 @@ class TutorFenCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
+        $function = new CompleteFunction();
+
         $board = FenToBoardFactory::create($params['fen'], new Board());
 
-        $paragraph = (new FenEvaluation($board))->paragraph;
+        $paragraph = (new FenEvaluation($function, $board))->paragraph;
 
         return $socket->getClientStorage()->sendToOne($id, [
             $this->name => implode(' ', $paragraph),
