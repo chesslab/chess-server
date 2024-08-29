@@ -6,7 +6,7 @@ use ChessServer\Socket\AbstractSocket;
 
 class ResultCommand extends AbstractDataCommand
 {
-    const RESULT_FILE = 'result.json';
+    const RESULT_FILE = 'most_played_openings.json';
 
     public function __construct(Db $db)
     {
