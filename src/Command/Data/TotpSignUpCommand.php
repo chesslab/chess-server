@@ -6,14 +6,14 @@ use ChessServer\Socket\AbstractSocket;
 use OTPHP\InternalClock;
 use OTPHP\TOTP;
 
-class SignUpCommand extends AbstractDataCommand
+class TotpSignUpCommand extends AbstractDataCommand
 {
     public function __construct(Db $db)
     {
         parent::__construct($db);
 
-        $this->name = '/signup';
-        $this->description = 'Sign up.';
+        $this->name = '/totp_signup';
+        $this->description = 'TOTP sign up.';
     }
 
     public function validate(array $argv)

@@ -22,7 +22,7 @@ class Cli extends AbstractCli
         $this->commands->attach(new ResultCommand($db));
         $this->commands->attach(new SearchCommand($db));
         $this->commands->attach(new SignInCommand($db));
-        $this->commands->attach(new SignUpCommand($db));
+        $this->commands->attach(new TotpSignUpCommand($db));
     }
 
     public function getDb(): Db
