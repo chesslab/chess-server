@@ -6,14 +6,14 @@ use ChessServer\Socket\AbstractSocket;
 use OTPHP\InternalClock;
 use OTPHP\TOTP;
 
-class QrCommand extends AbstractDataCommand
+class SignUpCommand extends AbstractDataCommand
 {
     public function __construct(Db $db)
     {
         parent::__construct($db);
 
-        $this->name = '/qr';
-        $this->description = 'QR code URI to sign up.';
+        $this->name = '/signup';
+        $this->description = 'Sign up.';
     }
 
     public function validate(array $argv)

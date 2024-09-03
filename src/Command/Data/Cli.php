@@ -17,12 +17,12 @@ class Cli extends AbstractCli
         $this->commands->attach(new AutocompleteBlackCommand($db));
         $this->commands->attach(new AutocompleteEventCommand($db));
         $this->commands->attach(new AutocompleteWhiteCommand($db));
-        $this->commands->attach(new QrCommand($db));
         $this->commands->attach(new ResultEventCommand($db));
         $this->commands->attach(new ResultPlayerCommand($db));
         $this->commands->attach(new ResultCommand($db));
         $this->commands->attach(new SearchCommand($db));
         $this->commands->attach(new SignInCommand($db));
+        $this->commands->attach(new SignUpCommand($db));
     }
 
     public function getDb(): Db
