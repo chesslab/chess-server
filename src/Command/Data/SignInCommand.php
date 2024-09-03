@@ -1,0 +1,53 @@
+<?php
+
+namespace ChessServer\Command\Data;
+
+use ChessServer\Socket\AbstractSocket;
+use OTPHP\InternalClock;
+use OTPHP\TOTP;
+
+class SignInCommand extends AbstractDataCommand
+{
+    public function __construct(Db $db)
+    {
+        parent::__construct($db);
+
+        $this->name = '/signin';
+        $this->description = 'Sign in.';
+        $this->params = [
+            'settings' => '<string>',
+        ];
+    }
+
+    public function validate(array $argv)
+    {
+        return count($argv) - 1 === count($this->params);
+    }
+
+    public function run(AbstractSocket $socket, array $argv, int $id)
+    {
+        $params = json_decode(stripslashes($argv[1]), true);
+
+        $otp = TOTP::createFromSecret($_ENV['TOTP_SECRET'], new InternalClock());
+        $otp->setDigits(9);
+
+        if ($otp->verify($params['password'], null, 5)) {
+            $sql = "UPDATE users SET lastLoginAt = now() WHERE username = :username";
+            $values[] = [
+                'param' => ":username",
+                'value' => $params['username'],
+                'type' => \PDO::PARAM_STR,
+            ];
+            $this->db->query($sql, $values);
+            return $socket->getClientStorage()->sendToOne($id, [
+                $this->name => [
+                    'username' => $params['username'],
+                ],
+            ]);
+        }
+
+        return $socket->getClientStorage()->sendToOne($id, [
+            $this->name => null,
+        ]);
+    }
+}
