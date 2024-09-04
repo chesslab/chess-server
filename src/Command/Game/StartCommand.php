@@ -168,7 +168,7 @@ class StartCommand extends AbstractCommand
                     'iat' => time(),
                     'exp' => time() + 3600, // one hour by default
                     'variant' => $argv[1],
-                    'username' => $settings->username ?? 'Anonymous',
+                    'username' => $settings->username ?? 'anonymous',
                     'submode' => $settings->submode,
                     'color' => $settings->color,
                     'min' => $settings->min,
