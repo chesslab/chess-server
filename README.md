@@ -11,7 +11,7 @@ Read the latest docs [here](https://chesslablab.github.io/chess-server/).
 
 ### License
 
-The PHP Chess Server is open-sourced software licensed under the MIT license.
+The PHP Chess Server is open-sourced software licensed under the [MIT license](https://github.com/chesslablab/chess-server/blob/main/LICENSE).
 
 ### Contributions
 
