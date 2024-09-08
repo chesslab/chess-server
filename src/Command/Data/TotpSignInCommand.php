@@ -32,6 +32,14 @@ class TotpSignInCommand extends AbstractDataCommand
         $otp->setDigits(9);
 
         if ($otp->verify($params['password'], null, 5)) {
+            $sql = "SELECT * FROM users WHERE username = :username";
+            $values[] = [
+                'param' => ":username",
+                'value' => $params['username'],
+                'type' => \PDO::PARAM_STR,
+            ];
+            $arr = $this->db->query($sql, $values)->fetch(\PDO::FETCH_ASSOC);
+
             $sql = "UPDATE users SET lastLoginAt = now() WHERE username = :username";
             $values[] = [
                 'param' => ":username",
@@ -39,9 +47,11 @@ class TotpSignInCommand extends AbstractDataCommand
                 'type' => \PDO::PARAM_STR,
             ];
             $this->db->query($sql, $values);
+
             return $socket->getClientStorage()->sendToOne($id, [
                 $this->name => [
-                    'username' => $params['username'],
+                    'username' => $arr['username'],
+                    'elo' => $arr['elo'],
                 ],
             ]);
         }
