@@ -3,6 +3,7 @@
 namespace ChessServer\Command\Data;
 
 use ChessServer\Socket\AbstractSocket;
+use Firebase\JWT\JWT;
 use OTPHP\InternalClock;
 use OTPHP\TOTP;
 
@@ -48,10 +49,21 @@ class TotpSignInCommand extends AbstractDataCommand
             ];
             $this->db->query($sql, $values);
 
+            $payload = [
+                'iss' => $_ENV['JWT_ISS'],
+                'iat' => time(),
+                'exp' => time() + 3600, // one hour by default
+                'username' => $arr['username'],
+                'elo' => $arr['elo'],
+            ];
+
             return $socket->getClientStorage()->sendToOne($id, [
                 $this->name => [
-                    'username' => $arr['username'],
-                    'elo' => $arr['elo'],
+                    'ui' => [
+                        'username' => $arr['username'],
+                        'elo' => $arr['elo'],
+                    ],
+                    'token' => JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256'),
                 ],
             ]);
         }
