@@ -2,7 +2,9 @@
 
 Restarts an existing game.
 
-## `hash`
+## `settings`
+
+### `hash`
 
 The unique hash of the game.
 
@@ -13,14 +15,14 @@ The unique hash of the game.
 ### Example
 
 ```js
-ws.send('/restart cf897a92');
+ws.send('/restart "{\\"hash\\":\\"2a8e9850\\"}"');
 ```
 
 ```text
 {
   "/restart": {
-    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MTYzOTMzOTksImV4cCI6MTcxNjM5Njk5OSwidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJvbmxpbmUiLCJjb2xvciI6InciLCJtaW4iOiI1IiwiaW5jcmVtZW50IjoiMyIsImZlbiI6InJuYnFrYm5yL3BwcHBwcHBwLzgvOC84LzgvUFBQUFBQUFAvUk5CUUtCTlIgdyBLUWtxIC0ifQ.-i3o-ODk7HF_ifuwiXLzpP5Itw12QTB07XeqbEQdULM",
-    "hash": "72647a10",
+    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjU4ODAyODcsImV4cCI6MTcyNTg4Mzg4NywidmFyaWFudCI6Ijk2MCIsInVzZXJuYW1lIjp7InciOiJub3JtYWxfbWFncGllIiwiYiI6ImNvbXBsZXRlX2dudSJ9LCJzdWJtb2RlIjoib25saW5lIiwiY29sb3IiOiJ3IiwibWluIjoiNSIsImluY3JlbWVudCI6IjMiLCJmZW4iOiJucmtxcm5iYi9wcHBwcHBwcC84LzgvOC84L1BQUFBQUFBQL05SS1FSTkJCIHcgS1FrcSAtIiwic3RhcnRQb3MiOiJOUktRUk5CQiJ9.EpQRoOb0cmua300nFgpwkUaOTDlrL1wU1nzC-uEuKz8",
+    "hash": "7639982e",
     "timer": {
       "w": 300,
       "b": 300
