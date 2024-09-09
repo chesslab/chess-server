@@ -28,10 +28,7 @@ class RandomizerCommand extends AbstractCommand
         $this->name = '/randomizer';
         $this->description = 'Starts a random position.';
         $this->params = [
-            // mandatory param
-            'turn' => '<string>',
-            // mandatory param
-            'items' => '<string>',
+            'params' => '<string>',
         ];
     }
 
@@ -49,47 +46,28 @@ class RandomizerCommand extends AbstractCommand
 
     public function validate(array $argv)
     {
-        isset($argv[1]) ? $turn = $argv[1] : $turn = null;
-        isset($argv[2]) ? $items = json_decode(stripslashes($argv[2]), true) : $items = null;
-
-        if ($turn !== Color::W && $turn !== Color::B) {
-            return false;
-        }
-
-        if ($items) {
-            $color = array_key_first($items);
-            if ($color !== Color::W && $color !== Color::B) {
-                return false;
-            }
-            $pieceIds = current($items);
-            if (!in_array($pieceIds, self::cases())) {
-                return false;
-            }
-        } else {
-            return false;
-        }
-
-        return true;
+        return count($argv) - 1 === count($this->params);
     }
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
+        $params = json_decode(stripslashes($argv[1]), true);
+
         try {
-            $items = json_decode(stripslashes($argv[2]), true);
-            if (count($items) === 1) {
-                $color = array_key_first($items);
-                $pieceIds = str_split(current($items));
+            if (count($params['items']) === 1) {
+                $color = array_key_first($params['items']);
+                $pieceIds = str_split(current($params['items']));
                 if ($pieceIds === ['B', 'B']) {
-                    $board = (new TwoBishopsRandomizer($argv[1]))->board;
+                    $board = (new TwoBishopsRandomizer($params['turn']))->board;
                 } elseif ($pieceIds === ['P']) {
-                    $board = (new PawnEndgameRandomizer($argv[1]))->board;
+                    $board = (new PawnEndgameRandomizer($params['turn']))->board;
                 } else {
-                    $board = (new Randomizer($argv[1], [$color => $pieceIds]))->board;
+                    $board = (new Randomizer($params['turn'], [$color => $pieceIds]))->board;
                 }
             } else {
-                $wIds = str_split($items[Color::W]);
-                $bIds = str_split($items[Color::B]);
-                $board = (new Randomizer($argv[1], [
+                $wIds = str_split($params['items'][Color::W]);
+                $bIds = str_split($params['items'][Color::B]);
+                $board = (new Randomizer($params['turn'], [
                     Color::W => $wIds,
                     Color::B => $bIds,
                 ]))->board;
