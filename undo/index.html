@@ -144,10 +144,10 @@
 <h2 id="usage">Usage</h2>
 <h3 id="example">Example</h3>
 <p>Starts a classical game to play 1.e4 e5 2.f4 undoing the last move.</p>
-<pre><code class="language-js">ws.send('/start classical analysis');
-ws.send('/play_lan w e2e4');
-ws.send('/play_lan b e7e5');
-ws.send('/play_lan w f2f4');
+<pre><code class="language-js">ws.send('/start &quot;{\\&quot;variant\\&quot;:\\&quot;classical\\&quot;,\\&quot;mode\\&quot;:\\&quot;analysis\\&quot;}&quot;');
+ws.send('/play_lan &quot;{\\&quot;color\\&quot;:\\&quot;w\\&quot;,\\&quot;lan\\&quot;:\\&quot;e2e4\\&quot;}&quot;');
+ws.send('/play_lan &quot;{\\&quot;color\\&quot;:\\&quot;b\\&quot;,\\&quot;lan\\&quot;:\\&quot;e7e5\\&quot;}&quot;');
+ws.send('/play_lan &quot;{\\&quot;color\\&quot;:\\&quot;w\\&quot;,\\&quot;lan\\&quot;:\\&quot;f2f4\\&quot;}&quot;');
 ws.send('/undo');
 </code></pre>
 <pre><code class="language-text">{
