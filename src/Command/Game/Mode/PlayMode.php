@@ -72,6 +72,7 @@ class PlayMode extends AbstractMode
     public function setJwt(string $jwt)
     {
         $this->jwt = $jwt;
+        $this->hash = hash('adler32', $jwt);
 
         return $this;
     }
