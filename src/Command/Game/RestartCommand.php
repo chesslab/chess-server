@@ -28,7 +28,9 @@ class RestartCommand extends AbstractCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        if ($gameMode = $socket->getGameModeStorage()->getByHash($argv[1])) {
+        $settings = json_decode(stripslashes($argv[1]), true);
+
+        if ($gameMode = $socket->getGameModeStorage()->getByHash($settings['hash'])) {
             $decoded = $gameMode->getJwtDecoded();
             $decoded->iat = time();
             $decoded->exp = time() + 3600; // one hour by default
