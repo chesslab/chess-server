@@ -2,14 +2,16 @@
 
 Plays a chess move in long algebraic notation.
 
-## `color`
+## `settings`
+
+### `color`
 
 The color as per these options.
 
 - `w` for the white pieces.
 - `b` for the black pieces.
 
-## `lan`
+### `lan`
 
 The chess move in LAN format.
 
@@ -23,7 +25,7 @@ Starts a classical game to play 1.e4.
 
 ```js
 ws.send('/start classical analysis');
-ws.send('/play_lan w e2e4');
+ws.send('/play_lan "{\\"color\\":\\"w\\",\\"lan\\":\\"e2e4\\"}"');
 ```
 
 ```text
