@@ -2,7 +2,7 @@
 
 Returns the legal moves of a piece.
 
-## `settings`
+## `params`
 
 ### `square`
 

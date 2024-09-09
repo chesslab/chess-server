@@ -2,7 +2,7 @@
 
 Plays a chess move in long algebraic notation.
 
-## `settings`
+## `params`
 
 ### `color`
 

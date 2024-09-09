@@ -2,7 +2,7 @@
 
 Accepts an invitation to play online with an opponent.
 
-## `settings`
+## `params`
 
 ### `hash`
 

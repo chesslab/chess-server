@@ -2,7 +2,7 @@
 
 Restarts an existing game.
 
-## `settings`
+## `params`
 
 ### `hash`
 

@@ -5,20 +5,20 @@ nav:
   - Installation: installation.md
   - Getting Started: getting-started.md
   - Game:
-    - /start: start.md
-    - /legal: legal.md
-    - /play_lan: play-lan.md
-    - /undo: undo.md
-    - /accept: accept.md
-    - /takeback: takeback.md
     - /draw: draw.md
-    - /resign: resign.md
     - /leave: leave.md
     - /rematch: rematch.md
-    - /restart: restart.md
-    - /stockfish: stockfish.md
-    - /online_games: online-games.md
+    - /resign: resign.md
+    - /takeback: takeback.md
+    - /accept: accept.md
+    - /legal: legal.md
+    - /play_lan: play-lan.md
     - /randomizer: randomizer.md
+    - /restart: restart.md
+    - /start: start.md
+    - /stockfish: stockfish.md
+    - /undo: undo.md
+    - /online_games: online-games.md
   - Data:
     - /annotations_game: annotations-game.md
     - /autocomplete_black: autocomplete-black.md

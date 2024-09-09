@@ -2,7 +2,9 @@
 
 Starts a new game.
 
-## `variant`
+## `params`
+
+### `variant`
 
 The chess variant as per these options.
 
@@ -12,7 +14,7 @@ The chess variant as per these options.
 - `losing` chess, the objective of each player is to lose all of their pieces or be stalemated.
 - `racing-kings` consists of being the first player to move their king to the eighth row.
 
-## `mode`
+### `mode`
 
 The game mode as per these options.
 
@@ -20,7 +22,7 @@ The game mode as per these options.
 - `play` allows to play chess online with other players.
 - `stockfish` allows to play chess against the computer.
 
-## `settings` (optional)
+### `settings` (optional)
 
 Additional optional parameters may be required depending on the mode selected as shown in the examples below.
 
@@ -39,7 +41,7 @@ Additional optional parameters may be required depending on the mode selected as
 ### Start a classical game
 
 ```js
-ws.send('/start classical analysis');
+ws.send('/start "{\\"variant\\":\\"classical\\",\\"mode\\":\\"analysis\\"}"');
 ```
 
 ```text
@@ -63,7 +65,7 @@ ws.send('/start classical analysis');
 | `settings` | `fen` | Yes |
 
 ```js
-ws.send('/start classical analysis "{\\"fen\\":\\"r1bqkbnr/pppppppp/2n5/8/3PP3/8/PPP2PPP/RNBQKBNR b KQkq d3\\"}"');
+ws.send('/start "{\\"variant\\":\\"classical\\",\\"mode\\":\\"analysis\\",\\"settings\\":{\\"fen\\":\\"r1bqkbnr/pppppppp/2n5/8/3PP3/8/PPP2PPP/RNBQKBNR b KQkq d3\\",\\"movetext\\":\\"\\"}}"');
 ```
 
 ```text
@@ -87,7 +89,7 @@ ws.send('/start classical analysis "{\\"fen\\":\\"r1bqkbnr/pppppppp/2n5/8/3PP3/8
 | `settings` | `movetext` | Yes |
 
 ```js
-ws.send('/start classical analysis "{\\"movetext\\":\\"1.e4 Nc6 2.d4\\"}"');
+ws.send('/start "{\\"variant\\":\\"classical\\",\\"mode\\":\\"analysis\\",\\"settings\\":{\\"fen\\":\\"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -\\",\\"movetext\\":\\"1.e4 Nc6 2.d4\\"}}"');
 ```
 
 ```text
@@ -142,7 +144,7 @@ ws.send('/start 960 analysis "{\\"movetext\\":\\"1.e4 Nc6 2.d4\\",\\"startPos\\"
 | `settings` | `color` | Yes |
 
 ```js
-ws.send('/start classical stockfish {"color":"b"}');
+ws.send('/start "{\\"variant\\":\\"classical\\",\\"mode\\":\\"stockfish\\",\\"settings\\":{\\"color\\":\\"b\\"}}"');
 ```
 
 ```text
@@ -158,8 +160,12 @@ ws.send('/start classical stockfish {"color":"b"}');
 
 ### Start a classical game to play online
 
+| Name | Description | Required |
+| ---- | ----------- | -------- |
+| `settings` | `min`<br/>`increment`<br/>`color`<br/>`submode` | Yes |
+
 ```js
-ws.send('/start classical play {"min":5,"increment":3,"color":"b","submode":"online"}');
+ws.send('/start "{\\"variant\\":\\"classical\\",\\"mode\\":\\"play\\",\\"settings\\":{\\"min\\":\\"5\\",\\"increment\\":\\"3\\",\\"color\\":\\"b\\",\\"submode\\":\\"online\\",\\"username\\":null}}"');
 ```
 
 ```text
@@ -168,8 +174,8 @@ ws.send('/start classical play {"min":5,"increment":3,"color":"b","submode":"onl
     "variant": "classical",
     "mode": "play",
     "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -",
-    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjE0MDIyNzksImV4cCI6MTcyMTQwNTg3OSwidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJvbmxpbmUiLCJjb2xvciI6ImIiLCJtaW4iOjUsImluY3JlbWVudCI6MywiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9.ftJf7UkcL7EwrjsKQh29VgLHKVtKXggl5TZIruRdKoA",
-    "hash": "70a777dd"
+    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjU5MDMxOTEsImV4cCI6MTcyNTkwNjc5MSwidmFyaWFudCI6ImNsYXNzaWNhbCIsInVzZXJuYW1lIjp7InciOiJhbm9ueW1vdXMiLCJiIjoiYW5vbnltb3VzIn0sInN1Ym1vZGUiOiJvbmxpbmUiLCJjb2xvciI6ImIiLCJtaW4iOiI1IiwiaW5jcmVtZW50IjoiMyIsImZlbiI6InJuYnFrYm5yL3BwcHBwcHBwLzgvOC84LzgvUFBQUFBQUFAvUk5CUUtCTlIgdyBLUWtxIC0ifQ._hkfqGr2NVvuH4W7-Hzuexfif--uUXmeva4eNcIWMb4",
+    "hash": "24289018"
   }
 }
 ```
@@ -181,7 +187,7 @@ ws.send('/start classical play {"min":5,"increment":3,"color":"b","submode":"onl
 | `settings` | `min`<br/>`increment`<br/>`color`<br/>`submode` | Yes |
 
 ```js
-ws.send('/start classical play "{\\"min\\":5,\\"increment\\":3,\\"color\\":\\"w\\",\\"submode\\":\\"friend\\"}"');
+ws.send('/start "{\\"variant\\":\\"classical\\",\\"mode\\":\\"play\\",\\"settings\\":{\\"min\\":\\"5\\",\\"increment\\":\\"3\\",\\"color\\":\\"w\\",\\"submode\\":\\"friend\\",\\"username\\":null}}"');
 ```
 
 ```text
@@ -190,8 +196,8 @@ ws.send('/start classical play "{\\"min\\":5,\\"increment\\":3,\\"color\\":\\"w\
     "variant": "classical",
     "mode": "play",
     "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -",
-    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjE0MDI1MDYsImV4cCI6MTcyMTQwNjEwNiwidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJmcmllbmQiLCJjb2xvciI6InciLCJtaW4iOjUsImluY3JlbWVudCI6MywiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9.myjbwTAy_z8CxnPwIQiJqzqYpGmj8bg52R89HB53NrQ",
-    "hash": "3b9777a6"
+    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjU5MDMzODUsImV4cCI6MTcyNTkwNjk4NSwidmFyaWFudCI6ImNsYXNzaWNhbCIsInVzZXJuYW1lIjp7InciOiJhbm9ueW1vdXMiLCJiIjoiYW5vbnltb3VzIn0sInN1Ym1vZGUiOiJmcmllbmQiLCJjb2xvciI6InciLCJtaW4iOiI1IiwiaW5jcmVtZW50IjoiMyIsImZlbiI6InJuYnFrYm5yL3BwcHBwcHBwLzgvOC84LzgvUFBQUFBQUFAvUk5CUUtCTlIgdyBLUWtxIC0ifQ.fjXGUajc6r7J7w18ivhO32e4iUwczE-c80lavVhKbWQ",
+    "hash": "1ac78f97"
   }
 }
 ```
