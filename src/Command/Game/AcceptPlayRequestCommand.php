@@ -41,7 +41,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
 
         if ($gameMode->getStatus() === PlayMode::STATUS_PENDING) {
             $decoded = $gameMode->getJwtDecoded();
-            $decoded->username->{(new Color)->opp($decoded->color)} = $settings['username'] ?? 'anonymous';
+            $decoded->username->{(new Color)->opp($decoded->color)} = $settings['username'] ?? self::ANONYMOUS_USER;
             $ids = [...$gameMode->getResourceIds(), $id];
             $gameMode->setJwt(JWT::encode((array) $decoded, $_ENV['JWT_SECRET'], 'HS256'))
                 ->setResourceIds($ids)

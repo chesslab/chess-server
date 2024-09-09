@@ -169,8 +169,8 @@ class StartCommand extends AbstractCommand
                     'exp' => time() + 3600, // one hour by default
                     'variant' => $argv[1],
                     'username' => [
-                        Color::W => $settings->color === Color::W && $settings->username ? $settings->username : 'anonymous',
-                        Color::B => $settings->color === Color::B && $settings->username ? $settings->username : 'anonymous',
+                        Color::W => $settings->color === Color::W && $settings->username ? $settings->username : self::ANONYMOUS_USER,
+                        Color::B => $settings->color === Color::B && $settings->username ? $settings->username : self::ANONYMOUS_USER,
                     ],
                     'submode' => $settings->submode,
                     'color' => $settings->color,

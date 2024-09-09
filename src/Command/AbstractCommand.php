@@ -6,6 +6,8 @@ use ChessServer\Socket\AbstractSocket;
 
 abstract class AbstractCommand
 {
+    const ANONYMOUS_USER = 'anonymous';
+
     protected string $name;
 
     protected string $description;
