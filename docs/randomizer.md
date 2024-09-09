@@ -2,14 +2,16 @@
 
 Starts a random position.
 
-## `turn`
+## `params`
+
+### `turn`
 
 The color as per these options.
 
 - `w` for the white pieces.
 - `b` for the black pieces.
 
-## `items`
+### `items`
 
 The piece composition string as per these options.
 
@@ -29,14 +31,14 @@ The piece composition string as per these options.
 Get a random position with white to move; King and queen and rook vs. king and rook.
 
 ```js
-ws.send('/randomizer w "{\\"w\\":\\"QR\\",\\"b\\":\\"R\\"}"');
+ws.send('/randomizer "{\\"turn\\":\\"w\\",\\"items\\":{\\"w\\":\\"QR\\",\\"b\\":\\"R\\"}}"');
 ```
 
 ```text
 {
   "/randomizer": {
     "turn": "w",
-    "fen": "8/4K3/1R6/2Q5/5k2/8/8/6r1 w - -"
+    "fen": "1K1R4/8/4k3/8/3Q4/r7/8/8 w - -"
   }
 }
 ```
