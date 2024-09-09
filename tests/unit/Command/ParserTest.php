@@ -22,21 +22,11 @@ class ParserTest extends TestCase
     /**
      * @test
      */
-    public function validate_start_foobar()
+    public function validate_start_foo_bar()
     {
         $this->expectException(ParserException::class);
 
-        self::$parser->validate('/start foobar');
-    }
-
-    /**
-     * @test
-     */
-    public function validate_start_classical_foobar()
-    {
-        $this->expectException(ParserException::class);
-
-        self::$parser->validate('/start classical foobar');
+        self::$parser->validate('/start foo bar');
     }
 
     /**
