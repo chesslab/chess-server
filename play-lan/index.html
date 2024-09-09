@@ -59,9 +59,13 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">/play_lan</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#color">color</a>
+    <li class="toctree-l2"><a class="reference internal" href="#settings">settings</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#color">color</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#lan">lan</a>
+    <li class="toctree-l3"><a class="reference internal" href="#lan">lan</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
         <ul>
@@ -144,20 +148,21 @@
               
                 <h1 id="play_lan">/play_lan</h1>
 <p>Plays a chess move in long algebraic notation.</p>
-<h2 id="color"><code>color</code></h2>
+<h2 id="settings"><code>settings</code></h2>
+<h3 id="color"><code>color</code></h3>
 <p>The color as per these options.</p>
 <ul>
 <li><code>w</code> for the white pieces.</li>
 <li><code>b</code> for the black pieces.</li>
 </ul>
-<h2 id="lan"><code>lan</code></h2>
+<h3 id="lan"><code>lan</code></h3>
 <p>The chess move in LAN format.</p>
 <hr />
 <h2 id="usage">Usage</h2>
 <h3 id="example">Example</h3>
 <p>Starts a classical game to play 1.e4.</p>
 <pre><code class="language-js">ws.send('/start classical analysis');
-ws.send('/play_lan w e2e4');
+ws.send('/play_lan &quot;{\\&quot;color\\&quot;:\\&quot;w\\&quot;,\\&quot;lan\\&quot;:\\&quot;e2e4\\&quot;}&quot;');
 </code></pre>
 <pre><code class="language-text">{
   &quot;/play_lan&quot;: {
