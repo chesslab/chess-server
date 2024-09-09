@@ -63,7 +63,13 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">/accept</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#hash">hash</a>
+    <li class="toctree-l2"><a class="reference internal" href="#settings">settings</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#hash">hash</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#username">username</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
         <ul>
@@ -142,23 +148,43 @@
               
                 <h1 id="accept">/accept</h1>
 <p>Accepts an invitation to play online with an opponent.</p>
-<h2 id="hash"><code>hash</code></h2>
+<h2 id="settings"><code>settings</code></h2>
+<h3 id="hash"><code>hash</code></h3>
 <p>The unique hash of the game.</p>
+<h3 id="username"><code>username</code></h3>
+<p>The username accepting the invitation.</p>
 <hr />
 <h2 id="usage">Usage</h2>
 <h3 id="example">Example</h3>
-<pre><code class="language-js">ws.send('/accept 876d7a7b');
+<pre><code class="language-js">ws.send('/accept &quot;{\\&quot;hash\\&quot;:\\&quot;16539195\\&quot;,\\&quot;username\\&quot;:\\&quot;normal_magpie\\&quot;}&quot;');
 </code></pre>
 <pre><code class="language-text">{
   &quot;/accept&quot;: {
-    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MTYzOTk3NjYsImV4cCI6MTcxNjQwMzM2NiwidmFyaWFudCI6ImNsYXNzaWNhbCIsInN1Ym1vZGUiOiJmcmllbmQiLCJjb2xvciI6InciLCJtaW4iOiI1IiwiaW5jcmVtZW50IjoiMyIsImZlbiI6InJuYnFrYm5yL3BwcHBwcHBwLzgvOC84LzgvUFBQUFBQUFAvUk5CUUtCTlIgdyBLUWtxIC0ifQ.hqxBC0gZS7aka7_FUGtLJ3uFG_RtjGqhHi7ttvHb73A&quot;,
-    &quot;hash&quot;: &quot;876d7a7b&quot;,
+    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjU4NzcyNzAsImV4cCI6MTcyNTg4MDg3MCwidmFyaWFudCI6ImNsYXNzaWNhbCIsInVzZXJuYW1lIjp7InciOiJjb21wbGV0ZV9nbnUiLCJiIjoibm9ybWFsX21hZ3BpZSJ9LCJzdWJtb2RlIjoib25saW5lIiwiY29sb3IiOiJ3IiwibWluIjoiNSIsImluY3JlbWVudCI6IjMiLCJmZW4iOiJybmJxa2Juci9wcHBwcHBwcC84LzgvOC84L1BQUFBQUFBQL1JOQlFLQk5SIHcgS1FrcSAtIn0.DOgmcK-ergTtX1EaNMkDqZzbwDe2UGssPMJ3qH_w-10&quot;,
+    &quot;hash&quot;: &quot;bbc88ff4&quot;,
     &quot;timer&quot;: {
       &quot;w&quot;: 300,
       &quot;b&quot;: 300
     },
-    &quot;startedAt&quot;: 1716399810
+    &quot;startedAt&quot;: 1725877310
   }
+}
+</code></pre>
+<p>Decoded JWT:</p>
+<pre><code class="language-text">{
+  &quot;iss&quot;: &quot;async.chesslablab.org&quot;,
+  &quot;iat&quot;: 1725877270,
+  &quot;exp&quot;: 1725880870,
+  &quot;variant&quot;: &quot;classical&quot;,
+  &quot;username&quot;: {
+    &quot;w&quot;: &quot;complete_gnu&quot;,
+    &quot;b&quot;: &quot;normal_magpie&quot;
+  },
+  &quot;submode&quot;: &quot;online&quot;,
+  &quot;color&quot;: &quot;w&quot;,
+  &quot;min&quot;: &quot;5&quot;,
+  &quot;increment&quot;: &quot;3&quot;,
+  &quot;fen&quot;: &quot;rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -&quot;
 }
 </code></pre>
               
