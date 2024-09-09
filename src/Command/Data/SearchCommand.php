@@ -26,7 +26,7 @@ class SearchCommand extends AbstractDataCommand
         $this->name = '/search';
         $this->description = 'Finds up to 25 games matching the criteria.';
         $this->params = [
-            'settings' => '<string>',
+            'params' => '<string>',
         ];
     }
 

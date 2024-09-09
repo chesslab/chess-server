@@ -17,7 +17,7 @@ class RestartCommand extends AbstractCommand
         $this->name = '/restart';
         $this->description = 'Restarts a game.';
         $this->params = [
-            'settings' => '<string>',
+            'params' => '<string>',
         ];
     }
 
@@ -28,9 +28,9 @@ class RestartCommand extends AbstractCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $settings = json_decode(stripslashes($argv[1]), true);
+        $params = json_decode(stripslashes($argv[1]), true);
 
-        if ($gameMode = $socket->getGameModeStorage()->getByHash($settings['hash'])) {
+        if ($gameMode = $socket->getGameModeStorage()->getByHash($params['hash'])) {
             $decoded = $gameMode->getJwtDecoded();
             $decoded->iat = time();
             $decoded->exp = time() + 3600; // one hour by default

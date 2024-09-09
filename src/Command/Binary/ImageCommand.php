@@ -15,7 +15,7 @@ class ImageCommand extends AbstractCommand
         $this->name = '/image';
         $this->description = 'Transmits an image.';
         $this->params = [
-            'settings' => '<string>',
+            'params' => '<string>',
         ];
     }
 

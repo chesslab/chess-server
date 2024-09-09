@@ -16,7 +16,7 @@ class TotpSignInCommand extends AbstractDataCommand
         $this->name = '/totp_signin';
         $this->description = 'TOTP sign in.';
         $this->params = [
-            'settings' => '<string>',
+            'params' => '<string>',
         ];
     }
 

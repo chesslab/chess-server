@@ -15,7 +15,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
         $this->name = '/accept';
         $this->description = 'Accepts an invitation to play online with an opponent.';
         $this->params = [
-            'settings' => '<string>',
+            'params' => '<string>',
         ];
     }
 
@@ -26,9 +26,9 @@ class AcceptPlayRequestCommand extends AbstractCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $settings = json_decode(stripslashes($argv[1]), true);
+        $params = json_decode(stripslashes($argv[1]), true);
 
-        $gameMode = $socket->getGameModeStorage()->getByHash($settings['hash']);
+        $gameMode = $socket->getGameModeStorage()->getByHash($params['hash']);
 
         if (!$gameMode) {
             return $socket->getClientStorage()->sendToOne($id, [
@@ -41,7 +41,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
 
         if ($gameMode->getStatus() === PlayMode::STATUS_PENDING) {
             $decoded = $gameMode->getJwtDecoded();
-            $decoded->username->{(new Color)->opp($decoded->color)} = $settings['username'] ?? self::ANONYMOUS_USER;
+            $decoded->username->{(new Color)->opp($decoded->color)} = $params['username'] ?? self::ANONYMOUS_USER;
             $ids = [...$gameMode->getResourceIds(), $id];
             $gameMode->setJwt(JWT::encode((array) $decoded, $_ENV['JWT_SECRET'], 'HS256'))
                 ->setResourceIds($ids)

@@ -16,7 +16,7 @@ class TutorFenCommand extends AbstractCommand
         $this->name = '/tutor_fen';
         $this->description = 'Explains a FEN position in terms of chess concepts.';
         $this->params = [
-            'settings' => '<string>',
+            'params' => '<string>',
         ];
     }
 

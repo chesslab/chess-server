@@ -13,7 +13,7 @@ class AutocompleteBlackCommand extends AbstractDataCommand
         $this->name = '/autocomplete_black';
         $this->description = 'Autocomplete data for chess players.';
         $this->params = [
-            'settings' => '<string>',
+            'params' => '<string>',
         ];
     }
 

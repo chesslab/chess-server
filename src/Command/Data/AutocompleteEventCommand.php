@@ -13,7 +13,7 @@ class AutocompleteEventCommand extends AbstractDataCommand
         $this->name = '/autocomplete_event';
         $this->description = 'Autocomplete data for chess events.';
         $this->params = [
-            'settings' => '<string>',
+            'params' => '<string>',
         ];
     }
 

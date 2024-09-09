@@ -12,7 +12,7 @@ class StockfishCommand extends AbstractCommand
         $this->name = '/stockfish';
         $this->description = "Returns Stockfish's response to the current position.";
         $this->params = [
-            'settings' => '<string>',
+            'params' => '<string>',
         ];
     }
 
@@ -23,13 +23,13 @@ class StockfishCommand extends AbstractCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $settings = json_decode(stripslashes($argv[1]), true);
+        $params = json_decode(stripslashes($argv[1]), true);
 
         $gameMode = $socket->getGameModeStorage()->getById($id);
 
         return $socket->getClientStorage()->sendToOne(
             $id,
-            $gameMode->res($settings, $this)
+            $gameMode->res($params, $this)
         );
     }
 }

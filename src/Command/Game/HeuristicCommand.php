@@ -18,7 +18,7 @@ class HeuristicCommand extends AbstractCommand
         $this->name = '/heuristic';
         $this->description = 'Balance of a chess heuristic.';
         $this->params = [
-            'settings' => '<string>',
+            'params' => '<string>',
         ];
     }
 

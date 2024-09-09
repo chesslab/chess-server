@@ -16,7 +16,7 @@ class PlayRavCommand extends AbstractCommand
         $this->name = '/play_rav';
         $this->description = 'Plays the moves in a RAV movetext.';
         $this->params = [
-            'settings' => '<string>',
+            'params' => '<string>',
         ];
     }
 

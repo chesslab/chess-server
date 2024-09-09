@@ -23,7 +23,7 @@ class ResultPlayerCommand extends AbstractDataCommand
         $this->name = '/result_player';
         $this->description = 'Openings results by player.';
         $this->params = [
-            'settings' => '<string>',
+            'params' => '<string>',
         ];
     }
 

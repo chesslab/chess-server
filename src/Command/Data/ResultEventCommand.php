@@ -22,7 +22,7 @@ class ResultEventCommand extends AbstractDataCommand
         $this->name = '/result_event';
         $this->description = 'Openings results by event.';
         $this->params = [
-            'settings' => '<string>',
+            'params' => '<string>',
         ];
     }
 
