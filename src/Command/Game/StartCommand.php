@@ -26,100 +26,60 @@ class StartCommand extends AbstractCommand
         $this->name = '/start';
         $this->description = 'Starts a new game.';
         $this->params = [
-            // mandatory param
-            'variant' => [
-                Game::VARIANT_960,
-                Game::VARIANT_CLASSICAL,
-                Game::VARIANT_DUNSANY,
-                Game::VARIANT_LOSING,
-                Game::VARIANT_RACING_KINGS,
-            ],
-            // mandatory param
-            'mode' => [
-                AnalysisMode::NAME,
-                PlayMode::NAME,
-                StockfishMode::NAME,
-            ],
-            // additional param
-            'settings' => [
-                'color' => [
-                    Color::W,
-                    Color::B,
-                ],
-                'fen' => '<string>',
-                'movetext' => '<string>',
-                'startPos' => '<string>',
-            ],
+            'params' => '<string>',
         ];
     }
 
     public function validate(array $argv)
     {
-        if (in_array($argv[1], $this->params['variant'])) {
-            if (in_array($argv[2], $this->params['mode'])) {
-                switch ($argv[2]) {
-                    case AnalysisMode::NAME:
-                        return count($argv) - 1 === 3 || count($argv) - 1 === 2;
-                    case PlayMode::NAME:
-                        return count($argv) - 1 === 3;
-                    case StockfishMode::NAME:
-                        return count($argv) - 1 === 3;
-                    default:
-                        // do nothing
-                        break;
-                }
-            }
-        }
-
-        return false;
+        return count($argv) - 1 === count($this->params);
     }
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        if (AnalysisMode::NAME === $argv[2]) {
+        $params = json_decode(stripslashes($argv[1]), true);
+
+        if (AnalysisMode::NAME === $params['mode']) {
             try {
-                $settings = isset($argv[3])
-                    ? (object) json_decode(stripslashes($argv[3]), true)
-                    : (object) [];
-                if ($argv[1] === Game::VARIANT_960) {
-                    if (isset($settings->startPos) && isset($settings->fen)) {
-                        $startPos = str_split($settings->startPos);
-                        $board = FenToBoardFactory::create($settings->fen, new Chess960Board($startPos));
+                if ($params['variant'] === Game::VARIANT_960) {
+                    if (isset($params['settings']['startPos']) && isset($params['settings']['fen'])) {
+                        $startPos = str_split($params['settings']['startPos']);
+                        $board = FenToBoardFactory::create($params['settings']['fen'], new Chess960Board($startPos));
                     } else {
                         $startPos = (new Chess960StartPosition())->create();
                         $board = new Chess960Board($startPos);
                     }
-                } elseif ($argv[1] === Game::VARIANT_DUNSANY) {
-                    $board = isset($settings->fen)
-                        ? FenToBoardFactory::create($settings->fen, new DunsanyBoard())
+                } elseif ($params['variant'] === Game::VARIANT_DUNSANY) {
+                    $board = isset($params['settings']['fen'])
+                        ? FenToBoardFactory::create($params['settings']['fen'], new DunsanyBoard())
                         : new DunsanyBoard();
-                } elseif ($argv[1] === Game::VARIANT_LOSING) {
-                    $board = isset($settings->fen)
-                        ? FenToBoardFactory::create($settings->fen, new LosingBoard())
+                } elseif ($params['variant'] === Game::VARIANT_LOSING) {
+                    $board = isset($params['settings']['fen'])
+                        ? FenToBoardFactory::create($params['settings']['fen'], new LosingBoard())
                         : new LosingBoard();
-                } elseif ($argv[1] === Game::VARIANT_RACING_KINGS) {
-                    $board = isset($settings->fen)
-                        ? FenToBoardFactory::create($settings->fen, new RacingKingsBoard())
+                } elseif ($params['variant'] === Game::VARIANT_RACING_KINGS) {
+                    $board = isset($params['settings']['fen'])
+                        ? FenToBoardFactory::create($params['settings']['fen'], new RacingKingsBoard())
                         : new RacingKingsBoard();
                 } else {
-                    $board = isset($settings->fen)
-                        ? FenToBoardFactory::create($settings->fen, new ClassicalBoard())
+                    $board = isset($params['settings']['fen'])
+                        ? FenToBoardFactory::create($params['settings']['fen'], new ClassicalBoard())
                         : new ClassicalBoard();
                 }
-                $sanPlay = new SanPlay($settings->movetext ?? '', $board);
+                $sanPlay = new SanPlay($params['settings']['movetext'] ?? '', $board);
                 $sanPlay->validate();
-                $mode = new AnalysisMode(new Game($argv[1], $argv[2]), [$id]);
+                $mode = new AnalysisMode(new Game($params['variant'], $params['mode']), [$id]);
                 $game = $mode->getGame()->setBoard($sanPlay->board);
                 $mode->setGame($game);
                 $socket->getGameModeStorage()->set($mode);
                 return $socket->getClientStorage()->sendToOne($id, [
                     $this->name => [
-                        'variant' => $argv[1],
-                        'mode' => $argv[2],
+                        'variant' => $params['variant'],
+                        'mode' => $params['mode'],
                         'turn' => $game->state()->turn,
                         'movetext' => $sanPlay->sanMovetext->validate(),
                         'fen' => $sanPlay->fen,
-                        ...($argv[1] === Game::VARIANT_960
+                        ...($params['variant'] === Game::VARIANT_960
                             ? ['startPos' =>  implode('', $startPos)]
                             : []
                         ),
@@ -128,68 +88,71 @@ class StartCommand extends AbstractCommand
             } catch (\Throwable $e) {
                 return $socket->getClientStorage()->sendToOne($id, [
                     $this->name => [
-                        'variant' => $argv[1],
-                        'mode' => $argv[2],
+                        'variant' => $params['variant'],
+                        'mode' => $params['mode'],
                         'message' => 'This game could not be created.',
                     ],
                 ]);
             }
-        } elseif (PlayMode::NAME === $argv[2]) {
-            $settings = (object) json_decode(stripslashes($argv[3]), true);
+        } elseif (PlayMode::NAME === $params['mode']) {
             try {
-                if ($argv[1] === Game::VARIANT_960) {
-                    if (isset($settings->startPos) && isset($settings->fen)) {
-                        $startPos = str_split($settings->startPos);
-                        $board = FenToBoardFactory::create($settings->fen, new Chess960Board($startPos));
+                if ($params['variant'] === Game::VARIANT_960) {
+                    if (isset($params['settings']['startPos']) && isset($params['settings']['fen'])) {
+                        $startPos = str_split($params['settings']['startPos']);
+                        $board = FenToBoardFactory::create($params['settings']['fen'], new Chess960Board($startPos));
                     } else {
                         $startPos = (new Chess960StartPosition())->create();
                         $board = new Chess960Board($startPos);
                     }
-                } elseif ($argv[1] === Game::VARIANT_DUNSANY) {
-                    $board = isset($settings->fen)
-                        ? FenToBoardFactory::create($settings->fen, new DunsanyBoard())
+                } elseif ($params['variant'] === Game::VARIANT_DUNSANY) {
+                    $board = isset($params['settings']['fen'])
+                        ? FenToBoardFactory::create($params['settings']['fen'], new DunsanyBoard())
                         : new DunsanyBoard();
-                } elseif ($argv[1] === Game::VARIANT_LOSING) {
-                    $board = isset($settings->fen)
-                        ? FenToBoardFactory::create($settings->fen, new LosingBoard())
+                } elseif ($params['variant'] === Game::VARIANT_LOSING) {
+                    $board = isset($params['settings']['fen'])
+                        ? FenToBoardFactory::create($params['settings']['fen'], new LosingBoard())
                         : new LosingBoard();
-                } elseif ($argv[1] === Game::VARIANT_RACING_KINGS) {
-                    $board = isset($settings->fen)
-                        ? FenToBoardFactory::create($settings->fen, new RacingKingsBoard())
+                } elseif ($params['variant'] === Game::VARIANT_RACING_KINGS) {
+                    $board = isset($params['settings']['fen'])
+                        ? FenToBoardFactory::create($params['settings']['fen'], new RacingKingsBoard())
                         : new RacingKingsBoard();
                 } else {
-                    $board = isset($settings->fen)
-                        ? FenToBoardFactory::create($settings->fen, new ClassicalBoard())
+                    $board = isset($params['settings']['fen'])
+                        ? FenToBoardFactory::create($params['settings']['fen'], new ClassicalBoard())
                         : new ClassicalBoard();
                 }
-                $game = (new Game($argv[1], $argv[2]))->setBoard($board);
+                $game = (new Game($params['variant'], $params['mode']))->setBoard($board);
                 $payload = [
                     'iss' => $_ENV['JWT_ISS'],
                     'iat' => time(),
                     'exp' => time() + 3600, // one hour by default
-                    'variant' => $argv[1],
+                    'variant' => $params['variant'],
                     'username' => [
-                        Color::W => $settings->color === Color::W && $settings->username ? $settings->username : self::ANONYMOUS_USER,
-                        Color::B => $settings->color === Color::B && $settings->username ? $settings->username : self::ANONYMOUS_USER,
+                        Color::W => $params['settings']['color'] === Color::W && $params['settings']['username']
+                            ? $params['settings']['username']
+                            : self::ANONYMOUS_USER,
+                        Color::B => $params['settings']['color'] === Color::B && $params['settings']['username']
+                            ? $params['settings']['username']
+                            : self::ANONYMOUS_USER,
                     ],
-                    'submode' => $settings->submode,
-                    'color' => $settings->color,
-                    'min' => $settings->min,
-                    'increment' => $settings->increment,
+                    'submode' => $params['settings']['submode'],
+                    'color' => $params['settings']['color'],
+                    'min' => $params['settings']['min'],
+                    'increment' => $params['settings']['increment'],
                     'fen' => $game->getBoard()->toFen(),
-                    ...($argv[1] === Game::VARIANT_960
+                    ...($params['variant'] === Game::VARIANT_960
                         ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
                         : []
                     ),
-                    ...(isset($settings->fen)
-                        ? ['fen' => $settings->fen]
+                    ...(isset($params['settings']['fen'])
+                        ? ['fen' => $params['settings']['fen']]
                         : []
                     ),
                 ];
                 $jwt = JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256');
                 $mode = new PlayMode($game, [$id], $jwt);
                 $socket->getGameModeStorage()->set($mode);
-                if ($settings->submode === PlayMode::SUBMODE_ONLINE) {
+                if ($params['settings']['submode'] === PlayMode::SUBMODE_ONLINE) {
                     $socket->getClientStorage()->sendToAll([
                         'broadcast' => [
                             'onlineGames' => $socket->getGameModeStorage()
@@ -199,12 +162,12 @@ class StartCommand extends AbstractCommand
                 }
                 return $socket->getClientStorage()->sendToOne($id, [
                     $this->name => [
-                        'variant' => $argv[1],
-                        'mode' => $argv[2],
+                        'variant' => $params['variant'],
+                        'mode' => $params['mode'],
                         'fen' => $game->getBoard()->toFen(),
                         'jwt' => $jwt,
                         'hash' => hash('adler32', $jwt),
-                        ...($argv[1] === Game::VARIANT_960
+                        ...($params['variant'] === Game::VARIANT_960
                             ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
                             : []
                         ),
@@ -213,27 +176,26 @@ class StartCommand extends AbstractCommand
             } catch (\Throwable $e) {
                 return $socket->getClientStorage()->sendToOne($id, [
                     $this->name => [
-                        'variant' => $argv[1],
-                        'mode' => $argv[2],
+                        'variant' => $params['variant'],
+                        'mode' => $params['mode'],
                         'message' => 'This game could not be created.',
                     ],
                 ]);
             }
-        } elseif (StockfishMode::NAME === $argv[2]) {
-            $settings = (object) json_decode(stripslashes($argv[3]), true);
-            if (isset($settings->fen)) {
-                $board = FenToBoardFactory::create($settings->fen, new ClassicalBoard());
-                $game = (new Game($argv[1], $argv[2]))->setBoard($board);
+        } elseif (StockfishMode::NAME === $params['mode']) {
+            if (isset($params['settings']['fen'])) {
+                $board = FenToBoardFactory::create($params['settings']['fen'], new ClassicalBoard());
+                $game = (new Game($params['variant'], $params['mode']))->setBoard($board);
             } else {
-                $game = new Game($argv[1], $argv[2], $socket->getGmMove());
+                $game = new Game($params['variant'], $params['mode'], $socket->getGmMove());
             }
             $mode = new StockfishMode($game, [$id]);
             $socket->getGameModeStorage()->set($mode);
             return $socket->getClientStorage()->sendToOne($id, [
                 $this->name => [
-                    'variant' => $argv[1],
-                    'mode' => $argv[2],
-                    'color' => $settings->color,
+                    'variant' => $params['variant'],
+                    'mode' => $params['mode'],
+                    'color' => $params['settings']['color'],
                     'fen' => $game->getBoard()->toFen(),
                 ],
             ]);
