@@ -2,7 +2,7 @@
 
 Returns the legal moves of a piece.
 
-## `position`
+## `square`
 
 The location of the piece on the board.
 

@@ -51,16 +51,16 @@ abstract class AbstractMode
         return $this->hash;
     }
 
-    public function res($argv, $cmd)
+    public function res($settings, $cmd)
     {
         switch (get_class($cmd)) {
             case LegalCommand::class:
                 return [
-                    $cmd->name => $this->game->getBoard()->legal($argv[1]),
+                    $cmd->name => $this->game->getBoard()->legal($settings['square']),
                 ];
 
             case PlayLanCommand::class:
-                $isValid = $this->game->playLan($argv[1], $argv[2]);
+                $isValid = $this->game->playLan($settings['color'], $settings['lan']);
                 return [
                     $cmd->name => [
                       ... (array) $this->game->state(),
@@ -71,9 +71,7 @@ abstract class AbstractMode
 
             case StockfishCommand::class:
                 if (!$this->game->state()->isMate && !$this->game->state()->isStalemate) {
-                    $options = json_decode(stripslashes($argv[1]), true);
-                    $params = json_decode(stripslashes($argv[2]), true);
-                    $computer = $this->game->computer($options, $params);
+                    $computer = $this->game->computer($settings['options'], $settings['params']);
                     if ($computer['pgn']) {
                         $this->game->play($this->game->state()->turn, $computer['pgn']);
                     }

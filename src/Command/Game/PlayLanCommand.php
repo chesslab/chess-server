@@ -13,8 +13,7 @@ class PlayLanCommand extends AbstractCommand
         $this->name = '/play_lan';
         $this->description = 'Plays a chess move in long algebraic notation.';
         $this->params = [
-            'color' => '<string>',
-            'lan' => '<string>',
+            'settings' => '<string>',
         ];
     }
 
@@ -25,18 +24,20 @@ class PlayLanCommand extends AbstractCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
+        $settings = json_decode(stripslashes($argv[1]), true);
+
         $gameMode = $socket->getGameModeStorage()->getById($id);
 
         if (is_a($gameMode, PlayMode::class)) {
             return $socket->getClientStorage()->sendToMany(
                 $gameMode->getResourceIds(),
-                $gameMode->res($argv, $this)
+                $gameMode->res($settings, $this)
             );
         }
 
         return $socket->getClientStorage()->sendToOne(
             $id,
-            $gameMode->res($argv, $this)
+            $gameMode->res($settings, $this)
         );
     }
 }

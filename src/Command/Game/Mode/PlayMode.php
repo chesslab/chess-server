@@ -120,12 +120,12 @@ class PlayMode extends AbstractMode
         $this->updatedAt = $now;
     }
 
-    public function res($argv, $cmd)
+    public function res($settings, $cmd)
     {
         switch (get_class($cmd)) {
             case PlayLanCommand::class:
-                $isValid = $this->game->playLan($argv[1], $argv[2]);
-                $this->updateTimer($argv[1]);
+                $isValid = $this->game->playLan($settings['color'], $settings['lan']);
+                $this->updateTimer($settings['color']);
                 return [
                     $cmd->name => [
                       ... (array) $this->game->state(),
@@ -137,7 +137,7 @@ class PlayMode extends AbstractMode
                 ];
 
             default:
-                return parent::res($argv, $cmd);
+                return parent::res($settings, $cmd);
         }
     }
 }
