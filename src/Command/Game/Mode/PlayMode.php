@@ -69,6 +69,13 @@ class PlayMode extends AbstractMode
         return $this->timer;
     }
 
+    public function setJwt(string $jwt)
+    {
+        $this->jwt = $jwt;
+
+        return $this;
+    }
+
     public function setStatus(string $status)
     {
         $this->status = $status;

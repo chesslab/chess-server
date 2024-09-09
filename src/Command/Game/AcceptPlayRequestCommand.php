@@ -6,6 +6,7 @@ use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;
+use Firebase\JWT\JWT;
 
 class AcceptPlayRequestCommand extends AbstractCommand
 {
@@ -14,7 +15,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
         $this->name = '/accept';
         $this->description = 'Accepts an invitation to play online with an opponent.';
         $this->params = [
-            'jwt' => '<string>',
+            'settings' => '<string>',
         ];
     }
 
@@ -25,7 +26,9 @@ class AcceptPlayRequestCommand extends AbstractCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $gameMode = $socket->getGameModeStorage()->getByHash($argv[1]);
+        $settings = json_decode(stripslashes($argv[1]), true);
+
+        $gameMode = $socket->getGameModeStorage()->getByHash($settings['hash']);
 
         if (!$gameMode) {
             return $socket->getClientStorage()->sendToOne($id, [
@@ -38,8 +41,10 @@ class AcceptPlayRequestCommand extends AbstractCommand
 
         if ($gameMode->getStatus() === PlayMode::STATUS_PENDING) {
             $decoded = $gameMode->getJwtDecoded();
+            $decoded->username->{(new Color)->opp($decoded->color)} = $settings['username'];
             $ids = [...$gameMode->getResourceIds(), $id];
-            $gameMode->setResourceIds($ids)
+            $gameMode->setJwt(JWT::encode((array) $decoded, $_ENV['JWT_SECRET'], 'HS256'))
+                ->setResourceIds($ids)
                 ->setStatus(PlayMode::STATUS_ACCEPTED)
                 ->setStartedAt(time())
                 ->setUpdatedAt(time())
