@@ -21,7 +21,7 @@ That's it!
 Now you're set up to start playing chess.
 
 ```js
-ws.send('/start classical analysis');
+ws.send('/start "{\\"variant\\":\\"classical\\",\\"mode\\":\\"analysis\\"}"');
 ```
 
 The `/start` command starts a new classical chess game and retrieves a JSON response from the server.
@@ -51,7 +51,7 @@ This is the so-called King's Pawn Game, one of the most popular chess openings, 
 Let's play 1.e4 in LAN format.
 
 ```js
-ws.send('/play_lan w e2e4');
+ws.send('/play_lan "{\\"color\\":\\"w\\",\\"lan\\":\\"e2e4\\"}"');
 ```
 
 The `/play_lan` command above retrieves the following JSON response.
@@ -83,7 +83,7 @@ The `/play_lan` command above retrieves the following JSON response.
 A popular response to 1.e4 is 1...e5 which in LAN format is e7e5.
 
 ```js
-ws.send('/play_lan b e7e5');
+ws.send('/play_lan "{\\"color\\":\\"b\\",\\"lan\\":\\"e7e5\\"}"');
 ```
 
 Once again the `/play_lan` command makes a chess move, this time retrieving the following JSON response.
@@ -118,9 +118,9 @@ Described below is the series of steps required to start a classical chess game 
 
 ```js
 const ws = new WebSocket('wss://async.chesslablab.org:8443');
-ws.send('/start classical analysis');
-ws.send('/play_lan w e2e4');
-ws.send('/play_lan b e7e5');
+ws.send('/start "{\\"variant\\":\\"classical\\",\\"mode\\":\\"analysis\\"}"');
+ws.send('/play_lan "{\\"color\\":\\"w\\",\\"lan\\":\\"e2e4\\"}"');
+ws.send('/play_lan "{\\"color\\":\\"b\\",\\"lan\\":\\"e7e5\\"}"');
 ```
 
 Now let's have a look at the WebSocket commands available! The list of commands could have been sorted in alphabetical order but it is more convenient to begin with the `/start` command and continue in a way that's easier to understand.

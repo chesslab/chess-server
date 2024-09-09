@@ -11,10 +11,10 @@ Undoes the last move.
 Starts a classical game to play 1.e4 e5 2.f4 undoing the last move.
 
 ```js
-ws.send('/start classical analysis');
-ws.send('/play_lan w e2e4');
-ws.send('/play_lan b e7e5');
-ws.send('/play_lan w f2f4');
+ws.send('/start "{\\"variant\\":\\"classical\\",\\"mode\\":\\"analysis\\"}"');
+ws.send('/play_lan "{\\"color\\":\\"w\\",\\"lan\\":\\"e2e4\\"}"');
+ws.send('/play_lan "{\\"color\\":\\"b\\",\\"lan\\":\\"e7e5\\"}"');
+ws.send('/play_lan "{\\"color\\":\\"w\\",\\"lan\\":\\"f2f4\\"}"');
 ws.send('/undo');
 ```
 
