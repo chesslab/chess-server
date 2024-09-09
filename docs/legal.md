@@ -2,7 +2,9 @@
 
 Returns the legal moves of a piece.
 
-## `square`
+## `settings`
+
+### `square`
 
 The location of the piece on the board.
 
@@ -16,7 +18,7 @@ Start a classical game to find out the legal moves of the piece on e2.
 
 ```js
 ws.send('/start classical analysis');
-ws.send('/legal e2');
+ws.send('/legal "{\\"square\\":\\"e2\\"}"');
 ```
 
 ```text
