@@ -216,11 +216,12 @@
 <p>Let's recap.</p>
 <p>Described below is the series of steps required to start a classical chess game with 1.e4 e5. Remember, computers and graphic user interfaces (GUIs) usually prefer the Long Algebraic Notation (LAN) format instead: e2e4 and e7e5.</p>
 <pre><code class="language-js">const ws = new WebSocket('wss://async.chesslablab.org:8443');
+
 ws.send('/start &quot;{\\&quot;variant\\&quot;:\\&quot;classical\\&quot;,\\&quot;mode\\&quot;:\\&quot;analysis\\&quot;}&quot;');
 ws.send('/play_lan &quot;{\\&quot;color\\&quot;:\\&quot;w\\&quot;,\\&quot;lan\\&quot;:\\&quot;e2e4\\&quot;}&quot;');
 ws.send('/play_lan &quot;{\\&quot;color\\&quot;:\\&quot;b\\&quot;,\\&quot;lan\\&quot;:\\&quot;e7e5\\&quot;}&quot;');
 </code></pre>
-<p>Now let's have a look at the WebSocket commands available! The list of commands could have been sorted in alphabetical order but it is more convenient to begin with the <code>/start</code> command and continue in a way that's easier to understand.</p>
+<p>Now let's have a look at the WebSocket commands available!</p>
               
             </div>
           </div><footer>

@@ -289,7 +289,7 @@
 </tr>
 </tbody>
 </table>
-<pre><code class="language-js">ws.send('/start 960 analysis &quot;{\\&quot;movetext\\&quot;:\\&quot;1.e4 Nc6 2.d4\\&quot;,\\&quot;startPos\\&quot;:\\&quot;BNRKQBRN\\&quot;}&quot;');
+<pre><code class="language-js">ws.send('/start &quot;{\&quot;variant\&quot;:\&quot;960\&quot;,\&quot;mode\&quot;:\&quot;analysis\&quot;,\&quot;settings\&quot;:{\&quot;fen\&quot;:\&quot;bnrkqbrn/pppppppp/8/8/8/8/PPPPPPPP/BNRKQBRN w KQkq -\&quot;,\&quot;movetext\&quot;:\&quot;1.e4 Nc6 2.d4\&quot;,\&quot;startPos\&quot;:\&quot;RBQKBNRN\&quot;}}&quot;');
 </code></pre>
 <pre><code class="language-text">{
   &quot;/start&quot;: {
@@ -298,12 +298,12 @@
     &quot;turn&quot;: &quot;b&quot;,
     &quot;movetext&quot;: &quot;1.e4 Nc6 2.d4&quot;,
     &quot;fen&quot;: [
-      &quot;rnbkqbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBKQBNR w KQkq -&quot;,
-      &quot;rnbkqbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBKQBNR b KQkq e3&quot;,
-      &quot;r1bkqbnr/pppppppp/2n5/8/4P3/8/PPPP1PPP/RNBKQBNR w KQkq -&quot;,
-      &quot;r1bkqbnr/pppppppp/2n5/8/3PP3/8/PPP2PPP/RNBKQBNR b KQkq d3&quot;
+      &quot;bnrkqbrn/pppppppp/8/8/8/8/PPPPPPPP/BNRKQBRN w KQkq -&quot;,
+      &quot;bnrkqbrn/pppppppp/8/8/4P3/8/PPPP1PPP/BNRKQBRN b KQkq e3&quot;,
+      &quot;b1rkqbrn/pppppppp/2n5/8/4P3/8/PPPP1PPP/BNRKQBRN w KQkq -&quot;,
+      &quot;b1rkqbrn/pppppppp/2n5/8/3PP3/8/PPP2PPP/BNRKQBRN b KQkq d3&quot;
     ],
-    &quot;startPos&quot;: &quot;RNBKQBNR&quot;
+    &quot;startPos&quot;: &quot;RBQKBNRN&quot;
   }
 }
 </code></pre>
