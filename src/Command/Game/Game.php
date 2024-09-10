@@ -81,18 +81,10 @@ class Game
 
     public function state(): object
     {
-        $history = $this->board->history;
-        $end = end($history);
-
         return (object) [
             'turn' => $this->board->turn,
-            'pgn' => $end ? $end['move']['pgn'] : null,
-            'castlingAbility' => $this->board->castlingAbility,
             'movetext' => $this->board->movetext(),
             'fen' => $this->board->toFen(),
-            'isCapture' => $end ? $end['move']['isCapture'] : false,
-            'isCheck' => $this->board->isCheck(),
-            'mode' => $this->getMode(),
             'end' => $this->end(),
         ];
     }
