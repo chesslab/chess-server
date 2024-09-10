@@ -3,6 +3,8 @@
 namespace ChessServer\Command\Data;
 
 use ChessServer\Socket\AbstractSocket;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class EloCommand extends AbstractDataCommand
 {
@@ -25,6 +27,8 @@ class EloCommand extends AbstractDataCommand
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
         $params = json_decode(stripslashes($argv[1]), true);
+
+        $decoded = JWT::decode($params['access'], new Key($_ENV['JWT_SECRET'], 'HS256'));
 
         // TODO ...
 
