@@ -41,11 +41,10 @@ class RestartCommand extends AbstractCommand
             } else {
                 $game = new Game($decoded->variant, Game::MODE_PLAY);
             }
-            $newJwt = JWT::encode((array)$decoded, $_ENV['JWT_SECRET'], 'HS256');
             $newGameMode = new PlayMode(
                 $game,
                 $gameMode->getResourceIds(),
-                $newJwt
+                JWT::encode((array) $decoded, $_ENV['JWT_SECRET'], 'HS256'),
             );
             $newGameMode->setStatus(PlayMode::STATUS_ACCEPTED)
                 ->setStartedAt(time())
@@ -58,8 +57,8 @@ class RestartCommand extends AbstractCommand
 
             return $socket->getClientStorage()->sendToMany($newGameMode->getResourceIds(), [
                 $this->name => [
-                    'jwt' => $newJwt,
-                    'hash' => hash('adler32', $newJwt),
+                    'jwt' => $newGameMode->getJwt(),
+                    'hash' => $newGameMode->getHash(),
                     'timer' => $newGameMode->getTimer(),
                 ],
             ]);
