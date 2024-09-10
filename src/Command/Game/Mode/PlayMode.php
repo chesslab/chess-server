@@ -69,10 +69,10 @@ class PlayMode extends AbstractMode
         return $this->timer;
     }
 
-    public function setJwt(string $jwt)
+    public function setJwt(array $payload)
     {
-        $this->jwt = $jwt;
-        $this->hash = hash('adler32', $jwt);
+        $this->jwt = JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256');
+        $this->hash = hash('adler32', $this->jwt);
 
         return $this;
     }

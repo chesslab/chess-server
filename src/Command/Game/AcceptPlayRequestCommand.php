@@ -6,7 +6,6 @@ use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;
-use Firebase\JWT\JWT;
 
 class AcceptPlayRequestCommand extends AbstractCommand
 {
@@ -43,7 +42,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
             $decoded = $gameMode->getJwtDecoded();
             $decoded->username->{(new Color)->opp($decoded->color)} = $params['username'] ?? self::ANONYMOUS_USER;
             $ids = [...$gameMode->getResourceIds(), $id];
-            $gameMode->setJwt(JWT::encode((array) $decoded, $_ENV['JWT_SECRET'], 'HS256'))
+            $gameMode->setJwt((array) $decoded)
                 ->setResourceIds($ids)
                 ->setStatus(PlayMode::STATUS_ACCEPTED)
                 ->setStartedAt(time())
