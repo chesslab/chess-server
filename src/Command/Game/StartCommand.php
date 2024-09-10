@@ -68,10 +68,10 @@ class StartCommand extends AbstractCommand
                 }
                 $sanPlay = new SanPlay($params['settings']['movetext'] ?? '', $board);
                 $sanPlay->validate();
-                $mode = new AnalysisMode(new Game($params['variant'], $params['mode']), [$id]);
-                $game = $mode->getGame()->setBoard($sanPlay->board);
-                $mode->setGame($game);
-                $socket->getGameModeStorage()->set($mode);
+                $gameMode = new AnalysisMode(new Game($params['variant'], $params['mode']), [$id]);
+                $game = $gameMode->getGame()->setBoard($sanPlay->board);
+                $gameMode->setGame($game);
+                $socket->getGameModeStorage()->set($gameMode);
                 return $socket->getClientStorage()->sendToOne($id, [
                     $this->name => [
                         'variant' => $params['variant'],
@@ -149,9 +149,8 @@ class StartCommand extends AbstractCommand
                         : []
                     ),
                 ];
-                $jwt = JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256');
-                $mode = new PlayMode($game, [$id], $jwt);
-                $socket->getGameModeStorage()->set($mode);
+                $gameMode = new PlayMode($game, [$id], JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256'));
+                $socket->getGameModeStorage()->set($gameMode);
                 if ($params['settings']['submode'] === PlayMode::SUBMODE_ONLINE) {
                     $socket->getClientStorage()->sendToAll([
                         'broadcast' => [
@@ -165,8 +164,8 @@ class StartCommand extends AbstractCommand
                         'variant' => $params['variant'],
                         'mode' => $params['mode'],
                         'fen' => $game->getBoard()->toFen(),
-                        'jwt' => $jwt,
-                        'hash' => hash('adler32', $jwt),
+                        'jwt' => $gameMode->getJwt(),
+                        'hash' => $gameMode->getHash(),
                         ...($params['variant'] === Game::VARIANT_960
                             ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
                             : []
@@ -189,8 +188,8 @@ class StartCommand extends AbstractCommand
             } else {
                 $game = new Game($params['variant'], $params['mode'], $socket->getGmMove());
             }
-            $mode = new StockfishMode($game, [$id]);
-            $socket->getGameModeStorage()->set($mode);
+            $gameMode = new StockfishMode($game, [$id]);
+            $socket->getGameModeStorage()->set($gameMode);
             return $socket->getClientStorage()->sendToOne($id, [
                 $this->name => [
                     'variant' => $params['variant'],
