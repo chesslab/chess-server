@@ -118,9 +118,10 @@ Described below is the series of steps required to start a classical chess game 
 
 ```js
 const ws = new WebSocket('wss://async.chesslablab.org:8443');
+
 ws.send('/start "{\\"variant\\":\\"classical\\",\\"mode\\":\\"analysis\\"}"');
 ws.send('/play_lan "{\\"color\\":\\"w\\",\\"lan\\":\\"e2e4\\"}"');
 ws.send('/play_lan "{\\"color\\":\\"b\\",\\"lan\\":\\"e7e5\\"}"');
 ```
 
-Now let's have a look at the WebSocket commands available! The list of commands could have been sorted in alphabetical order but it is more convenient to begin with the `/start` command and continue in a way that's easier to understand.
+Now let's have a look at the WebSocket commands available!
