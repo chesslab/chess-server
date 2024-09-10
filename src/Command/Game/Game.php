@@ -9,6 +9,7 @@ use Chess\Variant\AbstractBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\StartPosition as Chess960StartPosition;
 use Chess\Variant\Classical\Board as ClassicalBoard;
+use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Dunsany\Board as DunsanyBoard;
 use Chess\Variant\Losing\Board as LosingBoard;
 use Chess\Variant\RacingKings\Board as RacingKingsBoard;
@@ -91,14 +92,8 @@ class Game
             'fen' => $this->board->toFen(),
             'isCapture' => $end ? $end['move']['isCapture'] : false,
             'isCheck' => $this->board->isCheck(),
-            'isMate' => $this->board->isMate(),
-            'isStalemate' => $this->board->isStalemate(),
-            'isFivefoldRepetition' => $this->board->isFivefoldRepetition(),
-            'isFiftyMoveDraw' => $this->board->isFiftyMoveDraw(),
-            'isDeadPositionDraw' => $this->board->isDeadPositionDraw(),
-            'doesDraw' => $this->board->doesDraw(),
-            'doesWin' => $this->board->doesWin(),
             'mode' => $this->getMode(),
+            'end' => $this->end(),
         ];
     }
 
@@ -133,5 +128,40 @@ class Game
     public function playLan(string $color, string $lan): bool
     {
         return $this->board->playLan($color, $lan);
+    }
+
+    protected function end(): array
+    {
+        if ($this->board->doesWin()) {
+            return [
+                'msg' => "It's a win",
+            ];
+        } elseif ($this->board->doesDraw()) {
+            return [
+                'msg' => "It's a draw",
+            ];
+        } elseif ($this->board->isMate()) {
+            return [
+                'msg' => $this->board->turn === Color::B ? 'White wins' : 'Black wins',
+            ];
+        } elseif ($this->board->isStalemate()) {
+            return [
+                'msg' => "Draw by stalemate",
+            ];
+        } elseif ($this->board->isFivefoldRepetition()) {
+            return [
+                'msg' => "Draw by fivefold repetition",
+            ];
+        } elseif ($this->board->isFiftyMoveDraw()) {
+            return [
+                'msg' => "Draw by the fifty-move rule",
+            ];
+        } elseif ($this->board->isDeadPositionDraw()) {
+            return [
+                'msg' => "Draw by dead position",
+            ];
+        }
+
+        return [];
     }
 }
