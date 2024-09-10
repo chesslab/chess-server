@@ -59,7 +59,7 @@ class TotpSignInCommand extends AbstractDataCommand
 
             return $socket->getClientStorage()->sendToOne($id, [
                 $this->name => [
-                    'ui' => JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256'),
+                    'access' => JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256'),
                 ],
             ]);
         }
