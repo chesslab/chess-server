@@ -28,7 +28,7 @@ class EloCommand extends AbstractDataCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $decoded = JWT::decode($params['access'], new Key($_ENV['JWT_SECRET'], 'HS256'));
+        $decoded = JWT::decode($params['accessToken'], new Key($_ENV['JWT_SECRET'], 'HS256'));
 
         // TODO ...
 
