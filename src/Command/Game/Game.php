@@ -10,6 +10,7 @@ use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\StartPosition as Chess960StartPosition;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
+use Chess\Variant\Classical\PGN\AN\Termination;
 use Chess\Variant\Dunsany\Board as DunsanyBoard;
 use Chess\Variant\Losing\Board as LosingBoard;
 use Chess\Variant\RacingKings\Board as RacingKingsBoard;
@@ -125,31 +126,43 @@ class Game
     protected function end(): array
     {
         if ($this->board->doesWin()) {
+            // TODO ...
             return [
+                'result' => Termination::UNKNOWN,
                 'msg' => "It's a win",
             ];
         } elseif ($this->board->doesDraw()) {
             return [
+                'result' => Termination::DRAW,
                 'msg' => "It's a draw",
             ];
         } elseif ($this->board->isMate()) {
             return [
-                'msg' => $this->board->turn === Color::B ? 'White wins' : 'Black wins',
+                'result' => $this->board->turn === Color::B
+                    ? Termination::WHITE_WINS
+                    : Termination::BLACK_WINS,
+                'msg' => $this->board->turn === Color::B
+                    ? 'White wins'
+                    : 'Black wins',
             ];
         } elseif ($this->board->isStalemate()) {
             return [
+                'result' => Termination::DRAW,
                 'msg' => "Draw by stalemate",
             ];
         } elseif ($this->board->isFivefoldRepetition()) {
             return [
+                'result' => Termination::DRAW,
                 'msg' => "Draw by fivefold repetition",
             ];
         } elseif ($this->board->isFiftyMoveDraw()) {
             return [
+                'result' => Termination::DRAW,
                 'msg' => "Draw by the fifty-move rule",
             ];
         } elseif ($this->board->isDeadPositionDraw()) {
             return [
+                'result' => Termination::DRAW,
                 'msg' => "Draw by dead position",
             ];
         }
