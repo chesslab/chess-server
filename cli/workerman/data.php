@@ -2,9 +2,9 @@
 
 namespace ChessServer\Cli\Workerman;
 
+use ChessServer\Command\Db;
 use ChessServer\Command\Parser;
 use ChessServer\Command\Data\Cli;
-use ChessServer\Command\Data\Db;
 use ChessServer\Socket\Workerman\ClientStorage;
 use ChessServer\Socket\Workerman\DataWebSocket;
 use Dotenv\Dotenv;

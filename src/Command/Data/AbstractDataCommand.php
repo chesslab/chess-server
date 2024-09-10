@@ -3,6 +3,7 @@
 namespace ChessServer\Command\Data;
 
 use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\Db;
 
 abstract class AbstractDataCommand extends AbstractCommand
 {

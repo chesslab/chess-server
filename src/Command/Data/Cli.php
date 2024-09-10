@@ -3,6 +3,7 @@
 namespace ChessServer\Command\Data;
 
 use ChessServer\Command\AbstractCli;
+use ChessServer\Command\Db;
 
 class Cli extends AbstractCli
 {

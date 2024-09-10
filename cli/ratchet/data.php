@@ -2,9 +2,9 @@
 
 namespace ChessServer\Cli\Ratchet;
 
+use ChessServer\Command\Db;
 use ChessServer\Command\Parser;
 use ChessServer\Command\Data\Cli;
-use ChessServer\Command\Data\Db;
 use ChessServer\Socket\Ratchet\ClientStorage;
 use ChessServer\Socket\Ratchet\DataWebSocket;
 use Dotenv\Dotenv;

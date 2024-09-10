@@ -2,6 +2,7 @@
 
 namespace ChessServer\Command\Data;
 
+use ChessServer\Command\Db;
 use ChessServer\Socket\AbstractSocket;
 use Firebase\JWT\JWT;
 use OTPHP\InternalClock;
