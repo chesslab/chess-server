@@ -2,6 +2,9 @@
 
 namespace ChessServer\Command\Data;
 
+use Chess\Elo\Game;
+use Chess\Elo\Player;
+use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Socket\AbstractSocket;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -28,12 +31,25 @@ class EloCommand extends AbstractDataCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
+        /*
         $decoded = JWT::decode($params['accessToken'], new Key($_ENV['JWT_SECRET'], 'HS256'));
+
+        $w = new Player($decoded['elo'][Color::W]);
+        $b = new Player($decoded['elo'][Color::B]);
+
+        $game =  new Game($w, $b);
+        $game->setK(32)
+            ->setScore(1, 0)
+            ->count();
+        */
+
+        // $this->assertEquals(1516, $w->getRating());
+        // $this->assertEquals(1484, $b->getRating());
 
         // TODO ...
 
         return $socket->getClientStorage()->sendToOne($id, [
-            $this->name => 'TODO',
+            $this->name => $params,
         ]);
     }
 }
