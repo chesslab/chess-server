@@ -2,10 +2,11 @@
 
 namespace ChessServer\Command\Data;
 
+use ChessServer\Command\AbstractCommand;
 use ChessServer\Command\Db;
 use ChessServer\Socket\AbstractSocket;
 
-class AnnotationsGameCommand extends AbstractDataCommand
+class AnnotationsGameCommand extends AbstractCommand
 {
     const ANNOTATIONS_GAMES_FILE = 'annotations_games.json';
 

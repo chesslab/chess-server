@@ -2,10 +2,11 @@
 
 namespace ChessServer\Command\Data;
 
+use ChessServer\Command\AbstractCommand;
 use ChessServer\Command\Db;
 use ChessServer\Socket\AbstractSocket;
 
-class ResultPlayerCommand extends AbstractDataCommand
+class ResultPlayerCommand extends AbstractCommand
 {
     const SQL_LIKE = [
 

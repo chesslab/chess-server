@@ -2,10 +2,11 @@
 
 namespace ChessServer\Command\Data;
 
+use ChessServer\Command\AbstractCommand;
 use ChessServer\Command\Db;
 use ChessServer\Socket\AbstractSocket;
 
-class ResultCommand extends AbstractDataCommand
+class ResultCommand extends AbstractCommand
 {
     const RESULT_FILE = 'most_played_openings.json';
 

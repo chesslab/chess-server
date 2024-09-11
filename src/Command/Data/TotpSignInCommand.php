@@ -2,13 +2,14 @@
 
 namespace ChessServer\Command\Data;
 
+use ChessServer\Command\AbstractCommand;
 use ChessServer\Command\Db;
 use ChessServer\Socket\AbstractSocket;
 use Firebase\JWT\JWT;
 use OTPHP\InternalClock;
 use OTPHP\TOTP;
 
-class TotpSignInCommand extends AbstractDataCommand
+class TotpSignInCommand extends AbstractCommand
 {
     public function __construct(Db $db)
     {

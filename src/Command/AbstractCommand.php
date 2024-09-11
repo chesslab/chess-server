@@ -2,6 +2,7 @@
 
 namespace ChessServer\Command;
 
+use ChessServer\Command\Db;
 use ChessServer\Socket\AbstractSocket;
 
 abstract class AbstractCommand
@@ -13,6 +14,13 @@ abstract class AbstractCommand
     protected string $description;
 
     protected array $params = [];
+
+    protected Db $db;
+
+    public function __construct(Db $db = null)
+    {
+        $this->db = $db;
+    }
 
     public function __get($property)
     {

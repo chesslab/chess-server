@@ -3,13 +3,17 @@
 namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCli;
+use ChessServer\Command\Db;
 
 class Cli extends AbstractCli
 {
-    public function __construct()
+    private Db $db;
+
+    public function __construct(Db $db)
     {
         parent::__construct();
 
+        $this->db = $db;
         $this->commands->attach(new DrawCommand());
         $this->commands->attach(new LeaveCommand());
         $this->commands->attach(new RematchCommand());
@@ -22,7 +26,7 @@ class Cli extends AbstractCli
         $this->commands->attach(new PlayRavCommand());
         $this->commands->attach(new RandomizerCommand());
         $this->commands->attach(new RestartCommand());
-        $this->commands->attach(new StartCommand());
+        $this->commands->attach(new StartCommand($db));
         $this->commands->attach(new StockfishCommand());
         $this->commands->attach(new TutorFenCommand());
         $this->commands->attach(new EvalNamesCommand());

@@ -13,6 +13,7 @@ use Chess\Variant\Dunsany\Board as DunsanyBoard;
 use Chess\Variant\Losing\Board as LosingBoard;
 use Chess\Variant\RacingKings\Board as RacingKingsBoard;
 use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\Db;
 use ChessServer\Command\Game\Mode\AnalysisMode;
 use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Command\Game\Mode\StockfishMode;
@@ -21,8 +22,10 @@ use Firebase\JWT\JWT;
 
 class StartCommand extends AbstractCommand
 {
-    public function __construct()
+    public function __construct(Db $db)
     {
+        parent::__construct($db);
+        
         $this->name = '/start';
         $this->description = 'Starts a new game.';
         $this->params = [
