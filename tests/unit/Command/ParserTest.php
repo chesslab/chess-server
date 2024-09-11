@@ -2,21 +2,36 @@
 
 namespace ChessServer\Tests\Unit\Command;
 
+use ChessServer\Command\Db;
 use ChessServer\Command\Parser;
 use ChessServer\Command\Game\AcceptPlayRequestCommand;
 use ChessServer\Command\Game\Cli;
 use ChessServer\Command\Game\RestartCommand;
 use ChessServer\Command\Game\StartCommand;
 use ChessServer\Exception\ParserException;
+use Dotenv\Dotenv;
 use PHPUnit\Framework\TestCase;
 
 class ParserTest extends TestCase
 {
+    protected static $db;
+
     protected static $parser;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        self::$parser = new Parser(new Cli());
+        $dotenv = Dotenv::createImmutable(__DIR__.'/../../../');
+        $dotenv->load();
+
+        $db = new Db([
+           'driver' => $_ENV['DB_DRIVER'],
+           'host' => $_ENV['DB_HOST'],
+           'database' => $_ENV['DB_DATABASE'],
+           'username' => $_ENV['DB_USERNAME'],
+           'password' => $_ENV['DB_PASSWORD'],
+        ]);
+
+        self::$parser = new Parser(new Cli($db));
     }
 
     /**
