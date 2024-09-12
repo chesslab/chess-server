@@ -166,7 +166,7 @@ class PlayMode extends AbstractMode
         $this->db->query($sql, $values);
     }
 
-    protected function rating(): array
+    protected function rating(): ?array
     {
         if (isset($this->game->state()->end)) {
             $decoded = $this->getJwtDecoded();
@@ -191,7 +191,7 @@ class PlayMode extends AbstractMode
             }
         }
 
-        return [];
+        return null;
     }
 
     public function res($params, $cmd)
@@ -200,13 +200,17 @@ class PlayMode extends AbstractMode
             case PlayLanCommand::class:
                 $isValid = $this->game->playLan($params['color'], $params['lan']);
                 $this->updateTimer($params['color']);
+                $rating = $this->rating();
                 return [
                     $cmd->name => [
                       ...(array) $this->game->state(),
                       'variant' =>  $this->game->getVariant(),
                       'timer' => $this->timer,
                       'isValid' => $isValid,
-                      'rating' => $this->rating(),
+                      ...($rating
+                          ? ['rating' => $rating]
+                          : []
+                      ),
                     ],
                 ];
 
