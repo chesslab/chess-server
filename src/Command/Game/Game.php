@@ -82,11 +82,16 @@ class Game
 
     public function state(): object
     {
+        $end = $this->end();
+
         return (object) [
             'turn' => $this->board->turn,
             'movetext' => $this->board->movetext(),
             'fen' => $this->board->toFen(),
-            'end' => $this->end(),
+            ...($end
+                ? ['end' => $end]
+                : []
+            ),
         ];
     }
 
@@ -123,7 +128,7 @@ class Game
         return $this->board->playLan($color, $lan);
     }
 
-    protected function end(): array
+    protected function end(): ?array
     {
         if ($this->board->doesWin()) {
             // TODO ...
@@ -167,6 +172,6 @@ class Game
             ];
         }
 
-        return [];
+        return null;
     }
 }

@@ -63,14 +63,14 @@ abstract class AbstractMode
                 $isValid = $this->game->playLan($params['color'], $params['lan']);
                 return [
                     $cmd->name => [
-                      ... (array) $this->game->state(),
+                      ...(array) $this->game->state(),
                       'variant' =>  $this->game->getVariant(),
                       'isValid' => $isValid,
                     ],
                 ];
 
             case StockfishCommand::class:
-                if (!$this->game->state()->end) {  
+                if (!$this->game->state()->end) {
                     $computer = $this->game->computer($params['options'], $params['params']);
                     if ($computer['pgn']) {
                         $this->game->play($this->game->state()->turn, $computer['pgn']);
@@ -78,7 +78,7 @@ abstract class AbstractMode
                 }
                 return [
                     $cmd->name => [
-                      ... (array) $this->game->state(),
+                      ...(array) $this->game->state(),
                       'variant' =>  $this->game->getVariant(),
                     ],
                 ];
@@ -88,7 +88,7 @@ abstract class AbstractMode
                 $this->game->setBoard($board);
                 return [
                     $cmd->name => [
-                      ... (array) $this->game->state(),
+                      ...(array) $this->game->state(),
                       'variant' =>  $this->game->getVariant(),
                     ],
                 ];

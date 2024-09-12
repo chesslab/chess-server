@@ -25,7 +25,7 @@ class Cli extends AbstractCli
         $this->commands->attach(new PlayLanCommand());
         $this->commands->attach(new PlayRavCommand());
         $this->commands->attach(new RandomizerCommand());
-        $this->commands->attach(new RestartCommand());
+        $this->commands->attach(new RestartCommand($db));
         $this->commands->attach(new StartCommand($db));
         $this->commands->attach(new StockfishCommand());
         $this->commands->attach(new TutorFenCommand());

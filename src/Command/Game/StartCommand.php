@@ -25,7 +25,7 @@ class StartCommand extends AbstractCommand
     public function __construct(Db $db)
     {
         parent::__construct($db);
-        
+
         $this->name = '/start';
         $this->description = 'Starts a new game.';
         $this->params = [
@@ -138,6 +138,14 @@ class StartCommand extends AbstractCommand
                             ? $params['settings']['username']
                             : self::ANONYMOUS_USER,
                     ],
+                    'elo' => [
+                        Color::W => $params['settings']['color'] === Color::W && $params['settings']['elo']
+                            ? $params['settings']['elo']
+                            : null,
+                        Color::B => $params['settings']['color'] === Color::B && $params['settings']['elo']
+                            ? $params['settings']['elo']
+                            : null,
+                    ],
                     'submode' => $params['settings']['submode'],
                     'color' => $params['settings']['color'],
                     'min' => $params['settings']['min'],
@@ -152,7 +160,12 @@ class StartCommand extends AbstractCommand
                         : []
                     ),
                 ];
-                $gameMode = new PlayMode($game, [$id], JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256'));
+                $gameMode = new PlayMode(
+                    $game,
+                    [$id],
+                    JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256'),
+                    $this->db
+                );
                 $socket->getGameModeStorage()->set($gameMode);
                 if ($params['settings']['submode'] === PlayMode::SUBMODE_ONLINE) {
                     $socket->getClientStorage()->sendToAll([
