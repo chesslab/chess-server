@@ -6,16 +6,28 @@ use Chess\Computer\GrandmasterMove;
 use ChessServer\Command\Parser;
 use ChessServer\Command\Game\GameModeStorage;
 use ChessServer\Command\Game\LeaveCommand;
+use ChessServer\Socket\DbReconnectTrait;
+use Workerman\Timer;
 
 class GameWebSocket extends AbstractWebSocket
 {
-    protected GrandmasterMove $gmMove;
+    use DbReconnectTrait;
 
-    protected GameModeStorage $gameModeStorage;
+    private $timeInterval = 5;
+
+    private GrandmasterMove $gmMove;
+
+    private GameModeStorage $gameModeStorage;
 
     public function __construct(string $socketName, array $context, Parser $parser)
     {
         parent::__construct($socketName, $context, $parser);
+
+        $this->worker->onWorkerStart = function() {
+            Timer::add($this->timeInterval, function() {
+                $this->reconnect();
+            });
+        };
 
         $this->gmMove = new GrandmasterMove(self::DATA_FOLDER.'/players.json');
         $this->gameModeStorage = new GameModeStorage();

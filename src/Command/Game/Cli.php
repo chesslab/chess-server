@@ -33,4 +33,9 @@ class Cli extends AbstractCli
         $this->commands->attach(new OnlineGamesCommand());
         $this->commands->attach(new UndoCommand());
     }
+
+    public function getDb(): Db
+    {
+        return $this->db;
+    }
 }
