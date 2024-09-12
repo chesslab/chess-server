@@ -171,19 +171,21 @@ class PlayMode extends AbstractMode
         switch (get_class($cmd)) {
             case PlayLanCommand::class:
                 $isValid = $this->game->playLan($params['color'], $params['lan']);
-                if (isset($this->game->state()->end)) {
-                    $decoded = $this->getJwtDecoded();
-                    if ($decoded->elo->{Color::W} && $decoded->elo->{Color::B}) {
-                        $elo = $this->elo(
-                            $this->game->state()->end['result'],
-                            $decoded->elo->{Color::W},
-                            $decoded->elo->{Color::B}
-                        );
-                        $this->eloQuery($decoded->username->{Color::W}, $elo[Color::W]);
-                        $this->eloQuery($decoded->username->{Color::B}, $elo[Color::B]);
+                if ($isValid) {
+                    if (isset($this->game->state()->end)) {
+                        $decoded = $this->getJwtDecoded();
+                        if ($decoded->elo->{Color::W} && $decoded->elo->{Color::B}) {
+                            $elo = $this->elo(
+                                $this->game->state()->end['result'],
+                                $decoded->elo->{Color::W},
+                                $decoded->elo->{Color::B}
+                            );
+                            $this->eloQuery($decoded->username->{Color::W}, $elo[Color::W]);
+                            $this->eloQuery($decoded->username->{Color::B}, $elo[Color::B]);
+                        }
+                    } else {
+                        $this->updateTimer($params['color']);
                     }
-                } else {
-                    $this->updateTimer($params['color']);
                 }
                 return [
                     $cmd->name => [
