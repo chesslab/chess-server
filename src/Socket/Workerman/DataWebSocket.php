@@ -3,8 +3,6 @@
 namespace ChessServer\Socket\Workerman;
 
 use ChessServer\Command\Parser;
-use ChessServer\Command\Data\Cli;
-use ChessServer\Command\Data\Db;
 use ChessServer\Socket\DbReconnectTrait;
 use Workerman\Timer;
 

@@ -3,8 +3,6 @@
 namespace ChessServer\Socket\Ratchet;
 
 use ChessServer\Command\Parser;
-use ChessServer\Command\Data\Cli;
-use ChessServer\Command\Data\Db;
 use ChessServer\Socket\DbReconnectTrait;
 use Ratchet\ConnectionInterface;
 
