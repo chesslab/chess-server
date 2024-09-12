@@ -6,6 +6,7 @@ use ChessServer\Command\AbstractCommand;
 use ChessServer\Command\Db;
 use ChessServer\Socket\AbstractSocket;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class TotpRefreshCommand extends AbstractCommand
 {
