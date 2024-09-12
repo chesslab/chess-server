@@ -30,7 +30,7 @@ class TotpRefreshCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        if ($params['access_token']) {
+        if (isset($params['access_token'])) {
             $decoded = JWT::decode($params['access_token'], new Key($_ENV['JWT_SECRET'], 'HS256'));
             $sql = "SELECT * FROM users WHERE username = :username";
             $values[] = [
