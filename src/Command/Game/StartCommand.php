@@ -25,7 +25,7 @@ class StartCommand extends AbstractCommand
     public function __construct(Db $db)
     {
         parent::__construct($db);
-        
+
         $this->name = '/start';
         $this->description = 'Starts a new game.';
         $this->params = [
@@ -137,6 +137,14 @@ class StartCommand extends AbstractCommand
                         Color::B => $params['settings']['color'] === Color::B && $params['settings']['username']
                             ? $params['settings']['username']
                             : self::ANONYMOUS_USER,
+                    ],
+                    'elo' => [
+                        Color::W => $params['settings']['color'] === Color::W && $params['settings']['elo']
+                            ? $params['settings']['elo']
+                            : null,
+                        Color::B => $params['settings']['color'] === Color::B && $params['settings']['elo']
+                            ? $params['settings']['elo']
+                            : null,
                     ],
                     'submode' => $params['settings']['submode'],
                     'color' => $params['settings']['color'],
