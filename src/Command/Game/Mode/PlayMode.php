@@ -166,51 +166,31 @@ class PlayMode extends AbstractMode
         $this->db->query($sql, $values);
     }
 
-    protected function rating(): ?array
-    {
-        if (isset($this->game->state()->end)) {
-            $decoded = $this->getJwtDecoded();
-            if ($decoded->elo->{Color::W} && $decoded->elo->{Color::B}) {
-                $elo = $this->elo(
-                    $this->game->state()->end['result'],
-                    $decoded->elo->{Color::W},
-                    $decoded->elo->{Color::B}
-                );
-                $this->eloQuery($decoded->username->{Color::W}, $elo[Color::W]);
-                $this->eloQuery($decoded->username->{Color::B}, $elo[Color::B]);
-                return [
-                    'username' => [
-                        Color::W => $decoded->username->{Color::W},
-                        Color::B => $decoded->username->{Color::B},
-                    ],
-                    'elo' => [
-                        Color::W => $elo[Color::W],
-                        Color::B => $elo[Color::B],
-                    ],
-                ];
-            }
-        }
-
-        return null;
-    }
-
     public function res($params, $cmd)
     {
         switch (get_class($cmd)) {
             case PlayLanCommand::class:
                 $isValid = $this->game->playLan($params['color'], $params['lan']);
-                $this->updateTimer($params['color']);
-                $rating = $this->rating();
+                if (isset($this->game->state()->end)) {
+                    $decoded = $this->getJwtDecoded();
+                    if ($decoded->elo->{Color::W} && $decoded->elo->{Color::B}) {
+                        $elo = $this->elo(
+                            $this->game->state()->end['result'],
+                            $decoded->elo->{Color::W},
+                            $decoded->elo->{Color::B}
+                        );
+                        $this->eloQuery($decoded->username->{Color::W}, $elo[Color::W]);
+                        $this->eloQuery($decoded->username->{Color::B}, $elo[Color::B]);
+                    }
+                } else {
+                    $this->updateTimer($params['color']);
+                }
                 return [
                     $cmd->name => [
                       ...(array) $this->game->state(),
                       'variant' =>  $this->game->getVariant(),
                       'timer' => $this->timer,
                       'isValid' => $isValid,
-                      ...($rating
-                          ? ['rating' => $rating]
-                          : []
-                      ),
                     ],
                 ];
 
