@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Data;
+namespace ChessServer\Command\Auth;
 
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Command\Db;

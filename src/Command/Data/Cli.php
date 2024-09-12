@@ -22,9 +22,6 @@ class Cli extends AbstractCli
         $this->commands->attach(new ResultPlayerCommand($db));
         $this->commands->attach(new ResultCommand($db));
         $this->commands->attach(new SearchCommand($db));
-        $this->commands->attach(new TotpRefreshCommand($db));
-        $this->commands->attach(new TotpSignInCommand($db));
-        $this->commands->attach(new TotpSignUpCommand($db));
     }
 
     public function getDb(): Db
