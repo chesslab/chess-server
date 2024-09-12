@@ -15,7 +15,7 @@ class TotpSignUpCommand extends AbstractCommand
         parent::__construct($db);
 
         $this->name = '/totp_signup';
-        $this->description = 'TOTP sign up.';
+        $this->description = 'TOTP sign up URL.';
     }
 
     public function validate(array $argv)

@@ -6,7 +6,7 @@ Clone the `chesslablab/chess-server` repo into your projects folder. Then `cd` t
 cp .env.example .env
 ```
 
-Create empty log files for each service as described next.
+Create empty log files for each service.
 
 ```txt
 touch storage/data.log

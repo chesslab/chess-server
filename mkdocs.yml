@@ -30,5 +30,9 @@ nav:
     - /search: search.md
   - Binary:
     - /image: image.md
+  - Auth:
+    - /totp_refresh: totp-refresh.md
+    - /totp_signin: totp-signin.md
+    - /totp_signup: totp-signup.md
 
 theme: readthedocs
