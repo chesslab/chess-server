@@ -5,10 +5,13 @@ namespace ChessServer\Socket\Ratchet;
 use ChessServer\Command\Parser;
 use ChessServer\Command\Data\Cli;
 use ChessServer\Command\Data\Db;
+use ChessServer\Socket\DbReconnectTrait;
 use Ratchet\ConnectionInterface;
 
 class DataWebSocket extends AbstractWebSocket
 {
+    use DbReconnectTrait;
+
     private $timeInterval = 5;
 
     public function __construct(Parser $parser)
@@ -16,23 +19,7 @@ class DataWebSocket extends AbstractWebSocket
         parent::__construct($parser);
 
         $this->loop->addPeriodicTimer($this->timeInterval, function() {
-            try {
-                $this->parser->cli->getDb()->getPdo()->getAttribute(\PDO::ATTR_SERVER_INFO);
-            } catch(\PDOException $e) {
-                try {
-                    $db = new Db([
-                       'driver' => $_ENV['DB_DRIVER'],
-                       'host' => $_ENV['DB_HOST'],
-                       'database' => $_ENV['DB_DATABASE'],
-                       'username' => $_ENV['DB_USERNAME'],
-                       'password' => $_ENV['DB_PASSWORD'],
-                    ]);
-                    $this->setParser(new Parser(new Cli($db)));
-                    $this->getClientStorage()->getLogger()->info('Successfully reconnected to Chess Data');
-                } catch(\PDOException $e) {
-                    // Trying to connect to Chess Data...
-                }
-            }
+            $this->reconnect();
         });
     }
 
