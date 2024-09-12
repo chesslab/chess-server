@@ -200,17 +200,13 @@ class PlayMode extends AbstractMode
             case PlayLanCommand::class:
                 $isValid = $this->game->playLan($params['color'], $params['lan']);
                 $this->updateTimer($params['color']);
-                $rating = $this->rating();
                 return [
                     $cmd->name => [
                       ...(array) $this->game->state(),
                       'variant' =>  $this->game->getVariant(),
                       'timer' => $this->timer,
                       'isValid' => $isValid,
-                      ...($rating
-                          ? ['rating' => $rating]
-                          : []
-                      ),
+                      'rating' => $this->rating(),
                     ],
                 ];
 
