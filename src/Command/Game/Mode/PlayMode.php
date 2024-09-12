@@ -2,7 +2,10 @@
 
 namespace ChessServer\Command\Game\Mode;
 
+use Chess\Elo\Game as EloGame;
+use Chess\Elo\Player as EloPlayer;
 use Chess\Variant\Classical\PGN\AN\Color;
+use Chess\Variant\Classical\PGN\AN\Termination;
 use ChessServer\Command\Db;
 use ChessServer\Command\Game\Game;
 use ChessServer\Command\Game\PlayLanCommand;
@@ -124,19 +127,90 @@ class PlayMode extends AbstractMode
         $this->updatedAt = $now;
     }
 
+    protected function elo(string $result, int $i, int $j): array
+    {
+        $w = new EloPlayer($i);
+        $b = new EloPlayer($j);
+        $game =  (new EloGame($w, $b))->setK(32);
+        if ($result === Termination::WHITE_WINS) {
+            $game->setScore(1, 0);
+        } elseif ($result === Termination::DRAW) {
+            $game->setScore(0, 0);
+        } elseif ($result === Termination::BLACK_WINS) {
+            $game->setScore(0, 1);
+        }
+        $game->count();
+
+        return [
+            Color::W => $w->getRating(),
+            Color::B => $b->getRating(),
+        ];
+    }
+
+    protected function eloQuery(string $username, int $elo): void
+    {
+        $sql = "UPDATE users SET elo = :elo WHERE username = :username";
+        $values= [
+            [
+                'param' => ":username",
+                'value' => $username,
+                'type' => \PDO::PARAM_STR,
+            ],
+            [
+                'param' => ":elo",
+                'value' => $elo,
+                'type' => \PDO::PARAM_INT,
+            ],
+        ];
+
+        $this->db->query($sql, $values);
+    }
+
+    protected function rating(): array
+    {
+        if ($this->game->state()->end) {
+            $decoded = $this->getJwtDecoded();
+            if ($decoded->elo->{Color::W} && $decoded->elo->{Color::B}) {
+                $elo = $this->elo(
+                    $this->game->state()->end['result'],
+                    $decoded->elo->{Color::W},
+                    $decoded->elo->{Color::B}
+                );
+                $this->eloQuery($decoded->username->{Color::W}, $elo[Color::W]);
+                $this->eloQuery($decoded->username->{Color::B}, $elo[Color::B]);
+                return [
+                    'username' => [
+                        Color::W => $decoded->username->{Color::W},
+                        Color::B => $decoded->username->{Color::B},
+                    ],
+                    'elo' => [
+                        Color::W => $elo[Color::W],
+                        Color::B => $elo[Color::B],
+                    ],
+                ];
+            }
+        }
+
+        return [];
+    }
+
     public function res($params, $cmd)
     {
         switch (get_class($cmd)) {
             case PlayLanCommand::class:
                 $isValid = $this->game->playLan($params['color'], $params['lan']);
                 $this->updateTimer($params['color']);
+                $rating = $this->rating();
                 return [
                     $cmd->name => [
-                      ... (array) $this->game->state(),
+                      ...(array) $this->game->state(),
                       'variant' =>  $this->game->getVariant(),
-                      // play mode information
                       'timer' => $this->timer,
                       'isValid' => $isValid,
+                      ...($rating
+                          ? ['rating' => $rating]
+                          : []
+                      ),
                     ],
                 ];
 
