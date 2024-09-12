@@ -5,6 +5,7 @@ namespace ChessServer\Command\Game;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\Db;
 use ChessServer\Command\Game\Game;
 use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;
@@ -12,8 +13,10 @@ use Firebase\JWT\JWT;
 
 class RestartCommand extends AbstractCommand
 {
-    public function __construct()
+    public function __construct(Db $db)
     {
+        parent::__construct($db);
+
         $this->name = '/restart';
         $this->description = 'Restarts a game.';
         $this->params = [
@@ -45,6 +48,7 @@ class RestartCommand extends AbstractCommand
                 $game,
                 $gameMode->getResourceIds(),
                 JWT::encode((array) $decoded, $_ENV['JWT_SECRET'], 'HS256'),
+                $this->db
             );
             $newGameMode->setStatus(PlayMode::STATUS_ACCEPTED)
                 ->setStartedAt(time())

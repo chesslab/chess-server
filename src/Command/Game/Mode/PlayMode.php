@@ -3,6 +3,7 @@
 namespace ChessServer\Command\Game\Mode;
 
 use Chess\Variant\Classical\PGN\AN\Color;
+use ChessServer\Command\Db;
 use ChessServer\Command\Game\Game;
 use ChessServer\Command\Game\PlayLanCommand;
 use Firebase\JWT\JWT;
@@ -20,7 +21,9 @@ class PlayMode extends AbstractMode
 
     const SUBMODE_ONLINE = 'online';
 
-    protected $jwt;
+    protected string $jwt;
+
+    protected Db $db;
 
     protected string $status;
 
@@ -30,11 +33,12 @@ class PlayMode extends AbstractMode
 
     protected array $timer;
 
-    public function __construct(Game $game, array $resourceIds, string $jwt)
+    public function __construct(Game $game, array $resourceIds, string $jwt, Db $db)
     {
         parent::__construct($game, $resourceIds);
 
         $this->jwt = $jwt;
+        $this->db = $db;
         $this->hash = hash('adler32', $jwt);
         $this->status = self::STATUS_PENDING;
     }

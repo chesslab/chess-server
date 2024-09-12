@@ -160,7 +160,12 @@ class StartCommand extends AbstractCommand
                         : []
                     ),
                 ];
-                $gameMode = new PlayMode($game, [$id], JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256'));
+                $gameMode = new PlayMode(
+                    $game,
+                    [$id],
+                    JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256'),
+                    $this->db
+                );
                 $socket->getGameModeStorage()->set($gameMode);
                 if ($params['settings']['submode'] === PlayMode::SUBMODE_ONLINE) {
                     $socket->getClientStorage()->sendToAll([
