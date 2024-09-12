@@ -138,7 +138,38 @@
                 <h1 id="php-chess-server">PHP Chess Server</h1>
 <p><a href="https://opensource.org/license/mit/"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg" /></a>
 <a href="https://github.com/chesslablab/chess-server/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/chesslablab/chess-server" /></a></p>
-<p>PHP Chess Server is an asynchronous PHP server that provides services of chess data and chess functionality to play online over a WebSocket connection.</p>
+<p>PHP Chess Server is an asynchronous PHP server that provides services of data and chess functionality to play online over a WebSocket connection.</p>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Service Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9443</td>
+<td>data</td>
+<td>JSON-formatted data</td>
+</tr>
+<tr>
+<td>8443</td>
+<td>game</td>
+<td>Chess functionality</td>
+</tr>
+<tr>
+<td>7443</td>
+<td>binary</td>
+<td>Binary data</td>
+</tr>
+<tr>
+<td>6443</td>
+<td>auth</td>
+<td>Authentication functionality</td>
+</tr>
+</tbody>
+</table>
 <h2 id="object-oriented">Object-Oriented</h2>
 <p>The socket, the chess commands and the game modes are all implemented using OOP principles.</p>
 <h2 id="async-php-frameworks">Async PHP Frameworks</h2>
@@ -195,5 +226,5 @@
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2024-09-10 08:29:31.600706+00:00
+Build Date UTC : 2024-09-12 16:59:02.954122+00:00
 -->
