@@ -10,8 +10,6 @@ class DataWebSocket extends AbstractWebSocket
 {
     use DbReconnectTrait;
 
-    private $timeInterval = 5;
-
     public function __construct(string $socketName, array $context, Parser $parser)
     {
         parent::__construct($socketName, $context, $parser);

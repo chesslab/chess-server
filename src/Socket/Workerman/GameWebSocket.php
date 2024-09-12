@@ -13,8 +13,6 @@ class GameWebSocket extends AbstractWebSocket
 {
     use DbReconnectTrait;
 
-    private $timeInterval = 5;
-
     private GrandmasterMove $gmMove;
 
     private GameModeStorage $gameModeStorage;

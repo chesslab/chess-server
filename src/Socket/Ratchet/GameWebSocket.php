@@ -13,8 +13,6 @@ class GameWebSocket extends AbstractWebSocket
 {
     use DbReconnectTrait;
 
-    private $timeInterval = 5;
-
     public function __construct(Parser $parser)
     {
         parent::__construct($parser);

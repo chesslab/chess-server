@@ -4,7 +4,9 @@ namespace ChessServer\Socket;
 
 trait DbReconnectTrait
 {
-    public function reconnect(): void
+    protected $timeInterval = 5;
+
+    protected function reconnect(): void
     {
         try {
             $this->parser->cli->getDb()->getPdo()->getAttribute(\PDO::ATTR_SERVER_INFO);
