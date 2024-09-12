@@ -108,6 +108,15 @@
                   <li class="toctree-l1"><a class="reference internal" href="../image/">/image</a>
                   </li>
               </ul>
+              <p class="caption"><span class="caption-text">Auth</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../totp-refresh/">/totp_refresh</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../totp-signin/">/totp_signin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../totp-signup/">/totp_signup</a>
+                  </li>
+              </ul>
       </div>
     </div>
     </nav>
@@ -135,7 +144,7 @@
 <p>Clone the <code>chesslablab/chess-server</code> repo into your projects folder. Then <code>cd</code> the <code>chess-server</code> directory and create an <code>.env</code> file:</p>
 <pre><code class="language-txt">cp .env.example .env
 </code></pre>
-<p>Create empty log files for each service as described next.</p>
+<p>Create empty log files for each service.</p>
 <pre><code class="language-txt">touch storage/data.log
 touch storage/game.log
 touch storage/binary.log

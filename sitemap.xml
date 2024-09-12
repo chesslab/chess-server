@@ -126,6 +126,21 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://chesslablab.github.io/chess-server/totp-refresh/</loc>
+         <lastmod>2024-09-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://chesslablab.github.io/chess-server/totp-signin/</loc>
+         <lastmod>2024-09-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://chesslablab.github.io/chess-server/totp-signup/</loc>
+         <lastmod>2024-09-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://chesslablab.github.io/chess-server/undo/</loc>
          <lastmod>2024-09-12</lastmod>
          <changefreq>daily</changefreq>
