@@ -168,7 +168,7 @@ class PlayMode extends AbstractMode
 
     protected function rating(): array
     {
-        if ($this->game->state()->end) {
+        if (isset($this->game->state()->end)) {
             $decoded = $this->getJwtDecoded();
             if ($decoded->elo->{Color::W} && $decoded->elo->{Color::B}) {
                 $elo = $this->elo(
