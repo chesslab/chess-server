@@ -6,7 +6,7 @@ use ChessServer\Command\Db;
 use ChessServer\Command\Parser;
 use ChessServer\Command\Auth\Cli;
 use ChessServer\Socket\Ratchet\ClientStorage;
-use ChessServer\Socket\Ratchet\DataWebSocket;
+use ChessServer\Socket\Ratchet\AuthWebSocket;
 use Dotenv\Dotenv;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -38,7 +38,7 @@ $parser = new Parser(new Cli($db));
 
 $clientStorage = new ClientStorage($logger);
 
-$webSocket = (new DataWebSocket($parser))->init($clientStorage);
+$webSocket = (new AuthWebSocket($parser))->init($clientStorage);
 
 $server = new Server("{$_ENV['WSS_ADDRESS']}:{$_ENV['WSS_AUTH_PORT']}", $webSocket->getLoop());
 
