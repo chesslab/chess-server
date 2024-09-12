@@ -6,7 +6,7 @@ use ChessServer\Command\Db;
 use ChessServer\Command\Parser;
 use ChessServer\Command\Auth\Cli;
 use ChessServer\Socket\Workerman\ClientStorage;
-use ChessServer\Socket\Workerman\DataWebSocket;
+use ChessServer\Socket\Workerman\AuthWebSocket;
 use Dotenv\Dotenv;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -25,7 +25,7 @@ $db = new Db([
 ]);
 
 $logger = new Logger('auth');
-$logger->pushHandler(new StreamHandler(DataWebSocket::STORAGE_FOLDER . '/auth.log', Logger::INFO));
+$logger->pushHandler(new StreamHandler(AuthWebSocket::STORAGE_FOLDER . '/auth.log', Logger::INFO));
 
 $parser = new Parser(new Cli($db));
 
@@ -41,6 +41,6 @@ $context = [
     ],
 ];
 
-$webSocket = (new DataWebSocket($socketName, $context, $parser))->init($clientStorage);
+$webSocket = (new AuthWebSocket($socketName, $context, $parser))->init($clientStorage);
 
 $webSocket->getWorker()->runAll();
