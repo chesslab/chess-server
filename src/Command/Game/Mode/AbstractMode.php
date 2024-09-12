@@ -70,7 +70,7 @@ abstract class AbstractMode
                 ];
 
             case StockfishCommand::class:
-                if (!$this->game->state()->end) {
+                if (!isset($this->game->state()->end)) {
                     $computer = $this->game->computer($params['options'], $params['params']);
                     if ($computer['pgn']) {
                         $this->game->play($this->game->state()->turn, $computer['pgn']);
