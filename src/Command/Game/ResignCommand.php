@@ -24,11 +24,8 @@ class ResignCommand extends AbstractCommand
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
         $params = json_decode(stripslashes($argv[1]), true);
-
-        $gameMode = $socket->getGameModeStorage()
-            ->getById($id)
-            ->getGame()
-            ->setResignation($params['color']);
+        $gameMode = $socket->getGameModeStorage()->getById($id);
+        $gameMode->getGame()->setResignation($params['color']);
 
         return $socket->getClientStorage()->send($gameMode->getResourceIds(), [
             $this->name => [
