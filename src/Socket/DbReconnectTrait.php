@@ -2,6 +2,8 @@
 
 namespace ChessServer\Socket;
 
+use ChessServer\Command\Db;
+
 trait DbReconnectTrait
 {
     protected $timeInterval = 5;

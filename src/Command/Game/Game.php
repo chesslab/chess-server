@@ -37,6 +37,8 @@ class Game
 
     private string $resignation = '';
 
+    private string $abandoned = '';
+
     public function __construct(
         string $variant,
         string $mode,
@@ -75,6 +77,16 @@ class Game
         return $this->mode;
     }
 
+    public function getResignation(): string
+    {
+        return $this->resignation;
+    }
+
+    public function getAbandoned(): string
+    {
+        return $this->abandoned;
+    }
+
     public function setBoard(AbstractBoard $board): Game
     {
         $this->board = $board;
@@ -85,6 +97,13 @@ class Game
     public function setResignation(string $color): Game
     {
         $this->resignation = $color;
+
+        return $this;
+    }
+
+    public function setAbandoned(string $color): Game
+    {
+        $this->abandoned = $color;
 
         return $this;
     }
@@ -190,6 +209,15 @@ class Game
                     ? Termination::WHITE_WINS
                     : Termination::BLACK_WINS,
                 'msg' => $this->resignation === Color::B
+                    ? 'White wins'
+                    : 'Black wins',
+            ];
+        } elseif ($this->abandoned) {
+            return [
+                'result' => $this->abandoned === Color::B
+                    ? Termination::WHITE_WINS
+                    : Termination::BLACK_WINS,
+                'msg' => $this->abandoned === Color::B
                     ? 'White wins'
                     : 'Black wins',
             ];

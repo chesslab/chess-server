@@ -33,7 +33,7 @@ class ResignCommand extends AbstractCommand
             return $socket->getClientStorage()->sendToMany($gameMode->getResourceIds(), [
                 $this->name => [
                     ...(array) $gameMode->getGame()->state(),
-                    'color' => $params['color'],
+                    'color' => $gameMode->getGame()->getResignation(),
                 ],
             ]);
         }

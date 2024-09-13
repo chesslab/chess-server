@@ -5,7 +5,6 @@ namespace ChessServer\Socket\Workerman;
 use Chess\Computer\GrandmasterMove;
 use ChessServer\Command\Parser;
 use ChessServer\Command\Game\GameModeStorage;
-use ChessServer\Command\Game\LeaveCommand;
 use ChessServer\Socket\DbReconnectTrait;
 use Workerman\Timer;
 
@@ -48,11 +47,6 @@ class GameWebSocket extends AbstractWebSocket
         $this->worker->onClose = function ($conn) {
             if ($gameMode = $this->gameModeStorage->getById($conn->id)) {
                 $this->gameModeStorage->delete($gameMode);
-                $this->clientStorage->sendToMany($gameMode->getResourceIds(), [
-                    '/leave' => [
-                        'action' => LeaveCommand::ACTION_ACCEPT,
-                    ],
-                ]);
             }
             $this->clientStorage->detachById($conn->id);
             $this->clientStorage->getLogger()->info('Closed connection', [

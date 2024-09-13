@@ -8,37 +8,32 @@ use ChessServer\Socket\AbstractSocket;
 
 class LeaveCommand extends AbstractCommand
 {
-    const ACTION_ACCEPT    = 'accept';
-
     public function __construct()
     {
         $this->name = '/leave';
-        $this->description = 'Allows to leave a game.';
+        $this->description = 'Leave a game.';
         $this->params = [
-            // mandatory param
-            'action' => [
-                self::ACTION_ACCEPT,
-            ],
+            'params' => '<string>',
         ];
     }
 
     public function validate(array $argv)
     {
-        if (in_array($argv[1], $this->params['action'])) {
-            return count($argv) - 1 === count($this->params);
-        }
-
-        return false;
+        return count($argv) - 1 === count($this->params);
     }
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
+        $params = json_decode(stripslashes($argv[1]), true);
+
         $gameMode = $socket->getGameModeStorage()->getById($id);
 
         if (is_a($gameMode, PlayMode::class)) {
+            $gameMode->getGame()->setAbandoned($params['color']);
             return $socket->getClientStorage()->sendToMany($gameMode->getResourceIds(), [
                 $this->name => [
-                    'action' => $argv[1],
+                    ...(array) $gameMode->getGame()->state(),
+                    'color' => $gameMode->getGame()->getAbandoned(),
                 ],
             ]);
         }

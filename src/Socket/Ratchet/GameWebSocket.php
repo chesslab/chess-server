@@ -5,7 +5,6 @@ namespace ChessServer\Socket\Ratchet;
 use Chess\Computer\GrandmasterMove;
 use ChessServer\Command\Parser;
 use ChessServer\Command\Game\GameModeStorage;
-use ChessServer\Command\Game\LeaveCommand;
 use ChessServer\Socket\DbReconnectTrait;
 use Ratchet\ConnectionInterface;
 
@@ -39,11 +38,6 @@ class GameWebSocket extends AbstractWebSocket
     {
         if ($gameMode = $this->gameModeStorage->getById($conn->resourceId)) {
             $this->gameModeStorage->delete($gameMode);
-            $this->clientStorage->sendToMany($gameMode->getResourceIds(), [
-                '/leave' => [
-                    'action' => LeaveCommand::ACTION_ACCEPT,
-                ],
-            ]);
         }
         $this->clientStorage->detachById($conn->resourceId);
         $this->clientStorage->getLogger()->info('Closed connection', [

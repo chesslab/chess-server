@@ -15,11 +15,11 @@ class Cli extends AbstractCli
 
         $this->db = $db;
         $this->commands->attach(new DrawCommand());
-        $this->commands->attach(new LeaveCommand());
         $this->commands->attach(new RematchCommand());
         $this->commands->attach(new TakebackCommand());
         $this->commands->attach(new AcceptPlayRequestCommand());
         $this->commands->attach(new HeuristicCommand());
+        $this->commands->attach(new LeaveCommand());
         $this->commands->attach(new LegalCommand());
         $this->commands->attach(new PlayLanCommand());
         $this->commands->attach(new PlayRavCommand());
