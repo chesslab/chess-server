@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command;
 
-use ChessServer\Command\Db;
+use ChessServer\Db;
 use ChessServer\Socket\AbstractSocket;
 
 abstract class AbstractCommand

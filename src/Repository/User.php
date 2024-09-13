@@ -7,7 +7,7 @@ use Chess\Elo\Game;
 use Chess\Elo\Player;
 use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Classical\PGN\AN\Termination;
-use ChessServer\Command\Db;
+use ChessServer\Db;
 
 class User
 {

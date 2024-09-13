@@ -2,8 +2,8 @@
 
 namespace ChessServer\Command\Auth;
 
+use ChessServer\Db;
 use ChessServer\Command\AbstractCli;
-use ChessServer\Command\Db;
 
 class Cli extends AbstractCli
 {

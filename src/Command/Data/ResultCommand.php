@@ -2,8 +2,8 @@
 
 namespace ChessServer\Command\Data;
 
+use ChessServer\Db;
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Command\Db;
 use ChessServer\Socket\AbstractSocket;
 
 class ResultCommand extends AbstractCommand

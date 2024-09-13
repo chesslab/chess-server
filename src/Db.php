@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command;
+namespace ChessServer;
 
 use \PDO;
 use \PDOStatement;

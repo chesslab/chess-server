@@ -4,8 +4,8 @@ namespace ChessServer\Command\Game;
 
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
+use ChessServer\Db;
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Command\Db;
 use ChessServer\Command\Game\Game;
 use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;

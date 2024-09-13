@@ -2,7 +2,7 @@
 
 namespace ChessServer\Socket;
 
-use ChessServer\Command\Db;
+use ChessServer\Db;
 
 trait DbReconnectTrait
 {
