@@ -2,13 +2,11 @@
 
 namespace ChessServer\Command\Game\Mode;
 
-use Chess\Elo\Game as EloGame;
-use Chess\Elo\Player as EloPlayer;
 use Chess\Variant\Classical\PGN\AN\Color;
-use Chess\Variant\Classical\PGN\AN\Termination;
 use ChessServer\Command\Db;
 use ChessServer\Command\Game\Game;
 use ChessServer\Command\Game\PlayLanCommand;
+use ChessServer\Repository\User;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -127,45 +125,6 @@ class PlayMode extends AbstractMode
         $this->updatedAt = $now;
     }
 
-    protected function elo(string $result, int $i, int $j): array
-    {
-        $w = new EloPlayer($i);
-        $b = new EloPlayer($j);
-        $g =  (new EloGame($w, $b))->setK(32);
-        if ($result === Termination::WHITE_WINS) {
-            $g->setScore(1, 0);
-        } elseif ($result === Termination::DRAW) {
-            $g->setScore(0, 0);
-        } elseif ($result === Termination::BLACK_WINS) {
-            $g->setScore(0, 1);
-        }
-        $g->count();
-
-        return [
-            Color::W => $w->getRating(),
-            Color::B => $b->getRating(),
-        ];
-    }
-
-    protected function eloQuery(string $username, int $elo): void
-    {
-        $sql = "UPDATE users SET elo = :elo WHERE username = :username";
-        $values= [
-            [
-                'param' => ":username",
-                'value' => $username,
-                'type' => \PDO::PARAM_STR,
-            ],
-            [
-                'param' => ":elo",
-                'value' => $elo,
-                'type' => \PDO::PARAM_INT,
-            ],
-        ];
-
-        $this->db->query($sql, $values);
-    }
-
     public function res($params, $cmd)
     {
         switch (get_class($cmd)) {
@@ -173,16 +132,10 @@ class PlayMode extends AbstractMode
                 $isValid = $this->game->playLan($params['color'], $params['lan']);
                 if ($isValid) {
                     if (isset($this->game->state()->end)) {
-                        $decoded = $this->getJwtDecoded();
-                        if ($decoded->elo->{Color::W} && $decoded->elo->{Color::B}) {
-                            $elo = $this->elo(
-                                $this->game->state()->end['result'],
-                                $decoded->elo->{Color::W},
-                                $decoded->elo->{Color::B}
-                            );
-                            $this->eloQuery($decoded->username->{Color::W}, $elo[Color::W]);
-                            $this->eloQuery($decoded->username->{Color::B}, $elo[Color::B]);
-                        }
+                        (new User($this->db))->updateElo(
+                            $this->game->state()->end['result'],
+                            $this->getJwtDecoded()
+                        );
                     } else {
                         $this->updateTimer($params['color']);
                     }
