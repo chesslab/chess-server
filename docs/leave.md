@@ -1,12 +1,15 @@
 # /leave
 
-Allows to leave a game.
+Leave a game.
 
-## `action`
+## `params`
 
-The action to take as per these options.
+### `color`
 
-- `accept`
+The color as per these options.
+
+- `w` for the white pieces.
+- `b` for the black pieces.
 
 ---
 
@@ -15,13 +18,20 @@ The action to take as per these options.
 ### Example
 
 ```js
-ws.send('/leave accept');
+ws.send('/leave "{\\"color\\":\\"b\\"}"');
 ```
 
 ```text
 {
   "/leave": {
-    "action": "accept"
-   }
+    "turn": "w",
+    "movetext": "1.e4 e5 2.d4 d5",
+    "fen": "rnbqkbnr/ppp2ppp/8/3pp3/3PP3/8/PPP2PPP/RNBQKBNR w KQkq d6",
+    "end": {
+      "result": "1-0",
+      "msg": "White wins"
+    },
+    "color": "b"
+  }
 }
 ```

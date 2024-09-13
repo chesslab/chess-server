@@ -30,7 +30,7 @@ The ECO code of the opening used in the game.
 
 ### `movetext`
 
-A sequence of moves played in the game.
+The sequence of moves played in the game.
 
 ---
 

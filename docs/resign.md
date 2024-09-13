@@ -1,12 +1,15 @@
 # /resign
 
-Allows to resign a game.
+Resign a game.
 
-## `action`
+## `params`
 
-The action to take as per these options.
+### `color`
 
-- `accept`
+The color as per these options.
+
+- `w` for the white pieces.
+- `b` for the black pieces.
 
 ---
 
@@ -15,13 +18,20 @@ The action to take as per these options.
 ### Example
 
 ```js
-ws.send('/resign accept');
+ws.send('/resign "{\\"color\\":\\"b\\"}"');
 ```
 
 ```text
 {
   "/resign": {
-    "action": "accept"
-   }
+    "turn": "b",
+    "movetext": "1.e4 e5 2.f4",
+    "fen": "rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq f3",
+    "end": {
+      "result": "1-0",
+      "msg": "White wins"
+    },
+    "color": "b"
+  }
 }
 ```

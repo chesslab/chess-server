@@ -6,14 +6,15 @@ nav:
   - Getting Started: getting-started.md
   - Game:
     - /draw: draw.md
-    - /leave: leave.md
     - /rematch: rematch.md
-    - /resign: resign.md
     - /takeback: takeback.md
     - /accept: accept.md
+    - /heuristic: heuristic.md
+    - /leave: leave.md
     - /legal: legal.md
     - /play_lan: play-lan.md
     - /randomizer: randomizer.md
+    - /resign: resign.md
     - /restart: restart.md
     - /start: start.md
     - /stockfish: stockfish.md
