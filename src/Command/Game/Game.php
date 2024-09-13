@@ -35,6 +35,8 @@ class Game
 
     private null|GrandmasterMove $gmMove;
 
+    private string $resignation = '';
+
     public function __construct(
         string $variant,
         string $mode,
@@ -76,6 +78,13 @@ class Game
     public function setBoard(AbstractBoard $board): Game
     {
         $this->board = $board;
+
+        return $this;
+    }
+
+    public function setResignation(string $color): Game
+    {
+        $this->resignation = $color;
 
         return $this;
     }
@@ -128,6 +137,11 @@ class Game
         return $this->board->playLan($color, $lan);
     }
 
+    public function resign(string $color)
+    {
+        return $color;
+    }
+
     protected function end(): ?array
     {
         if ($this->board->doesWin()) {
@@ -169,6 +183,15 @@ class Game
             return [
                 'result' => Termination::DRAW,
                 'msg' => "Draw by dead position",
+            ];
+        } elseif ($this->resignation) {
+            return [
+                'result' => $this->resignation === Color::B
+                    ? Termination::WHITE_WINS
+                    : Termination::BLACK_WINS,
+                'msg' => $this->resignation === Color::B
+                    ? 'White wins'
+                    : 'Black wins',
             ];
         }
 
