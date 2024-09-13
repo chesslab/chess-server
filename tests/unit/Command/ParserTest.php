@@ -2,7 +2,7 @@
 
 namespace ChessServer\Tests\Unit\Command;
 
-use ChessServer\Command\Db;
+use ChessServer\Db;
 use ChessServer\Command\Parser;
 use ChessServer\Command\Game\AcceptPlayRequestCommand;
 use ChessServer\Command\Game\Cli;
