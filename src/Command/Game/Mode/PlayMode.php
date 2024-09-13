@@ -15,11 +15,9 @@ class PlayMode extends AbstractMode
     const NAME = Game::MODE_PLAY;
 
     const STATUS_PENDING = 'pending';
-
     const STATUS_ACCEPTED = 'accepted';
 
     const SUBMODE_FRIEND = 'friend';
-
     const SUBMODE_ONLINE = 'online';
 
     protected string $jwt;
