@@ -25,16 +25,14 @@ class LeaveCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $gameMode = $socket->getGameModeStorage()
-            ->getById($id)
-            ->getGame()
-            ->setAbandoned($params['color']);
-
-        return $socket->getClientStorage()->send($gameMode->getResourceIds(), [
-            $this->name => [
-                ...(array) $gameMode->getGame()->state(),
-                'color' => $gameMode->getGame()->getAbandoned(),
-            ],
-        ]);
+        if ($gameMode = $socket->getGameModeStorage()->getById($id)) {
+            $gameMode->getGame()->setAbandoned($params['color']);
+            return $socket->getClientStorage()->send($gameMode->getResourceIds(), [
+                $this->name => [
+                    ...(array) $gameMode->getGame()->state(),
+                    'color' => $gameMode->getGame()->getAbandoned(),
+                ],
+            ]);
+        }
     }
 }
