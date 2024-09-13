@@ -6,7 +6,7 @@ use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Db;
 use ChessServer\Command\Game\Game;
 use ChessServer\Command\Game\PlayLanCommand;
-use ChessServer\Repository\User;
+use ChessServer\Repository\UserRepository;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -130,7 +130,7 @@ class PlayMode extends AbstractMode
                 $isValid = $this->game->playLan($params['color'], $params['lan']);
                 if ($isValid) {
                     if (isset($this->game->state()->end)) {
-                        (new User($this->db))->updateElo(
+                        (new UserRepository($this->db))->updateElo(
                             $this->game->state()->end['result'],
                             $this->getJwtDecoded()
                         );

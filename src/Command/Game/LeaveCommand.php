@@ -4,7 +4,7 @@ namespace ChessServer\Command\Game;
 
 use ChessServer\Db;
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Repository\User;
+use ChessServer\Repository\UserRepository;
 use ChessServer\Socket\AbstractSocket;
 
 class LeaveCommand extends AbstractCommand
@@ -31,7 +31,7 @@ class LeaveCommand extends AbstractCommand
 
         if ($gameMode = $socket->getGameModeStorage()->getById($id)) {
             $gameMode->getGame()->setAbandoned($params['color']);
-            (new User($this->db))->updateElo(
+            (new UserRepository($this->db))->updateElo(
                 $gameMode->getGame()->state()->end['result'],
                 $gameMode->getJwtDecoded()
             );

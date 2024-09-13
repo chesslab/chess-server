@@ -9,7 +9,7 @@ use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Classical\PGN\AN\Termination;
 use ChessServer\Db;
 
-class User
+class UserRepository
 {
     private Db $db;
 

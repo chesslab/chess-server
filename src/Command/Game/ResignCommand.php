@@ -4,7 +4,7 @@ namespace ChessServer\Command\Game;
 
 use ChessServer\Db;
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Repository\User;
+use ChessServer\Repository\UserRepository;
 use ChessServer\Socket\AbstractSocket;
 
 class ResignCommand extends AbstractCommand
@@ -30,7 +30,7 @@ class ResignCommand extends AbstractCommand
         $params = json_decode(stripslashes($argv[1]), true);
         $gameMode = $socket->getGameModeStorage()->getById($id);
         $gameMode->getGame()->setResignation($params['color']);
-        (new User($this->db))->updateElo(
+        (new UserRepository($this->db))->updateElo(
             $gameMode->getGame()->state()->end['result'],
             $gameMode->getJwtDecoded()
         );
