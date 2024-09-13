@@ -46,14 +46,14 @@ class TotpRefreshCommand extends AbstractCommand
               'username' => $arr['username'],
               'elo' => $arr['elo'],
             ];
-            return $socket->getClientStorage()->sendToOne($id, [
+            return $socket->getClientStorage()->send([$id], [
               $this->name => [
                   'access_token' => JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256'),
               ],
             ]);
         }
 
-        return $socket->getClientStorage()->sendToOne($id, [
+        return $socket->getClientStorage()->send([$id], [
             $this->name => null,
         ]);
     }

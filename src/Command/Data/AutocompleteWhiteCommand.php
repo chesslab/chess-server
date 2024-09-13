@@ -40,7 +40,7 @@ class AutocompleteWhiteCommand extends AbstractCommand
 
         $arr = $this->db->query($sql, $values)->fetchAll(\PDO::FETCH_COLUMN);
 
-        return $socket->getClientStorage()->sendToOne($id, [
+        return $socket->getClientStorage()->send([$id], [
             $this->name => $arr,
         ]);
     }

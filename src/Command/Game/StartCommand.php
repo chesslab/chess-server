@@ -75,7 +75,7 @@ class StartCommand extends AbstractCommand
                 $game = $gameMode->getGame()->setBoard($sanPlay->board);
                 $gameMode->setGame($game);
                 $socket->getGameModeStorage()->set($gameMode);
-                return $socket->getClientStorage()->sendToOne($id, [
+                return $socket->getClientStorage()->send([$id], [
                     $this->name => [
                         'variant' => $params['variant'],
                         'mode' => $params['mode'],
@@ -89,7 +89,7 @@ class StartCommand extends AbstractCommand
                     ],
                 ]);
             } catch (\Throwable $e) {
-                return $socket->getClientStorage()->sendToOne($id, [
+                return $socket->getClientStorage()->send([$id], [
                     $this->name => [
                         'variant' => $params['variant'],
                         'mode' => $params['mode'],
@@ -168,14 +168,14 @@ class StartCommand extends AbstractCommand
                 );
                 $socket->getGameModeStorage()->set($gameMode);
                 if ($params['settings']['submode'] === PlayMode::SUBMODE_ONLINE) {
-                    $socket->getClientStorage()->sendToAll([
+                    $socket->getClientStorage()->broadcast([
                         'broadcast' => [
                             'onlineGames' => $socket->getGameModeStorage()
                                 ->decodeByPlayMode(PlayMode::STATUS_PENDING, PlayMode::SUBMODE_ONLINE),
                         ],
                     ]);
                 }
-                return $socket->getClientStorage()->sendToOne($id, [
+                return $socket->getClientStorage()->send([$id], [
                     $this->name => [
                         'variant' => $params['variant'],
                         'mode' => $params['mode'],
@@ -189,7 +189,7 @@ class StartCommand extends AbstractCommand
                     ],
                 ]);
             } catch (\Throwable $e) {
-                return $socket->getClientStorage()->sendToOne($id, [
+                return $socket->getClientStorage()->send([$id], [
                     $this->name => [
                         'variant' => $params['variant'],
                         'mode' => $params['mode'],
@@ -206,7 +206,7 @@ class StartCommand extends AbstractCommand
             }
             $gameMode = new StockfishMode($game, [$id]);
             $socket->getGameModeStorage()->set($gameMode);
-            return $socket->getClientStorage()->sendToOne($id, [
+            return $socket->getClientStorage()->send([$id], [
                 $this->name => [
                     'variant' => $params['variant'],
                     'mode' => $params['mode'],

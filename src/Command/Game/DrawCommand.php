@@ -3,15 +3,12 @@
 namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;
 
 class DrawCommand extends AbstractCommand
 {
     const ACTION_ACCEPT    = 'accept';
-
     const ACTION_DECLINE   = 'decline';
-
     const ACTION_PROPOSE   = 'propose';
 
     public function __construct()
@@ -19,7 +16,6 @@ class DrawCommand extends AbstractCommand
         $this->name = '/draw';
         $this->description = 'Allows to offer a draw.';
         $this->params = [
-            // mandatory param
             'action' => [
                 self::ACTION_ACCEPT,
                 self::ACTION_DECLINE,
@@ -41,12 +37,10 @@ class DrawCommand extends AbstractCommand
     {
         $gameMode = $socket->getGameModeStorage()->getById($id);
 
-        if (is_a($gameMode, PlayMode::class)) {
-            return $socket->getClientStorage()->sendToMany($gameMode->getResourceIds(), [
-                $this->name => [
-                    'action' => $argv[1],
-                ],
-            ]);
-        }
+        return $socket->getClientStorage()->send($gameMode->getResourceIds(), [
+            $this->name => [
+                'action' => $argv[1],
+            ],
+        ]);
     }
 }

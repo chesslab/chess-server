@@ -30,23 +30,7 @@ class ClientStorage extends \SplObjectStorage implements ClientStorageInterface
         }
     }
 
-    public function sendToOne(int $id, array $res): void
-    {
-        $this->rewind();
-        while ($this->valid()) {
-            if ($id === $this->current()->id) {
-                $json = json_encode($res);
-                $this->current()->send($json);
-                $this->logger->info('Sent message', [
-                    'id' => $id,
-                    'cmd' => array_keys($res),
-                ]);
-            }
-            $this->next();
-        }
-    }
-
-    public function sendToMany(array $ids, array $res): void
+    public function send(array $ids, array $res): void
     {
         $json = json_encode($res);
         $this->rewind();
@@ -62,7 +46,7 @@ class ClientStorage extends \SplObjectStorage implements ClientStorageInterface
         }
     }
 
-    public function sendToAll(array $res): void
+    public function broadcast(array $res): void
     {
         $json = json_encode($res);
         $this->rewind();

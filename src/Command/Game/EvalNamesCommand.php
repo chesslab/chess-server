@@ -21,7 +21,7 @@ class EvalNamesCommand extends AbstractCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        return $socket->getClientStorage()->sendToOne($id, [
+        return $socket->getClientStorage()->send([$id], [
             $this->name => (new FastFunction())->names(),
         ]);
     }

@@ -3,7 +3,6 @@
 namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;
 
 class UndoCommand extends AbstractCommand
@@ -23,15 +22,8 @@ class UndoCommand extends AbstractCommand
     {
         $gameMode = $socket->getGameModeStorage()->getById($id);
 
-        if (is_a($gameMode, PlayMode::class)) {
-            return $socket->getClientStorage()->sendToMany(
-                $gameMode->getResourceIds(),
-                $gameMode->res($argv, $this)
-            );
-        }
-
-        return $socket->getClientStorage()->sendToOne(
-            $id,
+        return $socket->getClientStorage()->send(
+            $gameMode->getResourceIds(),
             $gameMode->res($argv, $this)
         );
     }

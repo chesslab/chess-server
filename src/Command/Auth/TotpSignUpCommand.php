@@ -42,7 +42,7 @@ class TotpSignUpCommand extends AbstractCommand
             )
         ];
 
-        return $socket->getClientStorage()->sendToOne($id, [
+        return $socket->getClientStorage()->send([$id], [
             $this->name => $arr,
         ]);
     }

@@ -31,8 +31,6 @@ class HeuristicCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $function = new CompleteFunction();
-
         if ($params['variant'] === Chess960Board::VARIANT) {
             $startPos = str_split($params['startPos']);
             $board = isset($params['fen'])
@@ -44,10 +42,14 @@ class HeuristicCommand extends AbstractCommand
                 : new ClassicalBoard();
         }
 
-        $balance = (new SanHeuristic($function, $params['name'], $params['movetext'], $board))
-            ->getBalance();
+        $balance = (new SanHeuristic(
+            new CompleteFunction(),
+            $params['name'],
+            $params['movetext'],
+            $board
+        ))->getBalance();
 
-        return $socket->getClientStorage()->sendToOne($id, [
+        return $socket->getClientStorage()->send([$id], [
             $this->name => $balance,
         ]);
     }

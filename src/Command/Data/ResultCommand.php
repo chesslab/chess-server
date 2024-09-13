@@ -29,7 +29,7 @@ class ResultCommand extends AbstractCommand
 
         $arr = json_decode($contents);
 
-        return $socket->getClientStorage()->sendToOne($id, [
+        return $socket->getClientStorage()->send([$id], [
             $this->name => $arr,
         ]);
     }

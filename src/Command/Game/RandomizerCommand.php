@@ -12,15 +12,10 @@ use ChessServer\Socket\AbstractSocket;
 class RandomizerCommand extends AbstractCommand
 {
     const TYPE_P    = 'P';
-
     const TYPE_Q    = 'Q';
-
     const TYPE_R    = 'R';
-
     const TYPE_BB   = 'BB';
-
     const TYPE_BN   = 'BN';
-
     const TYPE_QR   = 'QR';
 
     public function __construct()
@@ -72,14 +67,14 @@ class RandomizerCommand extends AbstractCommand
                     Color::B => $bIds,
                 ]))->board;
             }
-            return $socket->getClientStorage()->sendToOne($id, [
+            return $socket->getClientStorage()->send([$id], [
                 $this->name => [
                     'turn' => $board->turn,
                     'fen' => $board->toFen(),
                 ],
             ]);
         } catch (\Throwable $e) {
-            return $socket->getClientStorage()->sendToOne($id, [
+            return $socket->getClientStorage()->send([$id], [
                 $this->name => [
                     'message' => 'A random puzzle could not be loaded.',
                 ],

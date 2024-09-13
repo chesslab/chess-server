@@ -30,7 +30,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
         $gameMode = $socket->getGameModeStorage()->getByHash($params['hash']);
 
         if (!$gameMode) {
-            return $socket->getClientStorage()->sendToOne($id, [
+            return $socket->getClientStorage()->send([$id], [
                 $this->name => [
                     'mode' => PlayMode::NAME,
                     'message' =>  'This friend request could not be accepted.',
@@ -55,14 +55,14 @@ class AcceptPlayRequestCommand extends AbstractCommand
                 ]);
             $socket->getGameModeStorage()->set($gameMode);
             if ($decoded->submode === PlayMode::SUBMODE_ONLINE) {
-                $socket->getClientStorage()->sendToAll([
+                $socket->getClientStorage()->broadcast([
                     'broadcast' => [
                         'onlineGames' => $socket->getGameModeStorage()
                             ->decodeByPlayMode(PlayMode::STATUS_PENDING, PlayMode::SUBMODE_ONLINE),
                     ],
                 ]);
             }
-            return $socket->getClientStorage()->sendToMany($ids, [
+            return $socket->getClientStorage()->send($ids, [
                 $this->name => [
                     'jwt' => $gameMode->getJwt(),
                     'hash' => hash('adler32', $gameMode->getJwt()),

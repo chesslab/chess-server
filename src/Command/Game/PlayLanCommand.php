@@ -3,7 +3,6 @@
 namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;
 
 class PlayLanCommand extends AbstractCommand
@@ -25,18 +24,10 @@ class PlayLanCommand extends AbstractCommand
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
         $params = json_decode(stripslashes($argv[1]), true);
-
         $gameMode = $socket->getGameModeStorage()->getById($id);
 
-        if (is_a($gameMode, PlayMode::class)) {
-            return $socket->getClientStorage()->sendToMany(
-                $gameMode->getResourceIds(),
-                $gameMode->res($params, $this)
-            );
-        }
-
-        return $socket->getClientStorage()->sendToOne(
-            $id,
+        return $socket->getClientStorage()->send(
+            $gameMode->getResourceIds(),
             $gameMode->res($params, $this)
         );
     }

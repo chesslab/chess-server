@@ -37,7 +37,7 @@ class ImageCommand extends AbstractCommand
             unlink(AbstractSocket::TMP_FOLDER . "/$filename");
         }
 
-        return $socket->getClientStorage()->sendToOne($id, [
+        return $socket->getClientStorage()->send([$id], [
             $this->name => $base64,
         ]);
     }

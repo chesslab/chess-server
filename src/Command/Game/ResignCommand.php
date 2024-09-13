@@ -3,7 +3,6 @@
 namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;
 
 class ResignCommand extends AbstractCommand
@@ -26,16 +25,16 @@ class ResignCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $gameMode = $socket->getGameModeStorage()->getById($id);
+        $gameMode = $socket->getGameModeStorage()
+            ->getById($id)
+            ->getGame()
+            ->setResignation($params['color']);
 
-        if (is_a($gameMode, PlayMode::class)) {
-            $gameMode->getGame()->setResignation($params['color']);
-            return $socket->getClientStorage()->sendToMany($gameMode->getResourceIds(), [
-                $this->name => [
-                    ...(array) $gameMode->getGame()->state(),
-                    'color' => $gameMode->getGame()->getResignation(),
-                ],
-            ]);
-        }
+        return $socket->getClientStorage()->send($gameMode->getResourceIds(), [
+            $this->name => [
+                ...(array) $gameMode->getGame()->state(),
+                'color' => $gameMode->getGame()->getResignation(),
+            ],
+        ]);
     }
 }

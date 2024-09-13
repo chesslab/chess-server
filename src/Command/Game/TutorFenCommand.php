@@ -28,14 +28,10 @@ class TutorFenCommand extends AbstractCommand
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
         $params = json_decode(stripslashes($argv[1]), true);
-
-        $function = new CompleteFunction();
-
         $board = FenToBoardFactory::create($params['fen'], new Board());
+        $paragraph = (new FenEvaluation(new CompleteFunction(), $board))->paragraph;
 
-        $paragraph = (new FenEvaluation($function, $board))->paragraph;
-
-        return $socket->getClientStorage()->sendToOne($id, [
+        return $socket->getClientStorage()->send([$id], [
             $this->name => implode(' ', $paragraph),
         ]);
     }

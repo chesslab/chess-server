@@ -43,7 +43,7 @@ abstract class AbstractWebSocket extends AbstractSocket
     {
         $this->worker->onMessage = function ($conn, $msg) {
             if (strlen($msg) > 4096) {
-                return $this->clientStorage->sendToOne($conn->id, [
+                return $this->clientStorage->send([$conn->id], [
                     'error' => 'Internal server error',
                 ]);
             }
@@ -51,7 +51,7 @@ abstract class AbstractWebSocket extends AbstractSocket
             try {
                 $cmd = $this->parser->validate($msg);
             } catch (ParserException $e) {
-                return $this->clientStorage->sendToOne($conn->id, [
+                return $this->clientStorage->send([$conn->id], [
                     'error' => 'Command parameters not valid',
                 ]);
             }
@@ -65,7 +65,7 @@ abstract class AbstractWebSocket extends AbstractSocket
                     'line' => $e->getLine(),
                     'trace' => $e->getTraceAsString(),
                 ]);
-                return $this->clientStorage->sendToOne($conn->id, [
+                return $this->clientStorage->send([$conn->id], [
                     'error' => 'Internal server error',
                 ]);
             }

@@ -46,7 +46,7 @@ class PlayRavCommand extends AbstractCommand
 
         $board = $ravPlay->validate()->board;
 
-        return $socket->getClientStorage()->sendToOne($id, [
+        return $socket->getClientStorage()->send([$id], [
             $this->name => [
                 'variant' => $params['variant'],
                 'turn' => $board->turn,
