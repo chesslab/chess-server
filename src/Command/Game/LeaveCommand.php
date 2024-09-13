@@ -2,13 +2,17 @@
 
 namespace ChessServer\Command\Game;
 
+use ChessServer\Db;
 use ChessServer\Command\AbstractCommand;
+use ChessServer\Repository\User;
 use ChessServer\Socket\AbstractSocket;
 
 class LeaveCommand extends AbstractCommand
 {
-    public function __construct()
+    public function __construct(Db $db)
     {
+        parent::__construct($db);
+
         $this->name = '/leave';
         $this->description = 'Leave a game.';
         $this->params = [
@@ -27,6 +31,10 @@ class LeaveCommand extends AbstractCommand
 
         if ($gameMode = $socket->getGameModeStorage()->getById($id)) {
             $gameMode->getGame()->setAbandoned($params['color']);
+            (new User($this->db))->updateElo(
+                $gameMode->getGame()->state()->end['result'],
+                $gameMode->getJwtDecoded()
+            );
             return $socket->getClientStorage()->send($gameMode->getResourceIds(), [
                 $this->name => [
                     ...(array) $gameMode->getGame()->state(),
