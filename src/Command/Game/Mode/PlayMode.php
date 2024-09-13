@@ -131,15 +131,15 @@ class PlayMode extends AbstractMode
     {
         $w = new EloPlayer($i);
         $b = new EloPlayer($j);
-        $game =  (new EloGame($w, $b))->setK(32);
+        $g =  (new EloGame($w, $b))->setK(32);
         if ($result === Termination::WHITE_WINS) {
-            $game->setScore(1, 0);
+            $g->setScore(1, 0);
         } elseif ($result === Termination::DRAW) {
-            $game->setScore(0, 0);
+            $g->setScore(0, 0);
         } elseif ($result === Termination::BLACK_WINS) {
-            $game->setScore(0, 1);
+            $g->setScore(0, 1);
         }
-        $game->count();
+        $g->count();
 
         return [
             Color::W => $w->getRating(),
