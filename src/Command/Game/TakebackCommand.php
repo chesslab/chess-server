@@ -37,6 +37,15 @@ class TakebackCommand extends AbstractCommand
     {
         $gameMode = $socket->getGameModeStorage()->getById($id);
 
+        if ($argv[1] === self::ACTION_PROPOSE) {
+            $diff = array_diff($gameMode->getResourceIds(), [$id]);
+            return $socket->getClientStorage()->send($diff, [
+                $this->name => [
+                    'action' => self::ACTION_PROPOSE,
+                ],
+            ]);
+        }
+
         return $socket->getClientStorage()->send($gameMode->getResourceIds(), [
             $this->name => [
                 'action' => $argv[1],
