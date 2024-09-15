@@ -33,7 +33,7 @@ class RestartCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        if ($gameMode = $socket->getGameModeStorage()->getByHash($params['hash'])) {
+        if ($gameMode = $socket->getGameModeStorage()->getByJwt($params['jwt'])) {
             $decoded = $gameMode->getJwtDecoded();
             $decoded->iat = time();
             $decoded->exp = time() + 3600; // one hour by default
@@ -61,7 +61,6 @@ class RestartCommand extends AbstractCommand
             return $socket->getClientStorage()->send($newGameMode->getResourceIds(), [
                 $this->name => [
                     'jwt' => $newGameMode->getJwt(),
-                    'hash' => $newGameMode->getHash(),
                     'timer' => $newGameMode->getTimer(),
                 ],
             ]);

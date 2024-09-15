@@ -33,6 +33,19 @@ class GameModeStorage extends \SplObjectStorage
         return null;
     }
 
+    public function getByJwt(string $jwt): ?AbstractMode
+    {
+        $this->rewind();
+        while ($this->valid()) {
+            if ($jwt === $this->current()->getJwt()) {
+                return $this->current();
+            }
+            $this->next();
+        }
+
+        return null;
+    }
+
     public function decodeByPlayMode(string $status, string $submode): array
     {
         $items = [];
@@ -43,6 +56,7 @@ class GameModeStorage extends \SplObjectStorage
                     $decoded = $this->current()->getJwtDecoded();
                     if ($decoded->submode === $submode) {
                         $decoded->hash = $this->current()->getHash();
+                        $decoded->jwt = $this->current()->getJwt();
                         $items[] = $decoded;
                     }
                 }
