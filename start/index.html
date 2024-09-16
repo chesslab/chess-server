@@ -1,210 +1,274 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://chesslablab.github.io/chess-server/start/" />
-      <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>/start - PHP Chess Server</title>
-    <link rel="stylesheet" href="../css/theme.css" />
-    <link rel="stylesheet" href="../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
-    
-      <script>
-        // Current page data
-        var mkdocs_page_name = "/start";
-        var mkdocs_page_input_path = "start.md";
-        var mkdocs_page_url = "/chess-server/start/";
-      </script>
-    
-    <!--[if lt IE 9]>
-      <script src="../js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-      <script>hljs.highlightAll();</script> 
-</head>
-
-<body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> PHP Chess Server
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
-      </div>
-
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../getting-started/">Getting Started</a>
-                </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Game</span></p>
-              <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="#">Action-based</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../draw/">/draw</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../rematch/">/rematch</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../takeback/">/takeback</a>
-                </li>
-    </ul>
-                  </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Param-based</a>
-    <ul class="current">
-                <li class="toctree-l2"><a class="reference internal" href="../accept/">/accept</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../heuristic/">/heuristic</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../leave/">/leave</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../legal/">/legal</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../play-lan/">/play_lan</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../randomizer/">/randomizer</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../resign/">/resign</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../restart/">/restart</a>
-                </li>
-                <li class="toctree-l2 current"><a class="reference internal current" href="./">/start</a>
-    <ul class="current">
-    <li class="toctree-l3"><a class="reference internal" href="#params">params</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#variant">variant</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#mode">mode</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#settings-optional">settings (optional)</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#start-a-classical-game">Start a classical game</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#start-a-classical-game-from-a-fen-position">Start a classical game from a FEN position</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#start-a-classical-game-from-a-san-movetext">Start a classical game from a SAN movetext</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#start-a-chess960-game-from-a-san-movetext">Start a Chess960 game from a SAN movetext</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#start-a-classical-game-in-stockfish-mode">Start a classical game in Stockfish mode</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#start-a-classical-game-to-play-online">Start a classical game to play online</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#create-an-invite-code-to-play-a-classical-game">Create an invite code to play a classical game</a>
-    </li>
-        </ul>
-    </li>
-    </ul>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../stockfish/">/stockfish</a>
-                </li>
-    </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Text-based</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../undo/">/undo</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../online-games/">/online_games</a>
-                </li>
-    </ul>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Data</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Text-based</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../annotations-game/">/annotations_game</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../result/">/result</a>
-                </li>
-    </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Param-based</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../autocomplete-black/">/autocomplete_black</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../autocomplete-event/">/autocomplete_event</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../autocomplete-white/">/autocomplete_white</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../result-event/">/result_event</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../result-player/">/result_player</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../search/">/search</a>
-                </li>
-    </ul>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Binary</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Param-based</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../image/">/image</a>
-                </li>
-    </ul>
-                  </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Auth</span></p>
-              <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Text-based</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../totp-signup/">/totp_signup</a>
-                </li>
-    </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Param-based</a>
-    <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../totp-refresh/">/totp_refresh</a>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="../totp-signin/">/totp_signin</a>
-                </li>
-    </ul>
-                  </li>
-              </ul>
-      </div>
-    </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">PHP Chess Server</a>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-      </nav>
-      <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Game</li>
-          <li class="breadcrumb-item">Param-based</li>
-      <li class="breadcrumb-item active">/start</li>
-    <li class="wy-breadcrumbs-aside">
-    </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
-              
-                <h1 id="start">/start</h1>
+        
+        <link rel="canonical" href="https://chesslablab.github.io/chess-server/start/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>/start - PHP Chess Server</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">PHP Chess Server</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../installation/" class="nav-link">Installation</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../getting-started/" class="nav-link">Getting Started</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Game <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Action-based</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../draw/" class="dropdown-item">/draw</a>
+</li>
+            
+<li>
+    <a href="../rematch/" class="dropdown-item">/rematch</a>
+</li>
+            
+<li>
+    <a href="../takeback/" class="dropdown-item">/takeback</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Param-based</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../accept/" class="dropdown-item">/accept</a>
+</li>
+            
+<li>
+    <a href="../heuristic/" class="dropdown-item">/heuristic</a>
+</li>
+            
+<li>
+    <a href="../leave/" class="dropdown-item">/leave</a>
+</li>
+            
+<li>
+    <a href="../legal/" class="dropdown-item">/legal</a>
+</li>
+            
+<li>
+    <a href="../play-lan/" class="dropdown-item">/play_lan</a>
+</li>
+            
+<li>
+    <a href="../randomizer/" class="dropdown-item">/randomizer</a>
+</li>
+            
+<li>
+    <a href="../resign/" class="dropdown-item">/resign</a>
+</li>
+            
+<li>
+    <a href="../restart/" class="dropdown-item">/restart</a>
+</li>
+            
+<li>
+    <a href="./" class="dropdown-item active">/start</a>
+</li>
+            
+<li>
+    <a href="../stockfish/" class="dropdown-item">/stockfish</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Text-based</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../undo/" class="dropdown-item">/undo</a>
+</li>
+            
+<li>
+    <a href="../online-games/" class="dropdown-item">/online_games</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Data <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Text-based</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../annotations-game/" class="dropdown-item">/annotations_game</a>
+</li>
+            
+<li>
+    <a href="../result/" class="dropdown-item">/result</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Param-based</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../autocomplete-black/" class="dropdown-item">/autocomplete_black</a>
+</li>
+            
+<li>
+    <a href="../autocomplete-event/" class="dropdown-item">/autocomplete_event</a>
+</li>
+            
+<li>
+    <a href="../autocomplete-white/" class="dropdown-item">/autocomplete_white</a>
+</li>
+            
+<li>
+    <a href="../result-event/" class="dropdown-item">/result_event</a>
+</li>
+            
+<li>
+    <a href="../result-player/" class="dropdown-item">/result_player</a>
+</li>
+            
+<li>
+    <a href="../search/" class="dropdown-item">/search</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Binary <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Param-based</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../image/" class="dropdown-item">/image</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Auth <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Text-based</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../totp-signup/" class="dropdown-item">/totp_signup</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Param-based</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../totp-refresh/" class="dropdown-item">/totp_refresh</a>
+</li>
+            
+<li>
+    <a href="../totp-signin/" class="dropdown-item">/totp_signin</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../restart/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../stockfish/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#start" class="nav-link">/start</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#params" class="nav-link">params</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#usage" class="nav-link">Usage</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="start">/start</h1>
 <p>Starts a new game.</p>
 <h2 id="params"><code>params</code></h2>
 <h3 id="variant"><code>variant</code></h3>
@@ -436,52 +500,83 @@
     &quot;hash&quot;: &quot;1ac78f97&quot;
   }
 }
-</code></pre>
-              
+</code></pre></div>
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../restart/" class="btn btn-neutral float-left" title="/restart"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../stockfish/" class="btn btn-neutral float-right" title="/stockfish">Next <span class="icon icon-circle-arrow-right"></span></a>
-    </div>
-
-  <hr/>
-
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-  </div>
-
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
-          
         </div>
-      </div>
 
-    </section>
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
 
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-    
-      <span><a href="../restart/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../stockfish/" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
-    <script src="../js/jquery-3.6.0.min.js"></script>
-    <script>var base_url = "..";</script>
-    <script src="../js/theme_extra.js"></script>
-    <script src="../js/theme.js"></script>
-      <script src="../search/main.js"></script>
-    <script>
-        jQuery(function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        });
-    </script>
 
-</body>
+    </body>
 </html>
