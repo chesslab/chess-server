@@ -273,7 +273,7 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="play_lan">/play_lan</h1>
-<p>Plays a chess move in long algebraic notation.</p>
+<p>Plays a move in long algebraic notation.</p>
 <h2 id="params"><code>params</code></h2>
 <h3 id="color"><code>color</code></h3>
 <p>The color as per these options.</p>
@@ -293,20 +293,8 @@ ws.send('/play_lan &quot;{\\&quot;color\\&quot;:\\&quot;w\\&quot;,\\&quot;lan\\&
 <pre><code class="language-text">{
   &quot;/play_lan&quot;: {
     &quot;turn&quot;: &quot;b&quot;,
-    &quot;pgn&quot;: &quot;e4&quot;,
-    &quot;castlingAbility&quot;: &quot;KQkq&quot;,
     &quot;movetext&quot;: &quot;1.e4&quot;,
     &quot;fen&quot;: &quot;rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3&quot;,
-    &quot;isCapture&quot;: false,
-    &quot;isCheck&quot;: false,
-    &quot;isMate&quot;: false,
-    &quot;isStalemate&quot;: false,
-    &quot;isFivefoldRepetition&quot;: false,
-    &quot;isFiftyMoveDraw&quot;: false,
-    &quot;isDeadPositionDraw&quot;: false,
-    &quot;doesDraw&quot;: false,
-    &quot;doesWin&quot;: false,
-    &quot;mode&quot;: &quot;analysis&quot;,
     &quot;variant&quot;: &quot;classical&quot;,
     &quot;isValid&quot;: true
   }

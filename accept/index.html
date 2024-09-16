@@ -282,29 +282,33 @@
 <hr />
 <h2 id="usage">Usage</h2>
 <h3 id="example">Example</h3>
-<pre><code class="language-js">ws.send('/accept &quot;{\\&quot;hash\\&quot;:\\&quot;16539195\\&quot;,\\&quot;username\\&quot;:\\&quot;normal_magpie\\&quot;}&quot;');
+<pre><code class="language-js">ws.send('/accept &quot;{\\&quot;hash\\&quot;:\\&quot;5a3c9a56\\&quot;,\\&quot;username\\&quot;:null,\\&quot;elo\\&quot;:null}&quot;');
 </code></pre>
 <pre><code class="language-text">{
   &quot;/accept&quot;: {
-    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjU4NzcyNzAsImV4cCI6MTcyNTg4MDg3MCwidmFyaWFudCI6ImNsYXNzaWNhbCIsInVzZXJuYW1lIjp7InciOiJjb21wbGV0ZV9nbnUiLCJiIjoibm9ybWFsX21hZ3BpZSJ9LCJzdWJtb2RlIjoib25saW5lIiwiY29sb3IiOiJ3IiwibWluIjoiNSIsImluY3JlbWVudCI6IjMiLCJmZW4iOiJybmJxa2Juci9wcHBwcHBwcC84LzgvOC84L1BQUFBQUFBQL1JOQlFLQk5SIHcgS1FrcSAtIn0.DOgmcK-ergTtX1EaNMkDqZzbwDe2UGssPMJ3qH_w-10&quot;,
-    &quot;hash&quot;: &quot;bbc88ff4&quot;,
+    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjY1MDE3NjEsImV4cCI6MTcyNjUwNTM2MSwidmFyaWFudCI6ImNsYXNzaWNhbCIsInVzZXJuYW1lIjp7InciOiJhbm9ueW1vdXMiLCJiIjoiYW5vbnltb3VzIn0sImVsbyI6eyJ3IjpudWxsLCJiIjpudWxsfSwic3VibW9kZSI6Im9ubGluZSIsImNvbG9yIjoidyIsIm1pbiI6IjUiLCJpbmNyZW1lbnQiOiIzIiwiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9.ziTYsSDK-aE9E51kq3PZSnZcZA4P2V33sZ8p5n0AFi4&quot;,
+    &quot;hash&quot;: &quot;5a3c9a56&quot;,
     &quot;timer&quot;: {
       &quot;w&quot;: 300,
       &quot;b&quot;: 300
     },
-    &quot;startedAt&quot;: 1725877310
+    &quot;startedAt&quot;: 1726501844
   }
 }
 </code></pre>
 <p>Decoded JWT:</p>
 <pre><code class="language-text">{
   &quot;iss&quot;: &quot;async.chesslablab.org&quot;,
-  &quot;iat&quot;: 1725877270,
-  &quot;exp&quot;: 1725880870,
+  &quot;iat&quot;: 1726501761,
+  &quot;exp&quot;: 1726505361,
   &quot;variant&quot;: &quot;classical&quot;,
   &quot;username&quot;: {
-    &quot;w&quot;: &quot;complete_gnu&quot;,
-    &quot;b&quot;: &quot;normal_magpie&quot;
+    &quot;w&quot;: &quot;anonymous&quot;,
+    &quot;b&quot;: &quot;anonymous&quot;
+  },
+  &quot;elo&quot;: {
+    &quot;w&quot;: null,
+    &quot;b&quot;: null
   },
   &quot;submode&quot;: &quot;online&quot;,
   &quot;color&quot;: &quot;w&quot;,

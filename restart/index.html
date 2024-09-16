@@ -275,17 +275,16 @@
 <h1 id="restart">/restart</h1>
 <p>Restarts an existing game.</p>
 <h2 id="params"><code>params</code></h2>
-<h3 id="hash"><code>hash</code></h3>
-<p>The unique hash of the game.</p>
+<h3 id="jwt"><code>jwt</code></h3>
+<p>The JWT token of the game.</p>
 <hr />
 <h2 id="usage">Usage</h2>
 <h3 id="example">Example</h3>
-<pre><code class="language-js">ws.send('/restart &quot;{\\&quot;hash\\&quot;:\\&quot;2a8e9850\\&quot;}&quot;');
+<pre><code class="language-js">ws.send('/restart &quot;{\\&quot;jwt\\&quot;:\\&quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjY1MDI2ODIsImV4cCI6MTcyNjUwNjI4MiwidmFyaWFudCI6ImNsYXNzaWNhbCIsInVzZXJuYW1lIjp7InciOiJhbm9ueW1vdXMiLCJiIjoiYW5vbnltb3VzIn0sImVsbyI6eyJ3IjpudWxsLCJiIjpudWxsfSwic3VibW9kZSI6Im9ubGluZSIsImNvbG9yIjoidyIsIm1pbiI6IjUiLCJpbmNyZW1lbnQiOiIzIiwiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9.AqpumQte3WScJBlE8PrGjp_SzYQUfmRD7JPvvzW0eXQ\\&quot;}&quot;');
 </code></pre>
 <pre><code class="language-text">{
   &quot;/restart&quot;: {
-    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjU4ODAyODcsImV4cCI6MTcyNTg4Mzg4NywidmFyaWFudCI6Ijk2MCIsInVzZXJuYW1lIjp7InciOiJub3JtYWxfbWFncGllIiwiYiI6ImNvbXBsZXRlX2dudSJ9LCJzdWJtb2RlIjoib25saW5lIiwiY29sb3IiOiJ3IiwibWluIjoiNSIsImluY3JlbWVudCI6IjMiLCJmZW4iOiJucmtxcm5iYi9wcHBwcHBwcC84LzgvOC84L1BQUFBQUFBQL05SS1FSTkJCIHcgS1FrcSAtIiwic3RhcnRQb3MiOiJOUktRUk5CQiJ9.EpQRoOb0cmua300nFgpwkUaOTDlrL1wU1nzC-uEuKz8&quot;,
-    &quot;hash&quot;: &quot;7639982e&quot;,
+    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjY1MDI3MDYsImV4cCI6MTcyNjUwNjMwNiwidmFyaWFudCI6ImNsYXNzaWNhbCIsInVzZXJuYW1lIjp7InciOiJhbm9ueW1vdXMiLCJiIjoiYW5vbnltb3VzIn0sImVsbyI6eyJ3IjpudWxsLCJiIjpudWxsfSwic3VibW9kZSI6Im9ubGluZSIsImNvbG9yIjoidyIsIm1pbiI6IjUiLCJpbmNyZW1lbnQiOiIzIiwiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9.OumjF8qCQ_DgPn07sKxd3hoJKc5w4h84iw-qwBp8zro&quot;,
     &quot;timer&quot;: {
       &quot;w&quot;: 300,
       &quot;b&quot;: 300
