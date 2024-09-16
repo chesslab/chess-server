@@ -1,6 +1,6 @@
 # /online_games
 
-Returns the online games waiting to be accepted.
+Returns the online games in pending status to be accepted.
 
 ---
 

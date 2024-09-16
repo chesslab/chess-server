@@ -11,7 +11,7 @@ class OnlineGamesCommand extends AbstractCommand
     public function __construct()
     {
         $this->name = '/online_games';
-        $this->description = "Returns the online games waiting to be accepted.";
+        $this->description = "Returns the online games in pending status to be accepted.";
     }
 
     public function validate(array $argv)
