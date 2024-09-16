@@ -11,7 +11,7 @@ class EvalNamesCommand extends AbstractCommand
     public function __construct()
     {
         $this->name = '/eval_names';
-        $this->description = 'Evaluation names.';
+        $this->description = 'Returns the evaluation names.';
     }
 
     public function validate(array $argv)

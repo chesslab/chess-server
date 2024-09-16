@@ -1,6 +1,6 @@
 # /eval_names
 
-Evaluation names.
+Returns the evaluation names.
 
 ---
 
