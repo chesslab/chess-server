@@ -7,8 +7,6 @@ use ChessServer\Db;
 use ChessServer\Command\Game\Game;
 use ChessServer\Command\Game\PlayLanCommand;
 use ChessServer\Repository\UserRepository;
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 
 class PlayMode extends AbstractMode
 {
@@ -19,8 +17,6 @@ class PlayMode extends AbstractMode
 
     const SUBMODE_FRIEND = 'friend';
     const SUBMODE_ONLINE = 'online';
-
-    protected string $jwt;
 
     protected Db $db;
 
@@ -34,22 +30,10 @@ class PlayMode extends AbstractMode
 
     public function __construct(Game $game, array $resourceIds, string $jwt, Db $db)
     {
-        parent::__construct($game, $resourceIds);
+        parent::__construct($game, $resourceIds, $jwt);
 
-        $this->jwt = $jwt;
         $this->db = $db;
-        $this->hash = hash('adler32', $jwt);
         $this->status = self::STATUS_PENDING;
-    }
-
-    public function getJwt()
-    {
-        return $this->jwt;
-    }
-
-    public function getJwtDecoded()
-    {
-        return JWT::decode($this->jwt, new Key($_ENV['JWT_SECRET'], 'HS256'));
     }
 
     public function getStatus(): string
@@ -70,14 +54,6 @@ class PlayMode extends AbstractMode
     public function getTimer(): array
     {
         return $this->timer;
-    }
-
-    public function setJwt(array $payload)
-    {
-        $this->jwt = JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256');
-        $this->hash = hash('adler32', $this->jwt);
-
-        return $this;
     }
 
     public function setStatus(string $status)

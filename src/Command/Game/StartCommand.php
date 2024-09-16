@@ -204,14 +204,25 @@ class StartCommand extends AbstractCommand
             } else {
                 $game = new Game($params['variant'], $params['mode'], $socket->getGmMove());
             }
-            $gameMode = new StockfishMode($game, [$id]);
+            $payload = [
+                'iss' => $_ENV['JWT_ISS'],
+                'iat' => time(),
+                'exp' => time() + 3600, // one hour by default
+                ...$params,
+            ];
+            $gameMode = new StockfishMode(
+                $game,
+                [$id],
+                JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256')
+            );
             $socket->getGameModeStorage()->set($gameMode);
             return $socket->getClientStorage()->send([$id], [
                 $this->name => [
-                    'variant' => $params['variant'],
-                    'mode' => $params['mode'],
+                    'variant' => $game->getVariant(),
+                    'mode' => $game->getMode(),
                     'color' => $params['settings']['color'],
                     'fen' => $game->getBoard()->toFen(),
+                    'jwt' => $gameMode->getJwt(),
                 ],
             ]);
         }

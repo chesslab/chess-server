@@ -7,6 +7,8 @@ use ChessServer\Command\Game\LegalCommand;
 use ChessServer\Command\Game\PlayLanCommand;
 use ChessServer\Command\Game\StockfishCommand;
 use ChessServer\Command\Game\UndoCommand;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 abstract class AbstractMode
 {
@@ -14,10 +16,14 @@ abstract class AbstractMode
 
     protected $resourceIds;
 
-    protected $hash;
+    protected string $jwt;
 
-    public function __construct(Game $game, array $resourceIds)
+    protected string $hash;
+
+    public function __construct(Game $game, array $resourceIds, string $jwt = '')
     {
+        $this->jwt = $jwt;
+        $this->hash = $jwt ? hash('adler32', $jwt) : '';
         $this->game = $game;
         $this->resourceIds = $resourceIds;
     }
@@ -44,6 +50,24 @@ abstract class AbstractMode
         $this->resourceIds = $resourceIds;
 
         return $this;
+    }
+
+    public function getJwt()
+    {
+        return $this->jwt;
+    }
+
+    public function setJwt(array $payload)
+    {
+        $this->jwt = JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256');
+        $this->hash = hash('adler32', $this->jwt);
+
+        return $this;
+    }
+
+    public function getJwtDecoded()
+    {
+        return JWT::decode($this->jwt, new Key($_ENV['JWT_SECRET'], 'HS256'));
     }
 
     public function getHash()
