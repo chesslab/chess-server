@@ -36,6 +36,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://chesslablab.github.io/chess-server/eval-names/</loc>
+         <lastmod>2024-09-16</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://chesslablab.github.io/chess-server/getting-started/</loc>
          <lastmod>2024-09-16</lastmod>
          <changefreq>daily</changefreq>

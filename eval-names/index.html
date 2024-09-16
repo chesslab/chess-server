@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="https://chesslablab.github.io/chess-server/draw/">
+        <link rel="canonical" href="https://chesslablab.github.io/chess-server/eval-names/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>/draw - PHP Chess Server</title>
+        <title>/eval_names - PHP Chess Server</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -48,7 +48,7 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../eval-names/" class="dropdown-item">/eval_names</a>
+    <a href="./" class="dropdown-item active">/eval_names</a>
 </li>
             
 <li>
@@ -66,7 +66,7 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="./" class="dropdown-item active">/draw</a>
+    <a href="../draw/" class="dropdown-item">/draw</a>
 </li>
             
 <li>
@@ -228,12 +228,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../undo/" class="nav-link">
+                                <a rel="prev" href="../getting-started/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../rematch/" class="nav-link">
+                                <a rel="next" href="../online-games/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -255,12 +255,8 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#draw" class="nav-link">/draw</a>
+            <li class="nav-item" data-level="1"><a href="#eval_names" class="nav-link">/eval_names</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#action" class="nav-link">action</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
             <li class="nav-item" data-level="2"><a href="#usage" class="nav-link">Usage</a>
               <ul class="nav flex-column">
               </ul>
@@ -272,42 +268,44 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="draw">/draw</h1>
-<p>Allows to offer a draw.</p>
-<h2 id="action"><code>action</code></h2>
-<p>The action to take as per these options.</p>
-<ul>
-<li><code>propose</code></li>
-<li><code>decline</code></li>
-<li><code>accept</code></li>
-</ul>
+<h1 id="eval_names">/eval_names</h1>
+<p>Evaluation names.</p>
 <hr />
 <h2 id="usage">Usage</h2>
-<h3 id="propose-a-draw">Propose a draw</h3>
-<pre><code class="language-js">ws.send('/draw propose');
+<h3 id="example">Example</h3>
+<pre><code class="language-js">ws.send('/eval_names');
 </code></pre>
 <pre><code class="language-text">{
-  &quot;/draw&quot;: {
-    &quot;action&quot;: &quot;propose&quot;
-   }
-}
-</code></pre>
-<h3 id="decline-a-draw">Decline a draw</h3>
-<pre><code class="language-js">ws.send('/draw decline');
-</code></pre>
-<pre><code class="language-text">{
-  &quot;/draw&quot;: {
-    &quot;action&quot;: &quot;decline&quot;
-   }
-}
-</code></pre>
-<h3 id="accept-a-draw">Accept a draw</h3>
-<pre><code class="language-js">ws.send('/draw accept');
-</code></pre>
-<pre><code class="language-text">{
-  &quot;/takeback&quot;: {
-    &quot;action&quot;: &quot;accept&quot;
-   }
+  &quot;/eval_names&quot;: [
+    &quot;Material&quot;,
+    &quot;Center&quot;,
+    &quot;Connectivity&quot;,
+    &quot;Space&quot;,
+    &quot;Pressure&quot;,
+    &quot;King safety&quot;,
+    &quot;Protection&quot;,
+    &quot;Discovered check&quot;,
+    &quot;Doubled pawn&quot;,
+    &quot;Passed pawn&quot;,
+    &quot;Advanced pawn&quot;,
+    &quot;Far-advanced pawn&quot;,
+    &quot;Isolated pawn&quot;,
+    &quot;Backward pawn&quot;,
+    &quot;Defense&quot;,
+    &quot;Absolute skewer&quot;,
+    &quot;Absolute pin&quot;,
+    &quot;Relative pin&quot;,
+    &quot;Absolute fork&quot;,
+    &quot;Relative fork&quot;,
+    &quot;Outpost square&quot;,
+    &quot;Knight outpost&quot;,
+    &quot;Bishop outpost&quot;,
+    &quot;Bishop pair&quot;,
+    &quot;Bad bishop&quot;,
+    &quot;Diagonal opposition&quot;,
+    &quot;Direct opposition&quot;,
+    &quot;Overloading&quot;
+  ]
 }
 </code></pre></div>
             </div>
