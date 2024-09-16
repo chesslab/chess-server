@@ -14,7 +14,7 @@ class DrawCommand extends AbstractCommand
     public function __construct()
     {
         $this->name = '/draw';
-        $this->description = 'Allows to offer a draw.';
+        $this->description = 'Offers a draw.';
         $this->params = [
             'action' => [
                 self::ACTION_ACCEPT,

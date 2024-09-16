@@ -1,6 +1,6 @@
 # /rematch
 
-Allows to offer a rematch.
+Offers a rematch.
 
 ## `action`
 

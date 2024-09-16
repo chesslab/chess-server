@@ -1,6 +1,6 @@
 # /takeback
 
-Allows to take back a move.
+Takes back a move.
 
 ## `action`
 

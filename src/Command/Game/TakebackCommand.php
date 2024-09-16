@@ -14,7 +14,7 @@ class TakebackCommand extends AbstractCommand
     public function __construct()
     {
         $this->name = '/takeback';
-        $this->description = 'Allows to takeback a move.';
+        $this->description = 'Takes back a move.';
         $this->params = [
             'action' => [
                 self::ACTION_ACCEPT,
