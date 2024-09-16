@@ -6,6 +6,7 @@ nav:
   - Getting Started: getting-started.md
   - Game:
     - Text-based:
+      - /eval_names: eval-names.md
       - /online_games: online-games.md
       - /undo: undo.md
     - Action-based:
