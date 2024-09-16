@@ -8,7 +8,7 @@ Probably the easiest way to get familiar with the chess commands is by reading t
 
 ![Figure 2](https://raw.githubusercontent.com/chesslablab/chess-server/main/docs/getting-started_02.png)
 
-**Figure 2**. As chess moves are played, the chess server response is displayed on the **Network > WS > Messages** tab.
+**Figure 2**. As chess moves are played, the chess server responses are displayed on the **Network > WS > Messages** tab.
 
 Also a WebSocket connection with the chess server can be opened in the JavaScript console.
 
@@ -60,20 +60,8 @@ The `/play_lan` command above retrieves the following JSON response.
 {
   "/play_lan": {
     "turn": "b",
-    "pgn": "e4",
-    "castlingAbility": "KQkq",
     "movetext": "1.e4",
     "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3",
-    "isCapture": false,
-    "isCheck": false,
-    "isMate": false,
-    "isStalemate": false,
-    "isFivefoldRepetition": false,
-    "isFiftyMoveDraw": false,
-    "isDeadPositionDraw": false,
-    "doesDraw": false,
-    "doesWin": false,
-    "mode": "analysis",
     "variant": "classical",
     "isValid": true
   }
@@ -92,20 +80,8 @@ Once again the `/play_lan` command makes a chess move, this time retrieving the 
 {
   "/play_lan": {
     "turn": "w",
-    "pgn": "e5",
-    "castlingAbility": "KQkq",
     "movetext": "1.e4 e5",
     "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6",
-    "isCapture": false,
-    "isCheck": false,
-    "isMate": false,
-    "isStalemate": false,
-    "isFivefoldRepetition": false,
-    "isFiftyMoveDraw": false,
-    "isDeadPositionDraw": false,
-    "doesDraw": false,
-    "doesWin": false,
-    "mode": "analysis",
     "variant": "classical",
     "isValid": true
   }
