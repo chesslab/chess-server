@@ -53,43 +53,61 @@
               </ul>
               <p class="caption"><span class="caption-text">Game</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../draw/">/draw</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Action-based commands</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../draw/">/draw</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../rematch/">/rematch</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../takeback/">/takeback</a>
+                </li>
+    </ul>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">/leave</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Param-based commands</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#action">action</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
+                <li class="toctree-l2"><a class="reference internal" href="../accept/">/accept</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../heuristic/">/heuristic</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">/leave</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#params">params</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#example">Example</a>
+    <li class="toctree-l4"><a class="reference internal" href="#color">color</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#example">Example</a>
     </li>
         </ul>
     </li>
     </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../legal/">/legal</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../play-lan/">/play_lan</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../randomizer/">/randomizer</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../resign/">/resign</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../restart/">/restart</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../start/">/start</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../stockfish/">/stockfish</a>
+                </li>
+    </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../rematch/">/rematch</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../resign/">/resign</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../takeback/">/takeback</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../accept/">/accept</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../legal/">/legal</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../play-lan/">/play_lan</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../randomizer/">/randomizer</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../restart/">/restart</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../start/">/start</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../stockfish/">/stockfish</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../undo/">/undo</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../online-games/">/online_games</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Text-based commands</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../undo/">/undo</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../online-games/">/online_games</a>
+                </li>
+    </ul>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Data</span></p>
@@ -140,6 +158,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">Game</li>
+          <li class="breadcrumb-item">Param-based commands</li>
       <li class="breadcrumb-item active">/leave</li>
     <li class="wy-breadcrumbs-aside">
     </li>
@@ -150,29 +169,38 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="leave">/leave</h1>
-<p>Allows to leave a game.</p>
-<h2 id="action"><code>action</code></h2>
-<p>The action to take as per these options.</p>
+<p>Leave a game.</p>
+<h2 id="params"><code>params</code></h2>
+<h3 id="color"><code>color</code></h3>
+<p>The color as per these options.</p>
 <ul>
-<li><code>accept</code></li>
+<li><code>w</code> for the white pieces.</li>
+<li><code>b</code> for the black pieces.</li>
 </ul>
 <hr />
 <h2 id="usage">Usage</h2>
 <h3 id="example">Example</h3>
-<pre><code class="language-js">ws.send('/leave accept');
+<pre><code class="language-js">ws.send('/leave &quot;{\\&quot;color\\&quot;:\\&quot;b\\&quot;}&quot;');
 </code></pre>
 <pre><code class="language-text">{
   &quot;/leave&quot;: {
-    &quot;action&quot;: &quot;accept&quot;
-   }
+    &quot;turn&quot;: &quot;w&quot;,
+    &quot;movetext&quot;: &quot;1.e4 e5 2.d4 d5&quot;,
+    &quot;fen&quot;: &quot;rnbqkbnr/ppp2ppp/8/3pp3/3PP3/8/PPP2PPP/RNBQKBNR w KQkq d6&quot;,
+    &quot;end&quot;: {
+      &quot;result&quot;: &quot;1-0&quot;,
+      &quot;msg&quot;: &quot;White wins&quot;
+    },
+    &quot;color&quot;: &quot;b&quot;
+  }
 }
 </code></pre>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../draw/" class="btn btn-neutral float-left" title="/draw"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../rematch/" class="btn btn-neutral float-right" title="/rematch">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../heuristic/" class="btn btn-neutral float-left" title="/heuristic"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../legal/" class="btn btn-neutral float-right" title="/legal">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -195,10 +223,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../draw/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../heuristic/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../rematch/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../legal/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

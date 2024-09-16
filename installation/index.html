@@ -55,33 +55,47 @@
               </ul>
               <p class="caption"><span class="caption-text">Game</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../draw/">/draw</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Action-based commands</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../draw/">/draw</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../rematch/">/rematch</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../takeback/">/takeback</a>
+                </li>
+    </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../leave/">/leave</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Param-based commands</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../accept/">/accept</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../heuristic/">/heuristic</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../leave/">/leave</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../legal/">/legal</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../play-lan/">/play_lan</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../randomizer/">/randomizer</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../resign/">/resign</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../restart/">/restart</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../start/">/start</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../stockfish/">/stockfish</a>
+                </li>
+    </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../rematch/">/rematch</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../resign/">/resign</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../takeback/">/takeback</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../accept/">/accept</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../legal/">/legal</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../play-lan/">/play_lan</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../randomizer/">/randomizer</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../restart/">/restart</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../start/">/start</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../stockfish/">/stockfish</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../undo/">/undo</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../online-games/">/online_games</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Text-based commands</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../undo/">/undo</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../online-games/">/online_games</a>
+                </li>
+    </ul>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Data</span></p>
@@ -153,7 +167,7 @@ touch storage/auth.log
 <p>Make sure to have installed the <code>fullchain.pem</code> and <code>privkey.pem</code> files in the <code>ssl</code> folder, and run the Docker container in detached mode in the background:</p>
 <pre><code class="language-txt">docker compose -f docker-compose.workerman.yml up -d
 </code></pre>
-<p>Finally, if you are running the chess server in a local development environment along with the <a href="https://github.com/chesslablab/website">website</a>, you may want to add a domain name entry to your <code>/etc/hosts</code> file as per the <code>WEBSOCKET</code> variable defined in the <a href="https://github.com/chesslablab/website/blob/main/assets/env.example.js">assets/env.example.js</a> file.</p>
+<p>Finally, if you are running the chess server in a local development environment along with the <a href="https://github.com/chesslablab/website">website</a>, you may want to add a domain name entry to your <code>/etc/hosts</code> file as per the <code>WEBSOCKET_SERVER</code> variable defined in the <a href="https://github.com/chesslablab/website/blob/main/assets/env.example.js">assets/env.example.js</a> file.</p>
 <pre><code class="language-txt">127.0.0.1       async.chesslablab.org
 </code></pre>
               
