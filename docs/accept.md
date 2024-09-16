@@ -19,19 +19,19 @@ The username accepting the invitation.
 ### Example
 
 ```js
-ws.send('/accept "{\\"hash\\":\\"16539195\\",\\"username\\":\\"normal_magpie\\"}"');
+ws.send('/accept "{\\"hash\\":\\"5a3c9a56\\",\\"username\\":null,\\"elo\\":null}"');
 ```
 
 ```text
 {
   "/accept": {
-    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjU4NzcyNzAsImV4cCI6MTcyNTg4MDg3MCwidmFyaWFudCI6ImNsYXNzaWNhbCIsInVzZXJuYW1lIjp7InciOiJjb21wbGV0ZV9nbnUiLCJiIjoibm9ybWFsX21hZ3BpZSJ9LCJzdWJtb2RlIjoib25saW5lIiwiY29sb3IiOiJ3IiwibWluIjoiNSIsImluY3JlbWVudCI6IjMiLCJmZW4iOiJybmJxa2Juci9wcHBwcHBwcC84LzgvOC84L1BQUFBQUFBQL1JOQlFLQk5SIHcgS1FrcSAtIn0.DOgmcK-ergTtX1EaNMkDqZzbwDe2UGssPMJ3qH_w-10",
-    "hash": "bbc88ff4",
+    "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjY1MDE3NjEsImV4cCI6MTcyNjUwNTM2MSwidmFyaWFudCI6ImNsYXNzaWNhbCIsInVzZXJuYW1lIjp7InciOiJhbm9ueW1vdXMiLCJiIjoiYW5vbnltb3VzIn0sImVsbyI6eyJ3IjpudWxsLCJiIjpudWxsfSwic3VibW9kZSI6Im9ubGluZSIsImNvbG9yIjoidyIsIm1pbiI6IjUiLCJpbmNyZW1lbnQiOiIzIiwiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9.ziTYsSDK-aE9E51kq3PZSnZcZA4P2V33sZ8p5n0AFi4",
+    "hash": "5a3c9a56",
     "timer": {
       "w": 300,
       "b": 300
     },
-    "startedAt": 1725877310
+    "startedAt": 1726501844
   }
 }
 ```
@@ -41,12 +41,16 @@ Decoded JWT:
 ```text
 {
   "iss": "async.chesslablab.org",
-  "iat": 1725877270,
-  "exp": 1725880870,
+  "iat": 1726501761,
+  "exp": 1726505361,
   "variant": "classical",
   "username": {
-    "w": "complete_gnu",
-    "b": "normal_magpie"
+    "w": "anonymous",
+    "b": "anonymous"
+  },
+  "elo": {
+    "w": null,
+    "b": null
   },
   "submode": "online",
   "color": "w",

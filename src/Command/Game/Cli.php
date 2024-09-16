@@ -14,9 +14,15 @@ class Cli extends AbstractCli
         parent::__construct();
 
         $this->db = $db;
+        // text-based commands
+        $this->commands->attach(new EvalNamesCommand());
+        $this->commands->attach(new OnlineGamesCommand());
+        $this->commands->attach(new UndoCommand());
+        // action-based commands
         $this->commands->attach(new DrawCommand());
         $this->commands->attach(new RematchCommand());
         $this->commands->attach(new TakebackCommand());
+        // param-based commands
         $this->commands->attach(new AcceptPlayRequestCommand());
         $this->commands->attach(new HeuristicCommand());
         $this->commands->attach(new LeaveCommand($db));
@@ -29,9 +35,6 @@ class Cli extends AbstractCli
         $this->commands->attach(new StartCommand($db));
         $this->commands->attach(new StockfishCommand());
         $this->commands->attach(new TutorFenCommand());
-        $this->commands->attach(new EvalNamesCommand());
-        $this->commands->attach(new OnlineGamesCommand());
-        $this->commands->attach(new UndoCommand());
     }
 
     public function getDb(): Db

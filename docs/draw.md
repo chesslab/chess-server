@@ -1,6 +1,6 @@
 # /draw
 
-Allows to offer a draw.
+Offers a draw.
 
 ## `action`
 

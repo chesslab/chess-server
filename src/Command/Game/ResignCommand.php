@@ -14,7 +14,7 @@ class ResignCommand extends AbstractCommand
         parent::__construct($db);
 
         $this->name = '/resign';
-        $this->description = 'Resign a game.';
+        $this->description = 'Resigns a game.';
         $this->params = [
             'params' => '<string>',
         ];

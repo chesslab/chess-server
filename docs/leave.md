@@ -1,6 +1,6 @@
 # /leave
 
-Leave a game.
+Leaves a game.
 
 ## `params`
 

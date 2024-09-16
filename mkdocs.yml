@@ -5,35 +5,44 @@ nav:
   - Installation: installation.md
   - Getting Started: getting-started.md
   - Game:
-    - /draw: draw.md
-    - /rematch: rematch.md
-    - /takeback: takeback.md
-    - /accept: accept.md
-    - /heuristic: heuristic.md
-    - /leave: leave.md
-    - /legal: legal.md
-    - /play_lan: play-lan.md
-    - /randomizer: randomizer.md
-    - /resign: resign.md
-    - /restart: restart.md
-    - /start: start.md
-    - /stockfish: stockfish.md
-    - /undo: undo.md
-    - /online_games: online-games.md
+    - Text-based:
+      - /eval_names: eval-names.md
+      - /online_games: online-games.md
+      - /undo: undo.md
+    - Action-based:
+      - /draw: draw.md
+      - /rematch: rematch.md
+      - /takeback: takeback.md
+    - Param-based:
+      - /accept: accept.md
+      - /heuristic: heuristic.md
+      - /leave: leave.md
+      - /legal: legal.md
+      - /play_lan: play-lan.md
+      - /randomizer: randomizer.md
+      - /resign: resign.md
+      - /restart: restart.md
+      - /start: start.md
+      - /stockfish: stockfish.md
   - Data:
-    - /annotations_game: annotations-game.md
-    - /autocomplete_black: autocomplete-black.md
-    - /autocomplete_event: autocomplete-event.md
-    - /autocomplete_white: autocomplete-white.md
-    - /result_event: result-event.md
-    - /result_player: result-player.md
-    - /result: result.md
-    - /search: search.md
+    - Text-based:
+      - /annotations_game: annotations-game.md
+      - /result: result.md
+    - Param-based:
+      - /autocomplete_black: autocomplete-black.md
+      - /autocomplete_event: autocomplete-event.md
+      - /autocomplete_white: autocomplete-white.md
+      - /result_event: result-event.md
+      - /result_player: result-player.md
+      - /search: search.md
   - Binary:
-    - /image: image.md
+    - Param-based:
+      - /image: image.md
   - Auth:
-    - /totp_refresh: totp-refresh.md
-    - /totp_signin: totp-signin.md
-    - /totp_signup: totp-signup.md
+    - Text-based:
+      - /totp_signup: totp-signup.md
+    - Param-based:
+      - /totp_refresh: totp-refresh.md
+      - /totp_signin: totp-signin.md
 
-theme: readthedocs
+theme: mkdocs

@@ -14,7 +14,7 @@ class LeaveCommand extends AbstractCommand
         parent::__construct($db);
 
         $this->name = '/leave';
-        $this->description = 'Leave a game.';
+        $this->description = 'Leaves a game.';
         $this->params = [
             'params' => '<string>',
         ];

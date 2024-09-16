@@ -8,7 +8,7 @@ Probably the easiest way to get familiar with the chess commands is by reading t
 
 ![Figure 2](https://raw.githubusercontent.com/chesslablab/chess-server/main/docs/getting-started_02.png)
 
-**Figure 2**. As chess moves are played, the chess server response is displayed on the **Network > WS > Messages** tab.
+**Figure 2**. As chess moves are played, the chess server responses are displayed on the **Network > WS > Messages** tab.
 
 Also a WebSocket connection with the chess server can be opened in the JavaScript console.
 
@@ -60,20 +60,8 @@ The `/play_lan` command above retrieves the following JSON response.
 {
   "/play_lan": {
     "turn": "b",
-    "pgn": "e4",
-    "castlingAbility": "KQkq",
     "movetext": "1.e4",
     "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3",
-    "isCapture": false,
-    "isCheck": false,
-    "isMate": false,
-    "isStalemate": false,
-    "isFivefoldRepetition": false,
-    "isFiftyMoveDraw": false,
-    "isDeadPositionDraw": false,
-    "doesDraw": false,
-    "doesWin": false,
-    "mode": "analysis",
     "variant": "classical",
     "isValid": true
   }
@@ -92,29 +80,15 @@ Once again the `/play_lan` command makes a chess move, this time retrieving the 
 {
   "/play_lan": {
     "turn": "w",
-    "pgn": "e5",
-    "castlingAbility": "KQkq",
     "movetext": "1.e4 e5",
     "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6",
-    "isCapture": false,
-    "isCheck": false,
-    "isMate": false,
-    "isStalemate": false,
-    "isFivefoldRepetition": false,
-    "isFiftyMoveDraw": false,
-    "isDeadPositionDraw": false,
-    "doesDraw": false,
-    "doesWin": false,
-    "mode": "analysis",
     "variant": "classical",
     "isValid": true
   }
 }
 ```
 
-Let's recap.
-
-Described below is the series of steps required to start a classical chess game with 1.e4 e5. Remember, computers and graphic user interfaces (GUIs) usually prefer the Long Algebraic Notation (LAN) format instead: e2e4 and e7e5.
+Let's recap. Described below is the series of steps required to start a classical chess game with 1.e4 e5. Remember, computers and graphic user interfaces (GUIs) usually prefer the Long Algebraic Notation (LAN) format instead: e2e4 and e7e5.
 
 ```js
 const ws = new WebSocket('wss://async.chesslablab.org:8443');
@@ -124,4 +98,4 @@ ws.send('/play_lan "{\\"color\\":\\"w\\",\\"lan\\":\\"e2e4\\"}"');
 ws.send('/play_lan "{\\"color\\":\\"b\\",\\"lan\\":\\"e7e5\\"}"');
 ```
 
-Now let's have a look at the WebSocket commands available!
+Now let's have a look at the WebSocket commands available! The commands fall into three broad categories. Text-based commands have no parameters. Action-based commands expect one parameter of type string. Param-based commands expect a JavaScript object parameter.

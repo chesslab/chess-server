@@ -18,7 +18,7 @@ class RestartCommand extends AbstractCommand
         parent::__construct($db);
 
         $this->name = '/restart';
-        $this->description = 'Restarts a game.';
+        $this->description = 'Restarts an existing game.';
         $this->params = [
             'params' => '<string>',
         ];

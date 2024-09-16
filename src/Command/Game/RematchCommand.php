@@ -14,7 +14,7 @@ class RematchCommand extends AbstractCommand
     public function __construct()
     {
         $this->name = '/rematch';
-        $this->description = 'Allows to offer a rematch.';
+        $this->description = 'Offers a rematch.';
         $this->params = [
             'action' => [
                 self::ACTION_ACCEPT,
