@@ -44,4 +44,4 @@ nav:
       - /totp_refresh: totp-refresh.md
       - /totp_signin: totp-signin.md
 
-theme: readthedocs
+theme: mkdocs
