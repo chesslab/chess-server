@@ -1,6 +1,6 @@
 # /resign
 
-Resign a game.
+Resigns a game.
 
 ## `params`
 
