@@ -5,6 +5,9 @@ nav:
   - Installation: installation.md
   - Getting Started: getting-started.md
   - Game:
+    - Text-based:
+      - /online_games: online-games.md
+      - /undo: undo.md
     - Action-based:
       - /draw: draw.md
       - /rematch: rematch.md
@@ -20,9 +23,6 @@ nav:
       - /restart: restart.md
       - /start: start.md
       - /stockfish: stockfish.md
-    - Text-based:
-      - /undo: undo.md
-      - /online_games: online-games.md
   - Data:
     - Text-based:
       - /annotations_game: annotations-game.md
