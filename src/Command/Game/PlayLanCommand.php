@@ -10,7 +10,7 @@ class PlayLanCommand extends AbstractCommand
     public function __construct()
     {
         $this->name = '/play_lan';
-        $this->description = 'Plays a chess move in long algebraic notation.';
+        $this->description = 'Plays a move in long algebraic notation.';
         $this->params = [
             'params' => '<string>',
         ];

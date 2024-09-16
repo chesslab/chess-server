@@ -1,6 +1,6 @@
 # /play_lan
 
-Plays a chess move in long algebraic notation.
+Plays a move in long algebraic notation.
 
 ## `params`
 
