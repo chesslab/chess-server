@@ -88,9 +88,7 @@ Once again the `/play_lan` command makes a chess move, this time retrieving the 
 }
 ```
 
-Let's recap.
-
-Described below is the series of steps required to start a classical chess game with 1.e4 e5. Remember, computers and graphic user interfaces (GUIs) usually prefer the Long Algebraic Notation (LAN) format instead: e2e4 and e7e5.
+Let's recap. Described below is the series of steps required to start a classical chess game with 1.e4 e5. Remember, computers and graphic user interfaces (GUIs) usually prefer the Long Algebraic Notation (LAN) format instead: e2e4 and e7e5.
 
 ```js
 const ws = new WebSocket('wss://async.chesslablab.org:8443');
@@ -100,4 +98,4 @@ ws.send('/play_lan "{\\"color\\":\\"w\\",\\"lan\\":\\"e2e4\\"}"');
 ws.send('/play_lan "{\\"color\\":\\"b\\",\\"lan\\":\\"e7e5\\"}"');
 ```
 
-Now let's have a look at the WebSocket commands available!
+Now let's have a look at the WebSocket commands available! The commands fall into three broad categories. Text-based commands have no parameters. Action-based commands expect one parameter of type string. Param-based commands expect a JavaScript object parameter.
