@@ -34,8 +34,8 @@ ws.send('/stockfish "{\\"options\\":{\\"Skill Level\\":\\"20\\"},\\"params\\":{\
 {
   "/stockfish": {
     "turn": "w",
-    "movetext": "1.e4 e5",
-    "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6",
+    "movetext": "1.e4 c5",
+    "fen": "rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6",
     "variant": "classical"
   }
 }
