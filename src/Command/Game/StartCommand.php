@@ -177,10 +177,10 @@ class StartCommand extends AbstractCommand
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => [
                         'uid' => $gameMode->getUid(),
+                        'jwt' => $gameMode->getJwt(),
                         'variant' => $game->getVariant(),
                         'mode' => $game->getMode(),
                         'fen' => $game->getBoard()->toFen(),
-                        'jwt' => $gameMode->getJwt(),
                         ...($params['variant'] === Game::VARIANT_960
                             ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
                             : []
@@ -215,11 +215,12 @@ class StartCommand extends AbstractCommand
             $socket->getGameModeStorage()->set($gameMode);
             return $socket->getClientStorage()->send([$id], [
                 $this->name => [
+                    'uid' => $gameMode->getUid(),
+                    'jwt' => $gameMode->getJwt(),
                     'variant' => $game->getVariant(),
                     'mode' => $game->getMode(),
                     'color' => $params['settings']['color'],
                     'fen' => $game->getBoard()->toFen(),
-                    'jwt' => $gameMode->getJwt(),
                 ],
             ]);
         }
