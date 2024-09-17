@@ -160,6 +160,7 @@ class StartCommand extends AbstractCommand
                         : []
                     ),
                 ];
+                $payload['uid'] = hash('adler32', json_encode($payload));
                 $gameMode = new PlayMode(
                     $game,
                     [$id],
@@ -177,11 +178,11 @@ class StartCommand extends AbstractCommand
                 }
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => [
+                        'uid' => $gameMode->getUid(),
                         'variant' => $game->getVariant(),
                         'mode' => $game->getMode(),
                         'fen' => $game->getBoard()->toFen(),
                         'jwt' => $gameMode->getJwt(),
-                        'hash' => $gameMode->getHash(),
                         ...($params['variant'] === Game::VARIANT_960
                             ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
                             : []

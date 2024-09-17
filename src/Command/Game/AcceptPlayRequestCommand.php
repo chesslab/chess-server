@@ -27,7 +27,7 @@ class AcceptPlayRequestCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $gameMode = $socket->getGameModeStorage()->getByHash($params['hash']);
+        $gameMode = $socket->getGameModeStorage()->getByUid($params['uid']);
 
         if (!$gameMode) {
             return $socket->getClientStorage()->send([$id], [
@@ -64,8 +64,8 @@ class AcceptPlayRequestCommand extends AbstractCommand
             }
             return $socket->getClientStorage()->send($ids, [
                 $this->name => [
+                    'uid' => $gameMode->getUid(),
                     'jwt' => $gameMode->getJwt(),
-                    'hash' => hash('adler32', $gameMode->getJwt()),
                     'timer' => $gameMode->getTimer(),
                     'startedAt' => $gameMode->getStartedAt(),
                 ],

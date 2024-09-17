@@ -18,12 +18,12 @@ abstract class AbstractMode
 
     protected string $jwt;
 
-    protected string $hash;
+    protected string $uid;
 
     public function __construct(Game $game, array $resourceIds, string $jwt = '')
     {
         $this->jwt = $jwt;
-        $this->hash = $jwt ? hash('adler32', $jwt) : '';
+        $this->uid = $jwt ? hash('adler32', $jwt) : '';
         $this->game = $game;
         $this->resourceIds = $resourceIds;
     }
@@ -60,7 +60,6 @@ abstract class AbstractMode
     public function setJwt(array $payload)
     {
         $this->jwt = JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256');
-        $this->hash = hash('adler32', $this->jwt);
 
         return $this;
     }
@@ -70,9 +69,9 @@ abstract class AbstractMode
         return JWT::decode($this->jwt, new Key($_ENV['JWT_SECRET'], 'HS256'));
     }
 
-    public function getHash()
+    public function getUid()
     {
-        return $this->hash;
+        return $this->uid;
     }
 
     public function res($params, $cmd)

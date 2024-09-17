@@ -20,11 +20,11 @@ class GameModeStorage extends \SplObjectStorage
         return null;
     }
 
-    public function getByHash(string $hash): ?AbstractMode
+    public function getByUid(string $uid): ?AbstractMode
     {
         $this->rewind();
         while ($this->valid()) {
-            if ($hash === $this->current()->getHash()) {
+            if ($uid === $this->current()->getUid()) {
                 return $this->current();
             }
             $this->next();
@@ -55,7 +55,7 @@ class GameModeStorage extends \SplObjectStorage
                 if ($this->current()->getStatus() === $status) {
                     $decoded = $this->current()->getJwtDecoded();
                     if ($decoded->submode === $submode) {
-                        $decoded->hash = $this->current()->getHash();
+                        $decoded->uid = $this->current()->getUid();
                         $decoded->jwt = $this->current()->getJwt();
                         $items[] = $decoded;
                     }
