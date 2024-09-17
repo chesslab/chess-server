@@ -91,8 +91,6 @@ class StartCommand extends AbstractCommand
             } catch (\Throwable $e) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => [
-                        'variant' => $params['variant'],
-                        'mode' => $params['mode'],
                         'message' => 'This game could not be created.',
                     ],
                 ]);
@@ -192,8 +190,6 @@ class StartCommand extends AbstractCommand
             } catch (\Throwable $e) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => [
-                        'variant' => $params['variant'],
-                        'mode' => $params['mode'],
                         'message' => 'This game could not be created.',
                     ],
                 ]);
