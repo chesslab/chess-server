@@ -137,10 +137,10 @@ class StartCommand extends AbstractCommand
                             : self::ANONYMOUS_USER,
                     ],
                     'elo' => [
-                        Color::W => $params['settings']['color'] === Color::W && $params['settings']['elo']
+                        Color::W => $params['settings']['color'] === Color::W && isset($params['settings']['elo'])
                             ? $params['settings']['elo']
                             : null,
-                        Color::B => $params['settings']['color'] === Color::B && $params['settings']['elo']
+                        Color::B => $params['settings']['color'] === Color::B && isset($params['settings']['elo'])
                             ? $params['settings']['elo']
                             : null,
                     ],
