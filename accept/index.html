@@ -279,46 +279,49 @@
 <h1 id="accept">/accept</h1>
 <p>Accepts an invitation to play online with an opponent.</p>
 <h2 id="params"><code>params</code></h2>
-<h3 id="hash"><code>hash</code></h3>
-<p>The unique hash of the game.</p>
+<h3 id="uid"><code>uid</code></h3>
+<p>The unique identifier of the game.</p>
 <h3 id="username"><code>username</code></h3>
 <p>The username accepting the invitation.</p>
+<h3 id="elo"><code>elo</code></h3>
+<p>The ELO of the user accepting the invitation.</p>
 <hr />
 <h2 id="usage">Usage</h2>
 <h3 id="example">Example</h3>
-<pre><code class="language-js">ws.send('/accept &quot;{\\&quot;hash\\&quot;:\\&quot;5a3c9a56\\&quot;,\\&quot;username\\&quot;:null,\\&quot;elo\\&quot;:null}&quot;');
+<pre><code class="language-js">ws.send('accept &quot;{\\&quot;uid\\&quot;:\\&quot;d07fa3d9\\&quot;,\\&quot;username\\&quot;:\\&quot;boring_gnat\\&quot;,\\&quot;elo\\&quot;:1488}&quot;');
 </code></pre>
 <pre><code class="language-text">{
   &quot;/accept&quot;: {
-    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjY1MDE3NjEsImV4cCI6MTcyNjUwNTM2MSwidmFyaWFudCI6ImNsYXNzaWNhbCIsInVzZXJuYW1lIjp7InciOiJhbm9ueW1vdXMiLCJiIjoiYW5vbnltb3VzIn0sImVsbyI6eyJ3IjpudWxsLCJiIjpudWxsfSwic3VibW9kZSI6Im9ubGluZSIsImNvbG9yIjoidyIsIm1pbiI6IjUiLCJpbmNyZW1lbnQiOiIzIiwiZmVuIjoicm5icWtibnIvcHBwcHBwcHAvOC84LzgvOC9QUFBQUFBQUC9STkJRS0JOUiB3IEtRa3EgLSJ9.ziTYsSDK-aE9E51kq3PZSnZcZA4P2V33sZ8p5n0AFi4&quot;,
-    &quot;hash&quot;: &quot;5a3c9a56&quot;,
+    &quot;uid&quot;: &quot;d07fa3d9&quot;,
+    &quot;jwt&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjY1OTg3MTcsImV4cCI6MTcyNjYwMjMxNywidmFyaWFudCI6ImNsYXNzaWNhbCIsInVzZXJuYW1lIjp7InciOiJhbm9ueW1vdXMiLCJiIjoiYm9yaW5nX2duYXQifSwiZWxvIjp7InciOm51bGwsImIiOjE0ODh9LCJzdWJtb2RlIjoib25saW5lIiwiY29sb3IiOiJ3IiwibWluIjoiNSIsImluY3JlbWVudCI6IjMiLCJmZW4iOiJybmJxa2Juci9wcHBwcHBwcC84LzgvOC84L1BQUFBQUFBQL1JOQlFLQk5SIHcgS1FrcSAtIiwidWlkIjoiODg1MzU4YzIifQ.mUZdbBoi1bitZL8q-rO2Bt-KqdgGld8aGUTZCg-E-ss&quot;,
     &quot;timer&quot;: {
       &quot;w&quot;: 300,
       &quot;b&quot;: 300
     },
-    &quot;startedAt&quot;: 1726501844
+    &quot;startedAt&quot;: 1726598719
   }
 }
 </code></pre>
 <p>Decoded JWT:</p>
 <pre><code class="language-text">{
   &quot;iss&quot;: &quot;async.chesslablab.org&quot;,
-  &quot;iat&quot;: 1726501761,
-  &quot;exp&quot;: 1726505361,
+  &quot;iat&quot;: 1726598717,
+  &quot;exp&quot;: 1726602317,
   &quot;variant&quot;: &quot;classical&quot;,
   &quot;username&quot;: {
     &quot;w&quot;: &quot;anonymous&quot;,
-    &quot;b&quot;: &quot;anonymous&quot;
+    &quot;b&quot;: &quot;boring_gnat&quot;
   },
   &quot;elo&quot;: {
     &quot;w&quot;: null,
-    &quot;b&quot;: null
+    &quot;b&quot;: 1488
   },
   &quot;submode&quot;: &quot;online&quot;,
   &quot;color&quot;: &quot;w&quot;,
   &quot;min&quot;: &quot;5&quot;,
   &quot;increment&quot;: &quot;3&quot;,
-  &quot;fen&quot;: &quot;rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -&quot;
+  &quot;fen&quot;: &quot;rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -&quot;,
+  &quot;uid&quot;: &quot;885358c2&quot;
 }
 </code></pre></div>
             </div>
