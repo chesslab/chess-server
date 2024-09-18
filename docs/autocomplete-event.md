@@ -2,9 +2,7 @@
 
 Autocomplete data for chess events.
 
-## `params`
-
-### `Event`
+## `Event`
 
 The name of the event.
 

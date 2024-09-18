@@ -2,13 +2,11 @@
 
 TOTP sign in.
 
-## `params`
-
-### `username`
+## `username`
 
 The username.
 
-### `password`
+## `password`
 
 The password.
 

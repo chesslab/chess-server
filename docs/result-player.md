@@ -2,17 +2,15 @@
 
 Openings results by player.
 
-## `params`
-
-### `White`
+## `White`
 
 The name of the player with the white pieces.
 
-### `Black`
+## `Black`
 
 The name of the player with the black pieces.
 
-### `Result`
+## `Result`
 
 The result of the game.
 

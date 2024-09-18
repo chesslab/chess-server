@@ -2,13 +2,11 @@
 
 Openings results by event.
 
-## `params`
-
-### `Event`
+## `Event`
 
 The name of the event.
 
-### `Result`
+## `Result`
 
 The result of the game.
 

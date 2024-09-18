@@ -2,13 +2,11 @@
 
 Transmits an image.
 
-## `settings`
-
-### `fen`
+## `fen`
 
 A FEN string.
 
-### `flip`
+## `flip`
 
 The orientation of the board as per these options.
 

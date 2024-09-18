@@ -2,9 +2,7 @@
 
 Autocomplete data for chess players.
 
-## `params`
-
-### `Black`
+## `Black`
 
 The name of the player with the black pieces.
 

@@ -2,9 +2,7 @@
 
 Refresh the TOTP access token.
 
-## `params`
-
-### `access_token`
+## `access_token`
 
 The current access token.
 

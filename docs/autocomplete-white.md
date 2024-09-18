@@ -2,9 +2,7 @@
 
 Autocomplete data for chess players.
 
-## `params`
-
-### `White`
+## `White`
 
 The name of the player with the white pieces.
 

@@ -2,33 +2,31 @@
 
 Finds up to 25 games matching the criteria.
 
-## `params`
-
-### `Event`
+## `Event`
 
 The name of the event.
 
-### `Date`
+## `Date`
 
 The year the game was played.
 
-### `White`
+## `White`
 
 The name of the player with the white pieces.
 
-### `Black`
+## `Black`
 
 The name of the player with the black pieces.
 
-### `Result`
+## `Result`
 
 The result of the game.
 
-### `ECO`
+## `ECO`
 
 The ECO code of the opening used in the game.
 
-### `movetext`
+## `movetext`
 
 The sequence of moves played in the game.
 
