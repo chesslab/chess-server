@@ -2,7 +2,7 @@
 
 Openings results by player.
 
-## `settings`
+## `params`
 
 ### `White`
 

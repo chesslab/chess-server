@@ -2,7 +2,7 @@
 
 Finds up to 25 games matching the criteria.
 
-## `settings`
+## `params`
 
 ### `Event`
 
