@@ -2,7 +2,7 @@
 
 Autocomplete data for chess players.
 
-## `settings`
+## `params`
 
 ### `Black`
 

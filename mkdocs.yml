@@ -28,6 +28,7 @@ nav:
   - Data:
     - Text-based:
       - /annotations_game: annotations-game.md
+      - /ranking: ranking.md
       - /result: result.md
     - Param-based:
       - /autocomplete_black: autocomplete-black.md

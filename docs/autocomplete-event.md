@@ -2,7 +2,7 @@
 
 Autocomplete data for chess events.
 
-## `settings`
+## `params`
 
 ### `Event`
 

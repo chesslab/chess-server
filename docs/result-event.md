@@ -2,7 +2,7 @@
 
 Openings results by event.
 
-## `settings`
+## `params`
 
 ### `Event`
 
