@@ -2,15 +2,13 @@
 
 Returns Stockfish's response to the current position.
 
-## `params`
-
-### `options`
+## `options`
 
 Stockfish options.
 
 - `Skill Level` is the skill level.
 
-### `params`
+## `params`
 
 Stockfish params.
 

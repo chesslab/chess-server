@@ -2,9 +2,7 @@
 
 Restarts an existing game.
 
-## `params`
-
-### `jwt`
+## `jwt`
 
 The JWT token of the game.
 

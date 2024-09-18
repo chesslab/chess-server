@@ -1,10 +1,6 @@
 # /draw
 
-Offers a draw.
-
-## `action`
-
-The action to take as per these options.
+Offers a draw as per these actions.
 
 - `propose`
 - `decline`

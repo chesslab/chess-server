@@ -2,9 +2,7 @@
 
 Starts a new game.
 
-## `params`
-
-### `variant`
+## `variant`
 
 The chess variant as per these options.
 
@@ -14,7 +12,7 @@ The chess variant as per these options.
 - `losing` chess, the objective of each player is to lose all of their pieces or be stalemated.
 - `racing-kings` consists of being the first player to move their king to the eighth row.
 
-### `mode`
+## `mode`
 
 The game mode as per these options.
 
@@ -22,7 +20,7 @@ The game mode as per these options.
 - `play` allows to play chess online with other players.
 - `stockfish` allows to play chess against the computer.
 
-### `settings` (optional)
+## `settings` (optional)
 
 Additional optional parameters may be required depending on the mode selected as shown in the examples below.
 

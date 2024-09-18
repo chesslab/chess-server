@@ -2,16 +2,14 @@
 
 Starts a random position.
 
-## `params`
-
-### `turn`
+## `turn`
 
 The color as per these options.
 
 - `w` for the white pieces.
 - `b` for the black pieces.
 
-### `items`
+## `items`
 
 The piece composition string as per these options.
 

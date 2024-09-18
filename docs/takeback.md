@@ -1,10 +1,6 @@
 # /takeback
 
-Takes back a move.
-
-## `action`
-
-The action to take as per these options.
+Takes back a move as per these actions.
 
 - `propose`
 - `decline`

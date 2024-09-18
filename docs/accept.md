@@ -2,17 +2,15 @@
 
 Accepts an invitation to play online with an opponent.
 
-## `params`
-
-### `uid`
+## `uid`
 
 The unique identifier of the game.
 
-### `username`
+## `username`
 
 The username accepting the invitation.
 
-### `elo`
+## `elo`
 
 The ELO of the user accepting the invitation.
 

@@ -2,9 +2,7 @@
 
 Leaves a game.
 
-## `params`
-
-### `color`
+## `color`
 
 The color as per these options.
 

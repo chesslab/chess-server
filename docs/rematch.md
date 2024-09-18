@@ -1,10 +1,6 @@
 # /rematch
 
-Offers a rematch.
-
-## `action`
-
-The action to take as per these options.
+Offers a rematch as per these actions.
 
 - `propose`
 - `decline`

@@ -2,9 +2,7 @@
 
 Balance of a chess heuristic.
 
-## `params`
-
-### `variant`
+## `variant`
 
 The chess variant as per these options.
 
@@ -14,11 +12,11 @@ The chess variant as per these options.
 - `losing` chess, the objective of each player is to lose all of their pieces or be stalemated.
 - `racing-kings` consists of being the first player to move their king to the eighth row.
 
-### `movetext`
+## `movetext`
 
 The sequence of moves played in the game.
 
-### `name`
+## `name`
 
 The name of the heuristic as per these options.
 
