@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="https://chesslablab.github.io/chess-server/result-event/">
+        <link rel="canonical" href="https://chesslablab.github.io/chess-server/ranking/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>/result_event - PHP Chess Server</title>
+        <title>/ranking - PHP Chess Server</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -143,7 +143,7 @@
 </li>
             
 <li>
-    <a href="../ranking/" class="dropdown-item">/ranking</a>
+    <a href="./" class="dropdown-item active">/ranking</a>
 </li>
             
 <li>
@@ -169,7 +169,7 @@
 </li>
             
 <li>
-    <a href="./" class="dropdown-item active">/result_event</a>
+    <a href="../result-event/" class="dropdown-item">/result_event</a>
 </li>
             
 <li>
@@ -236,12 +236,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../autocomplete-white/" class="nav-link">
+                                <a rel="prev" href="../annotations-game/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../result-player/" class="nav-link">
+                                <a rel="next" href="../result/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -263,12 +263,8 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#result_event" class="nav-link">/result_event</a>
+            <li class="nav-item" data-level="1"><a href="#ranking" class="nav-link">/ranking</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#params" class="nav-link">params</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
             <li class="nav-item" data-level="2"><a href="#usage" class="nav-link">Usage</a>
               <ul class="nav flex-column">
               </ul>
@@ -280,39 +276,23 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="result_event">/result_event</h1>
-<p>Openings results by event.</p>
-<h2 id="params"><code>params</code></h2>
-<h3 id="event"><code>Event</code></h3>
-<p>The name of the event.</p>
-<h3 id="result"><code>Result</code></h3>
-<p>The result of the game.</p>
+<h1 id="ranking">/ranking</h1>
+<p>Top players by ELO.</p>
 <hr />
 <h2 id="usage">Usage</h2>
 <h3 id="example">Example</h3>
-<pre><code class="language-js">ws.send('/result_event &quot;{\\&quot;Event\\&quot;:\\&quot;FIDE Candidates 2016\\&quot;,\\&quot;Result\\&quot;:\\&quot;1-0\\&quot;}&quot;');
+<pre><code class="language-js">ws.send('/ranking');
 </code></pre>
 <pre><code class="language-text">{
-  &quot;/result_event&quot;: [
+  &quot;/ranking&quot;: [
     {
-      &quot;ECO&quot;: &quot;C65&quot;,
-      &quot;total&quot;: 2
+      &quot;username&quot;: &quot;shy_caribou&quot;,
+      &quot;elo&quot;: 2127
     },
+    ...
     {
-      &quot;ECO&quot;: &quot;A29&quot;,
-      &quot;total&quot;: 2
-    },
-    {
-      &quot;ECO&quot;: &quot;A06&quot;,
-      &quot;total&quot;: 1
-    },
-    {
-      &quot;ECO&quot;: &quot;C88&quot;,
-      &quot;total&quot;: 1
-    },
-    {
-      &quot;ECO&quot;: &quot;C50&quot;,
-      &quot;total&quot;: 1
+      &quot;username&quot;: &quot;snotty_mole&quot;,
+      &quot;elo&quot;: 1418
     }
   ]
 }
