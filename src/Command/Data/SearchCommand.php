@@ -53,7 +53,7 @@ class SearchCommand extends AbstractCommand
                     $sql .= "$key LIKE :$key AND ";
                     if ($key === 'movetext') {
                         $val = (new SanMovetext(new Move(), $params['movetext']))
-                            ->filtered($comments = true, $nags = false);
+                            ->filtered($comments = false, $nags = false);
                     }
                     $values[] = [
                         'param' => ":$key",
