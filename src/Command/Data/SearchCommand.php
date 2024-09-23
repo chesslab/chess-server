@@ -2,6 +2,8 @@
 
 namespace ChessServer\Command\Data;
 
+use Chess\Movetext\SanMovetext;
+use Chess\Variant\Classical\PGN\Move;
 use ChessServer\Db;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\AbstractSocket;
@@ -50,7 +52,8 @@ class SearchCommand extends AbstractCommand
                 if (in_array($key, self::SQL_LIKE)) {
                     $sql .= "$key LIKE :$key AND ";
                     if ($key === 'movetext') {
-                        $val = $params['movetext'];
+                        $val = (new SanMovetext(new Move(), $params['movetext']))
+                            ->filtered($comments = true, $nags = false);
                     }
                     $values[] = [
                         'param' => ":$key",
