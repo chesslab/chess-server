@@ -621,11 +621,11 @@
         },
         {
             "name": "chesslablab/php-chess",
-            "version": "1.4.64",
+            "version": "1.4.66",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chesslablab/php-chess.git",
-                "reference": "0d45bf92fd74afc5521b69f44155fcf37670088c"
+                "reference": "ba9d306a96cbd4dd4176e8bb2ec86d179c045927"
             },
             "require": {
                 "imagine/imagine": "^1.2",
@@ -682,7 +682,7 @@
                 "validate",
                 "validator"
             ],
-            "time": "2024-09-26T16:49:36+00:00"
+            "time": "2024-09-30T17:36:45+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -3886,16 +3886,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.2.0",
+            "version": "v5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb"
+                "reference": "3abf7425cd284141dc5d8d14a9ee444de3345d1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb",
-                "reference": "23c79fbbfb725fb92af9bcf41065c8e9a0d49ddb",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/3abf7425cd284141dc5d8d14a9ee444de3345d1a",
+                "reference": "3abf7425cd284141dc5d8d14a9ee444de3345d1a",
                 "shasum": ""
             },
             "require": {
@@ -3938,9 +3938,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.2.0"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.3.0"
             },
-            "time": "2024-09-15T16:40:33+00:00"
+            "time": "2024-09-29T13:56:26+00:00"
         },
         {
             "name": "phar-io/manifest",
