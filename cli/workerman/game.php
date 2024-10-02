@@ -10,11 +10,14 @@ use ChessServer\Socket\Workerman\GameWebSocket;
 use Dotenv\Dotenv;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Spatie\Async\Pool;
 
 require __DIR__  . '/../../vendor/autoload.php';
 
 $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
 $dotenv->load();
+
+$pool = Pool::create();
 
 $db = new Db([
    'driver' => $_ENV['DB_DRIVER'],
@@ -27,7 +30,7 @@ $db = new Db([
 $logger = new Logger('game');
 $logger->pushHandler(new StreamHandler(GameWebSocket::STORAGE_FOLDER . '/game.log', Logger::INFO));
 
-$parser = new Parser(new Cli($db));
+$parser = new Parser(new Cli($pool, $db));
 
 $clientStorage = new ClientStorage($logger);
 

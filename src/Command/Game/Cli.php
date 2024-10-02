@@ -4,12 +4,13 @@ namespace ChessServer\Command\Game;
 
 use ChessServer\Db;
 use ChessServer\Command\AbstractCli;
+use Spatie\Async\Pool;
 
 class Cli extends AbstractCli
 {
     private Db $db;
 
-    public function __construct(Db $db)
+    public function __construct(Pool $pool, Db $db)
     {
         parent::__construct();
 
@@ -24,7 +25,7 @@ class Cli extends AbstractCli
         $this->commands->attach(new TakebackCommand());
         // param-based commands
         $this->commands->attach(new AcceptPlayRequestCommand());
-        $this->commands->attach(new HeuristicCommand());
+        $this->commands->attach((new HeuristicCommand())->setPool($pool));
         $this->commands->attach(new LeaveCommand($db));
         $this->commands->attach(new LegalCommand());
         $this->commands->attach(new PlayLanCommand());
