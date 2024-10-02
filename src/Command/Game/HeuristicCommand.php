@@ -3,7 +3,6 @@
 namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Command\Game\AsyncTask\HeuristicAsyncTask;
 use ChessServer\Socket\AbstractSocket;
 
 class HeuristicCommand extends AbstractCommand

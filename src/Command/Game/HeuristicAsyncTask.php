@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Game\AsyncTask;
+namespace ChessServer\Command\Game;
 
 use Chess\SanHeuristic;
 use Chess\Function\CompleteFunction;
