@@ -10,6 +10,7 @@ use ChessServer\Command\Game\RestartCommand;
 use ChessServer\Command\Game\StartCommand;
 use ChessServer\Exception\ParserException;
 use PHPUnit\Framework\TestCase;
+use Spatie\Async\Pool;
 
 class ParserTest extends TestCase
 {
@@ -17,11 +18,15 @@ class ParserTest extends TestCase
 
     public function setUp(): void
     {
+        $pool = $this->getMockBuilder(Pool::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $db = $this->getMockBuilder(Db::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        self::$parser = new Parser(new Cli($db));
+        self::$parser = new Parser(new Cli($pool, $db));
     }
 
     /**
