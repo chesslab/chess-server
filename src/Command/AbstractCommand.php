@@ -4,6 +4,7 @@ namespace ChessServer\Command;
 
 use ChessServer\Db;
 use ChessServer\Socket\AbstractSocket;
+use Spatie\Async\Pool;
 
 abstract class AbstractCommand
 {
@@ -14,6 +15,8 @@ abstract class AbstractCommand
     protected string $description;
 
     protected array $params = [];
+
+    protected Pool $pool;
 
     protected Db $db;
 
@@ -27,6 +30,13 @@ abstract class AbstractCommand
         if (property_exists($this, $property)) {
             return $this->$property;
         }
+    }
+
+    public function setPool(Pool $pool): AbstractCommand
+    {
+        $this->pool = $pool;
+
+        return $this;
     }
 
     abstract public function validate(array $command);

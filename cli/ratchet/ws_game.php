@@ -14,11 +14,14 @@ use Ratchet\Http\HttpServer;
 use Ratchet\Http\OriginCheck;
 use Ratchet\Server\IoServer;
 use Ratchet\WebSocket\WsServer;
+use Spatie\Async\Pool;
 
 require __DIR__  . '/../../vendor/autoload.php';
 
 $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
 $dotenv->load();
+
+$pool = Pool::create();
 
 $db = new Db([
    'driver' => $_ENV['DB_DRIVER'],
@@ -33,7 +36,7 @@ $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/game.log', L
 
 $clientStorage = new ClientStorage($logger);
 
-$parser = new Parser(new Cli($db));
+$parser = new Parser(new Cli($pool, $db));
 
 $webSocket = (new GameWebSocket($parser))->init($clientStorage);
 
