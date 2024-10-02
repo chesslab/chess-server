@@ -23,7 +23,8 @@
     "monolog/monolog": "^2.3",
     "react/async": "^4.1.0",
     "workerman/workerman": "^4.1",
-    "spomky-labs/otphp": "^11.3"
+    "spomky-labs/otphp": "^11.3",
+    "spatie/async": "^1.6"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.5"
