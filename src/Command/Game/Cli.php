@@ -29,7 +29,7 @@ class Cli extends AbstractCli
         $this->commands->attach(new LeaveCommand($db));
         $this->commands->attach(new LegalCommand());
         $this->commands->attach(new PlayLanCommand());
-        $this->commands->attach(new PlayRavCommand());
+        $this->commands->attach((new PlayRavCommand())->setPool($pool));
         $this->commands->attach(new RandomizerCommand());
         $this->commands->attach(new ResignCommand($db));
         $this->commands->attach(new RestartCommand($db));
