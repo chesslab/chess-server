@@ -2,16 +2,13 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Db;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\AbstractSocket;
 
 class AutocompleteBlackCommand extends AbstractCommand
 {
-    public function __construct(Db $db)
+    public function __construct()
     {
-        parent::__construct($db);
-
         $this->name = '/autocomplete_black';
         $this->description = 'Autocomplete data for chess players.';
         $this->params = [
@@ -28,20 +25,19 @@ class AutocompleteBlackCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $key = key($params);
-
-        $values[] = [
-            'param' => ":$key",
-            'value' => '%'. current($params) .'%',
-            'type' => \PDO::PARAM_STR,
+        $conf = [
+            'driver' => $_ENV['DB_DRIVER'],
+            'host' => $_ENV['DB_HOST'],
+            'database' => $_ENV['DB_DATABASE'],
+            'username' => $_ENV['DB_USERNAME'],
+            'password' => $_ENV['DB_PASSWORD'],
         ];
 
-        $sql = "SELECT DISTINCT $key FROM games WHERE $key LIKE :$key LIMIT 10";
-
-        $arr = $this->db->query($sql, $values)->fetchAll(\PDO::FETCH_COLUMN);
-
-        return $socket->getClientStorage()->send([$id], [
-            $this->name => $arr,
-        ]);
+        $this->pool->add(new AutocompleteBlackAsyncTask($params, $conf))
+            ->then(function ($result) use ($socket, $id) {
+                return $socket->getClientStorage()->send([$id], [
+                    $this->name => $result,
+                ]);
+            });
     }
 }

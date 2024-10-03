@@ -20,7 +20,7 @@ class Cli extends AbstractCli
         $this->commands->attach(new RankingCommand($db));
         $this->commands->attach(new ResultCommand($db));
         // param-based commands
-        $this->commands->attach(new AutocompleteBlackCommand($db));
+        $this->commands->attach((new AutocompleteBlackCommand())->setPool($pool));
         $this->commands->attach(new AutocompleteEventCommand($db));
         $this->commands->attach(new AutocompleteWhiteCommand($db));
         $this->commands->attach(new ResultEventCommand($db));
