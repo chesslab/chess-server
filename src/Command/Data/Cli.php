@@ -25,7 +25,7 @@ class Cli extends AbstractCli
         $this->commands->attach(new AutocompleteWhiteCommand($db));
         $this->commands->attach(new ResultEventCommand($db));
         $this->commands->attach(new ResultPlayerCommand($db));
-        $this->commands->attach((new SearchCommand($db))->setPool($pool));
+        $this->commands->attach((new SearchCommand())->setPool($pool));
     }
 
     public function getDb(): Db
