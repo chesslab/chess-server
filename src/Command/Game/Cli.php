@@ -34,7 +34,7 @@ class Cli extends AbstractCli
         $this->commands->attach(new ResignCommand($db));
         $this->commands->attach(new RestartCommand($db));
         $this->commands->attach(new StartCommand($db));
-        $this->commands->attach(new StockfishCommand());
+        $this->commands->attach((new StockfishCommand())->setPool($pool));
         $this->commands->attach(new TutorFenCommand());
     }
 

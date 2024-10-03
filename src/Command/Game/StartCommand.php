@@ -199,7 +199,7 @@ class StartCommand extends AbstractCommand
                 $board = FenToBoardFactory::create($params['settings']['fen'], new ClassicalBoard());
                 $game = (new Game($params['variant'], $params['mode']))->setBoard($board);
             } else {
-                $game = new Game($params['variant'], $params['mode'], $socket->getGmMove());
+                $game = new Game($params['variant'], $params['mode']);
             }
             $payload = [
                 'iss' => $_ENV['JWT_ISS'],

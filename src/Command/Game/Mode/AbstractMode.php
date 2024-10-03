@@ -5,7 +5,6 @@ namespace ChessServer\Command\Game\Mode;
 use ChessServer\Command\Game\Game;
 use ChessServer\Command\Game\LegalCommand;
 use ChessServer\Command\Game\PlayLanCommand;
-use ChessServer\Command\Game\StockfishCommand;
 use ChessServer\Command\Game\UndoCommand;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -91,21 +90,7 @@ abstract class AbstractMode
                       'isValid' => $isValid,
                     ],
                 ];
-
-            case StockfishCommand::class:
-                if (!isset($this->game->state()->end)) {
-                    $computer = $this->game->computer($params['options'], $params['params']);
-                    if ($computer['pgn']) {
-                        $this->game->play($this->game->state()->turn, $computer['pgn']);
-                    }
-                }
-                return [
-                    $cmd->name => [
-                      ...(array) $this->game->state(),
-                      'variant' =>  $this->game->getVariant(),
-                    ],
-                ];
-
+                
             case UndoCommand::class:
                 $board = $this->game->getBoard()->undo();
                 $this->game->setBoard($board);
