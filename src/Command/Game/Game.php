@@ -2,9 +2,6 @@
 
 namespace ChessServer\Command\Game;
 
-use Chess\Computer\GrandmasterMove;
-use Chess\UciEngine\UciEngine;
-use Chess\UciEngine\Details\Limit;
 use Chess\Variant\AbstractBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\StartPosition as Chess960StartPosition;
@@ -33,20 +30,14 @@ class Game
 
     private string $mode;
 
-    private null|GrandmasterMove $gmMove;
-
     private string $resignation = '';
 
     private string $abandoned = '';
 
-    public function __construct(
-        string $variant,
-        string $mode,
-        null|GrandmasterMove $gmMove = null
-    ) {
+    public function __construct(string $variant, string $mode)
+    {
         $this->variant = $variant;
         $this->mode = $mode;
-        $this->gmMove = $gmMove;
 
         if ($this->variant === self::VARIANT_960) {
             $startPos = (new Chess960StartPosition())->create();
@@ -120,29 +111,6 @@ class Game
                 ? ['end' => $end]
                 : []
             ),
-        ];
-    }
-
-    public function computer(array $options = [], array $params = []): ?array
-    {
-        if ($this->gmMove) {
-            if ($move = $this->gmMove->move($this->board)) {
-                return $move;
-            }
-        }
-
-        $limit = new Limit();
-        $limit->depth = $params['depth'];
-        $stockfish = (new UciEngine('/usr/games/stockfish'))->setOption('Skill Level', $options['Skill Level']);
-        $analysis = $stockfish->analysis($this->board, $limit);
-
-        $clone = $this->board->clone();
-        $clone->playLan($this->board->turn, $analysis['bestmove']);
-        $history = $clone->history;
-        $end = end($history);
-
-        return [
-            'pgn' => $end['move']['pgn'],
         ];
     }
 

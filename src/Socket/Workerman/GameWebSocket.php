@@ -2,7 +2,6 @@
 
 namespace ChessServer\Socket\Workerman;
 
-use Chess\Computer\GrandmasterMove;
 use ChessServer\Command\Parser;
 use ChessServer\Command\Game\GameModeStorage;
 use ChessServer\Socket\DbReconnectTrait;
@@ -26,15 +25,9 @@ class GameWebSocket extends AbstractWebSocket
             });
         };
 
-        $this->gmMove = new GrandmasterMove(self::DATA_FOLDER.'/players.json');
         $this->gameModeStorage = new GameModeStorage();
 
         $this->connect()->message()->error()->close();
-    }
-
-    public function getGmMove(): GrandmasterMove
-    {
-        return $this->gmMove;
     }
 
     public function getGameModeStorage(): GameModeStorage

@@ -24,15 +24,21 @@ class StockfishCommand extends AbstractCommand
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
         $params = json_decode(stripslashes($argv[1]), true);
-        $gameMode = $socket->getGameModeStorage()->getById($id);
+        $game = $socket->getGameModeStorage()->getById($id)->getGame();
 
-        $this->pool->add(new StockfishAsyncTask($params, $gameMode, $this))
-            ->then(function ($result) use ($socket, $id) {
-                return $socket->getClientStorage()->send([$id], [
-                    $this->name => $result,
-                ]);
-            });
-
-        // $this->pool->wait();
+        if (!isset($game->state()->end)) {
+            $this->pool->add(new StockfishAsyncTask($params, $game->getBoard()))
+                ->then(function ($result) use ($socket, $id, $game) {
+                    if ($result['pgn']) {
+                        $game->play($game->state()->turn, $result['pgn']);
+                    }
+                    return $socket->getClientStorage()->send([$id], [
+                        $this->name => [
+                            ...(array) $game->state(),
+                            'variant' => $game->getVariant(),
+                        ],
+                    ]);
+                });
+        }
     }
 }
