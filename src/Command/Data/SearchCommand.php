@@ -2,31 +2,13 @@
 
 namespace ChessServer\Command\Data;
 
-use Chess\Movetext\SanMovetext;
-use Chess\Variant\Classical\PGN\Move;
-use ChessServer\Db;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\AbstractSocket;
 
 class SearchCommand extends AbstractCommand
 {
-    const SQL_LIKE = [
-        'Date',
-        'movetext',
-    ];
-
-    const SQL_EQUAL = [
-        'Event',
-        'White',
-        'Black',
-        'ECO',
-        'Result',
-    ];
-
-    public function __construct(Db $db)
+    public function __construct()
     {
-        parent::__construct($db);
-
         $this->name = '/search';
         $this->description = 'Finds up to 25 games matching the criteria.';
         $this->params = [
@@ -43,44 +25,19 @@ class SearchCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $sql = 'SELECT * FROM games WHERE ';
+        $conf = [
+            'driver' => $_ENV['DB_DRIVER'],
+            'host' => $_ENV['DB_HOST'],
+            'database' => $_ENV['DB_DATABASE'],
+            'username' => $_ENV['DB_USERNAME'],
+            'password' => $_ENV['DB_PASSWORD'],
+        ];
 
-        $values = [];
-
-        foreach ($params as $key => $val) {
-            if ($val) {
-                if (in_array($key, self::SQL_LIKE)) {
-                    $sql .= "$key LIKE :$key AND ";
-                    if ($key === 'movetext') {
-                        $val = (new SanMovetext(new Move(), $params['movetext']))
-                            ->filtered($comments = false, $nags = false);
-                    }
-                    $values[] = [
-                        'param' => ":$key",
-                        'value' => '%'.$val.'%',
-                        'type' => \PDO::PARAM_STR,
-                    ];
-                } else if (in_array($key, self::SQL_EQUAL) && $val) {
-                    $sql .= "$key = :$key AND ";
-                    $values[] = [
-                        'param' => ":$key",
-                        'value' => $val,
-                        'type' => \PDO::PARAM_STR,
-                    ];
-                }
-            }
-        }
-
-        str_ends_with($sql, 'WHERE ')
-            ? $sql = substr($sql, 0, -6)
-            : $sql = substr($sql, 0, -4);
-
-        $sql .= 'ORDER BY RAND() LIMIT 25';
-
-        $arr = $this->db->query($sql, $values)->fetchAll(\PDO::FETCH_ASSOC);
-
-        return $socket->getClientStorage()->send([$id], [
-            $this->name => $arr,
-        ]);
+        $this->pool->add(new SearchAsyncTask($params, $conf), 81920)
+            ->then(function ($result) use ($socket, $id) {
+                return $socket->getClientStorage()->send([$id], [
+                    $this->name => $result,
+                ]);
+            });
     }
 }
