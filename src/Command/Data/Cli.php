@@ -4,12 +4,13 @@ namespace ChessServer\Command\Data;
 
 use ChessServer\Db;
 use ChessServer\Command\AbstractCli;
+use Spatie\Async\Pool;
 
 class Cli extends AbstractCli
 {
     private Db $db;
 
-    public function __construct(Db $db)
+    public function __construct(Pool $pool, Db $db)
     {
         parent::__construct();
 
@@ -24,7 +25,7 @@ class Cli extends AbstractCli
         $this->commands->attach(new AutocompleteWhiteCommand($db));
         $this->commands->attach(new ResultEventCommand($db));
         $this->commands->attach(new ResultPlayerCommand($db));
-        $this->commands->attach(new SearchCommand($db));
+        $this->commands->attach((new SearchCommand($db))->setPool($pool));
     }
 
     public function getDb(): Db
