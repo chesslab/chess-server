@@ -24,22 +24,19 @@ class SearchAsyncTask extends Task
 
     private array $params;
 
+    private array $conf;
+
     private Db $db;
 
-    public function __construct(array $params)
+    public function __construct(array $params, array $conf)
     {
         $this->params = $params;
+        $this->conf = $conf;
     }
 
     public function configure()
     {
-        $this->db = new Db([
-           'driver' => 'mysql',
-           'host' => '172.20.0.1',
-           'database' => 'chess',
-           'username' => 'root',
-           'password' => '',
-        ]);
+        $this->db = new Db($this->conf);
     }
 
     public function run()
