@@ -2,18 +2,13 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Db;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\AbstractSocket;
 
 class ResultCommand extends AbstractCommand
 {
-    const RESULT_FILE = 'most_played_openings.json';
-
-    public function __construct(Db $db)
+    public function __construct()
     {
-        parent::__construct($db);
-
         $this->name = '/result';
         $this->description = 'Openings results.';
     }
@@ -25,12 +20,11 @@ class ResultCommand extends AbstractCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $contents = file_get_contents(AbstractSocket::DATA_FOLDER.'/'.self::RESULT_FILE);
-
-        $arr = json_decode($contents);
-
-        return $socket->getClientStorage()->send([$id], [
-            $this->name => $arr,
-        ]);
+        $this->pool->add(new ResultAsyncTask(), 81920)
+            ->then(function ($result) use ($socket, $id) {
+                return $socket->getClientStorage()->send([$id], [
+                    $this->name => $result,
+                ]);
+            });
     }
 }
