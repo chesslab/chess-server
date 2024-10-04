@@ -2,16 +2,13 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Db;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\AbstractSocket;
 
 class RankingCommand extends AbstractCommand
 {
-    public function __construct(Db $db)
+    public function __construct()
     {
-        parent::__construct($db);
-
         $this->name = '/ranking';
         $this->description = 'Top players by ELO.';
     }
@@ -23,12 +20,19 @@ class RankingCommand extends AbstractCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $sql = "SELECT username, elo FROM users WHERE lastLoginAt IS NOT NULL ORDER BY elo DESC LIMIT 20";
+        $conf = [
+            'driver' => $_ENV['DB_DRIVER'],
+            'host' => $_ENV['DB_HOST'],
+            'database' => $_ENV['DB_DATABASE'],
+            'username' => $_ENV['DB_USERNAME'],
+            'password' => $_ENV['DB_PASSWORD'],
+        ];
 
-        $arr = $this->db->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
-
-        return $socket->getClientStorage()->send([$id], [
-            $this->name => $arr,
-        ]);
+        $this->pool->add(new RankingAsyncTask($conf))
+            ->then(function ($result) use ($socket, $id) {
+                return $socket->getClientStorage()->send([$id], [
+                    $this->name => $result,
+                ]);
+            });
     }
 }
