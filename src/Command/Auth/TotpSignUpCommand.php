@@ -2,18 +2,13 @@
 
 namespace ChessServer\Command\Auth;
 
-use ChessServer\Db;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\AbstractSocket;
-use OTPHP\InternalClock;
-use OTPHP\TOTP;
 
 class TotpSignUpCommand extends AbstractCommand
 {
-    public function __construct(Db $db)
+    public function __construct()
     {
-        parent::__construct($db);
-
         $this->name = '/totp_signup';
         $this->description = 'TOTP sign up URL.';
     }
@@ -25,25 +20,23 @@ class TotpSignUpCommand extends AbstractCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $sql = "SELECT username FROM users WHERE lastLoginAt IS NULL ORDER BY RAND() LIMIT 1";
-
-        $username = $this->db->query($sql)->fetchColumn();
-
-        $otp = TOTP::createFromSecret($_ENV['TOTP_SECRET'], new InternalClock());
-        $otp->setDigits(9);
-        $otp->setLabel($username);
-        $otp->setIssuer('ChesslaBlab');
-        $otp->setParameter('image', 'https://chesslablab.org/logo.png');
-
-        $arr = [
-            'uri' => $otp->getQrCodeUri(
-                'https://api.qrserver.com/v1/create-qr-code/?data=[DATA]&size=300x300&ecc=M',
-                '[DATA]'
-            )
+        $conf = [
+            'driver' => $_ENV['DB_DRIVER'],
+            'host' => $_ENV['DB_HOST'],
+            'database' => $_ENV['DB_DATABASE'],
+            'username' => $_ENV['DB_USERNAME'],
+            'password' => $_ENV['DB_PASSWORD'],
         ];
 
-        return $socket->getClientStorage()->send([$id], [
-            $this->name => $arr,
-        ]);
+        $totp = [
+            'secret' => $_ENV['TOTP_SECRET'],
+        ];
+
+        $this->pool->add(new TotpSignUpAsyncTask($conf, $totp))
+            ->then(function ($result) use ($socket, $id) {
+                return $socket->getClientStorage()->send([$id], [
+                    $this->name => $result,
+                ]);
+            });
     }
 }
