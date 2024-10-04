@@ -26,7 +26,5 @@ class AnnotationsGameCommand extends AbstractCommand
                     $this->name => $result,
                 ]);
             });
-
-        $this->pool->wait();
     }
 }
