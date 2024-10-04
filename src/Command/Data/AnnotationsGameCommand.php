@@ -2,18 +2,13 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Db;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\AbstractSocket;
 
 class AnnotationsGameCommand extends AbstractCommand
 {
-    const ANNOTATIONS_GAMES_FILE = 'annotations_games.json';
-
-    public function __construct(Db $db)
+    public function __construct()
     {
-        parent::__construct($db);
-
         $this->name = '/annotations_game';
         $this->description = 'Annotated chess games.';
     }
@@ -25,12 +20,13 @@ class AnnotationsGameCommand extends AbstractCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $contents = file_get_contents(AbstractSocket::DATA_FOLDER.'/'.self::ANNOTATIONS_GAMES_FILE);
+        $this->pool->add(new AnnotationsGameAsyncTask(), 128000)
+            ->then(function ($result) use ($socket, $id) {
+                return $socket->getClientStorage()->send([$id], [
+                    $this->name => $result,
+                ]);
+            });
 
-        $arr = json_decode($contents);
-
-        return $socket->getClientStorage()->send([$id], [
-            $this->name => $arr,
-        ]);
+        $this->pool->wait();
     }
 }
