@@ -2,26 +2,13 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Db;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\AbstractSocket;
 
 class ResultPlayerCommand extends AbstractCommand
 {
-    const SQL_LIKE = [
-
-    ];
-
-    const SQL_EQUAL = [
-        'White',
-        'Black',
-        'Result',
-    ];
-
-    public function __construct(Db $db)
+    public function __construct()
     {
-        parent::__construct($db);
-
         $this->name = '/result_player';
         $this->description = 'Openings results by player.';
         $this->params = [
@@ -38,38 +25,19 @@ class ResultPlayerCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $sql = 'SELECT ECO, COUNT(*) as total FROM games WHERE ';
+        $conf = [
+            'driver' => $_ENV['DB_DRIVER'],
+            'host' => $_ENV['DB_HOST'],
+            'database' => $_ENV['DB_DATABASE'],
+            'username' => $_ENV['DB_USERNAME'],
+            'password' => $_ENV['DB_PASSWORD'],
+        ];
 
-        $values = [];
-
-        foreach ($params as $key => $val) {
-            if (in_array($key, self::SQL_LIKE)) {
-                $sql .= "$key LIKE :$key AND ";
-                $values[] = [
-                    'param' => ":$key",
-                    'value' => '%'.$val.'%',
-                    'type' => \PDO::PARAM_STR,
-                ];
-            } else if (in_array($key, self::SQL_EQUAL) && $val) {
-                $sql .= "$key = :$key AND ";
-                $values[] = [
-                    'param' => ":$key",
-                    'value' => $val,
-                    'type' => \PDO::PARAM_STR,
-                ];
-            }
-        }
-
-        str_ends_with($sql, 'WHERE ')
-            ? $sql = substr($sql, 0, -6)
-            : $sql = substr($sql, 0, -4);
-
-        $sql .= 'GROUP BY ECO ORDER BY total DESC';
-
-        $arr = $this->db->query($sql, $values)->fetchAll(\PDO::FETCH_ASSOC);
-
-        return $socket->getClientStorage()->send([$id], [
-            $this->name => $arr,
-        ]);
+        $this->pool->add(new ResultPlayerAsyncTask($params, $conf))
+            ->then(function ($result) use ($socket, $id) {
+                return $socket->getClientStorage()->send([$id], [
+                    $this->name => $result,
+                ]);
+            });
     }
 }
