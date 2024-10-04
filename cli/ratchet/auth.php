@@ -17,11 +17,14 @@ use React\EventLoop\Factory;
 use React\Socket\LimitingServer;
 use React\Socket\Server;
 use React\Socket\SecureServer;
+use Spatie\Async\Pool;
 
 require __DIR__  . '/../../vendor/autoload.php';
 
 $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
 $dotenv->load();
+
+$pool = Pool::create();
 
 $db = new Db([
    'driver' => $_ENV['DB_DRIVER'],
@@ -34,7 +37,7 @@ $db = new Db([
 $logger = new Logger('auth');
 $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/auth.log', Logger::INFO));
 
-$parser = new Parser(new Cli($db));
+$parser = new Parser(new Cli($pool, $db));
 
 $clientStorage = new ClientStorage($logger);
 
