@@ -16,7 +16,7 @@ class Cli extends AbstractCli
 
         $this->db = $db;
         $this->commands->attach(new TotpRefreshCommand($db));
-        $this->commands->attach(new TotpSignInCommand($db));
+        $this->commands->attach((new TotpSignInCommand())->setPool($pool));
         $this->commands->attach((new TotpSignUpCommand())->setPool($pool));
     }
 
