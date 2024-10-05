@@ -7,18 +7,18 @@ use Spatie\Async\Task;
 
 class RankingAsyncTask extends Task
 {
-    private array $conf;
+    private array $env;
 
     private Db $db;
 
-    public function __construct(array $conf)
+    public function __construct(array $env)
     {
-        $this->conf = $conf;
+        $this->env = $env;
     }
 
     public function configure()
     {
-        $this->db = new Db($this->conf);
+        $this->db = new Db($this->env['db']);
     }
 
     public function run()
