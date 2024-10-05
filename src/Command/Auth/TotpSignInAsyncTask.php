@@ -12,30 +12,24 @@ class TotpSignInAsyncTask extends Task
 {
     private array $params;
 
-    private array $conf;
-
-    private array $totp;
-
-    private array $jwt;
+    private array $env;
 
     private Db $db;
 
-    public function __construct(array $params, array $conf, array $totp, array $jwt)
+    public function __construct(array $params, array $env)
     {
         $this->params = $params;
-        $this->conf = $conf;
-        $this->totp = $totp;
-        $this->jwt = $jwt;
+        $this->env = $env;
     }
 
     public function configure()
     {
-        $this->db = new Db($this->conf);
+        $this->db = new Db($this->env['db']);
     }
 
     public function run()
     {
-        $otp = TOTP::createFromSecret($this->totp['secret'], new InternalClock());
+        $otp = TOTP::createFromSecret($this->env['totp']['secret'], new InternalClock());
         $otp->setDigits(9);
 
         if ($otp->verify($this->params['password'], null, 5)) {
@@ -56,7 +50,7 @@ class TotpSignInAsyncTask extends Task
             $this->db->query($sql, $values);
 
             $payload = [
-                'iss' => $this->jwt['iss'],
+                'iss' => $this->env['jwt']['iss'],
                 'iat' => time(),
                 'exp' => time() + 3600, // one hour by default
                 'username' => $arr['username'],
@@ -64,7 +58,7 @@ class TotpSignInAsyncTask extends Task
             ];
 
             return [
-                'access_token' => JWT::encode($payload, $this->jwt['secret'], 'HS256'),
+                'access_token' => JWT::encode($payload, $this->env['jwt']['secret'], 'HS256'),
             ];
         }
 
