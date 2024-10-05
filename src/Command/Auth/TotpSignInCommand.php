@@ -2,19 +2,13 @@
 
 namespace ChessServer\Command\Auth;
 
-use ChessServer\Db;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\AbstractSocket;
-use Firebase\JWT\JWT;
-use OTPHP\InternalClock;
-use OTPHP\TOTP;
 
 class TotpSignInCommand extends AbstractCommand
 {
-    public function __construct(Db $db)
+    public function __construct()
     {
-        parent::__construct($db);
-
         $this->name = '/totp_signin';
         $this->description = 'TOTP sign in.';
         $this->params = [
@@ -31,43 +25,28 @@ class TotpSignInCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $otp = TOTP::createFromSecret($_ENV['TOTP_SECRET'], new InternalClock());
-        $otp->setDigits(9);
+        $conf = [
+            'driver' => $_ENV['DB_DRIVER'],
+            'host' => $_ENV['DB_HOST'],
+            'database' => $_ENV['DB_DATABASE'],
+            'username' => $_ENV['DB_USERNAME'],
+            'password' => $_ENV['DB_PASSWORD'],
+        ];
 
-        if ($otp->verify($params['password'], null, 5)) {
-            $sql = "SELECT * FROM users WHERE username = :username";
-            $values[] = [
-                'param' => ":username",
-                'value' => $params['username'],
-                'type' => \PDO::PARAM_STR,
-            ];
-            $arr = $this->db->query($sql, $values)->fetch(\PDO::FETCH_ASSOC);
+        $totp = [
+            'secret' => $_ENV['TOTP_SECRET'],
+        ];
 
-            $sql = "UPDATE users SET lastLoginAt = now() WHERE username = :username";
-            $values[] = [
-                'param' => ":username",
-                'value' => $params['username'],
-                'type' => \PDO::PARAM_STR,
-            ];
-            $this->db->query($sql, $values);
+        $jwt = [
+            'iss' => $_ENV['JWT_ISS'],
+            'secret' => $_ENV['JWT_SECRET'],
+        ];
 
-            $payload = [
-                'iss' => $_ENV['JWT_ISS'],
-                'iat' => time(),
-                'exp' => time() + 3600, // one hour by default
-                'username' => $arr['username'],
-                'elo' => $arr['elo'],
-            ];
-
-            return $socket->getClientStorage()->send([$id], [
-                $this->name => [
-                    'access_token' => JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256'),
-                ],
-            ]);
-        }
-
-        return $socket->getClientStorage()->send([$id], [
-            $this->name => null,
-        ]);
+        $this->pool->add(new TotpSignInAsyncTask($params, $conf, $totp, $jwt))
+            ->then(function ($result) use ($socket, $id) {
+                return $socket->getClientStorage()->send([$id], [
+                    $this->name => $result,
+                ]);
+            });
     }
 }
