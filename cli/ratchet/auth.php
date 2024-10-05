@@ -2,7 +2,6 @@
 
 namespace ChessServer\Cli\Ratchet;
 
-use ChessServer\Db;
 use ChessServer\Command\Parser;
 use ChessServer\Command\Auth\Cli;
 use ChessServer\Socket\Ratchet\ClientStorage;
@@ -13,7 +12,6 @@ use Monolog\Handler\StreamHandler;
 use Ratchet\Http\HttpServer;
 use Ratchet\Server\IoServer;
 use Ratchet\WebSocket\WsServer;
-use React\EventLoop\Factory;
 use React\Socket\LimitingServer;
 use React\Socket\Server;
 use React\Socket\SecureServer;
@@ -26,18 +24,10 @@ $dotenv->load();
 
 $pool = Pool::create();
 
-$db = new Db([
-   'driver' => $_ENV['DB_DRIVER'],
-   'host' => $_ENV['DB_HOST'],
-   'database' => $_ENV['DB_DATABASE'],
-   'username' => $_ENV['DB_USERNAME'],
-   'password' => $_ENV['DB_PASSWORD'],
-]);
-
 $logger = new Logger('auth');
 $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/auth.log', Logger::INFO));
 
-$parser = new Parser(new Cli($pool, $db));
+$parser = new Parser(new Cli($pool));
 
 $clientStorage = new ClientStorage($logger);
 
