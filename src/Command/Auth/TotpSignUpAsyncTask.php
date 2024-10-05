@@ -9,21 +9,18 @@ use Spatie\Async\Task;
 
 class TotpSignUpAsyncTask extends Task
 {
-    private array $conf;
-
-    private array $totp;
+    private array $env;
 
     private Db $db;
 
-    public function __construct(array $conf, array $totp)
+    public function __construct(array $env)
     {
-        $this->conf = $conf;
-        $this->totp = $totp;
+        $this->env = $env;
     }
 
     public function configure()
     {
-        $this->db = new Db($this->conf);
+        $this->db = new Db($this->env['db']);
     }
 
     public function run()
@@ -32,7 +29,7 @@ class TotpSignUpAsyncTask extends Task
 
         $username = $this->db->query($sql)->fetchColumn();
 
-        $otp = TOTP::createFromSecret($this->totp['secret'], new InternalClock());
+        $otp = TOTP::createFromSecret($this->env['totp']['secret'], new InternalClock());
         $otp->setDigits(9);
         $otp->setLabel($username);
         $otp->setIssuer('ChesslaBlab');

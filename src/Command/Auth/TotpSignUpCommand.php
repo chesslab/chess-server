@@ -20,19 +20,20 @@ class TotpSignUpCommand extends AbstractCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $conf = [
-            'driver' => $_ENV['DB_DRIVER'],
-            'host' => $_ENV['DB_HOST'],
-            'database' => $_ENV['DB_DATABASE'],
-            'username' => $_ENV['DB_USERNAME'],
-            'password' => $_ENV['DB_PASSWORD'],
+        $env = [
+            'db' => [
+                'driver' => $_ENV['DB_DRIVER'],
+                'host' => $_ENV['DB_HOST'],
+                'database' => $_ENV['DB_DATABASE'],
+                'username' => $_ENV['DB_USERNAME'],
+                'password' => $_ENV['DB_PASSWORD'],
+            ],
+            'totp' => [
+                'secret' => $_ENV['TOTP_SECRET'],
+            ],
         ];
 
-        $totp = [
-            'secret' => $_ENV['TOTP_SECRET'],
-        ];
-
-        $this->pool->add(new TotpSignUpAsyncTask($conf, $totp))
+        $this->pool->add(new TotpSignUpAsyncTask($env))
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,
