@@ -2,7 +2,6 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Db;
 use ChessServer\Command\AbstractCli;
 use Spatie\Async\Pool;
 
