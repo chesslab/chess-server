@@ -2,18 +2,13 @@
 
 namespace ChessServer\Command\Auth;
 
-use ChessServer\Db;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\AbstractSocket;
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 
 class TotpRefreshCommand extends AbstractCommand
 {
-    public function __construct(Db $db)
+    public function __construct()
     {
-        parent::__construct($db);
-
         $this->name = '/totp_refresh';
         $this->description = 'Refresh the TOTP access token.';
         $this->params = [
@@ -30,31 +25,25 @@ class TotpRefreshCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        if (isset($params['access_token'])) {
-            $decoded = JWT::decode($params['access_token'], new Key($_ENV['JWT_SECRET'], 'HS256'));
-            $sql = "SELECT * FROM users WHERE username = :username";
-            $values[] = [
-              'param' => ":username",
-              'value' => $decoded->username,
-              'type' => \PDO::PARAM_STR,
-            ];
-            $arr = $this->db->query($sql, $values)->fetch(\PDO::FETCH_ASSOC);
-            $payload = [
-              'iss' => $_ENV['JWT_ISS'],
-              'iat' => time(),
-              'exp' => time() + 3600, // one hour by default
-              'username' => $arr['username'],
-              'elo' => $arr['elo'],
-            ];
-            return $socket->getClientStorage()->send([$id], [
-              $this->name => [
-                  'access_token' => JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256'),
-              ],
-            ]);
-        }
+        $env = [
+            'db' => [
+                'driver' => $_ENV['DB_DRIVER'],
+                'host' => $_ENV['DB_HOST'],
+                'database' => $_ENV['DB_DATABASE'],
+                'username' => $_ENV['DB_USERNAME'],
+                'password' => $_ENV['DB_PASSWORD'],
+            ],
+            'jwt' => [
+                'iss' => $_ENV['JWT_ISS'],
+                'secret' => $_ENV['JWT_SECRET'],
+            ],
+        ];
 
-        return $socket->getClientStorage()->send([$id], [
-            $this->name => null,
-        ]);
+        $this->pool->add(new TotpRefreshAsyncTask($params, $env))
+            ->then(function ($result) use ($socket, $id) {
+                return $socket->getClientStorage()->send([$id], [
+                    $this->name => $result,
+                ]);
+            });
     }
 }
