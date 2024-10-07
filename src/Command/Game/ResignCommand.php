@@ -2,17 +2,14 @@
 
 namespace ChessServer\Command\Game;
 
-use ChessServer\Db;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Repository\UserRepository;
 use ChessServer\Socket\AbstractSocket;
 
 class ResignCommand extends AbstractCommand
 {
-    public function __construct(Db $db)
+    public function __construct()
     {
-        parent::__construct($db);
-
         $this->name = '/resign';
         $this->description = 'Resigns a game.';
         $this->params = [
@@ -30,7 +27,7 @@ class ResignCommand extends AbstractCommand
         $params = json_decode(stripslashes($argv[1]), true);
         $gameMode = $socket->getGameModeStorage()->getById($id);
         $gameMode->getGame()->setResignation($params['color']);
-        (new UserRepository($this->db))->updateElo(
+        (new UserRepository())->updateElo(
             $gameMode->getGame()->state()->end['result'],
             $gameMode->getJwtDecoded()
         );

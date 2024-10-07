@@ -3,7 +3,6 @@
 namespace ChessServer\Command\Game\Mode;
 
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Db;
 use ChessServer\Command\Game\Game;
 use ChessServer\Command\Game\PlayLanCommand;
 use ChessServer\Repository\UserRepository;
@@ -18,8 +17,6 @@ class PlayMode extends AbstractMode
     const SUBMODE_FRIEND = 'friend';
     const SUBMODE_ONLINE = 'online';
 
-    protected Db $db;
-
     protected string $status;
 
     protected int $startedAt;
@@ -28,11 +25,10 @@ class PlayMode extends AbstractMode
 
     protected array $timer;
 
-    public function __construct(Game $game, array $resourceIds, string $jwt, Db $db)
+    public function __construct(Game $game, array $resourceIds, string $jwt)
     {
         parent::__construct($game, $resourceIds, $jwt);
 
-        $this->db = $db;
         $this->status = self::STATUS_PENDING;
     }
 
@@ -106,7 +102,7 @@ class PlayMode extends AbstractMode
                 $isValid = $this->game->playLan($params['color'], $params['lan']);
                 if ($isValid) {
                     if (isset($this->game->state()->end)) {
-                        (new UserRepository($this->db))->updateElo(
+                        (new UserRepository())->updateElo(
                             $this->game->state()->end['result'],
                             $this->getJwtDecoded()
                         );
