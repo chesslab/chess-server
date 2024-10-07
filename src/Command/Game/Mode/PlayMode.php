@@ -102,7 +102,7 @@ class PlayMode extends AbstractMode
                 $isValid = $this->game->playLan($params['color'], $params['lan']);
                 if ($isValid) {
                     if (isset($this->game->state()->end)) {
-                        (new UserRepository())->updateElo(
+                        (new UserRepository($this->pool))->updateElo(
                             $this->game->state()->end['result'],
                             $this->getJwtDecoded()
                         );

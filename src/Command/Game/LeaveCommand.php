@@ -28,7 +28,7 @@ class LeaveCommand extends AbstractCommand
 
         if ($gameMode = $socket->getGameModeStorage()->getById($id)) {
             $gameMode->getGame()->setAbandoned($params['color']);
-            (new UserRepository())->updateElo(
+            (new UserRepository($this->pool))->updateElo(
                 $gameMode->getGame()->state()->end['result'],
                 $gameMode->getJwtDecoded()
             );

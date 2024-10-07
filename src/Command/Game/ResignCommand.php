@@ -27,7 +27,7 @@ class ResignCommand extends AbstractCommand
         $params = json_decode(stripslashes($argv[1]), true);
         $gameMode = $socket->getGameModeStorage()->getById($id);
         $gameMode->getGame()->setResignation($params['color']);
-        (new UserRepository())->updateElo(
+        (new UserRepository($this->pool))->updateElo(
             $gameMode->getGame()->state()->end['result'],
             $gameMode->getJwtDecoded()
         );

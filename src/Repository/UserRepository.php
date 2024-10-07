@@ -7,9 +7,17 @@ use Chess\Elo\Game;
 use Chess\Elo\Player;
 use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Classical\PGN\AN\Termination;
+use Spatie\Async\Pool;
 
 class UserRepository
 {
+    protected Pool $pool;
+
+    public function __construct(Pool $pool)
+    {
+        $this->pool = $pool;
+    }
+
     public function updateElo(string $result, stdClass $decoded): void
     {
         if ($decoded->elo->{Color::W} && $decoded->elo->{Color::B}) {
