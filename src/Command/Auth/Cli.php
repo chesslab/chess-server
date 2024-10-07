@@ -15,9 +15,4 @@ class Cli extends AbstractCli
         $this->commands->attach((new TotpSignInCommand())->setPool($pool));
         $this->commands->attach((new TotpSignUpCommand())->setPool($pool));
     }
-
-    public function getDb(): Db
-    {
-        return $this->db;
-    }
 }

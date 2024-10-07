@@ -2,14 +2,11 @@
 
 namespace ChessServer\Command\Game;
 
-use ChessServer\Db;
 use ChessServer\Command\AbstractCli;
 use Spatie\Async\Pool;
 
 class Cli extends AbstractCli
 {
-    private Db $db;
-
     public function __construct(Pool $pool)
     {
         parent::__construct();
@@ -35,10 +32,5 @@ class Cli extends AbstractCli
         $this->commands->attach((new StartCommand())->setPool($pool));
         $this->commands->attach((new StockfishCommand())->setPool($pool));
         $this->commands->attach(new TutorFenCommand());
-    }
-
-    public function getDb(): Db
-    {
-        return $this->db;
     }
 }
