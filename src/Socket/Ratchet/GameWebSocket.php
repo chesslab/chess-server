@@ -4,20 +4,13 @@ namespace ChessServer\Socket\Ratchet;
 
 use ChessServer\Command\Parser;
 use ChessServer\Command\Game\GameModeStorage;
-use ChessServer\Socket\DbReconnectTrait;
 use Ratchet\ConnectionInterface;
 
 class GameWebSocket extends AbstractWebSocket
 {
-    use DbReconnectTrait;
-
     public function __construct(Parser $parser)
     {
         parent::__construct($parser);
-
-        $this->loop->addPeriodicTimer($this->timeInterval, function() {
-            $this->reconnect();
-        });
 
         $this->gameModeStorage = new GameModeStorage();
     }

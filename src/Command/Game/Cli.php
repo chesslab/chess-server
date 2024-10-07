@@ -10,11 +10,10 @@ class Cli extends AbstractCli
 {
     private Db $db;
 
-    public function __construct(Pool $pool, Db $db)
+    public function __construct(Pool $pool)
     {
         parent::__construct();
 
-        $this->db = $db;
         // text-based commands
         $this->commands->attach(new EvalNamesCommand());
         $this->commands->attach(new OnlineGamesCommand());
@@ -26,14 +25,14 @@ class Cli extends AbstractCli
         // param-based commands
         $this->commands->attach(new AcceptPlayRequestCommand());
         $this->commands->attach((new HeuristicCommand())->setPool($pool));
-        $this->commands->attach(new LeaveCommand($db));
+        $this->commands->attach((new LeaveCommand())->setPool($pool));
         $this->commands->attach(new LegalCommand());
         $this->commands->attach(new PlayLanCommand());
         $this->commands->attach((new PlayRavCommand())->setPool($pool));
         $this->commands->attach(new RandomizerCommand());
-        $this->commands->attach(new ResignCommand($db));
-        $this->commands->attach(new RestartCommand($db));
-        $this->commands->attach(new StartCommand($db));
+        $this->commands->attach((new ResignCommand())->setPool($pool));
+        $this->commands->attach((new RestartCommand())->setPool($pool));
+        $this->commands->attach((new StartCommand())->setPool($pool));
         $this->commands->attach((new StockfishCommand())->setPool($pool));
         $this->commands->attach(new TutorFenCommand());
     }

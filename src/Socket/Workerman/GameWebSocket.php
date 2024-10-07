@@ -4,13 +4,10 @@ namespace ChessServer\Socket\Workerman;
 
 use ChessServer\Command\Parser;
 use ChessServer\Command\Game\GameModeStorage;
-use ChessServer\Socket\DbReconnectTrait;
 use Workerman\Timer;
 
 class GameWebSocket extends AbstractWebSocket
 {
-    use DbReconnectTrait;
-
     private GrandmasterMove $gmMove;
 
     private GameModeStorage $gameModeStorage;
@@ -18,12 +15,6 @@ class GameWebSocket extends AbstractWebSocket
     public function __construct(string $socketName, array $context, Parser $parser)
     {
         parent::__construct($socketName, $context, $parser);
-
-        $this->worker->onWorkerStart = function() {
-            Timer::add($this->timeInterval, function() {
-                $this->reconnect();
-            });
-        };
 
         $this->gameModeStorage = new GameModeStorage();
 

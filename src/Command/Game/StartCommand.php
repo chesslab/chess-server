@@ -12,7 +12,6 @@ use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Dunsany\Board as DunsanyBoard;
 use Chess\Variant\Losing\Board as LosingBoard;
 use Chess\Variant\RacingKings\Board as RacingKingsBoard;
-use ChessServer\Db;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Command\Game\Mode\AnalysisMode;
 use ChessServer\Command\Game\Mode\PlayMode;
@@ -22,10 +21,8 @@ use Firebase\JWT\JWT;
 
 class StartCommand extends AbstractCommand
 {
-    public function __construct(Db $db)
+    public function __construct()
     {
-        parent::__construct($db);
-
         $this->name = '/start';
         $this->description = 'Starts a new game.';
         $this->params = [
@@ -162,8 +159,7 @@ class StartCommand extends AbstractCommand
                 $gameMode = new PlayMode(
                     $game,
                     [$id],
-                    JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256'),
-                    $this->db
+                    JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256')
                 );
                 $socket->getGameModeStorage()->set($gameMode);
                 if ($params['settings']['submode'] === PlayMode::SUBMODE_ONLINE) {

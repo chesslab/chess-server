@@ -7,17 +7,9 @@ use Chess\Elo\Game;
 use Chess\Elo\Player;
 use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Classical\PGN\AN\Termination;
-use ChessServer\Db;
 
 class UserRepository
 {
-    private Db $db;
-
-    public function __construct(Db $db)
-    {
-        $this->db = $db;
-    }
-
     public function updateElo(string $result, stdClass $decoded): void
     {
         if ($decoded->elo->{Color::W} && $decoded->elo->{Color::B}) {
@@ -26,8 +18,26 @@ class UserRepository
                 $decoded->elo->{Color::W},
                 $decoded->elo->{Color::B}
             );
-            $this->updateEloQuery($decoded->username->{Color::W}, $eloRating[Color::W]);
-            $this->updateEloQuery($decoded->username->{Color::B}, $eloRating[Color::B]);
+
+            $env = [
+                'db' => [
+                    'driver' => $_ENV['DB_DRIVER'],
+                    'host' => $_ENV['DB_HOST'],
+                    'database' => $_ENV['DB_DATABASE'],
+                    'username' => $_ENV['DB_USERNAME'],
+                    'password' => $_ENV['DB_PASSWORD'],
+                ],
+            ];
+
+            $this->pool->add(new UpdateEloAsyncTask([
+                'username' => $decoded->username->{Color::W},
+                'elo' => $eloRating[Color::W],
+            ], $env));
+
+            $this->pool->add(new UpdateEloAsyncTask([
+                'username' => $decoded->username->{Color::B},
+                'elo' => $eloRating[Color::B],
+            ], $env));
         }
     }
 
@@ -36,6 +46,7 @@ class UserRepository
         $w = new Player($i);
         $b = new Player($j);
         $g =  (new Game($w, $b))->setK(32);
+
         if ($result === Termination::WHITE_WINS) {
             $g->setScore(1, 0)->count();
         } elseif ($result === Termination::DRAW) {
@@ -48,24 +59,5 @@ class UserRepository
             Color::W => $w->getRating(),
             Color::B => $b->getRating(),
         ];
-    }
-
-    protected function updateEloQuery(string $username, int $elo): void
-    {
-        $sql = "UPDATE users SET elo = :elo WHERE username = :username";
-        $values= [
-            [
-                'param' => ":username",
-                'value' => $username,
-                'type' => \PDO::PARAM_STR,
-            ],
-            [
-                'param' => ":elo",
-                'value' => $elo,
-                'type' => \PDO::PARAM_INT,
-            ],
-        ];
-
-        $this->db->query($sql, $values);
     }
 }
