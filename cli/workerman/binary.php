@@ -9,16 +9,19 @@ use ChessServer\Socket\Workerman\BinaryWebSocket;
 use Dotenv\Dotenv;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Spatie\Async\Pool;
 
 require __DIR__  . '/../../vendor/autoload.php';
 
 $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
 $dotenv->load();
 
+$pool = Pool::create();
+
 $logger = new Logger('binary');
 $logger->pushHandler(new StreamHandler(BinaryWebSocket::STORAGE_FOLDER . '/binary.log', Logger::INFO));
 
-$parser = new Parser(new Cli());
+$parser = new Parser(new Cli($pool));
 
 $clientStorage = new ClientStorage($logger);
 

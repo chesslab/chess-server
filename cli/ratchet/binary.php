@@ -12,22 +12,24 @@ use Monolog\Handler\StreamHandler;
 use Ratchet\Http\HttpServer;
 use Ratchet\Server\IoServer;
 use Ratchet\WebSocket\WsServer;
-use React\EventLoop\Factory;
 use React\Socket\LimitingServer;
 use React\Socket\Server;
 use React\Socket\SecureServer;
+use Spatie\Async\Pool;
 
 require __DIR__  . '/../../vendor/autoload.php';
 
 $dotenv = Dotenv::createImmutable(__DIR__.'/../../');
 $dotenv->load();
 
+$pool = Pool::create();
+
 $logger = new Logger('log');
 $logger->pushHandler(new StreamHandler(__DIR__.'/../../storage' . '/binary.log', Logger::INFO));
 
-$clientStorage = new ClientStorage($logger);
+$parser = new Parser(new Cli($pool));
 
-$parser = new Parser(new Cli());
+$clientStorage = new ClientStorage($logger);
 
 $webSocket = (new BinaryWebSocket($parser))->init($clientStorage);
 
