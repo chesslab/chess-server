@@ -2,7 +2,6 @@
 
 namespace ChessServer\Tests\Unit\Command;
 
-use ChessServer\Db;
 use ChessServer\Command\Parser;
 use ChessServer\Command\Game\AcceptPlayRequestCommand;
 use ChessServer\Command\Game\Cli;
@@ -22,11 +21,7 @@ class ParserTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $db = $this->getMockBuilder(Db::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        self::$parser = new Parser(new Cli($pool, $db));
+        self::$parser = new Parser(new Cli($pool));
     }
 
     /**
