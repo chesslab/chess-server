@@ -25,17 +25,7 @@ class SearchCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $env = [
-            'db' => [
-                'driver' => $_ENV['DB_DRIVER'],
-                'host' => $_ENV['DB_HOST'],
-                'database' => $_ENV['DB_DATABASE'],
-                'username' => $_ENV['DB_USERNAME'],
-                'password' => $_ENV['DB_PASSWORD'],
-            ],
-        ];
-
-        $this->pool->add(new SearchAsyncTask($params, $env), 81920)
+        $this->pool->add(new SearchAsyncTask($params), 81920)
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,
