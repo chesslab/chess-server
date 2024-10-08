@@ -2,27 +2,11 @@
 
 namespace ChessServer\Command\Auth;
 
-use ChessServer\Db;
 use OTPHP\InternalClock;
 use OTPHP\TOTP;
-use Spatie\Async\Task;
 
-class TotpSignUpAsyncTask extends Task
+class TotpSignUpAsyncTask extends AbstractAuthAsyncTask
 {
-    private array $env;
-
-    private Db $db;
-
-    public function __construct(array $env)
-    {
-        $this->env = $env;
-    }
-
-    public function configure()
-    {
-        $this->db = new Db($this->env['db']);
-    }
-
     public function run()
     {
         $sql = "SELECT username FROM users WHERE lastLoginAt IS NULL ORDER BY RAND() LIMIT 1";

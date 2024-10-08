@@ -25,24 +25,7 @@ class TotpSignInCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $env = [
-            'db' => [
-                'driver' => $_ENV['DB_DRIVER'],
-                'host' => $_ENV['DB_HOST'],
-                'database' => $_ENV['DB_DATABASE'],
-                'username' => $_ENV['DB_USERNAME'],
-                'password' => $_ENV['DB_PASSWORD'],
-            ],
-            'totp' => [
-                'secret' => $_ENV['TOTP_SECRET'],
-            ],
-            'jwt' => [
-                'iss' => $_ENV['JWT_ISS'],
-                'secret' => $_ENV['JWT_SECRET'],
-            ],
-        ];
-
-        $this->pool->add(new TotpSignInAsyncTask($params, $env))
+        $this->pool->add(new TotpSignInAsyncTask($params))
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,

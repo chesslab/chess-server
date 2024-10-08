@@ -2,31 +2,12 @@
 
 namespace ChessServer\Command\Auth;
 
-use ChessServer\Db;
 use Firebase\JWT\JWT;
 use OTPHP\InternalClock;
 use OTPHP\TOTP;
-use Spatie\Async\Task;
 
-class TotpSignInAsyncTask extends Task
+class TotpSignInAsyncTask extends AbstractAuthAsyncTask
 {
-    private array $params;
-
-    private array $env;
-
-    private Db $db;
-
-    public function __construct(array $params, array $env)
-    {
-        $this->params = $params;
-        $this->env = $env;
-    }
-
-    public function configure()
-    {
-        $this->db = new Db($this->env['db']);
-    }
-
     public function run()
     {
         $otp = TOTP::createFromSecret($this->env['totp']['secret'], new InternalClock());

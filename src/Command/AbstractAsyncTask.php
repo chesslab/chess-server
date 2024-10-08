@@ -20,6 +20,13 @@ abstract class AbstractAsyncTask extends Task
                'username' => $_ENV['DB_USERNAME'],
                'password' => $_ENV['DB_PASSWORD'],
            ],
+           'totp' => [
+               'secret' => $_ENV['TOTP_SECRET'],
+           ],
+           'jwt' => [
+               'iss' => $_ENV['JWT_ISS'],
+               'secret' => $_ENV['JWT_SECRET'],
+           ],
        ];
 
        $this->params = $params;

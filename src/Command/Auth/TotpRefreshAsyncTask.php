@@ -2,30 +2,11 @@
 
 namespace ChessServer\Command\Auth;
 
-use ChessServer\Db;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-use Spatie\Async\Task;
 
-class TotpRefreshAsyncTask extends Task
+class TotpRefreshAsyncTask extends AbstractAuthAsyncTask
 {
-    private array $params;
-
-    private array $env;
-
-    private Db $db;
-
-    public function __construct(array $params, array $env)
-    {
-        $this->params = $params;
-        $this->env = $env;
-    }
-
-    public function configure()
-    {
-        $this->db = new Db($this->env['db']);
-    }
-
     public function run()
     {
         if (isset($this->params['access_token'])) {
