@@ -2,10 +2,7 @@
 
 namespace ChessServer\Command\Data;
 
-use ChessServer\Db;
-use Spatie\Async\Task;
-
-class ResultEventAsyncTask extends Task
+class ResultEventAsyncTask extends AbstractDataAsyncTask
 {
     const SQL_LIKE = [
 
@@ -15,23 +12,6 @@ class ResultEventAsyncTask extends Task
         'Event',
         'Result',
     ];
-
-    private array $params;
-
-    private array $env;
-
-    private Db $db;
-
-    public function __construct(array $params, array $env)
-    {
-        $this->params = $params;
-        $this->env = $env;
-    }
-
-    public function configure()
-    {
-        $this->db = new Db($this->env['db']);
-    }
 
     public function run()
     {
