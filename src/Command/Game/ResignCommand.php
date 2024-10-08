@@ -3,7 +3,7 @@
 namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Repository\UserRepository;
+use ChessServer\Repository\User\UserRepository;
 use ChessServer\Socket\AbstractSocket;
 
 class ResignCommand extends AbstractCommand

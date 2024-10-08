@@ -5,7 +5,7 @@ namespace ChessServer\Command\Game\Mode;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\Game\Game;
 use ChessServer\Command\Game\PlayLanCommand;
-use ChessServer\Repository\UserRepository;
+use ChessServer\Repository\User\UserRepository;
 
 class PlayMode extends AbstractMode
 {

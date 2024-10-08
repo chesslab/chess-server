@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Repository;
+namespace ChessServer\Repository\User;
 
 use ChessServer\Db;
 use Spatie\Async\Task;
