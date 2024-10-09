@@ -3,7 +3,7 @@
 namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Repository\User\UserRepository;
+use ChessServer\Command\UpdateEloAsyncTask;
 use ChessServer\Socket\AbstractSocket;
 
 class LeaveCommand extends AbstractCommand
@@ -28,10 +28,12 @@ class LeaveCommand extends AbstractCommand
 
         if ($gameMode = $socket->getGameModeStorage()->getById($id)) {
             $gameMode->getGame()->setAbandoned($params['color']);
-            (new UserRepository($this->pool))->updateElo(
-                $gameMode->getGame()->state()->end['result'],
-                $gameMode->getJwtDecoded()
-            );
+
+            $this->pool->add(new UpdateEloAsyncTask([
+                'result' => $gameMode->getGame()->state()->end['result'],
+                'decoded' => $gameMode->getJwtDecoded(),
+            ]));
+
             return $socket->getClientStorage()->send($gameMode->getResourceIds(), [
                 $this->name => [
                     ...(array) $gameMode->getGame()->state(),
