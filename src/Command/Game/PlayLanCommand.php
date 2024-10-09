@@ -3,6 +3,7 @@
 namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\UpdateEloAsyncTask;
 use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;
 
@@ -31,8 +32,10 @@ class PlayLanCommand extends AbstractCommand
             $isValid = $gameMode->getGame()->playLan($params['color'], $params['lan']);
             if ($isValid) {
                 if (isset($gameMode->getGame()->state()->end)) {
-                    // TODO ...
-                    // Update elo
+                    $this->pool->add(new UpdateEloAsyncTask([
+                        'result' => $gameMode->getGame()->state()->end['result'],
+                        'decoded' => $gameMode->getJwtDecoded(),
+                    ]));
                 } else {
                     $gameMode->updateTimer($params['color']);
                 }

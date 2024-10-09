@@ -24,7 +24,7 @@ class Cli extends AbstractCli
         $this->commands->attach((new HeuristicCommand())->setPool($pool));
         $this->commands->attach((new LeaveCommand())->setPool($pool));
         $this->commands->attach(new LegalCommand());
-        $this->commands->attach(new PlayLanCommand());
+        $this->commands->attach((new PlayLanCommand())->setPool($pool));
         $this->commands->attach((new PlayRavCommand())->setPool($pool));
         $this->commands->attach(new RandomizerCommand());
         $this->commands->attach((new ResignCommand())->setPool($pool));
