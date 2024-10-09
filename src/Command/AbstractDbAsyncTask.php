@@ -3,7 +3,6 @@
 namespace ChessServer\Command;
 
 use ChessServer\Db;
-use ChessServer\Command\AbstractAsyncTask;
 
 abstract class AbstractDbAsyncTask extends AbstractAsyncTask
 {

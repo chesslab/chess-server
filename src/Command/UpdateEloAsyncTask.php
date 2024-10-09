@@ -51,22 +51,20 @@ class UpdateEloAsyncTask extends AbstractDbAsyncTask
 
     public function run()
     {
-        if ($this->params['decoded']->elo->{Color::W} && $this->params['decoded']->elo->{Color::B}) {
-            $elo = $this->elo(
-                $this->params['result'],
-                $this->params['decoded']->elo->{Color::W},
-                $this->params['decoded']->elo->{Color::B}
-            );
+        $elo = $this->elo(
+            $this->params['result'],
+            $this->params['decoded']->elo->{Color::W},
+            $this->params['decoded']->elo->{Color::B}
+        );
 
-            $this->query([
-                'username' => $this->params['decoded']->username->{Color::W},
-                'elo' => $elo[Color::W],
-            ]);
+        $this->query([
+            'username' => $this->params['decoded']->username->{Color::W},
+            'elo' => $elo[Color::W],
+        ]);
 
-            $this->query([
-                'username' => $this->params['decoded']->username->{Color::B},
-                'elo' => $elo[Color::B],
-            ]);
-        }
+        $this->query([
+            'username' => $this->params['decoded']->username->{Color::B},
+            'elo' => $elo[Color::B],
+        ]);
     }
 }
