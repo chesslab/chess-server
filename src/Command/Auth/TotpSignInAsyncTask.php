@@ -2,11 +2,12 @@
 
 namespace ChessServer\Command\Auth;
 
+use ChessServer\Command\AbstractDbAsyncTask;
 use Firebase\JWT\JWT;
 use OTPHP\InternalClock;
 use OTPHP\TOTP;
 
-class TotpSignInAsyncTask extends AbstractAuthAsyncTask
+class TotpSignInAsyncTask extends AbstractDbAsyncTask
 {
     public function run()
     {

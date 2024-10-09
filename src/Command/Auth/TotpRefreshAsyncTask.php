@@ -2,10 +2,11 @@
 
 namespace ChessServer\Command\Auth;
 
+use ChessServer\Command\AbstractDbAsyncTask;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-class TotpRefreshAsyncTask extends AbstractAuthAsyncTask
+class TotpRefreshAsyncTask extends AbstractDbAsyncTask
 {
     public function run()
     {
