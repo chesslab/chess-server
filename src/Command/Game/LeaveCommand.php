@@ -2,6 +2,7 @@
 
 namespace ChessServer\Command\Game;
 
+use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Command\UpdateEloAsyncTask;
 use ChessServer\Socket\AbstractSocket;
@@ -24,15 +25,19 @@ class LeaveCommand extends AbstractCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $params = json_decode(stripslashes($argv[1]), true);
-
         if ($gameMode = $socket->getGameModeStorage()->getById($id)) {
-            $gameMode->getGame()->setAbandoned($params['color']);
+            $params = json_decode(stripslashes($argv[1]), true);
 
-            $this->pool->add(new UpdateEloAsyncTask([
-                'result' => $gameMode->getGame()->state()->end['result'],
-                'decoded' => $gameMode->getJwtDecoded(),
-            ]));
+            $gameMode->getGame()->setResignation($params['color']);
+
+            if ($gameMode->getJwtDecoded()->elo->{Color::W} &&
+                $gameMode->getJwtDecoded()->elo->{Color::B}
+            ) {
+                $this->pool->add(new UpdateEloAsyncTask([
+                    'result' => $gameMode->getGame()->state()->end['result'],
+                    'decoded' => $gameMode->getJwtDecoded(),
+                ]));
+            }
 
             return $socket->getClientStorage()->send($gameMode->getResourceIds(), [
                 $this->name => [
