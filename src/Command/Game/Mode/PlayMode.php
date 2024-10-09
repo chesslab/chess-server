@@ -4,8 +4,6 @@ namespace ChessServer\Command\Game\Mode;
 
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\Game\Game;
-use ChessServer\Command\Game\PlayLanCommand;
-use ChessServer\Repository\User\UserRepository;
 
 class PlayMode extends AbstractMode
 {
@@ -80,7 +78,7 @@ class PlayMode extends AbstractMode
         return $this;
     }
 
-    protected function updateTimer(string $color)
+    public function updateTimer(string $color)
     {
         $now = time();
         $diff = $now - $this->updatedAt;
@@ -93,34 +91,5 @@ class PlayMode extends AbstractMode
         }
 
         $this->updatedAt = $now;
-    }
-
-    public function res($params, $cmd)
-    {
-        switch (get_class($cmd)) {
-            case PlayLanCommand::class:
-                $isValid = $this->game->playLan($params['color'], $params['lan']);
-                if ($isValid) {
-                    if (isset($this->game->state()->end)) {
-                        (new UserRepository($this->pool))->updateElo(
-                            $this->game->state()->end['result'],
-                            $this->getJwtDecoded()
-                        );
-                    } else {
-                        $this->updateTimer($params['color']);
-                    }
-                }
-                return [
-                    $cmd->name => [
-                      ...(array) $this->game->state(),
-                      'variant' =>  $this->game->getVariant(),
-                      'timer' => $this->timer,
-                      'isValid' => $isValid,
-                    ],
-                ];
-
-            default:
-                return parent::res($params, $cmd);
-        }
     }
 }
