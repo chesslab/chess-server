@@ -2,7 +2,9 @@
 
 namespace ChessServer\Command\Data;
 
-class RankingAsyncTask extends AbstractDataAsyncTask
+use ChessServer\Command\AbstractDbAsyncTask;
+
+class RankingAsyncTask extends AbstractDbAsyncTask
 {
     public function run()
     {

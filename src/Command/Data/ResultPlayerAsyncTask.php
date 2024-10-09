@@ -2,7 +2,9 @@
 
 namespace ChessServer\Command\Data;
 
-class ResultPlayerAsyncTask extends AbstractDataAsyncTask
+use ChessServer\Command\AbstractDbAsyncTask;
+
+class ResultPlayerAsyncTask extends AbstractDbAsyncTask
 {
     const SQL_LIKE = [
 

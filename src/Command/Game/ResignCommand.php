@@ -3,7 +3,7 @@
 namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Repository\User\UserRepository;
+use ChessServer\Command\UpdateEloAsyncTask;
 use ChessServer\Socket\AbstractSocket;
 
 class ResignCommand extends AbstractCommand
@@ -27,10 +27,11 @@ class ResignCommand extends AbstractCommand
         $params = json_decode(stripslashes($argv[1]), true);
         $gameMode = $socket->getGameModeStorage()->getById($id);
         $gameMode->getGame()->setResignation($params['color']);
-        (new UserRepository($this->pool))->updateElo(
-            $gameMode->getGame()->state()->end['result'],
-            $gameMode->getJwtDecoded()
-        );
+
+        $this->pool->add(new UpdateEloAsyncTask([
+            'result' => $gameMode->getGame()->state()->end['result'],
+            'decoded' => $gameMode->getJwtDecoded(),
+        ]));
 
         return $socket->getClientStorage()->send($gameMode->getResourceIds(), [
             $this->name => [

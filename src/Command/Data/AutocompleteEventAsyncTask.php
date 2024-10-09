@@ -2,7 +2,9 @@
 
 namespace ChessServer\Command\Data;
 
-class AutocompleteEventAsyncTask extends AbstractDataAsyncTask
+use ChessServer\Command\AbstractDbAsyncTask;
+
+class AutocompleteEventAsyncTask extends AbstractDbAsyncTask
 {
     public function run()
     {

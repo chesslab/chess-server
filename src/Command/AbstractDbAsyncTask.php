@@ -1,11 +1,11 @@
 <?php
 
-namespace ChessServer\Command\Data;
+namespace ChessServer\Command;
 
 use ChessServer\Db;
 use ChessServer\Command\AbstractAsyncTask;
 
-abstract class AbstractDataAsyncTask extends AbstractAsyncTask
+abstract class AbstractDbAsyncTask extends AbstractAsyncTask
 {
     protected Db $db;
 
