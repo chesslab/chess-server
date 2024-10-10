@@ -6,9 +6,7 @@ use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Command\Game\Game;
-use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;
-use Firebase\JWT\JWT;
 
 class RestartCommand extends AbstractCommand
 {
@@ -41,23 +39,19 @@ class RestartCommand extends AbstractCommand
                 } else {
                     $game = new Game($result->variant, Game::MODE_PLAY);
                 }
-                $newGameMode = (new PlayMode(
-                    $game,
-                    $gameMode->getResourceIds(),
-                    JWT::encode((array) $result, $_ENV['JWT_SECRET'], 'HS256')
-                ))
-                ->setStatus(PlayMode::STATUS_ACCEPTED)
-                ->setStartedAt(time())
-                ->setUpdatedAt(time())
-                ->setTimer([
-                    Color::W => $result->min * 60,
-                    Color::B => $result->min * 60,
-                ]);
-                $socket->getGameModeStorage()->set($newGameMode);
-                return $socket->getClientStorage()->send($newGameMode->getResourceIds(), [
+                $gameMode->setGame($game)
+                    ->setJwt((array) $result)
+                    ->setStartedAt(time())
+                    ->setUpdatedAt(time())
+                    ->setTimer([
+                        Color::W => $result->min * 60,
+                        Color::B => $result->min * 60,
+                    ]);
+                $socket->getGameModeStorage()->set($gameMode);
+                return $socket->getClientStorage()->send($gameMode->getResourceIds(), [
                     $this->name => [
-                        'jwt' => $newGameMode->getJwt(),
-                        'timer' => $newGameMode->getTimer(),
+                        'jwt' => $gameMode->getJwt(),
+                        'timer' => $gameMode->getTimer(),
                     ],
                 ]);
             });
