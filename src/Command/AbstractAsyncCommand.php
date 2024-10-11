@@ -8,7 +8,7 @@ abstract class AbstractAsyncCommand extends AbstractCommand
 {
     protected Pool $pool;
 
-    public function setPool(Pool $pool): AbstractCommand
+    public function setPool(Pool $pool): AbstractAsyncCommand
     {
         $this->pool = $pool;
 
