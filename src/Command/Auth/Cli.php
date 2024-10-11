@@ -3,6 +3,7 @@
 namespace ChessServer\Command\Auth;
 
 use ChessServer\Command\AbstractCli;
+use ChessServer\Command\Auth\Async\TotpRefreshCommand;
 use ChessServer\Command\Auth\Async\TotpSignInCommand;
 use ChessServer\Command\Auth\Async\TotpSignUpCommand;
 use Spatie\Async\Pool;
