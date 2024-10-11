@@ -3,6 +3,7 @@
 namespace ChessServer\Command\Auth;
 
 use ChessServer\Command\AbstractCli;
+use ChessServer\Command\Auth\Async\TotpSignInCommand;
 use Spatie\Async\Pool;
 
 class Cli extends AbstractCli

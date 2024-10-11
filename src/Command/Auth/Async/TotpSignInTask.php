@@ -1,13 +1,13 @@
 <?php
 
-namespace ChessServer\Command\Auth;
+namespace ChessServer\Command\Auth\Async;
 
 use ChessServer\Command\AbstractDbAsyncTask;
 use Firebase\JWT\JWT;
 use OTPHP\InternalClock;
 use OTPHP\TOTP;
 
-class TotpSignInAsyncTask extends AbstractDbAsyncTask
+class TotpSignInTask extends AbstractDbAsyncTask
 {
     public function run()
     {
