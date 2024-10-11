@@ -2,10 +2,10 @@
 
 namespace ChessServer\Command\Auth\Async;
 
-use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class TotpSignInCommand extends AbstractCommand
+class TotpSignInCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {
