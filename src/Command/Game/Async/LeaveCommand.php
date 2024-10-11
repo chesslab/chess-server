@@ -4,7 +4,7 @@ namespace ChessServer\Command\Game\Async;
 
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Command\UpdateEloTask;
+use ChessServer\Command\Game\Async\UpdateEloTask;
 use ChessServer\Socket\AbstractSocket;
 
 class LeaveCommand extends AbstractCommand
