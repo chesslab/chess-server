@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Data;
+namespace ChessServer\Command\Data\Async;
 
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\AbstractSocket;
@@ -25,7 +25,7 @@ class AutocompleteEventCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $this->pool->add(new AutocompleteEventAsyncTask($params))
+        $this->pool->add(new AutocompleteEventTask($params))
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,
