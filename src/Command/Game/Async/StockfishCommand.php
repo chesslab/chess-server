@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Game;
+namespace ChessServer\Command\Game\Async;
 
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\AbstractSocket;
@@ -27,7 +27,7 @@ class StockfishCommand extends AbstractCommand
         $game = $socket->getGameModeStorage()->getById($id)->getGame();
 
         if (!isset($game->state()->end)) {
-            $this->pool->add(new StockfishAsyncTask($params, $game->getBoard()))
+            $this->pool->add(new StockfishTask($params, $game->getBoard()))
                 ->then(function ($result) use ($socket, $id, $game) {
                     if ($result['pgn']) {
                         $game->play($game->state()->turn, $result['pgn']);

@@ -7,6 +7,7 @@ use ChessServer\Command\Game\Async\HeuristicCommand;
 use ChessServer\Command\Game\Async\LeaveCommand;
 use ChessServer\Command\Game\Async\PlayLanCommand;
 use ChessServer\Command\Game\Async\ResignCommand;
+use ChessServer\Command\Game\Async\StockfishCommand;
 use ChessServer\Command\Game\Sync\AcceptPlayRequestCommand;
 use ChessServer\Command\Game\Sync\DrawCommand;
 use ChessServer\Command\Game\Sync\EvalNamesCommand;

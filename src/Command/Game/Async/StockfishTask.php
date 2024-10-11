@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Game;
+namespace ChessServer\Command\Game\Async;
 
 use Chess\Computer\GrandmasterMove;
 use Chess\UciEngine\UciEngine;
@@ -9,7 +9,7 @@ use Chess\Variant\Classical\Board;
 use ChessServer\Socket\AbstractSocket;
 use Spatie\Async\Task;
 
-class StockfishAsyncTask extends Task
+class StockfishTask extends Task
 {
     private array $params;
 
