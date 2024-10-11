@@ -1,11 +1,11 @@
 <?php
 
-namespace ChessServer\Command\Game;
+namespace ChessServer\Command\Game\Async;
 
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\AbstractDbAsyncTask;
 
-class RestartAsyncTask extends AbstractDbAsyncTask
+class RestartTask extends AbstractDbAsyncTask
 {
     public function run()
     {

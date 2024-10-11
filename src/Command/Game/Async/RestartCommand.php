@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Game;
+namespace ChessServer\Command\Game\Async;
 
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
@@ -29,7 +29,7 @@ class RestartCommand extends AbstractCommand
         $params = json_decode(stripslashes($argv[1]), true);
 
         if ($gameMode = $socket->getGameModeStorage()->getByJwt($params['jwt'])) {
-            $this->pool->add(new RestartAsyncTask([
+            $this->pool->add(new RestartTask([
                 'decoded' => $gameMode->getJwtDecoded(),
             ]))->then(function ($result) use ($socket, $gameMode) {
                 if ($result->variant === Game::VARIANT_960) {

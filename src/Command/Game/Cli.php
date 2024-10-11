@@ -8,6 +8,7 @@ use ChessServer\Command\Game\Async\LeaveCommand;
 use ChessServer\Command\Game\Async\PlayLanCommand;
 use ChessServer\Command\Game\Async\PlayRavCommand;
 use ChessServer\Command\Game\Async\ResignCommand;
+use ChessServer\Command\Game\Async\RestartCommand;
 use ChessServer\Command\Game\Async\StockfishCommand;
 use ChessServer\Command\Game\Sync\AcceptPlayRequestCommand;
 use ChessServer\Command\Game\Sync\DrawCommand;
