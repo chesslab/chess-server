@@ -8,6 +8,7 @@ use ChessServer\Command\Data\Async\AutocompleteBlackCommand;
 use ChessServer\Command\Data\Async\AutocompleteEventCommand;
 use ChessServer\Command\Data\Async\AutocompleteWhiteCommand;
 use ChessServer\Command\Data\Async\RankingCommand;
+use ChessServer\Command\Data\Async\ResultCommand;
 use Spatie\Async\Pool;
 
 class Cli extends AbstractCli
