@@ -3,6 +3,7 @@
 namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCli;
+use ChessServer\Command\Game\Async\HeuristicCommand;
 use ChessServer\Command\Game\Async\LeaveCommand;
 use ChessServer\Command\Game\Async\PlayLanCommand;
 use ChessServer\Command\Game\Async\ResignCommand;
