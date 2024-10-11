@@ -2,10 +2,10 @@
 
 namespace ChessServer\Command\Game\Sync;
 
-use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\AbstractSyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class UndoCommand extends AbstractCommand
+class UndoCommand extends AbstractSyncCommand
 {
     public function __construct()
     {

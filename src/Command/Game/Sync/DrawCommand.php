@@ -2,10 +2,10 @@
 
 namespace ChessServer\Command\Game\Sync;
 
-use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\AbstractSyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class DrawCommand extends AbstractCommand
+class DrawCommand extends AbstractSyncCommand
 {
     const ACTION_ACCEPT    = 'accept';
     const ACTION_DECLINE   = 'decline';

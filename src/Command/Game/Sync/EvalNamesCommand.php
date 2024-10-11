@@ -3,10 +3,10 @@
 namespace ChessServer\Command\Game\Sync;
 
 use Chess\Function\FastFunction;
-use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\AbstractSyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class EvalNamesCommand extends AbstractCommand
+class EvalNamesCommand extends AbstractSyncCommand
 {
     public function __construct()
     {

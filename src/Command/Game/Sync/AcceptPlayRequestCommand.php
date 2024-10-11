@@ -3,11 +3,11 @@
 namespace ChessServer\Command\Game\Sync;
 
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\AbstractSyncCommand;
 use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;
 
-class AcceptPlayRequestCommand extends AbstractCommand
+class AcceptPlayRequestCommand extends AbstractSyncCommand
 {
     public function __construct()
     {

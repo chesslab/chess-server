@@ -6,10 +6,10 @@ use Chess\FenToBoardFactory;
 use Chess\Function\CompleteFunction;
 use Chess\Tutor\FenEvaluation;
 use Chess\Variant\Classical\Board;
-use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\AbstractSyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class TutorFenCommand extends AbstractCommand
+class TutorFenCommand extends AbstractSyncCommand
 {
     public function __construct()
     {

@@ -6,10 +6,10 @@ use Chess\Randomizer\Randomizer;
 use Chess\Randomizer\Checkmate\TwoBishopsRandomizer;
 use Chess\Randomizer\Endgame\PawnEndgameRandomizer;
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\AbstractSyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class RandomizerCommand extends AbstractCommand
+class RandomizerCommand extends AbstractSyncCommand
 {
     const TYPE_P    = 'P';
     const TYPE_Q    = 'Q';
