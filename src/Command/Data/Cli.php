@@ -4,6 +4,7 @@ namespace ChessServer\Command\Data;
 
 use ChessServer\Command\AbstractCli;
 use ChessServer\Command\Data\Async\AnnotationsGameCommand;
+use ChessServer\Command\Data\Async\AutocompleteBlackCommand;
 use Spatie\Async\Pool;
 
 class Cli extends AbstractCli

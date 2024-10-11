@@ -1,10 +1,10 @@
 <?php
 
-namespace ChessServer\Command\Data;
+namespace ChessServer\Command\Data\Async;
 
 use ChessServer\Command\AbstractDbAsyncTask;
 
-class AutocompleteBlackAsyncTask extends AbstractDbAsyncTask
+class AutocompleteBlackTask extends AbstractDbAsyncTask
 {
     public function run()
     {
