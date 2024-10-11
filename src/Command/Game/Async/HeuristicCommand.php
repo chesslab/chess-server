@@ -25,7 +25,7 @@ class HeuristicCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $this->pool->add(new HeuristicAsyncTask($params))
+        $this->pool->add(new HeuristicTask($params))
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,

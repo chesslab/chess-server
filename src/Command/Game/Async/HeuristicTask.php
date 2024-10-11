@@ -10,7 +10,7 @@ use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use Spatie\Async\Task;
 
-class HeuristicAsyncTask extends Task
+class HeuristicTask extends Task
 {
     private array $params;
 
