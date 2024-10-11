@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Auth;
+namespace ChessServer\Command\Auth\Async;
 
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\AbstractSocket;
@@ -20,7 +20,7 @@ class TotpSignUpCommand extends AbstractCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $this->pool->add(new TotpSignUpAsyncTask())
+        $this->pool->add(new TotpSignUpTask())
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,
