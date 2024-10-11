@@ -1,10 +1,10 @@
 <?php
 
-namespace ChessServer\Command\Data;
+namespace ChessServer\Command\Data\Async;
 
 use ChessServer\Command\AbstractDbAsyncTask;
 
-class RankingAsyncTask extends AbstractDbAsyncTask
+class RankingTask extends AbstractDbAsyncTask
 {
     public function run()
     {

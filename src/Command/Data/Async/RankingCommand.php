@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Data;
+namespace ChessServer\Command\Data\Async;
 
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\AbstractSocket;
@@ -20,7 +20,7 @@ class RankingCommand extends AbstractCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $this->pool->add(new RankingAsyncTask())
+        $this->pool->add(new RankingTask())
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,
