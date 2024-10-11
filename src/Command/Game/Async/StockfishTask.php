@@ -8,7 +8,6 @@ use Chess\UciEngine\Details\Limit;
 use Chess\Variant\Classical\Board;
 use ChessServer\Command\AbstractAsyncTask;
 use ChessServer\Socket\AbstractSocket;
-use Spatie\Async\Task;
 
 class StockfishTask extends AbstractAsyncTask
 {

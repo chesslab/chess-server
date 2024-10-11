@@ -7,7 +7,6 @@ use Chess\Variant\Classical\FEN\StrToBoard as ClassicalStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\AbstractAsyncTask;
 use ChessServer\Socket\AbstractSocket;
-use Spatie\Async\Task;
 
 class ImageTask extends AbstractAsyncTask
 {

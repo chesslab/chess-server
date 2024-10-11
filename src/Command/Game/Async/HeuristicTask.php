@@ -9,7 +9,6 @@ use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalFenStrToBoard;
 use ChessServer\Command\AbstractAsyncTask;
-use Spatie\Async\Task;
 
 class HeuristicTask extends AbstractAsyncTask
 {

@@ -7,7 +7,6 @@ use Chess\Function\CompleteFunction;
 use Chess\Tutor\FenEvaluation;
 use Chess\Variant\Classical\Board;
 use ChessServer\Command\AbstractAsyncTask;
-use Spatie\Async\Task;
 
 class TutorFenTask extends AbstractAsyncTask
 {
