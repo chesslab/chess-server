@@ -7,7 +7,7 @@ use Chess\Elo\Player;
 use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Classical\PGN\AN\Termination;
 
-class UpdateEloAsyncTask extends AbstractDbAsyncTask
+class UpdateEloTask extends AbstractDbAsyncTask
 {
     protected function elo(string $result, int $i, int $j): array
     {

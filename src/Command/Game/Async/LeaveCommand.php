@@ -4,7 +4,7 @@ namespace ChessServer\Command\Game\Async;
 
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\AbstractCommand;
-use ChessServer\Command\UpdateEloAsyncTask;
+use ChessServer\Command\Async\UpdateEloTask;
 use ChessServer\Socket\AbstractSocket;
 
 class LeaveCommand extends AbstractCommand
@@ -33,7 +33,7 @@ class LeaveCommand extends AbstractCommand
             if ($gameMode->getJwtDecoded()->elo->{Color::W} &&
                 $gameMode->getJwtDecoded()->elo->{Color::B}
             ) {
-                $this->pool->add(new UpdateEloAsyncTask([
+                $this->pool->add(new UpdateEloTask([
                     'result' => $gameMode->getGame()->state()->end['result'],
                     'decoded' => $gameMode->getJwtDecoded(),
                 ]));
