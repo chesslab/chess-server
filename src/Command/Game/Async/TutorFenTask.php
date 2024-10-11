@@ -6,21 +6,11 @@ use Chess\FenToBoardFactory;
 use Chess\Function\CompleteFunction;
 use Chess\Tutor\FenEvaluation;
 use Chess\Variant\Classical\Board;
+use ChessServer\Command\AbstractAsyncTask;
 use Spatie\Async\Task;
 
-class TutorFenTask extends Task
+class TutorFenTask extends AbstractAsyncTask
 {
-    private array $params;
-
-    public function __construct(array $params)
-    {
-        $this->params = $params;
-    }
-
-    public function configure()
-    {
-    }
-
     public function run()
     {
         $board = FenToBoardFactory::create($this->params['fen'], new Board());

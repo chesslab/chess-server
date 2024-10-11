@@ -6,21 +6,11 @@ use Chess\FenToBoardFactory;
 use Chess\Play\RavPlay;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
+use ChessServer\Command\AbstractAsyncTask;
 use Spatie\Async\Task;
 
-class PlayRavTask extends Task
+class PlayRavTask extends AbstractAsyncTask
 {
-    private array $params;
-
-    public function __construct(array $params)
-    {
-        $this->params = $params;
-    }
-
-    public function configure()
-    {
-    }
-
     public function run()
     {
         if ($this->params['variant'] === Chess960Board::VARIANT) {

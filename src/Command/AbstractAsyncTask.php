@@ -31,4 +31,8 @@ abstract class AbstractAsyncTask extends Task
 
        $this->params = $params;
     }
+
+    public function configure()
+    {
+    }
 }

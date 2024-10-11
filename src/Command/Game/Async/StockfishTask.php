@@ -6,19 +6,20 @@ use Chess\Computer\GrandmasterMove;
 use Chess\UciEngine\UciEngine;
 use Chess\UciEngine\Details\Limit;
 use Chess\Variant\Classical\Board;
+use ChessServer\Command\AbstractAsyncTask;
 use ChessServer\Socket\AbstractSocket;
 use Spatie\Async\Task;
 
-class StockfishTask extends Task
+class StockfishTask extends AbstractAsyncTask
 {
-    private array $params;
-
     private Board $board;
 
     private GrandmasterMove $gmMove;
 
-    public function __construct($params, $board)
+    public function __construct(array $params, Board $board)
     {
+        parent::__construct($params);
+
         $this->params = $params;
         $this->board = $board;
     }
