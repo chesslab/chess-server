@@ -15,6 +15,7 @@ use ChessServer\Command\Game\Sync\EvalNamesCommand;
 use ChessServer\Command\Game\Sync\LegalCommand;
 use ChessServer\Command\Game\Sync\OnlineGamesCommand;
 use ChessServer\Command\Game\Sync\RandomizerCommand;
+use ChessServer\Command\Game\Sync\StartCommand;
 use ChessServer\Command\Game\Sync\TakebackCommand;
 use ChessServer\Command\Game\Sync\TutorFenCommand;
 use ChessServer\Command\Game\Sync\UndoCommand;
@@ -44,7 +45,7 @@ class Cli extends AbstractCli
         $this->commands->attach(new RandomizerCommand());
         $this->commands->attach((new ResignCommand())->setPool($pool));
         $this->commands->attach((new RestartCommand())->setPool($pool));
-        $this->commands->attach((new StartCommand())->setPool($pool));
+        $this->commands->attach(new StartCommand());
         $this->commands->attach((new StockfishCommand())->setPool($pool));
         $this->commands->attach(new TutorFenCommand());
     }
