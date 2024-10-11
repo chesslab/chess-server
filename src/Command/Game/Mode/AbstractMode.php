@@ -3,9 +3,9 @@
 namespace ChessServer\Command\Game\Mode;
 
 use ChessServer\Command\Game\Game;
-use ChessServer\Command\Game\LegalCommand;
 use ChessServer\Command\Game\PlayLanCommand;
 use ChessServer\Command\Game\UndoCommand;
+use ChessServer\Command\Game\Sync\LegalCommand;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -90,7 +90,7 @@ abstract class AbstractMode
                       'isValid' => $isValid,
                     ],
                 ];
-                
+
             case UndoCommand::class:
                 $board = $this->game->getBoard()->undo();
                 $this->game->setBoard($board);

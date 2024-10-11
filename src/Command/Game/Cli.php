@@ -6,6 +6,7 @@ use ChessServer\Command\AbstractCli;
 use ChessServer\Command\Game\Sync\AcceptPlayRequestCommand;
 use ChessServer\Command\Game\Sync\DrawCommand;
 use ChessServer\Command\Game\Sync\EvalNamesCommand;
+use ChessServer\Command\Game\Sync\LegalCommand;
 use Spatie\Async\Pool;
 
 class Cli extends AbstractCli
