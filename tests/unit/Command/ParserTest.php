@@ -3,10 +3,10 @@
 namespace ChessServer\Tests\Unit\Command;
 
 use ChessServer\Command\Parser;
-use ChessServer\Command\Game\AcceptPlayRequestCommand;
 use ChessServer\Command\Game\Cli;
-use ChessServer\Command\Game\RestartCommand;
-use ChessServer\Command\Game\StartCommand;
+use ChessServer\Command\Game\Async\RestartCommand;
+use ChessServer\Command\Game\Sync\AcceptPlayRequestCommand;
+use ChessServer\Command\Game\Sync\StartCommand;
 use ChessServer\Exception\ParserException;
 use PHPUnit\Framework\TestCase;
 use Spatie\Async\Pool;
