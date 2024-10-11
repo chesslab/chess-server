@@ -15,6 +15,7 @@ use ChessServer\Command\Game\Sync\EvalNamesCommand;
 use ChessServer\Command\Game\Sync\LegalCommand;
 use ChessServer\Command\Game\Sync\OnlineGamesCommand;
 use ChessServer\Command\Game\Sync\RandomizerCommand;
+use ChessServer\Command\Game\Sync\RematchCommand;
 use ChessServer\Command\Game\Sync\StartCommand;
 use ChessServer\Command\Game\Sync\TakebackCommand;
 use ChessServer\Command\Game\Sync\TutorFenCommand;
