@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Game;
+namespace ChessServer\Command\Game\Async;
 
 use Chess\FenToBoardFactory;
 use Chess\Play\RavPlay;
@@ -8,7 +8,7 @@ use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use Spatie\Async\Task;
 
-class PlayRavAsyncTask extends Task
+class PlayRavTask extends Task
 {
     private array $params;
 
