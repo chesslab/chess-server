@@ -3,6 +3,7 @@
 namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCli;
+use ChessServer\Command\Game\Sync\AcceptPlayRequestCommand;
 use Spatie\Async\Pool;
 
 class Cli extends AbstractCli
