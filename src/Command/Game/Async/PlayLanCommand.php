@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Game;
+namespace ChessServer\Command\Game\Async;
 
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Command\UpdateEloAsyncTask;

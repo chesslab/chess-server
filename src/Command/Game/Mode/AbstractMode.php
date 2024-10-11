@@ -3,7 +3,7 @@
 namespace ChessServer\Command\Game\Mode;
 
 use ChessServer\Command\Game\Game;
-use ChessServer\Command\Game\PlayLanCommand;
+use ChessServer\Command\Game\Async\PlayLanCommand;
 use ChessServer\Command\Game\Sync\LegalCommand;
 use ChessServer\Command\Game\Sync\UndoCommand;
 use Firebase\JWT\JWT;
