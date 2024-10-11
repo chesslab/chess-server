@@ -1,11 +1,11 @@
 <?php
 
-namespace ChessServer\Command\Data;
+namespace ChessServer\Command\Data\Async;
 
 use ChessServer\Socket\AbstractSocket;
 use Spatie\Async\Task;
 
-class AnnotationsGameAsyncTask extends Task
+class AnnotationsGameTask extends Task
 {
     const ANNOTATIONS_GAMES_FILE = 'annotations_games.json';
 
