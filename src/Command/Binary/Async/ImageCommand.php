@@ -2,10 +2,10 @@
 
 namespace ChessServer\Command\Binary\Async;
 
-use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class ImageCommand extends AbstractCommand
+class ImageCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {
