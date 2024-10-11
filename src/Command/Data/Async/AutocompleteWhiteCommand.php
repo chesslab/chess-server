@@ -2,10 +2,10 @@
 
 namespace ChessServer\Command\Data\Async;
 
-use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class AutocompleteWhiteCommand extends AbstractCommand
+class AutocompleteWhiteCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {

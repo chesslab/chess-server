@@ -2,10 +2,10 @@
 
 namespace ChessServer\Command\Data\Async;
 
-use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class RankingCommand extends AbstractCommand
+class RankingCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {
