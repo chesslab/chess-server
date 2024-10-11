@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Binary;
+namespace ChessServer\Command\Binary\Async;
 
 use Chess\Media\BoardToPng;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalStrToBoard;
@@ -8,7 +8,7 @@ use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Socket\AbstractSocket;
 use Spatie\Async\Task;
 
-class ImageAsyncTask extends Task
+class ImageTask extends Task
 {
     private array $params;
 

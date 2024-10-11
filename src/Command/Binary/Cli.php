@@ -3,6 +3,7 @@
 namespace ChessServer\Command\Binary;
 
 use ChessServer\Command\AbstractCli;
+use ChessServer\Command\Binary\Async\ImageCommand;
 use Spatie\Async\Pool;
 
 class Cli extends AbstractCli

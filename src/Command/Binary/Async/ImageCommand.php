@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Binary;
+namespace ChessServer\Command\Binary\Async;
 
 use ChessServer\Command\AbstractCommand;
 use ChessServer\Socket\AbstractSocket;
@@ -25,7 +25,7 @@ class ImageCommand extends AbstractCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $this->pool->add(new ImageAsyncTask($params), 81920)
+        $this->pool->add(new ImageTask($params), 81920)
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,
