@@ -1,10 +1,10 @@
 <?php
 
-namespace ChessServer\Command\Data;
+namespace ChessServer\Command\Data\Async;
 
 use ChessServer\Command\AbstractDbAsyncTask;
 
-class ResultEventAsyncTask extends AbstractDbAsyncTask
+class ResultEventTask extends AbstractDbAsyncTask
 {
     const SQL_LIKE = [
 
