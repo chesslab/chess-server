@@ -2,10 +2,10 @@
 
 namespace ChessServer\Command\Game\Async;
 
-use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class HeuristicCommand extends AbstractCommand
+class HeuristicCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {

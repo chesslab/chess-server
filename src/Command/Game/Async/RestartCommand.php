@@ -4,11 +4,11 @@ namespace ChessServer\Command\Game\Async;
 
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Command\Game\Game;
 use ChessServer\Socket\AbstractSocket;
 
-class RestartCommand extends AbstractCommand
+class RestartCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {

@@ -2,10 +2,10 @@
 
 namespace ChessServer\Command\Game\Async;
 
-use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class PlayRavCommand extends AbstractCommand
+class PlayRavCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {

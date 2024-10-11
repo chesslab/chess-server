@@ -2,10 +2,10 @@
 
 namespace ChessServer\Command\Game\Async;
 
-use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class StockfishCommand extends AbstractCommand
+class StockfishCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {

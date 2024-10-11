@@ -2,12 +2,12 @@
 
 namespace ChessServer\Command\Game\Async;
 
-use ChessServer\Command\AbstractCommand;
+use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Command\Game\Async\UpdateEloTask;
 use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;
 
-class PlayLanCommand extends AbstractCommand
+class PlayLanCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {
