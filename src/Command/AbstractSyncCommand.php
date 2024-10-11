@@ -2,6 +2,6 @@
 
 namespace ChessServer\Command;
 
-abstract class AbstractCommand extends AbstractCommand
+abstract class AbstractSyncCommand extends AbstractCommand
 {
 }
