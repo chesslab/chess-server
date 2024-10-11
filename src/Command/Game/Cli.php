@@ -10,6 +10,7 @@ use ChessServer\Command\Game\Async\PlayRavCommand;
 use ChessServer\Command\Game\Async\ResignCommand;
 use ChessServer\Command\Game\Async\RestartCommand;
 use ChessServer\Command\Game\Async\StockfishCommand;
+use ChessServer\Command\Game\Async\TutorFenCommand;
 use ChessServer\Command\Game\Sync\AcceptPlayRequestCommand;
 use ChessServer\Command\Game\Sync\DrawCommand;
 use ChessServer\Command\Game\Sync\EvalNamesCommand;
@@ -19,7 +20,6 @@ use ChessServer\Command\Game\Sync\RandomizerCommand;
 use ChessServer\Command\Game\Sync\RematchCommand;
 use ChessServer\Command\Game\Sync\StartCommand;
 use ChessServer\Command\Game\Sync\TakebackCommand;
-use ChessServer\Command\Game\Sync\TutorFenCommand;
 use ChessServer\Command\Game\Sync\UndoCommand;
 use Spatie\Async\Pool;
 
@@ -49,6 +49,6 @@ class Cli extends AbstractCli
         $this->commands->attach((new RestartCommand())->setPool($pool));
         $this->commands->attach(new StartCommand());
         $this->commands->attach((new StockfishCommand())->setPool($pool));
-        $this->commands->attach(new TutorFenCommand());
+        $this->commands->attach((new TutorFenCommand())->setPool($pool));
     }
 }

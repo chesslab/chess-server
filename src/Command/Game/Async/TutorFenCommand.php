@@ -1,15 +1,11 @@
 <?php
 
-namespace ChessServer\Command\Game\Sync;
+namespace ChessServer\Command\Game\Async;
 
-use Chess\FenToBoardFactory;
-use Chess\Function\CompleteFunction;
-use Chess\Tutor\FenEvaluation;
-use Chess\Variant\Classical\Board;
-use ChessServer\Command\AbstractSyncCommand;
+use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class TutorFenCommand extends AbstractSyncCommand
+class TutorFenCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {
@@ -28,11 +24,12 @@ class TutorFenCommand extends AbstractSyncCommand
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
         $params = json_decode(stripslashes($argv[1]), true);
-        $board = FenToBoardFactory::create($params['fen'], new Board());
-        $paragraph = (new FenEvaluation(new CompleteFunction(), $board))->paragraph;
 
-        return $socket->getClientStorage()->send([$id], [
-            $this->name => implode(' ', $paragraph),
-        ]);
+        $this->pool->add(new TutorFenTask($params))
+            ->then(function ($result) use ($socket, $id) {
+                return $socket->getClientStorage()->send([$id], [
+                    $this->name => $result,
+                ]);
+            });
     }
 }
