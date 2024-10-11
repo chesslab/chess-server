@@ -16,6 +16,6 @@ class TutorFenTask extends AbstractAsyncTask
         $board = FenToBoardFactory::create($this->params['fen'], new Board());
         $paragraph = (new FenEvaluation(new CompleteFunction(), $board))->paragraph;
 
-        return $paragraph;
+        return implode(' ', $paragraph);
     }
 }
