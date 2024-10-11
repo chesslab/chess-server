@@ -1,12 +1,12 @@
 <?php
 
-namespace ChessServer\Command\Data;
+namespace ChessServer\Command\Data\Async;
 
 use Chess\Movetext\SanMovetext;
 use Chess\Variant\Classical\PGN\Move;
 use ChessServer\Command\AbstractDbAsyncTask;
 
-class SearchAsyncTask extends AbstractDbAsyncTask
+class SearchTask extends AbstractDbAsyncTask
 {
     const SQL_LIKE = [
         'Date',

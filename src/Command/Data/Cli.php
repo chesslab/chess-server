@@ -11,6 +11,7 @@ use ChessServer\Command\Data\Async\RankingCommand;
 use ChessServer\Command\Data\Async\ResultCommand;
 use ChessServer\Command\Data\Async\ResultEventCommand;
 use ChessServer\Command\Data\Async\ResultPlayerCommand;
+use ChessServer\Command\Data\Async\SearchCommand;
 use Spatie\Async\Pool;
 
 class Cli extends AbstractCli
