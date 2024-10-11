@@ -3,8 +3,9 @@
 namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCli;
-use ChessServer\Command\Game\Async\PlayLanCommand;
 use ChessServer\Command\Game\Async\LeaveCommand;
+use ChessServer\Command\Game\Async\PlayLanCommand;
+use ChessServer\Command\Game\Async\ResignCommand;
 use ChessServer\Command\Game\Sync\AcceptPlayRequestCommand;
 use ChessServer\Command\Game\Sync\DrawCommand;
 use ChessServer\Command\Game\Sync\EvalNamesCommand;
