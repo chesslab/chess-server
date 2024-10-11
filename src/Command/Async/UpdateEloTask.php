@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command;
+namespace ChessServer\Command\Async;
 
 use Chess\Elo\Game;
 use Chess\Elo\Player;
