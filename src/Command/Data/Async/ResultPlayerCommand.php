@@ -25,7 +25,7 @@ class ResultPlayerCommand extends AbstractAsyncCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $this->pool->add(new ResultPlayerTask($params))
+        $this->pool->add(new ResultPlayerTask($params), 128000)
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,

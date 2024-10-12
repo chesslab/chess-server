@@ -20,7 +20,7 @@ class ResultCommand extends AbstractAsyncCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $this->pool->add(new ResultTask(), 81920)
+        $this->pool->add(new ResultTask(), 128000)
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,

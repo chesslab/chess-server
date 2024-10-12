@@ -25,7 +25,7 @@ class SearchCommand extends AbstractAsyncCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $this->pool->add(new SearchTask($params), 81920)
+        $this->pool->add(new SearchTask($params), 128000)
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,
