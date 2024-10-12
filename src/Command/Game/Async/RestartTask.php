@@ -30,8 +30,8 @@ class RestartTask extends AbstractDbAsyncTask
         $decoded = $this->params['decoded'];
         $decoded->iat = time();
         $decoded->exp = time() + 3600; // one hour by default
-        $decoded->elo->{Color::W} = $w['elo'];
-        $decoded->elo->{Color::B} = $b['elo'];
+        $decoded->elo->{Color::W} = $w['elo'] ?? $decoded->elo->{Color::W};
+        $decoded->elo->{Color::B} = $b['elo'] ?? $decoded->elo->{Color::B};
 
         return $decoded;
     }
