@@ -25,6 +25,7 @@ nav:
       - /restart: restart.md
       - /start: start.md
       - /stockfish: stockfish.md
+      - /tutor_fen: tutor-fen.md
   - Data:
     - Text-based:
       - /annotations_game: annotations-game.md
