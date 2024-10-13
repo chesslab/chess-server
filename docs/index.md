@@ -14,7 +14,7 @@ PHP Chess Server is an asynchronous PHP server that provides services of data an
 
 ## Object-Oriented
 
-The socket, the chess commands and the game modes are all implemented using OOP principles.
+The socket, the chess commands, the game modes and the asynchronous tasks are all implemented using OOP principles.
 
 ## Async PHP Frameworks
 
@@ -22,3 +22,5 @@ The flexible architecture of PHP Chess Server allows support for multiple async 
 
 - Workerman
 - Ratchet
+
+The Spatie async library providing a wrapper around PHP's PCNTL extension is used in order for asynchronous commands to not block the event loop.
