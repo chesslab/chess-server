@@ -126,6 +126,10 @@
 <li>
     <a href="stockfish/" class="dropdown-item">/stockfish</a>
 </li>
+            
+<li>
+    <a href="tutor-fen/" class="dropdown-item">/tutor_fen</a>
+</li>
     </ul>
   </li>
                                 </ul>
@@ -316,13 +320,14 @@
 </tbody>
 </table>
 <h2 id="object-oriented">Object-Oriented</h2>
-<p>The socket, the chess commands and the game modes are all implemented using OOP principles.</p>
+<p>The socket, the chess commands, the game modes and the asynchronous tasks are all implemented using OOP principles.</p>
 <h2 id="async-php-frameworks">Async PHP Frameworks</h2>
 <p>The flexible architecture of PHP Chess Server allows support for multiple async PHP frameworks, with the default one being Workerman.</p>
 <ul>
 <li>Workerman</li>
 <li>Ratchet</li>
-</ul></div>
+</ul>
+<p>The Spatie async library providing a wrapper around PHP's PCNTL extension is used in order for asynchronous commands to not block the event loop.</p></div>
             </div>
         </div>
 
@@ -405,5 +410,5 @@
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2024-09-18 15:58:00.189452+00:00
+Build Date UTC : 2024-10-13 10:48:18.065707+00:00
 -->
