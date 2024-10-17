@@ -21,7 +21,6 @@ class Cli extends AbstractCli
         // text-based commands
         $this->commands->attach((new AnnotationsGameCommand())->setPool($pool));
         $this->commands->attach((new RankingCommand())->setPool($pool));
-        $this->commands->attach((new ResultCommand())->setPool($pool));
         // param-based commands
         $this->commands->attach((new AutocompleteBlackCommand())->setPool($pool));
         $this->commands->attach((new AutocompleteEventCommand())->setPool($pool));
