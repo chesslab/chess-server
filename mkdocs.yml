@@ -30,13 +30,11 @@ nav:
     - Text-based:
       - /annotations_game: annotations-game.md
       - /ranking: ranking.md
-      - /result: result.md
     - Param-based:
       - /autocomplete_black: autocomplete-black.md
       - /autocomplete_event: autocomplete-event.md
       - /autocomplete_white: autocomplete-white.md
-      - /result_event: result-event.md
-      - /result_player: result-player.md
+      - /opening: opening.md
       - /search: search.md
   - Binary:
     - Param-based:
