@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="https://chesslablab.github.io/chess-server/result-event/">
+        <link rel="canonical" href="https://chesslablab.github.io/chess-server/opening/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>/result_event - PHP Chess Server</title>
+        <title>/opening - PHP Chess Server</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -149,10 +149,6 @@
 <li>
     <a href="../ranking/" class="dropdown-item">/ranking</a>
 </li>
-            
-<li>
-    <a href="../result/" class="dropdown-item">/result</a>
-</li>
     </ul>
   </li>
                                     
@@ -173,11 +169,7 @@
 </li>
             
 <li>
-    <a href="./" class="dropdown-item active">/result_event</a>
-</li>
-            
-<li>
-    <a href="../result-player/" class="dropdown-item">/result_player</a>
+    <a href="./" class="dropdown-item active">/opening</a>
 </li>
             
 <li>
@@ -245,7 +237,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../result-player/" class="nav-link">
+                                <a rel="next" href="../search/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -267,8 +259,16 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#result_event" class="nav-link">/result_event</a>
+            <li class="nav-item" data-level="1"><a href="#opening" class="nav-link">/opening</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#white" class="nav-link">White</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#black" class="nav-link">Black</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="2"><a href="#event" class="nav-link">Event</a>
               <ul class="nav flex-column">
               </ul>
@@ -288,8 +288,12 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="result_event">/result_event</h1>
-<p>Openings results by event.</p>
+<h1 id="opening">/opening</h1>
+<p>Opening results.</p>
+<h2 id="white"><code>White</code></h2>
+<p>The name of the player with the white pieces.</p>
+<h2 id="black"><code>Black</code></h2>
+<p>The name of the player with the black pieces.</p>
 <h2 id="event"><code>Event</code></h2>
 <p>The name of the event.</p>
 <h2 id="result"><code>Result</code></h2>
@@ -297,29 +301,13 @@
 <hr />
 <h2 id="usage">Usage</h2>
 <h3 id="example">Example</h3>
-<pre><code class="language-js">ws.send('/result_event &quot;{\\&quot;Event\\&quot;:\\&quot;FIDE Candidates 2016\\&quot;,\\&quot;Result\\&quot;:\\&quot;1-0\\&quot;}&quot;');
+<pre><code class="language-js">ws.send('/opening &quot;{\\&quot;White\\&quot;:\\&quot;Anand,V\\&quot;,\\&quot;Black\\&quot;:\\&quot;Kasparov,G\\&quot;,\\&quot;Event\\&quot;:\\&quot;\\&quot;,\\&quot;Result\\&quot;:\\&quot;1-0\\&quot;}&quot;');
 </code></pre>
 <pre><code class="language-text">{
-  &quot;/result_event&quot;: [
+  &quot;/opening&quot;: [
     {
-      &quot;ECO&quot;: &quot;C65&quot;,
+      &quot;ECO&quot;: &quot;B96&quot;,
       &quot;total&quot;: 2
-    },
-    {
-      &quot;ECO&quot;: &quot;A29&quot;,
-      &quot;total&quot;: 2
-    },
-    {
-      &quot;ECO&quot;: &quot;A06&quot;,
-      &quot;total&quot;: 1
-    },
-    {
-      &quot;ECO&quot;: &quot;C88&quot;,
-      &quot;total&quot;: 1
-    },
-    {
-      &quot;ECO&quot;: &quot;C50&quot;,
-      &quot;total&quot;: 1
     }
   ]
 }
