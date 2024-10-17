@@ -7,6 +7,7 @@ use ChessServer\Command\Data\Async\AnnotationsGameCommand;
 use ChessServer\Command\Data\Async\AutocompleteBlackCommand;
 use ChessServer\Command\Data\Async\AutocompleteEventCommand;
 use ChessServer\Command\Data\Async\AutocompleteWhiteCommand;
+use ChessServer\Command\Data\Async\OpeningCommand;
 use ChessServer\Command\Data\Async\RankingCommand;
 use ChessServer\Command\Data\Async\ResultCommand;
 use ChessServer\Command\Data\Async\ResultEventCommand;
@@ -28,6 +29,7 @@ class Cli extends AbstractCli
         $this->commands->attach((new AutocompleteBlackCommand())->setPool($pool));
         $this->commands->attach((new AutocompleteEventCommand())->setPool($pool));
         $this->commands->attach((new AutocompleteWhiteCommand())->setPool($pool));
+        $this->commands->attach((new OpeningCommand())->setPool($pool));
         $this->commands->attach((new ResultEventCommand())->setPool($pool));
         $this->commands->attach((new ResultPlayerCommand())->setPool($pool));
         $this->commands->attach((new SearchCommand())->setPool($pool));
