@@ -25,7 +25,7 @@ class RecognizerCommand extends AbstractAsyncCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $this->pool->add(new RecognizeTask($params))
+        $this->pool->add(new RecognizerTask($params))
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,
