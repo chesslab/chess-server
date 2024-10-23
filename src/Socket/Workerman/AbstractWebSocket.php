@@ -42,7 +42,7 @@ abstract class AbstractWebSocket extends AbstractSocket
     protected function message()
     {
         $this->worker->onMessage = function ($conn, $msg) {
-            if (strlen($msg) > 4096) {
+            if (strlen($msg) > 128000) {
                 return $this->clientStorage->send([$conn->id], [
                     'error' => 'Internal server error',
                 ]);

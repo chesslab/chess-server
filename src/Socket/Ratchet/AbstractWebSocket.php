@@ -37,7 +37,7 @@ abstract class AbstractWebSocket extends AbstractSocket implements MessageCompon
 
     public function onMessage(ConnectionInterface $from, $msg)
     {
-        if (strlen($msg) > 4096) {
+        if (strlen($msg) > 128000) {
             return $this->clientStorage->send([$from->resourceId], [
                 'error' => 'Internal server error',
             ]);
