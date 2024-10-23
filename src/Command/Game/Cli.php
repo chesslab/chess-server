@@ -7,6 +7,7 @@ use ChessServer\Command\Game\Async\HeuristicCommand;
 use ChessServer\Command\Game\Async\LeaveCommand;
 use ChessServer\Command\Game\Async\PlayLanCommand;
 use ChessServer\Command\Game\Async\PlayRavCommand;
+use ChessServer\Command\Game\Async\RecognizerCommand;
 use ChessServer\Command\Game\Async\ResignCommand;
 use ChessServer\Command\Game\Async\RestartCommand;
 use ChessServer\Command\Game\Async\StockfishCommand;
@@ -45,6 +46,7 @@ class Cli extends AbstractCli
         $this->commands->attach((new PlayLanCommand())->setPool($pool));
         $this->commands->attach((new PlayRavCommand())->setPool($pool));
         $this->commands->attach(new RandomizerCommand());
+        $this->commands->attach((new RecognizerCommand())->setPool($pool));
         $this->commands->attach((new ResignCommand())->setPool($pool));
         $this->commands->attach((new RestartCommand())->setPool($pool));
         $this->commands->attach(new StartCommand());
