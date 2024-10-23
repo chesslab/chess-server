@@ -10,7 +10,7 @@ class RecognizerCommand extends AbstractAsyncCommand
     public function __construct()
     {
         $this->name = '/recognizer';
-        $this->description = 'Returns the piece placement in FEN format given a PNG image representing a chessboard.';
+        $this->description = 'Returns the piece placement in FEN format of a Base64 encoded image.';
         $this->params = [
             'params' => '<string>',
         ];
