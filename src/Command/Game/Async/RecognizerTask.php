@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command\Game\Async;
 
-use Chess\Media\FEN\JpgToPiecePlacement;
+use Chess\Media\ImgToPiecePlacement;
 use ChessServer\Command\AbstractAsyncTask;
 
 class RecognizerTask extends AbstractAsyncTask
@@ -12,6 +12,6 @@ class RecognizerTask extends AbstractAsyncTask
         $data = base64_decode($this->params['data']);
         $image = imagecreatefromstring($data);
 
-        return (new JpgToPiecePlacement($image))->predict();
+        return (new ImgToPiecePlacement($image))->predict();
     }
 }
