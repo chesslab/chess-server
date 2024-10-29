@@ -9,8 +9,9 @@ class RecognizerTask extends AbstractAsyncTask
 {
     public function run()
     {
-        $data = base64_decode($this->params['data']);
-        $image = imagecreatefromstring($data);
+        $filtered = preg_replace('#^data:image/[^;]+;base64,#', '', $this->params['data']);
+        $decoded = base64_decode($filtered);
+        $image = imagecreatefromstring($decoded);
 
         return (new ImgToPiecePlacement($image))->predict();
     }
