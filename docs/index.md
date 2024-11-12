@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/license/mit/)
 [![Contributors](https://img.shields.io/github/contributors/chesslablab/chess-server)](https://github.com/chesslablab/chess-server/graphs/contributors)
 
-PHP Chess Server is an asynchronous PHP server that provides services of data and chess functionality to play online over a WebSocket connection.
+PHP Chess Server is an asynchronous PHP server that provides chess services over a WebSocket connection.
 
 | Port | Service Name | Description |
 | ---- | ------------ | ----------- |

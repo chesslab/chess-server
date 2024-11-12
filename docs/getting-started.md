@@ -2,9 +2,9 @@
 
 Whether it is the `data` service, the `game` service, the `binary` service or the `auth` service, all commands fall into three broad categories:
 
-- Basic commands have no parameters.
-- Action commands expect one parameter of type string.
-- Parameterized commands expect a JavaScript object parameter.
+- **Basic** commands have no parameters.
+- **Action** commands expect one parameter of type string.
+- **Parameterized** commands expect a JavaScript object parameter.
 
 Probably the easiest way to get familiar with the chess commands is by reading the WebSocket messages sent back and forth between the web browser and the chess server as you interact with a web app. To do this, you may want to use the [website](https://github.com/chesslablab/website) as shown in the example below.
 
