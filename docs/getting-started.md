@@ -1,5 +1,11 @@
 # Getting Started
 
+Whether it is the `data` service, the `game` service, the `binary` service or the `auth` service, all commands fall into three broad categories:
+
+- Text-based commands have no parameters.
+- Action-based commands expect one parameter of type string.
+- Param-based commands expect a JavaScript object parameter.
+
 Probably the easiest way to get familiar with the chess commands is by reading the WebSocket messages sent back and forth between the web browser and the chess server as you interact with a web app. To do this, you may want to use the [website](https://github.com/chesslablab/website) as shown in the example below.
 
 ![Figure 1](https://raw.githubusercontent.com/chesslablab/chess-server/main/docs/getting-started_01.png)
@@ -98,4 +104,4 @@ ws.send('/play_lan "{\\"color\\":\\"w\\",\\"lan\\":\\"e2e4\\"}"');
 ws.send('/play_lan "{\\"color\\":\\"b\\",\\"lan\\":\\"e7e5\\"}"');
 ```
 
-Now let's have a look at the WebSocket commands available! The commands fall into three broad categories. Text-based commands have no parameters. Action-based commands expect one parameter of type string. Param-based commands expect a JavaScript object parameter.
+Now let's have a look at the WebSocket commands available!
