@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/license/mit/)
 [![Contributors](https://img.shields.io/github/contributors/chesslablab/chess-server)](https://github.com/chesslablab/chess-server/graphs/contributors)
 
-Asynchronous PHP chess server.
+Asynchronous PHP server that provides chess services over a WebSocket connection.
 
 ### Documentation
 
