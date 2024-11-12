@@ -2,7 +2,6 @@ site_name: PHP Chess Server
 site_url: https://chesslablab.github.io/chess-server/
 nav:
   - Home: index.md
-  - Installation: installation.md
   - Getting Started: getting-started.md
   - Game:
     - Text-based:
