@@ -33,14 +33,11 @@
                             <li class="navitem">
                                 <a href=".." class="nav-link">Home</a>
                             </li>
-                            <li class="navitem">
-                                <a href="../installation/" class="nav-link">Installation</a>
-                            </li>
                             <li class="navitem active">
                                 <a href="./" class="nav-link">Getting Started</a>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Game <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">game <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
   <li class="dropdown-submenu">
@@ -135,7 +132,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Data <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">data <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
   <li class="dropdown-submenu">
@@ -180,7 +177,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Binary <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">binary <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
   <li class="dropdown-submenu">
@@ -195,7 +192,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Auth <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">auth <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
   <li class="dropdown-submenu">
@@ -232,7 +229,7 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../installation/" class="nav-link">
+                                <a rel="prev" href=".." class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
@@ -269,6 +266,12 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="getting-started">Getting Started</h1>
+<p>Whether it is the <code>data</code> service, the <code>game</code> service, the <code>binary</code> service or the <code>auth</code> service, all commands fall into three broad categories:</p>
+<ul>
+<li>Text-based commands have no parameters.</li>
+<li>Action-based commands expect one parameter of type string.</li>
+<li>Param-based commands expect a JavaScript object parameter.</li>
+</ul>
 <p>Probably the easiest way to get familiar with the chess commands is by reading the WebSocket messages sent back and forth between the web browser and the chess server as you interact with a web app. To do this, you may want to use the <a href="https://github.com/chesslablab/website">website</a> as shown in the example below.</p>
 <p><img alt="Figure 1" src="https://raw.githubusercontent.com/chesslablab/chess-server/main/docs/getting-started_01.png" /></p>
 <p><strong>Figure 1</strong>. Open Google Chrome developer tools for command examples.</p>
@@ -333,7 +336,7 @@ ws.send('/start &quot;{\\&quot;variant\\&quot;:\\&quot;classical\\&quot;,\\&quot
 ws.send('/play_lan &quot;{\\&quot;color\\&quot;:\\&quot;w\\&quot;,\\&quot;lan\\&quot;:\\&quot;e2e4\\&quot;}&quot;');
 ws.send('/play_lan &quot;{\\&quot;color\\&quot;:\\&quot;b\\&quot;,\\&quot;lan\\&quot;:\\&quot;e7e5\\&quot;}&quot;');
 </code></pre>
-<p>Now let's have a look at the WebSocket commands available! The commands fall into three broad categories. Text-based commands have no parameters. Action-based commands expect one parameter of type string. Param-based commands expect a JavaScript object parameter.</p></div>
+<p>Now let's have a look at the WebSocket commands available!</p></div>
             </div>
         </div>
 

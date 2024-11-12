@@ -34,13 +34,10 @@
                                 <a href="." class="nav-link">Home</a>
                             </li>
                             <li class="navitem">
-                                <a href="installation/" class="nav-link">Installation</a>
-                            </li>
-                            <li class="navitem">
                                 <a href="getting-started/" class="nav-link">Getting Started</a>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Game <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">game <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
   <li class="dropdown-submenu">
@@ -135,7 +132,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Data <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">data <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
   <li class="dropdown-submenu">
@@ -180,7 +177,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Binary <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">binary <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
   <li class="dropdown-submenu">
@@ -195,7 +192,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Auth <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">auth <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
   <li class="dropdown-submenu">
@@ -237,7 +234,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="installation/" class="nav-link">
+                                <a rel="next" href="getting-started/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -266,6 +263,10 @@
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#async-php-frameworks" class="nav-link">Async PHP Frameworks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#installation" class="nav-link">Installation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -319,7 +320,23 @@
 <li>Workerman</li>
 <li>Ratchet</li>
 </ul>
-<p>The Spatie async library providing a wrapper around PHP's PCNTL extension is used in order for asynchronous commands to not block the event loop.</p></div>
+<p>The Spatie async library providing a wrapper around PHP's PCNTL extension is used in order for asynchronous commands to not block the event loop.</p>
+<h2 id="installation">Installation</h2>
+<p>Clone the <code>chesslablab/chess-server</code> repo into your projects folder. Then <code>cd</code> the <code>chess-server</code> directory and create an <code>.env</code> file:</p>
+<pre><code class="language-txt">cp .env.example .env
+</code></pre>
+<p>Create empty log files for each service.</p>
+<pre><code class="language-txt">touch storage/data.log
+touch storage/game.log
+touch storage/binary.log
+touch storage/auth.log
+</code></pre>
+<p>Make sure to have installed the <code>fullchain.pem</code> and <code>privkey.pem</code> files in the <code>ssl</code> folder, and run the Docker container in detached mode in the background:</p>
+<pre><code class="language-txt">docker compose -f docker-compose.workerman.yml up -d
+</code></pre>
+<p>Finally, if you are running the chess server in a local development environment along with the <a href="https://github.com/chesslablab/website">website</a>, you may want to add a domain name entry to your <code>/etc/hosts</code> file as per the <code>WEBSOCKET_SERVER</code> variable defined in the <a href="https://github.com/chesslablab/website/blob/main/assets/env.example.js">assets/env.example.js</a> file.</p>
+<pre><code class="language-txt">127.0.0.1       async.chesslablab.org
+</code></pre></div>
             </div>
         </div>
 
@@ -402,5 +419,5 @@
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2024-10-17 10:40:22.062652+00:00
+Build Date UTC : 2024-11-12 16:10:59.879398+00:00
 -->
