@@ -3,25 +3,25 @@ site_url: https://chesslablab.github.io/chess-server/
 nav:
   - Getting Started: getting-started.md
   - data:
-    - Text-based:
+    - Basic commands:
       - /annotations_game: annotations-game.md
       - /ranking: ranking.md
-    - Param-based:
+    - Parameterized commands:
       - /autocomplete_black: autocomplete-black.md
       - /autocomplete_event: autocomplete-event.md
       - /autocomplete_white: autocomplete-white.md
       - /opening: opening.md
       - /search: search.md
   - game:
-    - Text-based:
+    - Basic commands:
       - /eval_names: eval-names.md
       - /online_games: online-games.md
       - /undo: undo.md
-    - Action-based:
+    - Action commands:
       - /draw: draw.md
       - /rematch: rematch.md
       - /takeback: takeback.md
-    - Param-based:
+    - Parameterized commands:
       - /accept: accept.md
       - /heuristic: heuristic.md
       - /leave: leave.md
@@ -35,12 +35,12 @@ nav:
       - /stockfish: stockfish.md
       - /tutor_fen: tutor-fen.md
   - binary:
-    - Param-based:
+    - Parameterized commands:
       - /image: image.md
   - auth:
-    - Text-based:
+    - Basic commands:
       - /totp_signup: totp-signup.md
-    - Param-based:
+    - Parameterized commands:
       - /totp_refresh: totp-refresh.md
       - /totp_signin: totp-signin.md
 
