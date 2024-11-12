@@ -3,7 +3,7 @@ site_url: https://chesslablab.github.io/chess-server/
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
-  - Game:
+  - game:
     - Text-based:
       - /eval_names: eval-names.md
       - /online_games: online-games.md
@@ -25,7 +25,7 @@ nav:
       - /start: start.md
       - /stockfish: stockfish.md
       - /tutor_fen: tutor-fen.md
-  - Data:
+  - data:
     - Text-based:
       - /annotations_game: annotations-game.md
       - /ranking: ranking.md
@@ -35,10 +35,10 @@ nav:
       - /autocomplete_white: autocomplete-white.md
       - /opening: opening.md
       - /search: search.md
-  - Binary:
+  - binary:
     - Param-based:
       - /image: image.md
-  - Auth:
+  - auth:
     - Text-based:
       - /totp_signup: totp-signup.md
     - Param-based:
