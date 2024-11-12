@@ -1,8 +1,17 @@
 site_name: PHP Chess Server
 site_url: https://chesslablab.github.io/chess-server/
 nav:
-  - Home: index.md
   - Getting Started: getting-started.md
+  - data:
+    - Text-based:
+      - /annotations_game: annotations-game.md
+      - /ranking: ranking.md
+    - Param-based:
+      - /autocomplete_black: autocomplete-black.md
+      - /autocomplete_event: autocomplete-event.md
+      - /autocomplete_white: autocomplete-white.md
+      - /opening: opening.md
+      - /search: search.md
   - game:
     - Text-based:
       - /eval_names: eval-names.md
@@ -25,16 +34,6 @@ nav:
       - /start: start.md
       - /stockfish: stockfish.md
       - /tutor_fen: tutor-fen.md
-  - data:
-    - Text-based:
-      - /annotations_game: annotations-game.md
-      - /ranking: ranking.md
-    - Param-based:
-      - /autocomplete_black: autocomplete-black.md
-      - /autocomplete_event: autocomplete-event.md
-      - /autocomplete_white: autocomplete-white.md
-      - /opening: opening.md
-      - /search: search.md
   - binary:
     - Param-based:
       - /image: image.md
