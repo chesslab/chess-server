@@ -12,11 +12,13 @@ PHP Chess Server is an asynchronous PHP server that provides chess services over
 | 7443 | binary | Binary data |
 | 6443 | auth | Authentication functionality |
 
-## Object-Oriented
+## Features
+
+### Object-Oriented
 
 The socket, the chess commands, the game modes and the asynchronous tasks are all implemented using OOP principles.
 
-## Async PHP Frameworks
+### Flexible
 
 The flexible architecture of PHP Chess Server allows support for multiple async PHP frameworks, with the default one being Workerman.
 
