@@ -22,9 +22,9 @@ The piece composition string as per these options.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 Get a random position with white to move; King and queen and rook vs. king and rook.
 

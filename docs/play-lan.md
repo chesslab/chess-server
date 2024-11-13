@@ -15,9 +15,9 @@ The chess move in LAN format.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 Starts a classical game to play 1.e4.
 

@@ -20,9 +20,9 @@ The result of the game.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 ```js
 ws.send('/opening "{\\"White\\":\\"Anand,V\\",\\"Black\\":\\"Kasparov,G\\",\\"Event\\":\\"\\",\\"Result\\":\\"1-0\\"}"');

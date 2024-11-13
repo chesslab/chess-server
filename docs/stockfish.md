@@ -16,9 +16,9 @@ Stockfish params.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 Start a classical game, play `e2e4` and use Stockfish to respond with a move.
 

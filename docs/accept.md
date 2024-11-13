@@ -16,9 +16,9 @@ The ELO of the user accepting the invitation.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 ```js
 ws.send('accept "{\\"uid\\":\\"d07fa3d9\\",\\"username\\":\\"boring_gnat\\",\\"elo\\":1488}"');

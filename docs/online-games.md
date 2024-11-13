@@ -4,9 +4,9 @@ Returns the online games in pending status to be accepted.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 ```js
 ws.send('/online_games');

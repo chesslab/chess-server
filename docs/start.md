@@ -34,7 +34,7 @@ Additional optional parameters may be required depending on the mode selected as
 
 ---
 
-## Usage
+### Usage
 
 ### Start a classical game
 

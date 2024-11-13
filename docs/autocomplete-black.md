@@ -8,9 +8,9 @@ The name of the player with the black pieces.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 ```js
 ws.send('/autocomplete_black "{\\"Black\\":\\"kas\\"}"');

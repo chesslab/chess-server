@@ -12,9 +12,9 @@ The password.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 ```js
 ws.send('/totp_signin "{\\"username\\":\\"graceful_elephant\\",\\"password\\":\\"513967906\\"}"');

@@ -32,9 +32,9 @@ The sequence of moves played in the game.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 ```js
 ws.send('/search "{\\"Event\\":\\"\\",\\"Date\\":\\"2023\\",\\"White\\":\\"\\",\\"Black\\":\\"\\",\\"Result\\":\\"0-1\\",\\"ECO\\":\\"\\",\\"movetext\\":\\"\\"}"');

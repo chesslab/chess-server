@@ -4,9 +4,9 @@ TOTP sign up URL.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 ```js
 ws.send('/totp_signup');

@@ -8,9 +8,9 @@ The location of the piece on the board.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 Start a classical game to find out the legal moves of the piece on e2.
 

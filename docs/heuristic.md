@@ -51,9 +51,9 @@ The name of the heuristic as per these options.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 ```js
 ws.send('/heuristic "{\\"variant\\":\\"classical\\",\\"movetext\\":\\"1.e4 e5 2.Nf3 Nc6 3.Bc4\\",\\"name\\":\\"Center\\"}"');

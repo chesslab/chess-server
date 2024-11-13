@@ -11,9 +11,9 @@ The color as per these options.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 ```js
 ws.send('/leave "{\\"color\\":\\"b\\"}"');

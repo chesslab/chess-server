@@ -4,9 +4,9 @@ Returns the evaluation names.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 ```js
 ws.send('/eval_names');

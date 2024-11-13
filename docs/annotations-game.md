@@ -4,9 +4,9 @@ Annotated chess games.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 ```js
 ws.send('/annotations_game');

@@ -8,7 +8,7 @@ Offers a rematch as per these actions.
 
 ---
 
-## Usage
+### Usage
 
 ### Propose a rematch
 

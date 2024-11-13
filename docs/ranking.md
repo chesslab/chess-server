@@ -4,9 +4,9 @@ Top players by ELO.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 ```js
 ws.send('/ranking');

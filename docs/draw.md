@@ -8,7 +8,7 @@ Offers a draw as per these actions.
 
 ---
 
-## Usage
+### Usage
 
 ### Propose a draw
 

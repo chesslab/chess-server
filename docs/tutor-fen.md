@@ -8,9 +8,9 @@ A FEN string.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 ```js
 ws.send('/tutor_fen "{\\"fen\\":\\"rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq -\\"}"');

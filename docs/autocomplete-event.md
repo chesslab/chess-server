@@ -8,9 +8,9 @@ The name of the event.
 
 ---
 
-## Usage
+### Usage
 
-### Example
+#### Example
 
 ```js
 ws.send('/autocomplete_event "{\\"Event\\":\\"wor\\"}"');

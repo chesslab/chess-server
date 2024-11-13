@@ -8,7 +8,7 @@ Takes back a move as per these actions.
 
 ---
 
-## Usage
+### Usage
 
 ### Propose a take back
 
