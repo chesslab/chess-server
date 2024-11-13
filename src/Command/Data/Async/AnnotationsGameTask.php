@@ -2,21 +2,14 @@
 
 namespace ChessServer\Command\Data\Async;
 
-use ChessServer\Socket\AbstractSocket;
-use Spatie\Async\Task;
+use ChessServer\Command\AbstractDbAsyncTask;
 
-class AnnotationsGameTask extends Task
+class AnnotationsGameTask extends AbstractDbAsyncTask
 {
-    const ANNOTATIONS_GAMES_FILE = 'annotations_games.json';
-
-    public function configure()
-    {
-    }
-
     public function run()
     {
-        $contents = file_get_contents(AbstractSocket::DATA_FOLDER.'/'.self::ANNOTATIONS_GAMES_FILE);
+        $sql = "SELECT * FROM annotations";
 
-        return json_decode($contents);
+        return $this->db->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
