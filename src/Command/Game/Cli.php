@@ -5,6 +5,7 @@ namespace ChessServer\Command\Game;
 use ChessServer\Command\AbstractCli;
 use ChessServer\Command\Game\Async\HeuristicCommand;
 use ChessServer\Command\Game\Async\LeaveCommand;
+use ChessServer\Command\Game\Async\PlayCommand;
 use ChessServer\Command\Game\Async\PlayLanCommand;
 use ChessServer\Command\Game\Async\PlayRavCommand;
 use ChessServer\Command\Game\Async\RecognizerCommand;
@@ -43,6 +44,7 @@ class Cli extends AbstractCli
         $this->commands->attach((new HeuristicCommand())->setPool($pool));
         $this->commands->attach((new LeaveCommand())->setPool($pool));
         $this->commands->attach(new LegalCommand());
+        $this->commands->attach((new PlayCommand())->setPool($pool));
         $this->commands->attach((new PlayLanCommand())->setPool($pool));
         $this->commands->attach((new PlayRavCommand())->setPool($pool));
         $this->commands->attach(new RandomizerCommand());

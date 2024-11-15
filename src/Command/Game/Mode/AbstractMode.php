@@ -3,6 +3,7 @@
 namespace ChessServer\Command\Game\Mode;
 
 use ChessServer\Command\Game\Game;
+use ChessServer\Command\Game\Async\PlayCommand;
 use ChessServer\Command\Game\Async\PlayLanCommand;
 use ChessServer\Command\Game\Sync\LegalCommand;
 use ChessServer\Command\Game\Sync\UndoCommand;
@@ -79,6 +80,16 @@ abstract class AbstractMode
             case LegalCommand::class:
                 return [
                     $cmd->name => $this->game->getBoard()->legal($params['square']),
+                ];
+
+            case PlayCommand::class:
+                $isValid = $this->game->play($params['color'], $params['pgn']);
+                return [
+                    $cmd->name => [
+                      ...(array) $this->game->state(),
+                      'variant' =>  $this->game->getVariant(),
+                      'isValid' => $isValid,
+                    ],
                 ];
 
             case PlayLanCommand::class:
