@@ -91,6 +91,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://chesslablab.github.io/chess-server/play/</loc>
+         <lastmod>2024-11-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://chesslablab.github.io/chess-server/randomizer/</loc>
          <lastmod>2024-11-15</lastmod>
          <changefreq>daily</changefreq>

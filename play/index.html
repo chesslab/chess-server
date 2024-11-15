@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="https://chesslablab.github.io/chess-server/legal/">
+        <link rel="canonical" href="https://chesslablab.github.io/chess-server/play/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>/legal - PHP Chess Server</title>
+        <title>/play - PHP Chess Server</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -135,11 +135,11 @@
 </li>
             
 <li>
-    <a href="./" class="dropdown-item active">/legal</a>
+    <a href="../legal/" class="dropdown-item">/legal</a>
 </li>
             
 <li>
-    <a href="../play/" class="dropdown-item">/play</a>
+    <a href="./" class="dropdown-item active">/play</a>
 </li>
             
 <li>
@@ -234,12 +234,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../leave/" class="nav-link">
+                                <a rel="prev" href="../legal/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../play/" class="nav-link">
+                                <a rel="next" href="../play-lan/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -261,9 +261,13 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#legal" class="nav-link">/legal</a>
+            <li class="nav-item" data-level="1"><a href="#play" class="nav-link">/play</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#square" class="nav-link">square</a>
+            <li class="nav-item" data-level="2"><a href="#color" class="nav-link">color</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pgn" class="nav-link">pgn</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -274,22 +278,31 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="legal">/legal</h1>
-<p>Returns the legal moves of a piece.</p>
-<h2 id="square"><code>square</code></h2>
-<p>The location of the piece on the board.</p>
+<h1 id="play">/play</h1>
+<p>Plays a move in Portable Game Notation (PGN) format.</p>
+<h2 id="color"><code>color</code></h2>
+<p>The color as per these options.</p>
+<ul>
+<li><code>w</code> for the white pieces.</li>
+<li><code>b</code> for the black pieces.</li>
+</ul>
+<h2 id="pgn"><code>pgn</code></h2>
+<p>The chess move in PGN format.</p>
 <hr />
 <h3 id="usage">Usage</h3>
 <h4 id="example">Example</h4>
-<p>Start a classical game to find out the legal moves of the piece on e2.</p>
+<p>Starts a classical game to play 1.e4.</p>
 <pre><code class="language-js">ws.send('/start &quot;{\\&quot;variant\\&quot;:\\&quot;classical\\&quot;,\\&quot;mode\\&quot;:\\&quot;analysis\\&quot;}&quot;');
-ws.send('/legal &quot;{\\&quot;square\\&quot;:\\&quot;e2\\&quot;}&quot;');
+ws.send('/play &quot;{\\&quot;color\\&quot;:\\&quot;w\\&quot;,\\&quot;pgn\\&quot;:\\&quot;e4\\&quot;}&quot;');
 </code></pre>
 <pre><code class="language-text">{
-  &quot;/legal&quot;: [
-    &quot;e3&quot;,
-    &quot;e4&quot;
-  ]
+  &quot;/play&quot;: {
+    &quot;turn&quot;: &quot;b&quot;,
+    &quot;movetext&quot;: &quot;1.e4&quot;,
+    &quot;fen&quot;: &quot;rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3&quot;,
+    &quot;variant&quot;: &quot;classical&quot;,
+    &quot;isValid&quot;: true
+  }
 }
 </code></pre></div>
             </div>
