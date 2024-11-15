@@ -249,11 +249,11 @@
             
             <li class="nav-item" data-level="1"><a href="#php-chess-server" class="nav-link">PHP Chess Server</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#features" class="nav-link">Features</a>
+            <li class="nav-item" data-level="2"><a href="#installation" class="nav-link">Installation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#installation" class="nav-link">Installation</a>
+            <li class="nav-item" data-level="2"><a href="#features" class="nav-link">Features</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -297,16 +297,6 @@
 </tr>
 </tbody>
 </table>
-<h2 id="features">Features</h2>
-<h3 id="object-oriented">Object-Oriented</h3>
-<p>The socket, the chess commands, the game modes and the asynchronous tasks are all implemented using OOP principles.</p>
-<h3 id="flexible">Flexible</h3>
-<p>The flexible architecture of PHP Chess Server allows support for multiple async PHP frameworks, with the default one being Workerman.</p>
-<ul>
-<li>Workerman</li>
-<li>Ratchet</li>
-</ul>
-<p>The Spatie async library providing a wrapper around PHP's PCNTL extension is used in order for asynchronous commands to not block the event loop.</p>
 <h2 id="installation">Installation</h2>
 <p>Clone the <code>chesslablab/chess-server</code> repo into your projects folder. Then <code>cd</code> the <code>chess-server</code> directory and create an <code>.env</code> file:</p>
 <pre><code class="language-txt">cp .env.example .env
@@ -317,12 +307,22 @@ touch storage/game.log
 touch storage/binary.log
 touch storage/auth.log
 </code></pre>
-<p>Make sure to have installed the <code>fullchain.pem</code> and <code>privkey.pem</code> files in the <code>ssl</code> folder, and run the Docker container in detached mode in the background:</p>
+<p>Make sure to read the <a href="https://chesslablab.github.io/website/#ssl-certificate-setup">SSL Certificate Setup</a> section. Install the <code>fullchain.pem</code> and <code>privkey.pem</code> files in the <code>ssl</code> folder, and run the Docker container in detached mode in the background:</p>
 <pre><code class="language-txt">docker compose -f docker-compose.workerman.yml up -d
 </code></pre>
 <p>Finally, if you are running the chess server in a local development environment along with the <a href="https://github.com/chesslablab/website">website</a>, you may want to add a domain name entry to your <code>/etc/hosts</code> file as per the <code>WEBSOCKET_SERVER</code> variable defined in the <a href="https://github.com/chesslablab/website/blob/main/assets/env.example.js">assets/env.example.js</a> file.</p>
 <pre><code class="language-txt">127.0.0.1       async.chesslablab.org
-</code></pre></div>
+</code></pre>
+<h2 id="features">Features</h2>
+<h3 id="object-oriented">Object-Oriented</h3>
+<p>The socket, the chess commands, the game modes and the asynchronous tasks are all implemented using OOP principles.</p>
+<h3 id="flexible">Flexible</h3>
+<p>The flexible architecture of PHP Chess Server allows support for multiple async PHP frameworks, with the default one being Workerman.</p>
+<ul>
+<li>Workerman</li>
+<li>Ratchet</li>
+</ul>
+<p>The Spatie async library providing a wrapper around PHP's PCNTL extension is used in order for asynchronous commands to not block the event loop.</p></div>
             </div>
         </div>
 
@@ -405,5 +405,5 @@ touch storage/auth.log
 
 <!--
 MkDocs version : 1.5.3
-Build Date UTC : 2024-11-13 17:32:06.311333+00:00
+Build Date UTC : 2024-11-15 09:59:31.544671+00:00
 -->
