@@ -16,6 +16,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://chesslablab.github.io/chess-server/ascii/</loc>
+         <lastmod>2024-11-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://chesslablab.github.io/chess-server/autocomplete-black/</loc>
          <lastmod>2024-11-15</lastmod>
          <changefreq>daily</changefreq>

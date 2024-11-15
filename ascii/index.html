@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="https://chesslablab.github.io/chess-server/leave/">
+        <link rel="canonical" href="https://chesslablab.github.io/chess-server/ascii/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>/leave - PHP Chess Server</title>
+        <title>/ascii - PHP Chess Server</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -87,7 +87,7 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../ascii/" class="dropdown-item">/ascii</a>
+    <a href="./" class="dropdown-item active">/ascii</a>
 </li>
             
 <li>
@@ -135,7 +135,7 @@
 </li>
             
 <li>
-    <a href="./" class="dropdown-item active">/leave</a>
+    <a href="../leave/" class="dropdown-item">/leave</a>
 </li>
             
 <li>
@@ -238,12 +238,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../heuristic/" class="nav-link">
+                                <a rel="prev" href="../search/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../legal/" class="nav-link">
+                                <a rel="next" href="../eval-names/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -265,12 +265,8 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#leave" class="nav-link">/leave</a>
+            <li class="nav-item" data-level="1"><a href="#ascii" class="nav-link">/ascii</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#color" class="nav-link">color</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
               </ul>
             </li>
         </ul>
@@ -278,30 +274,17 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="leave">/leave</h1>
-<p>Leaves a game.</p>
-<h2 id="color"><code>color</code></h2>
-<p>The color as per these options.</p>
-<ul>
-<li><code>w</code> for the white pieces.</li>
-<li><code>b</code> for the black pieces.</li>
-</ul>
+<h1 id="ascii">/ascii</h1>
+<p>Returns an ASCII representation of the board.</p>
 <hr />
 <h3 id="usage">Usage</h3>
 <h4 id="example">Example</h4>
-<pre><code class="language-js">ws.send('/leave &quot;{\\&quot;color\\&quot;:\\&quot;b\\&quot;}&quot;');
+<pre><code class="language-js">ws.send('/start &quot;{\\&quot;variant\\&quot;:\\&quot;classical\\&quot;,\\&quot;mode\\&quot;:\\&quot;analysis\\&quot;}&quot;');
+ws.send('/play &quot;{\\&quot;color\\&quot;:\\&quot;w\\&quot;,\\&quot;pgn\\&quot;:\\&quot;e4\\&quot;}&quot;');
+ws.send('/ascii');
 </code></pre>
 <pre><code class="language-text">{
-  &quot;/leave&quot;: {
-    &quot;turn&quot;: &quot;w&quot;,
-    &quot;movetext&quot;: &quot;1.e4 e5 2.d4 d5&quot;,
-    &quot;fen&quot;: &quot;rnbqkbnr/ppp2ppp/8/3pp3/3PP3/8/PPP2PPP/RNBQKBNR w KQkq d6&quot;,
-    &quot;end&quot;: {
-      &quot;result&quot;: &quot;1-0&quot;,
-      &quot;msg&quot;: &quot;White wins&quot;
-    },
-    &quot;color&quot;: &quot;b&quot;
-  }
+  &quot;/ascii&quot;: &quot; r  n  b  q  k  b  n  r \n p  p  p  p  p  p  p  p \n .  .  .  .  .  .  .  . \n .  .  .  .  .  .  .  . \n .  .  .  .  P  .  .  . \n .  .  .  .  .  .  .  . \n P  P  P  P  .  P  P  P \n R  N  B  Q  K  B  N  R \n&quot;
 }
 </code></pre></div>
             </div>
