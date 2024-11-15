@@ -12,7 +12,7 @@ class PlayLanCommand extends AbstractAsyncCommand
     public function __construct()
     {
         $this->name = '/play_lan';
-        $this->description = 'Plays a move in long algebraic notation.';
+        $this->description = 'Plays a move in Long Algebraic Notation (LAN) format.';
         $this->params = [
             'params' => '<string>',
         ];
