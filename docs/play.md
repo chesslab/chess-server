@@ -1,6 +1,6 @@
-# /play_lan
+# /play
 
-Plays a move in Long Algebraic Notation (LAN) format.
+Plays a move in Portable Game Notation (PGN) format.
 
 ## `color`
 
@@ -9,9 +9,9 @@ The color as per these options.
 - `w` for the white pieces.
 - `b` for the black pieces.
 
-## `lan`
+## `pgn`
 
-The chess move in LAN format.
+The chess move in PGN format.
 
 ---
 
@@ -23,12 +23,12 @@ Starts a classical game to play 1.e4.
 
 ```js
 ws.send('/start "{\\"variant\\":\\"classical\\",\\"mode\\":\\"analysis\\"}"');
-ws.send('/play_lan "{\\"color\\":\\"w\\",\\"lan\\":\\"e2e4\\"}"');
+ws.send('/play "{\\"color\\":\\"w\\",\\"pgn\\":\\"e4\\"}"');
 ```
 
 ```text
 {
-  "/play_lan": {
+  "/play": {
     "turn": "b",
     "movetext": "1.e4",
     "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3",
