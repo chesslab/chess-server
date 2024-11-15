@@ -14,6 +14,7 @@ use ChessServer\Command\Game\Async\RestartCommand;
 use ChessServer\Command\Game\Async\StockfishCommand;
 use ChessServer\Command\Game\Async\TutorFenCommand;
 use ChessServer\Command\Game\Sync\AcceptPlayRequestCommand;
+use ChessServer\Command\Game\Sync\AsciiCommand;
 use ChessServer\Command\Game\Sync\DrawCommand;
 use ChessServer\Command\Game\Sync\EvalNamesCommand;
 use ChessServer\Command\Game\Sync\LegalCommand;
@@ -32,6 +33,7 @@ class Cli extends AbstractCli
         parent::__construct();
 
         // text-based commands
+        $this->commands->attach(new AsciiCommand());
         $this->commands->attach(new EvalNamesCommand());
         $this->commands->attach(new OnlineGamesCommand());
         $this->commands->attach(new UndoCommand());
