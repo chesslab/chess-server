@@ -9,21 +9,6 @@ Asynchronous PHP server that provides chess services over a WebSocket connection
 | 7443 | binary | Binary data |
 | 6443 | auth | Authentication functionality |
 
-## Features
-
-### Object-Oriented
-
-The socket, the chess commands, the game modes and the asynchronous tasks are all implemented using OOP principles.
-
-### Flexible
-
-The flexible architecture of PHP Chess Server allows support for multiple async PHP frameworks, with the default one being Workerman.
-
-- Workerman
-- Ratchet
-
-The Spatie async library providing a wrapper around PHP's PCNTL extension is used in order for asynchronous commands to not block the event loop.
-
 ## Installation
 
 Clone the `chesslablab/chess-server` repo into your projects folder. Then `cd` the `chess-server` directory and create an `.env` file:
@@ -41,7 +26,7 @@ touch storage/binary.log
 touch storage/auth.log
 ```
 
-Make sure to have installed the `fullchain.pem` and `privkey.pem` files in the `ssl` folder, and run the Docker container in detached mode in the background:
+Make sure to read the [SSL Certificate Setup](https://chesslablab.github.io/website/#ssl-certificate-setup) section. Install the `fullchain.pem` and `privkey.pem` files in the `ssl` folder, and run the Docker container in detached mode in the background:
 
 ```txt
 docker compose -f docker-compose.workerman.yml up -d
@@ -52,3 +37,18 @@ Finally, if you are running the chess server in a local development environment 
 ```txt
 127.0.0.1       async.chesslablab.org
 ```
+
+## Features
+
+### Object-Oriented
+
+The socket, the chess commands, the game modes and the asynchronous tasks are all implemented using OOP principles.
+
+### Flexible
+
+The flexible architecture of PHP Chess Server allows support for multiple async PHP frameworks, with the default one being Workerman.
+
+- Workerman
+- Ratchet
+
+The Spatie async library providing a wrapper around PHP's PCNTL extension is used in order for asynchronous commands to not block the event loop.
