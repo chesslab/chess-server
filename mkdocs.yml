@@ -14,6 +14,7 @@ nav:
       - /search: search.md
   - game:
     - Basic:
+      - /ascii: ascii.md
       - /eval_names: eval-names.md
       - /online_games: online-games.md
       - /undo: undo.md
