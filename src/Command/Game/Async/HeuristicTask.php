@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command\Game\Async;
 
-use Chess\SanHeuristic;
+use Chess\SanHeuristics;
 use Chess\Function\CompleteFunction;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
@@ -25,10 +25,10 @@ class HeuristicTask extends AbstractAsyncTask
                 : new ClassicalBoard();
         }
 
-        $balance = (new SanHeuristic(
+        $balance = (new SanHeuristics(
             new CompleteFunction(),
-            $this->params['name'],
             $this->params['movetext'],
+            $this->params['name'],
             $board
         ))->getBalance();
 
