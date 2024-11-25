@@ -11,6 +11,8 @@ The chess variant as per these options.
 - `dunsany` is an asymmetric variant in which Black has the standard chess army and White has 32 pawns.
 - `losing` chess, the objective of each player is to lose all of their pieces or be stalemated.
 - `racing-kings` consists of being the first player to move their king to the eighth row.
+- `capablanca` chess incorporates two new pieces, the archbishop and the chancellor, and is played on a 10×8 board.
+- `capablanca-fischer` is a mix of Capablanca chess and Chess960.
 
 ## `mode`
 
