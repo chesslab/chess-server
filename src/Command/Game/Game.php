@@ -3,6 +3,9 @@
 namespace ChessServer\Command\Game;
 
 use Chess\Variant\AbstractBoard;
+use Chess\Variant\Capablanca\Board as CapablancaBoard;
+use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
+use Chess\Variant\CapablancaFischer\StartPosition as CapablancaFischerStartPosition;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\StartPosition as Chess960StartPosition;
 use Chess\Variant\Classical\Board as ClassicalBoard;
@@ -15,6 +18,8 @@ use Chess\Variant\RacingKings\Board as RacingKingsBoard;
 class Game
 {
     const VARIANT_960 = Chess960Board::VARIANT;
+    const VARIANT_CAPABLANCA = CapablancaBoard::VARIANT;
+    const VARIANT_CAPABLANCA_FISCHER = CapablancaFischerBoard::VARIANT;
     const VARIANT_CLASSICAL = ClassicalBoard::VARIANT;
     const VARIANT_DUNSANY = DunsanyBoard::VARIANT;
     const VARIANT_LOSING = LosingBoard::VARIANT;
@@ -42,6 +47,11 @@ class Game
         if ($this->variant === self::VARIANT_960) {
             $startPos = (new Chess960StartPosition())->create();
             $this->board = new Chess960Board($startPos);
+        } elseif ($this->variant === self::VARIANT_CAPABLANCA) {
+            $this->board = new CapablancaBoard();
+        } elseif ($this->variant === self::VARIANT_CAPABLANCA_FISCHER) {
+            $startPos = (new CapablancaFischerStartPosition())->create();
+            $this->board = new CapablancaFischerBoard($startPos);
         } elseif ($this->variant === self::VARIANT_CLASSICAL) {
             $this->board = new ClassicalBoard();
         } elseif ($this->variant === self::VARIANT_DUNSANY) {

@@ -621,11 +621,11 @@
         },
         {
             "name": "chesslablab/php-chess",
-            "version": "1.4.78",
+            "version": "1.4.79",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chesslablab/php-chess.git",
-                "reference": "ac9d0462908e7fdfe2f30b20f8ca85773d9e5039"
+                "reference": "2892b8f64e09008269c793f0efa7850f9a51da14"
             },
             "require": {
                 "imagine/imagine": "^1.2",
@@ -682,7 +682,7 @@
                 "validate",
                 "validator"
             ],
-            "time": "2024-11-22T17:29:04+00:00"
+            "time": "2024-11-24T16:19:21+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -733,16 +733,16 @@
         },
         {
             "name": "firebase/php-jwt",
-            "version": "v6.10.1",
+            "version": "v6.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/firebase/php-jwt.git",
-                "reference": "500501c2ce893c824c801da135d02661199f60c5"
+                "reference": "30c19ed0f3264cb660ea496895cfb6ef7ee3653b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/500501c2ce893c824c801da135d02661199f60c5",
-                "reference": "500501c2ce893c824c801da135d02661199f60c5",
+                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/30c19ed0f3264cb660ea496895cfb6ef7ee3653b",
+                "reference": "30c19ed0f3264cb660ea496895cfb6ef7ee3653b",
                 "shasum": ""
             },
             "require": {
@@ -790,9 +790,9 @@
             ],
             "support": {
                 "issues": "https://github.com/firebase/php-jwt/issues",
-                "source": "https://github.com/firebase/php-jwt/tree/v6.10.1"
+                "source": "https://github.com/firebase/php-jwt/tree/v6.10.2"
             },
-            "time": "2024-05-18T18:05:11+00:00"
+            "time": "2024-11-24T11:22:49+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -3940,16 +3940,16 @@
         },
         {
             "name": "workerman/workerman",
-            "version": "v4.2.0",
+            "version": "v4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/walkor/workerman.git",
-                "reference": "df513f3fd274811ebb8358d05d7cec19ee8bd3e1"
+                "reference": "cafb5a43d93d7d30a16b32a57948581cca993562"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/walkor/workerman/zipball/df513f3fd274811ebb8358d05d7cec19ee8bd3e1",
-                "reference": "df513f3fd274811ebb8358d05d7cec19ee8bd3e1",
+                "url": "https://api.github.com/repos/walkor/workerman/zipball/cafb5a43d93d7d30a16b32a57948581cca993562",
+                "reference": "cafb5a43d93d7d30a16b32a57948581cca993562",
                 "shasum": ""
             },
             "require": {
@@ -3999,7 +3999,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-11-07T08:31:33+00:00"
+            "time": "2024-11-24T11:45:37+00:00"
         }
     ],
     "packages-dev": [
