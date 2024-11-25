@@ -4,9 +4,11 @@ namespace ChessServer\Command\Game\Sync;
 
 use Chess\FenToBoardFactory;
 use Chess\Play\SanPlay;
+use Chess\Variant\Capablanca\Board as CapablancaBoard;
+use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
+use Chess\Variant\CapablancaFischer\StartPosition as CapablancaFischerStartPosition;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\StartPosition as Chess960StartPosition;
-use Chess\Variant\Chess960\FEN\StrToBoard as Chess960FenStrToBoard;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Dunsany\Board as DunsanyBoard;
@@ -50,6 +52,18 @@ class StartCommand extends AbstractSyncCommand
                         $startPos = (new Chess960StartPosition())->create();
                         $board = new Chess960Board($startPos);
                     }
+                } elseif ($params['variant'] === Game::VARIANT_CAPABLANCA) {
+                    $board = isset($params['settings']['fen'])
+                        ? FenToBoardFactory::create($params['settings']['fen'], new CapablancaBoard())
+                        : new CapablancaBoard();
+                } elseif ($params['variant'] === Game::VARIANT_CAPABLANCA_FISCHER) {
+                    if (isset($params['settings']['startPos']) && isset($params['settings']['fen'])) {
+                        $startPos = str_split($params['settings']['startPos']);
+                        $board = FenToBoardFactory::create($params['settings']['fen'], new CapablancaFischerBoard($startPos));
+                    } else {
+                        $startPos = (new CapablancaFischerStartPosition())->create();
+                        $board = new CapablancaFischerBoard($startPos);
+                    }
                 } elseif ($params['variant'] === Game::VARIANT_DUNSANY) {
                     $board = isset($params['settings']['fen'])
                         ? FenToBoardFactory::create($params['settings']['fen'], new DunsanyBoard())
@@ -84,6 +98,10 @@ class StartCommand extends AbstractSyncCommand
                             ? ['startPos' =>  implode('', $startPos)]
                             : []
                         ),
+                        ...($params['variant'] === Game::VARIANT_CAPABLANCA_FISCHER
+                            ? ['startPos' =>  implode('', $startPos)]
+                            : []
+                        ),
                     ],
                 ]);
             } catch (\Throwable $e) {
@@ -102,6 +120,18 @@ class StartCommand extends AbstractSyncCommand
                     } else {
                         $startPos = (new Chess960StartPosition())->create();
                         $board = new Chess960Board($startPos);
+                    }
+                } elseif ($params['variant'] === Game::VARIANT_CAPABLANCA) {
+                    $board = isset($params['settings']['fen'])
+                        ? FenToBoardFactory::create($params['settings']['fen'], new CapablancaBoard())
+                        : new CapablancaBoard();
+                } elseif ($params['variant'] === Game::VARIANT_CAPABLANCA_FISCHER) {
+                    if (isset($params['settings']['startPos']) && isset($params['settings']['fen'])) {
+                        $startPos = str_split($params['settings']['startPos']);
+                        $board = FenToBoardFactory::create($params['settings']['fen'], new CapablancaFischerBoard($startPos));
+                    } else {
+                        $startPos = (new CapablancaFischerStartPosition())->create();
+                        $board = new CapablancaFischerBoard($startPos);
                     }
                 } elseif ($params['variant'] === Game::VARIANT_DUNSANY) {
                     $board = isset($params['settings']['fen'])
@@ -151,6 +181,10 @@ class StartCommand extends AbstractSyncCommand
                         ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
                         : []
                     ),
+                    ...($params['variant'] === Game::VARIANT_CAPABLANCA_FISCHER
+                        ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
+                        : []
+                    ),
                     ...(isset($params['settings']['fen'])
                         ? ['fen' => $params['settings']['fen']]
                         : []
@@ -179,6 +213,10 @@ class StartCommand extends AbstractSyncCommand
                         'mode' => $game->getMode(),
                         'fen' => $game->getBoard()->toFen(),
                         ...($params['variant'] === Game::VARIANT_960
+                            ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
+                            : []
+                        ),
+                        ...($params['variant'] === Game::VARIANT_CAPABLANCA_FISCHER
                             ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
                             : []
                         ),
