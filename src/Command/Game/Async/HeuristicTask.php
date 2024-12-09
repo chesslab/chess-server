@@ -40,7 +40,7 @@ class HeuristicTask extends AbstractAsyncTask
             $this->params['movetext'],
             $this->params['name'],
             $board
-        ))->getBalance();
+        ))->balance;
 
         return $balance;
     }
