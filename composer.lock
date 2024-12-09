@@ -625,7 +625,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/chesslablab/php-chess.git",
-                "reference": "d0def8dab33de2f3dcfe69bb9d9ca7e850d70bf5"
+                "reference": "e96a26db77c3e33fd85358a08f4418a5a3fca11a"
             },
             "require": {
                 "imagine/imagine": "^1.2",
@@ -682,7 +682,7 @@
                 "validate",
                 "validator"
             ],
-            "time": "2024-12-09T19:21:30+00:00"
+            "time": "2024-12-09T20:17:52+00:00"
         },
         {
             "name": "evenement/evenement",
