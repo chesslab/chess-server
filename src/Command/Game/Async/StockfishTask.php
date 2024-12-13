@@ -46,7 +46,7 @@ class StockfishTask extends AbstractAsyncTask
         $end = end($history);
 
         return [
-            'pgn' => $end['move']['pgn'],
+            'pgn' => $end['pgn'],
         ];
     }
 }
