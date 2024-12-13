@@ -621,11 +621,11 @@
         },
         {
             "name": "chesslablab/php-chess",
-            "version": "1.4.82",
+            "version": "1.4.84",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chesslablab/php-chess.git",
-                "reference": "e96a26db77c3e33fd85358a08f4418a5a3fca11a"
+                "reference": "f0e980b467d729482a30b002c93e1c3f395f775e"
             },
             "require": {
                 "imagine/imagine": "^1.2",
@@ -682,7 +682,7 @@
                 "validate",
                 "validator"
             ],
-            "time": "2024-12-09T20:17:52+00:00"
+            "time": "2024-12-12T16:00:17+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -3133,8 +3133,8 @@
             "type": "library",
             "extra": {
                 "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
                 }
             },
             "autoload": {
