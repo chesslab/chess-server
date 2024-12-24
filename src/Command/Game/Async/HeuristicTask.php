@@ -35,13 +35,13 @@ class HeuristicTask extends AbstractAsyncTask
                 : new ClassicalBoard();
         }
 
-        $balance = (new SanHeuristics(
+        $time = (new SanHeuristics(
             new CompleteFunction(),
             $this->params['movetext'],
             $this->params['name'],
             $board
-        ))->balance;
+        ))->time;
 
-        return $balance;
+        return $time;
     }
 }
