@@ -3,7 +3,7 @@
 namespace ChessServer\Command\Game\Async;
 
 use Chess\FenToBoardFactory;
-use Chess\SanHeuristics;
+use Chess\SanPlotter;
 use Chess\Function\CompleteFunction;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
@@ -35,7 +35,7 @@ class HeuristicTask extends AbstractAsyncTask
                 : new ClassicalBoard();
         }
 
-        $time = (new SanHeuristics(
+        $time = (new SanPlotter(
             new CompleteFunction(),
             $this->params['movetext'],
             $this->params['name'],
