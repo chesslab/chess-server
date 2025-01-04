@@ -35,12 +35,12 @@ class HeuristicTask extends AbstractAsyncTask
                 : new ClassicalBoard();
         }
 
-        $time = (new SanPlotter(
+        $time = SanPlotter::time(
             new CompleteFunction(),
+            $board,
             $this->params['movetext'],
-            $this->params['name'],
-            $board
-        ))->time;
+            $this->params['name']
+        );
 
         return $time;
     }
