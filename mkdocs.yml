@@ -1,5 +1,5 @@
 site_name: PHP Chess Server
-site_url: https://chesslablab.github.io/chess-server/
+site_url: https://chess-server.chesslablab.org
 nav:
   - Getting Started: getting-started.md
   - data:

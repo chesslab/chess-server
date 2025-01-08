@@ -7,7 +7,7 @@ Asynchronous PHP server that provides chess services over a WebSocket connection
 
 ### Documentation
 
-Read the latest docs [here](https://chesslablab.github.io/chess-server/).
+Read the latest docs [here](https://chess-server.chesslablab.org).
 
 ### License
 
