@@ -12,9 +12,12 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
     <body class="homepage">
@@ -252,7 +255,7 @@
     </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
             <li class="nav-item" data-level="1"><a href="#php-chess-server" class="nav-link">PHP Chess Server</a>
@@ -273,7 +276,7 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="php-chess-server">PHP Chess Server</h1>
-<p>Asynchronous PHP server that provides chess services over a WebSocket connection.</p>
+<p>✨ <a href="https://github.com/chesslablab/chess-server">PHP Chess Server</a> is an asynchronous PHP server that provides chess services over a WebSocket connection.</p>
 <table>
 <thead>
 <tr>
@@ -338,14 +341,12 @@ touch storage/auth.log
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
-        <script src="js/jquery-3.6.0.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
         <script>
             var base_url = ".",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="js/base.js"></script>
-        <script src="search/main.js"></script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -355,13 +356,16 @@ touch storage/auth.log
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
             <div class="modal-body">
-                <p>From here you can search these documents. Enter your search terms below.</p>
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
                 <form>
                     <div class="form-group">
                         <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
                     </div>
                 </form>
-                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+                <div id="mkdocs-search-results"></div>
             </div>
             <div class="modal-footer">
             </div>
@@ -412,6 +416,6 @@ touch storage/auth.log
 </html>
 
 <!--
-MkDocs version : 1.5.3
-Build Date UTC : 2025-01-08 16:21:50.554775+00:00
+MkDocs version : 1.1.2
+Build Date UTC : 2025-01-09 18:01:12.299056+00:00
 -->
