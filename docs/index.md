@@ -1,6 +1,6 @@
 # PHP Chess Server
 
-Asynchronous PHP server that provides chess services over a WebSocket connection.
+✨ [PHP Chess Server](https://github.com/chesslablab/chess-server) is an asynchronous PHP server that provides chess services over a WebSocket connection.
 
 | Port | Service Name | Description |
 | ---- | ------------ | ----------- |
