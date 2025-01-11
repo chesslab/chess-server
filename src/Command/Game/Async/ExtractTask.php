@@ -38,9 +38,9 @@ class ExtractTask extends AbstractAsyncTask
         }
 
         return [
-            'steinitz' => SanExtractor::steinitz($f, $board, $this->params['movetext']),
-            'mean' => SanExtractor::mean($f, $board, $this->params['movetext']),
-            'sd' => SanExtractor::sd($f, $board, $this->params['movetext']),
+            'steinitz' => SanExtractor::steinitz($f, $board->clone(), $this->params['movetext']),
+            'mean' => SanExtractor::mean($f, $board->clone(), $this->params['movetext']),
+            'sd' => SanExtractor::sd($f, $board->clone(), $this->params['movetext']),
         ];
     }
 }
