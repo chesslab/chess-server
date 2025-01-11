@@ -3,6 +3,7 @@
 namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCli;
+use ChessServer\Command\Game\Async\ExtractCommand;
 use ChessServer\Command\Game\Async\HeuristicCommand;
 use ChessServer\Command\Game\Async\LeaveCommand;
 use ChessServer\Command\Game\Async\PlayCommand;
@@ -43,6 +44,7 @@ class Cli extends AbstractCli
         $this->commands->attach(new TakebackCommand());
         // param-based commands
         $this->commands->attach(new AcceptPlayRequestCommand());
+        $this->commands->attach((new ExtractCommand())->setPool($pool));
         $this->commands->attach((new HeuristicCommand())->setPool($pool));
         $this->commands->attach((new LeaveCommand())->setPool($pool));
         $this->commands->attach(new LegalCommand());
