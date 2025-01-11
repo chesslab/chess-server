@@ -621,11 +621,11 @@
         },
         {
             "name": "chesslablab/php-chess",
-            "version": "1.4.93",
+            "version": "1.4.95",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chesslablab/php-chess.git",
-                "reference": "688496ce81a70d5ed607ac07652df4b5c47a2215"
+                "reference": "d4070f2dbbd27e2904ca3029ddba42cb200dec4a"
             },
             "require": {
                 "imagine/imagine": "^1.2",
@@ -682,7 +682,7 @@
                 "validate",
                 "validator"
             ],
-            "time": "2025-01-04T15:20:18+00:00"
+            "time": "2025-01-09T17:47:06+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -5687,12 +5687,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=8.1"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
