@@ -3,9 +3,9 @@
 namespace ChessServer\Command\Game\Sync;
 
 use Chess\Media\ImgToPiecePlacement;
-use ChessServer\Command\AbstractSyncTask;
+use ChessServer\Command\AbstractBlockingTask;
 
-class RecognizerTask extends AbstractSyncTask
+class RecognizerTask extends AbstractBlockingTask
 {
     public function run()
     {

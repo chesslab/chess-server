@@ -6,9 +6,9 @@ use Chess\FenToBoardFactory;
 use Chess\Function\CompleteFunction;
 use Chess\Tutor\FenEvaluation;
 use Chess\Variant\Classical\Board;
-use ChessServer\Command\AbstractSyncTask;
+use ChessServer\Command\AbstractBlockingTask;
 
-class TutorFenTask extends AbstractSyncTask
+class TutorFenTask extends AbstractBlockingTask
 {
     public function run()
     {

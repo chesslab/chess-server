@@ -6,9 +6,9 @@ use Chess\FenToBoardFactory;
 use Chess\Play\RavPlay;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
-use ChessServer\Command\AbstractSyncTask;
+use ChessServer\Command\AbstractBlockingTask;
 
-class PlayRavTask extends AbstractSyncTask
+class PlayRavTask extends AbstractBlockingTask
 {
     public function run()
     {

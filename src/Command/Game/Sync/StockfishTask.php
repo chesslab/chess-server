@@ -6,10 +6,10 @@ use Chess\Computer\GrandmasterMove;
 use Chess\UciEngine\UciEngine;
 use Chess\UciEngine\Details\Limit;
 use Chess\Variant\Classical\Board;
-use ChessServer\Command\AbstractSyncTask;
+use ChessServer\Command\AbstractBlockingTask;
 use ChessServer\Socket\AbstractSocket;
 
-class StockfishTask extends AbstractSyncTask
+class StockfishTask extends AbstractBlockingTask
 {
     private Board $board;
 
