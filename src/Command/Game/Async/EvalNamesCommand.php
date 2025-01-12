@@ -4,10 +4,10 @@ namespace ChessServer\Command\Game\Async
 ;
 
 use Chess\Function\FastFunction;
-use ChessServer\Command\AbstractAsyncCommand;
+use ChessServer\Command\AbstractNonBlockingCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class EvalNamesCommand extends AbstractAsyncCommand
+class EvalNamesCommand extends AbstractNonBlockingCommand
 {
     public function __construct()
     {

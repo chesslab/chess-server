@@ -3,10 +3,10 @@
 namespace ChessServer\Command\Game\Async
 ;
 
-use ChessServer\Command\AbstractAsyncCommand;
+use ChessServer\Command\AbstractNonBlockingCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class AsciiCommand extends AbstractAsyncCommand
+class AsciiCommand extends AbstractNonBlockingCommand
 {
     public function __construct()
     {

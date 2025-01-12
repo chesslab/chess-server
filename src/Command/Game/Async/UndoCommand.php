@@ -3,10 +3,10 @@
 namespace ChessServer\Command\Game\Async
 ;
 
-use ChessServer\Command\AbstractAsyncCommand;
+use ChessServer\Command\AbstractNonBlockingCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class UndoCommand extends AbstractAsyncCommand
+class UndoCommand extends AbstractNonBlockingCommand
 {
     public function __construct()
     {

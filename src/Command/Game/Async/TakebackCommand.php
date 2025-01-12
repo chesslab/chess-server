@@ -3,10 +3,10 @@
 namespace ChessServer\Command\Game\Async
 ;
 
-use ChessServer\Command\AbstractAsyncCommand;
+use ChessServer\Command\AbstractNonBlockingCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class TakebackCommand extends AbstractAsyncCommand
+class TakebackCommand extends AbstractNonBlockingCommand
 {
     const ACTION_ACCEPT    = 'accept';
     const ACTION_DECLINE   = 'decline';

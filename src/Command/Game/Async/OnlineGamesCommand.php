@@ -3,11 +3,11 @@
 namespace ChessServer\Command\Game\Async
 ;
 
-use ChessServer\Command\AbstractAsyncCommand;
+use ChessServer\Command\AbstractNonBlockingCommand;
 use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;
 
-class OnlineGamesCommand extends AbstractAsyncCommand
+class OnlineGamesCommand extends AbstractNonBlockingCommand
 {
     public function __construct()
     {

@@ -4,11 +4,11 @@ namespace ChessServer\Command\Game\Async
 ;
 
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Command\AbstractAsyncCommand;
+use ChessServer\Command\AbstractNonBlockingCommand;
 use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;
 
-class AcceptPlayRequestCommand extends AbstractAsyncCommand
+class AcceptPlayRequestCommand extends AbstractNonBlockingCommand
 {
     public function __construct()
     {

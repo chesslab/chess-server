@@ -15,7 +15,7 @@ use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Dunsany\Board as DunsanyBoard;
 use Chess\Variant\Losing\Board as LosingBoard;
 use Chess\Variant\RacingKings\Board as RacingKingsBoard;
-use ChessServer\Command\AbstractAsyncCommand;
+use ChessServer\Command\AbstractNonBlockingCommand;
 use ChessServer\Command\Game\Game;
 use ChessServer\Command\Game\Mode\AnalysisMode;
 use ChessServer\Command\Game\Mode\PlayMode;
@@ -23,7 +23,7 @@ use ChessServer\Command\Game\Mode\StockfishMode;
 use ChessServer\Socket\AbstractSocket;
 use Firebase\JWT\JWT;
 
-class StartCommand extends AbstractAsyncCommand
+class StartCommand extends AbstractNonBlockingCommand
 {
     public function __construct()
     {
