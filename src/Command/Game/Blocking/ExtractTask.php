@@ -39,8 +39,6 @@ class ExtractTask extends AbstractBlockingTask
 
         return [
             'steinitz' => SanExtractor::steinitz($f, $board->clone(), $this->params['movetext']),
-            'mean' => SanExtractor::mean($f, $board->clone(), $this->params['movetext']),
-            'sd' => SanExtractor::sd($f, $board->clone(), $this->params['movetext']),
         ];
     }
 }
