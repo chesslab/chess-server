@@ -3,8 +3,8 @@
 namespace ChessServer\Command\Game\Mode;
 
 use ChessServer\Command\Game\Game;
-use ChessServer\Command\Game\NonBlocking\PlayCommand;
-use ChessServer\Command\Game\NonBlocking\PlayLanCommand;
+use ChessServer\Command\Game\Blocking\PlayCommand;
+use ChessServer\Command\Game\Blocking\PlayLanCommand;
 use ChessServer\Command\Game\NonBlocking\LegalCommand;
 use ChessServer\Command\Game\NonBlocking\UndoCommand;
 use Firebase\JWT\JWT;
