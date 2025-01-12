@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Game\Async;
+namespace AbstractSyncCommandChessServer\Command\Game\Sync;
 
 use Chess\FenToBoardFactory;
 use Chess\Function\CompleteFunction;

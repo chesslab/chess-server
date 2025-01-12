@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Game\Async;
+namespace AbstractSyncCommandChessServer\Command\Game\Sync;
 
 use Chess\Computer\GrandmasterMove;
 use Chess\UciEngine\UciEngine;

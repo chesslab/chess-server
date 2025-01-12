@@ -1,9 +1,9 @@
 <?php
 
-namespace ChessServer\Command\Game\Async;
+namespace AbstractSyncCommandChessServer\Command\Game\Sync;
 
 use ChessServer\Command\AbstractAsyncCommand;
-use ChessServer\Command\Game\Async\UpdateEloTask;
+use AbstractSyncCommandChessServer\Command\Game\Sync\UpdateEloTask;
 use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;
 

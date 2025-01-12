@@ -1,16 +1,16 @@
 <?php
 
-namespace ChessServer\Command\Game\Async;
+namespace AbstractSyncCommandChessServer\Command\Game\Sync;
 
 use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class TutorFenCommand extends AbstractAsyncCommand
+class PlayRavCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {
-        $this->name = '/tutor_fen';
-        $this->description = 'Explains a FEN position in terms of chess concepts.';
+        $this->name = '/play_rav';
+        $this->description = 'Plays the moves in a RAV movetext.';
         $this->params = [
             'params' => '<string>',
         ];
@@ -25,7 +25,7 @@ class TutorFenCommand extends AbstractAsyncCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $this->pool->add(new TutorFenTask($params))
+        $this->pool->add(new PlayRavTask($params), 128000)
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,

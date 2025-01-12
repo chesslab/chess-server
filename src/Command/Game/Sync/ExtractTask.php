@@ -1,9 +1,9 @@
 <?php
 
-namespace ChessServer\Command\Game\Async;
+namespace AbstractSyncCommandChessServer\Command\Game\Sync;
 
 use Chess\FenToBoardFactory;
-use Chess\SanPlotter;
+use Chess\SanExtractor;
 use Chess\Function\CompleteFunction;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
@@ -11,10 +11,12 @@ use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use ChessServer\Command\AbstractSyncTask;
 
-class HeuristicTask extends AbstractSyncTask
+class ExtractTask extends AbstractSyncTask
 {
     public function run()
     {
+        $f = new CompleteFunction();
+        
         if ($this->params['variant'] === Chess960Board::VARIANT) {
             $startPos = str_split($this->params['startPos']);
             $board = isset($this->params['fen'])
@@ -35,13 +37,10 @@ class HeuristicTask extends AbstractSyncTask
                 : new ClassicalBoard();
         }
 
-        $time = SanPlotter::time(
-            new CompleteFunction(),
-            $board,
-            $this->params['movetext'],
-            $this->params['name']
-        );
-
-        return $time;
+        return [
+            'steinitz' => SanExtractor::steinitz($f, $board->clone(), $this->params['movetext']),
+            'mean' => SanExtractor::mean($f, $board->clone(), $this->params['movetext']),
+            'sd' => SanExtractor::sd($f, $board->clone(), $this->params['movetext']),
+        ];
     }
 }

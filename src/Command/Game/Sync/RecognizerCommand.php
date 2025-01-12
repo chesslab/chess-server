@@ -1,16 +1,16 @@
 <?php
 
-namespace ChessServer\Command\Game\Async;
+namespace AbstractSyncCommandChessServer\Command\Game\Sync;
 
 use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class ExtractCommand extends AbstractAsyncCommand
+class RecognizerCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {
-        $this->name = '/extract';
-        $this->description = 'Extracts oscillations data from a game.';
+        $this->name = '/recognizer';
+        $this->description = 'Returns the piece placement in FEN format of a Base64 encoded image.';
         $this->params = [
             'params' => '<string>',
         ];
@@ -25,7 +25,7 @@ class ExtractCommand extends AbstractAsyncCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $this->pool->add(new ExtractTask($params))
+        $this->pool->add(new RecognizerTask($params))
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,

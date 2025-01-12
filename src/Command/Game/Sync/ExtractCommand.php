@@ -1,16 +1,16 @@
 <?php
 
-namespace ChessServer\Command\Game\Async;
+namespace AbstractSyncCommandChessServer\Command\Game\Sync;
 
 use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class HeuristicCommand extends AbstractAsyncCommand
+class ExtractCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {
-        $this->name = '/heuristic';
-        $this->description = 'Balance of a chess heuristic.';
+        $this->name = '/extract';
+        $this->description = 'Extracts oscillations data from a game.';
         $this->params = [
             'params' => '<string>',
         ];
@@ -25,7 +25,7 @@ class HeuristicCommand extends AbstractAsyncCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $this->pool->add(new HeuristicTask($params))
+        $this->pool->add(new ExtractTask($params))
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,
