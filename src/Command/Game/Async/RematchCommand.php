@@ -2,10 +2,10 @@
 
 namespace ChessServer\Command\Game\Sync;
 
-use ChessServer\Command\AbstractSyncCommand;
+use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class RematchCommand extends AbstractSyncCommand
+class RematchCommand extends AbstractAsyncCommand
 {
     const ACTION_ACCEPT    = 'accept';
     const ACTION_DECLINE   = 'decline';

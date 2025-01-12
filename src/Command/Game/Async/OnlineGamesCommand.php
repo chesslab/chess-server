@@ -2,11 +2,11 @@
 
 namespace ChessServer\Command\Game\Sync;
 
-use ChessServer\Command\AbstractSyncCommand;
+use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;
 
-class OnlineGamesCommand extends AbstractSyncCommand
+class OnlineGamesCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {
