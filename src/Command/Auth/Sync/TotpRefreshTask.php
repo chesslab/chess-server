@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Auth\Async;
+namespace ChessServer\Command\Auth\Sync;
 
 use ChessServer\Command\AbstractDbSyncTask;
 use Firebase\JWT\JWT;

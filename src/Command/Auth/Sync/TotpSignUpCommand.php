@@ -1,31 +1,26 @@
 <?php
 
-namespace ChessServer\Command\Auth\Async;
+namespace ChessServer\Command\Auth\Sync;
 
 use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class TotpSignInCommand extends AbstractAsyncCommand
+class TotpSignUpCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {
-        $this->name = '/totp_signin';
-        $this->description = 'TOTP sign in.';
-        $this->params = [
-            'params' => '<string>',
-        ];
+        $this->name = '/totp_signup';
+        $this->description = 'TOTP sign up URL.';
     }
 
     public function validate(array $argv)
     {
-        return count($argv) - 1 === count($this->params);
+        return count($argv) - 1 === 0;
     }
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $params = json_decode(stripslashes($argv[1]), true);
-
-        $this->pool->add(new TotpSignInTask($params))
+        $this->pool->add(new TotpSignUpTask())
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,
