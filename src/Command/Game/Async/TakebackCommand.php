@@ -1,6 +1,7 @@
 <?php
 
-namespace ChessServer\Command\Game\Sync;
+namespace ChessServer\Command\Game\Async
+;
 
 use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;

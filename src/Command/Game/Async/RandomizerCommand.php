@@ -1,6 +1,7 @@
 <?php
 
-namespace ChessServer\Command\Game\Sync;
+namespace ChessServer\Command\Game\Async
+;
 
 use Chess\Randomizer\Randomizer;
 use Chess\Randomizer\Checkmate\TwoBishopsRandomizer;
