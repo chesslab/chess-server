@@ -1,16 +1,16 @@
 <?php
 
-namespace ChessServer\Command\Data\Async;
+namespace ChessServer\Command\Data\Sync;
 
 use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class SearchCommand extends AbstractAsyncCommand
+class AutocompleteBlackCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {
-        $this->name = '/search';
-        $this->description = 'Finds up to 25 games matching the criteria.';
+        $this->name = '/autocomplete_black';
+        $this->description = 'Autocomplete data for chess players.';
         $this->params = [
             'params' => '<string>',
         ];
@@ -25,7 +25,7 @@ class SearchCommand extends AbstractAsyncCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $this->pool->add(new SearchTask($params), 128000)
+        $this->pool->add(new AutocompleteBlackTask($params))
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,

@@ -1,16 +1,16 @@
 <?php
 
-namespace ChessServer\Command\Data\Async;
+namespace ChessServer\Command\Data\Sync;
 
 use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class AutocompleteWhiteCommand extends AbstractAsyncCommand
+class AutocompleteEventCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {
-        $this->name = '/autocomplete_white';
-        $this->description = 'Autocomplete data for chess players.';
+        $this->name = '/autocomplete_event';
+        $this->description = 'Autocomplete data for chess events.';
         $this->params = [
             'params' => '<string>',
         ];
@@ -25,7 +25,7 @@ class AutocompleteWhiteCommand extends AbstractAsyncCommand
     {
         $params = json_decode(stripslashes($argv[1]), true);
 
-        $this->pool->add(new AutocompleteWhiteTask($params))
+        $this->pool->add(new AutocompleteEventTask($params))
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,

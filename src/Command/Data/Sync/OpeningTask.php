@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Data\Async;
+namespace ChessServer\Command\Data\Sync;
 
 use ChessServer\Command\AbstractDbSyncTask;
 

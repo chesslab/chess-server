@@ -1,26 +1,31 @@
 <?php
 
-namespace ChessServer\Command\Data\Async;
+namespace ChessServer\Command\Data\Sync;
 
 use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class AnnotationsGameCommand extends AbstractAsyncCommand
+class OpeningCommand extends AbstractAsyncCommand
 {
     public function __construct()
     {
-        $this->name = '/annotations_game';
-        $this->description = 'Annotated chess games.';
+        $this->name = '/opening';
+        $this->description = 'Opening results.';
+        $this->params = [
+            'params' => '<string>',
+        ];
     }
 
     public function validate(array $argv)
     {
-        return count($argv) - 1 === 0;
+        return count($argv) - 1 === count($this->params);
     }
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $this->pool->add(new AnnotationsGameTask(), 128000)
+        $params = json_decode(stripslashes($argv[1]), true);
+
+        $this->pool->add(new OpeningTask($params), 128000)
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,
