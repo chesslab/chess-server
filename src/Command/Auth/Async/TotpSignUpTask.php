@@ -2,11 +2,11 @@
 
 namespace ChessServer\Command\Auth\Async;
 
-use ChessServer\Command\AbstractDbAsyncTask;
+use ChessServer\Command\AbstractDbSyncTask;
 use OTPHP\InternalClock;
 use OTPHP\TOTP;
 
-class TotpSignUpTask extends AbstractDbAsyncTask
+class TotpSignUpTask extends AbstractDbSyncTask
 {
     public function run()
     {

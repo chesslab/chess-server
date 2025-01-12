@@ -2,9 +2,9 @@
 
 namespace ChessServer\Command\Data\Async;
 
-use ChessServer\Command\AbstractDbAsyncTask;
+use ChessServer\Command\AbstractDbSyncTask;
 
-class AutocompleteWhiteTask extends AbstractDbAsyncTask
+class AutocompleteWhiteTask extends AbstractDbSyncTask
 {
     public function run()
     {

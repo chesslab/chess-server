@@ -3,9 +3,9 @@
 namespace ChessServer\Command\Game\Async;
 
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Command\AbstractDbAsyncTask;
+use ChessServer\Command\AbstractDbSyncTask;
 
-class RestartTask extends AbstractDbAsyncTask
+class RestartTask extends AbstractDbSyncTask
 {
     public function run()
     {

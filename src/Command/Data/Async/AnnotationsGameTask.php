@@ -2,9 +2,9 @@
 
 namespace ChessServer\Command\Data\Async;
 
-use ChessServer\Command\AbstractDbAsyncTask;
+use ChessServer\Command\AbstractDbSyncTask;
 
-class AnnotationsGameTask extends AbstractDbAsyncTask
+class AnnotationsGameTask extends AbstractDbSyncTask
 {
     public function run()
     {
