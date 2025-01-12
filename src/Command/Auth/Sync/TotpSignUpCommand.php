@@ -2,10 +2,10 @@
 
 namespace ChessServer\Command\Auth\Sync;
 
-use ChessServer\Command\AbstractSyncCommand;
+use ChessServer\Command\AbstractBlockingCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class TotpSignUpCommand extends AbstractSyncCommand
+class TotpSignUpCommand extends AbstractBlockingCommand
 {
     public function __construct()
     {

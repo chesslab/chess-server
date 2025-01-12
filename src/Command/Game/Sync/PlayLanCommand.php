@@ -2,12 +2,12 @@
 
 namespace ChessServer\Command\Game\Sync;
 
-use ChessServer\Command\AbstractSyncCommand;
+use ChessServer\Command\AbstractBlockingCommand;
 use ChessServer\Command\Game\Sync\UpdateEloTask;
 use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;
 
-class PlayLanCommand extends AbstractSyncCommand
+class PlayLanCommand extends AbstractBlockingCommand
 {
     public function __construct()
     {

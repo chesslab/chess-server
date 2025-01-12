@@ -3,11 +3,11 @@
 namespace ChessServer\Command\Game\Sync;
 
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Command\AbstractSyncCommand;
+use ChessServer\Command\AbstractBlockingCommand;
 use ChessServer\Command\Game\Sync\UpdateEloTask;
 use ChessServer\Socket\AbstractSocket;
 
-class LeaveCommand extends AbstractSyncCommand
+class LeaveCommand extends AbstractBlockingCommand
 {
     public function __construct()
     {

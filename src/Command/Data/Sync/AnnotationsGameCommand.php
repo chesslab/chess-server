@@ -2,10 +2,10 @@
 
 namespace ChessServer\Command\Data\Sync;
 
-use ChessServer\Command\AbstractSyncCommand;
+use ChessServer\Command\AbstractBlockingCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class AnnotationsGameCommand extends AbstractSyncCommand
+class AnnotationsGameCommand extends AbstractBlockingCommand
 {
     public function __construct()
     {

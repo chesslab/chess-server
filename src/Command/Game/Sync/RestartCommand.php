@@ -6,11 +6,11 @@ use Chess\FenToBoardFactory;
 use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Command\AbstractSyncCommand;
+use ChessServer\Command\AbstractBlockingCommand;
 use ChessServer\Command\Game\Game;
 use ChessServer\Socket\AbstractSocket;
 
-class RestartCommand extends AbstractSyncCommand
+class RestartCommand extends AbstractBlockingCommand
 {
     public function __construct()
     {
