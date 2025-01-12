@@ -3,13 +3,13 @@
 namespace ChessServer\Command\Data;
 
 use ChessServer\Command\AbstractCli;
-use ChessServer\Command\Data\Async\AnnotationsGameCommand;
-use ChessServer\Command\Data\Async\AutocompleteBlackCommand;
-use ChessServer\Command\Data\Async\AutocompleteEventCommand;
-use ChessServer\Command\Data\Async\AutocompleteWhiteCommand;
-use ChessServer\Command\Data\Async\OpeningCommand;
-use ChessServer\Command\Data\Async\RankingCommand;
-use ChessServer\Command\Data\Async\SearchCommand;
+use ChessServer\Command\Data\Blocking\AnnotationsGameCommand;
+use ChessServer\Command\Data\Blocking\AutocompleteBlackCommand;
+use ChessServer\Command\Data\Blocking\AutocompleteEventCommand;
+use ChessServer\Command\Data\Blocking\AutocompleteWhiteCommand;
+use ChessServer\Command\Data\Blocking\OpeningCommand;
+use ChessServer\Command\Data\Blocking\RankingCommand;
+use ChessServer\Command\Data\Blocking\SearchCommand;
 use Spatie\Async\Pool;
 
 class Cli extends AbstractCli

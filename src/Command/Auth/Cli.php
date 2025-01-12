@@ -3,9 +3,9 @@
 namespace ChessServer\Command\Auth;
 
 use ChessServer\Command\AbstractCli;
-use ChessServer\Command\Auth\Async\TotpRefreshCommand;
-use ChessServer\Command\Auth\Async\TotpSignInCommand;
-use ChessServer\Command\Auth\Async\TotpSignUpCommand;
+use ChessServer\Command\Auth\Blocking\TotpRefreshCommand;
+use ChessServer\Command\Auth\Blocking\TotpSignInCommand;
+use ChessServer\Command\Auth\Blocking\TotpSignUpCommand;
 use Spatie\Async\Pool;
 
 class Cli extends AbstractCli
