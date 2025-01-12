@@ -4,9 +4,9 @@ namespace ChessServer\Tests\Unit\Command;
 
 use ChessServer\Command\Parser;
 use ChessServer\Command\Game\Cli;
-use ChessServer\Command\Game\Async\RestartCommand;
-use ChessServer\Command\Game\Sync\AcceptPlayRequestCommand;
-use ChessServer\Command\Game\Sync\StartCommand;
+use ChessServer\Command\Game\Blocking\RestartCommand;
+use ChessServer\Command\Game\NonBlocking\AcceptPlayRequestCommand;
+use ChessServer\Command\Game\NonBlocking\StartCommand;
 use ChessServer\Exception\ParserException;
 use PHPUnit\Framework\TestCase;
 use Spatie\Async\Pool;
