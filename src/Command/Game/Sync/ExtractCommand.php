@@ -2,10 +2,10 @@
 
 namespace AbstractSyncCommandChessServer\Command\Game\Sync;
 
-use ChessServer\Command\AbstractAsyncCommand;
+use ChessServer\Command\AbstractSyncCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class ExtractCommand extends AbstractAsyncCommand
+class ExtractCommand extends AbstractSyncCommand
 {
     public function __construct()
     {

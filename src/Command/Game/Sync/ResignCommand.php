@@ -3,11 +3,11 @@
 namespace AbstractSyncCommandChessServer\Command\Game\Sync;
 
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Command\AbstractAsyncCommand;
+use ChessServer\Command\AbstractSyncCommand;
 use AbstractSyncCommandChessServer\Command\Game\Sync\UpdateEloTask;
 use ChessServer\Socket\AbstractSocket;
 
-class ResignCommand extends AbstractAsyncCommand
+class ResignCommand extends AbstractSyncCommand
 {
     public function __construct()
     {
