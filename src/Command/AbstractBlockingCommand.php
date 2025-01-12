@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command;
 
-use Spatie\NonBlocking\Pool;
+use Spatie\Async\Pool;
 
 abstract class AbstractBlockingCommand extends AbstractCommand
 {

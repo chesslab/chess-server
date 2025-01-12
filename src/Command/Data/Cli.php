@@ -10,7 +10,7 @@ use ChessServer\Command\Data\Blocking\AutocompleteWhiteCommand;
 use ChessServer\Command\Data\Blocking\OpeningCommand;
 use ChessServer\Command\Data\Blocking\RankingCommand;
 use ChessServer\Command\Data\Blocking\SearchCommand;
-use Spatie\NonBlocking\Pool;
+use Spatie\Async\Pool;
 
 class Cli extends AbstractCli
 {

@@ -25,7 +25,7 @@ use ChessServer\Command\Game\NonBlocking\RematchCommand;
 use ChessServer\Command\Game\NonBlocking\StartCommand;
 use ChessServer\Command\Game\NonBlocking\TakebackCommand;
 use ChessServer\Command\Game\NonBlocking\UndoCommand;
-use Spatie\NonBlocking\Pool;
+use Spatie\Async\Pool;
 
 class Cli extends AbstractCli
 {
