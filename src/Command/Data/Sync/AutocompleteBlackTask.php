@@ -2,9 +2,9 @@
 
 namespace ChessServer\Command\Data\Sync;
 
-use ChessServer\Command\AbstractDbSyncTask;
+use ChessServer\Command\AbstractDbBlockingTask;
 
-class AutocompleteBlackTask extends AbstractDbSyncTask
+class AutocompleteBlackTask extends AbstractDbBlockingTask
 {
     public function run()
     {

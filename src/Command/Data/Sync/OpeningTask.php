@@ -2,9 +2,9 @@
 
 namespace ChessServer\Command\Data\Sync;
 
-use ChessServer\Command\AbstractDbSyncTask;
+use ChessServer\Command\AbstractDbBlockingTask;
 
-class OpeningTask extends AbstractDbSyncTask
+class OpeningTask extends AbstractDbBlockingTask
 {
     const SQL_LIKE = [
 

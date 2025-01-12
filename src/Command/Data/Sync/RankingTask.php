@@ -2,9 +2,9 @@
 
 namespace ChessServer\Command\Data\Sync;
 
-use ChessServer\Command\AbstractDbSyncTask;
+use ChessServer\Command\AbstractDbBlockingTask;
 
-class RankingTask extends AbstractDbSyncTask
+class RankingTask extends AbstractDbBlockingTask
 {
     public function run()
     {

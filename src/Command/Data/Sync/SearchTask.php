@@ -4,9 +4,9 @@ namespace ChessServer\Command\Data\Sync;
 
 use Chess\Movetext\SanMovetext;
 use Chess\Variant\Classical\PGN\Move;
-use ChessServer\Command\AbstractDbSyncTask;
+use ChessServer\Command\AbstractDbBlockingTask;
 
-class SearchTask extends AbstractDbSyncTask
+class SearchTask extends AbstractDbBlockingTask
 {
     const SQL_LIKE = [
         'Date',

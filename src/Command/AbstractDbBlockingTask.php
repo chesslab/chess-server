@@ -4,7 +4,7 @@ namespace ChessServer\Command;
 
 use ChessServer\Db;
 
-abstract class AbstractDbSyncTask extends AbstractBlockingTask
+abstract class AbstractDbBlockingTask extends AbstractBlockingTask
 {
     protected Db $db;
 

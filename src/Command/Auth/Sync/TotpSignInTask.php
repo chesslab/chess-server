@@ -2,12 +2,12 @@
 
 namespace ChessServer\Command\Auth\Sync;
 
-use ChessServer\Command\AbstractDbSyncTask;
+use ChessServer\Command\AbstractDbBlockingTask;
 use Firebase\JWT\JWT;
 use OTPHP\InternalClock;
 use OTPHP\TOTP;
 
-class TotpSignInTask extends AbstractDbSyncTask
+class TotpSignInTask extends AbstractDbBlockingTask
 {
     public function run()
     {

@@ -6,9 +6,9 @@ use Chess\Elo\Game;
 use Chess\Elo\Player;
 use Chess\Variant\Classical\PGN\AN\Color;
 use Chess\Variant\Classical\PGN\AN\Termination;
-use ChessServer\Command\AbstractDbSyncTask;
+use ChessServer\Command\AbstractDbBlockingTask;
 
-class UpdateEloTask extends AbstractDbSyncTask
+class UpdateEloTask extends AbstractDbBlockingTask
 {
     protected function elo(string $result, int $i, int $j): array
     {

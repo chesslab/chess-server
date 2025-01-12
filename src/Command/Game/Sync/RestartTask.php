@@ -3,9 +3,9 @@
 namespace ChessServer\Command\Game\Sync;
 
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Command\AbstractDbSyncTask;
+use ChessServer\Command\AbstractDbBlockingTask;
 
-class RestartTask extends AbstractDbSyncTask
+class RestartTask extends AbstractDbBlockingTask
 {
     public function run()
     {
