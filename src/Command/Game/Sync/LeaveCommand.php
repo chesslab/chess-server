@@ -1,10 +1,10 @@
 <?php
 
-namespace AbstractSyncCommandChessServer\Command\Game\Sync;
+namespace ChessServer\Command\Game\Sync;
 
 use Chess\Variant\Classical\PGN\AN\Color;
 use ChessServer\Command\AbstractSyncCommand;
-use AbstractSyncCommandChessServer\Command\Game\Sync\UpdateEloTask;
+use ChessServer\Command\Game\Sync\UpdateEloTask;
 use ChessServer\Socket\AbstractSocket;
 
 class LeaveCommand extends AbstractSyncCommand

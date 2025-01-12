@@ -1,6 +1,6 @@
 <?php
 
-namespace AbstractSyncCommandChessServer\Command\Game\Sync;
+namespace ChessServer\Command\Game\Sync;
 
 use Chess\FenToBoardFactory;
 use Chess\SanPlotter;
