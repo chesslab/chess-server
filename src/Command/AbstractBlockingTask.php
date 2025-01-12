@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command;
 
-use Spatie\Async\Task;
+use Spatie\NonBlocking\Task;
 
 abstract class AbstractBlockingTask extends Task
 {

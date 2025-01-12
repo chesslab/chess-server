@@ -1,12 +1,12 @@
 <?php
 
-namespace ChessServer\Command\Game\Async
+namespace ChessServer\Command\Game\NonBlocking
 ;
 
 use ChessServer\Command\AbstractNonBlockingCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class DrawCommand extends AbstractNonBlockingCommand
+class TakebackCommand extends AbstractNonBlockingCommand
 {
     const ACTION_ACCEPT    = 'accept';
     const ACTION_DECLINE   = 'decline';
@@ -14,8 +14,8 @@ class DrawCommand extends AbstractNonBlockingCommand
 
     public function __construct()
     {
-        $this->name = '/draw';
-        $this->description = 'Offers a draw.';
+        $this->name = '/takeback';
+        $this->description = 'Takes back a move.';
         $this->params = [
             'action' => [
                 self::ACTION_ACCEPT,

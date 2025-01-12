@@ -6,7 +6,7 @@ use ChessServer\Command\AbstractCli;
 use ChessServer\Command\Auth\Blocking\TotpRefreshCommand;
 use ChessServer\Command\Auth\Blocking\TotpSignInCommand;
 use ChessServer\Command\Auth\Blocking\TotpSignUpCommand;
-use Spatie\Async\Pool;
+use Spatie\NonBlocking\Pool;
 
 class Cli extends AbstractCli
 {

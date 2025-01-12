@@ -4,7 +4,7 @@ namespace ChessServer\Command\Binary;
 
 use ChessServer\Command\AbstractCli;
 use ChessServer\Command\Binary\Blocking\ImageCommand;
-use Spatie\Async\Pool;
+use Spatie\NonBlocking\Pool;
 
 class Cli extends AbstractCli
 {

@@ -14,18 +14,18 @@ use ChessServer\Command\Game\Blocking\ResignCommand;
 use ChessServer\Command\Game\Blocking\RestartCommand;
 use ChessServer\Command\Game\Blocking\StockfishCommand;
 use ChessServer\Command\Game\Blocking\TutorFenCommand;
-use ChessServer\Command\Game\Async\AcceptPlayRequestCommand;
-use ChessServer\Command\Game\Async\AsciiCommand;
-use ChessServer\Command\Game\Async\DrawCommand;
-use ChessServer\Command\Game\Async\EvalNamesCommand;
-use ChessServer\Command\Game\Async\LegalCommand;
-use ChessServer\Command\Game\Async\OnlineGamesCommand;
-use ChessServer\Command\Game\Async\RandomizerCommand;
-use ChessServer\Command\Game\Async\RematchCommand;
-use ChessServer\Command\Game\Async\StartCommand;
-use ChessServer\Command\Game\Async\TakebackCommand;
-use ChessServer\Command\Game\Async\UndoCommand;
-use Spatie\Async\Pool;
+use ChessServer\Command\Game\NonBlocking\AcceptPlayRequestCommand;
+use ChessServer\Command\Game\NonBlocking\AsciiCommand;
+use ChessServer\Command\Game\NonBlocking\DrawCommand;
+use ChessServer\Command\Game\NonBlocking\EvalNamesCommand;
+use ChessServer\Command\Game\NonBlocking\LegalCommand;
+use ChessServer\Command\Game\NonBlocking\OnlineGamesCommand;
+use ChessServer\Command\Game\NonBlocking\RandomizerCommand;
+use ChessServer\Command\Game\NonBlocking\RematchCommand;
+use ChessServer\Command\Game\NonBlocking\StartCommand;
+use ChessServer\Command\Game\NonBlocking\TakebackCommand;
+use ChessServer\Command\Game\NonBlocking\UndoCommand;
+use Spatie\NonBlocking\Pool;
 
 class Cli extends AbstractCli
 {

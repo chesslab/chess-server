@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Game\Async
+namespace ChessServer\Command\Game\NonBlocking
 ;
 
 use Chess\Randomizer\Randomizer;
