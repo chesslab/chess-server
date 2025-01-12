@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Binary\Async;
+namespace ChessServer\Command\Binary\Sync;
 
 use Chess\Media\BoardToPng;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalStrToBoard;

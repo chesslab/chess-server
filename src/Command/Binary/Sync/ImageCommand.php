@@ -1,6 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Binary\Async;
+namespace ChessServer\Command\Binary\Sync;
 
 use ChessServer\Command\AbstractAsyncCommand;
 use ChessServer\Socket\AbstractSocket;
