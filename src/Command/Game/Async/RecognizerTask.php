@@ -3,9 +3,9 @@
 namespace ChessServer\Command\Game\Async;
 
 use Chess\Media\ImgToPiecePlacement;
-use ChessServer\Command\AbstractAsyncTask;
+use ChessServer\Command\AbstractSyncTask;
 
-class RecognizerTask extends AbstractAsyncTask
+class RecognizerTask extends AbstractSyncTask
 {
     public function run()
     {

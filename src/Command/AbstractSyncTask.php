@@ -4,7 +4,7 @@ namespace ChessServer\Command;
 
 use Spatie\Async\Task;
 
-abstract class AbstractAsyncTask extends Task
+abstract class AbstractSyncTask extends Task
 {
     protected array $env;
 

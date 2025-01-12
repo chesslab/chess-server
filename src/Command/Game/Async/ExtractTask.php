@@ -9,9 +9,9 @@ use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
-use ChessServer\Command\AbstractAsyncTask;
+use ChessServer\Command\AbstractSyncTask;
 
-class ExtractTask extends AbstractAsyncTask
+class ExtractTask extends AbstractSyncTask
 {
     public function run()
     {

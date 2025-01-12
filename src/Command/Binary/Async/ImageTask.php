@@ -5,10 +5,10 @@ namespace ChessServer\Command\Binary\Async;
 use Chess\Media\BoardToPng;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalStrToBoard;
 use Chess\Variant\Classical\PGN\AN\Color;
-use ChessServer\Command\AbstractAsyncTask;
+use ChessServer\Command\AbstractSyncTask;
 use ChessServer\Socket\AbstractSocket;
 
-class ImageTask extends AbstractAsyncTask
+class ImageTask extends AbstractSyncTask
 {
     public function run()
     {
