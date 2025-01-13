@@ -1,9 +1,8 @@
 <?php
 
-namespace ChessServer\Command\Game\NonBlocking
-;
+namespace ChessServer\Command\Game\NonBlocking;
 
-use Chess\Function\FastFunction;
+use Chess\Function\CompleteFunction;
 use ChessServer\Command\AbstractNonBlockingCommand;
 use ChessServer\Socket\AbstractSocket;
 
@@ -23,7 +22,7 @@ class EvalNamesCommand extends AbstractNonBlockingCommand
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
         return $socket->getClientStorage()->send([$id], [
-            $this->name => (new FastFunction())->names(),
+            $this->name => (new CompleteFunction())->names(),
         ]);
     }
 }
