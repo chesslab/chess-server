@@ -5,7 +5,7 @@ namespace ChessServer\Command\Game\Blocking;
 use Chess\FenToBoardFactory;
 use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
-use Chess\Variant\Classical\PGN\AN\Color;
+use Chess\Variant\Classical\PGN\Color;
 use ChessServer\Command\AbstractBlockingCommand;
 use ChessServer\Command\Game\Game;
 use ChessServer\Socket\AbstractSocket;

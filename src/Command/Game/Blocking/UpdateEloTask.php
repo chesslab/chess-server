@@ -4,8 +4,8 @@ namespace ChessServer\Command\Game\Blocking;
 
 use Chess\Elo\Game;
 use Chess\Elo\Player;
-use Chess\Variant\Classical\PGN\AN\Color;
-use Chess\Variant\Classical\PGN\AN\Termination;
+use Chess\Variant\Classical\PGN\Color;
+use Chess\Variant\Classical\PGN\Termination;
 use ChessServer\Command\AbstractDbBlockingTask;
 
 class UpdateEloTask extends AbstractDbBlockingTask

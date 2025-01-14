@@ -3,7 +3,7 @@
 namespace ChessServer\Command\Game\NonBlocking
 ;
 
-use Chess\Variant\Classical\PGN\AN\Color;
+use Chess\Variant\Classical\PGN\Color;
 use ChessServer\Command\AbstractNonBlockingCommand;
 use ChessServer\Command\Game\Mode\PlayMode;
 use ChessServer\Socket\AbstractSocket;

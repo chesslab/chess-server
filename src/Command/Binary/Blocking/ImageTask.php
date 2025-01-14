@@ -4,7 +4,7 @@ namespace ChessServer\Command\Binary\Blocking;
 
 use Chess\Media\BoardToPng;
 use Chess\Variant\Classical\FEN\StrToBoard as ClassicalStrToBoard;
-use Chess\Variant\Classical\PGN\AN\Color;
+use Chess\Variant\Classical\PGN\Color;
 use ChessServer\Command\AbstractBlockingTask;
 use ChessServer\Socket\AbstractSocket;
 

@@ -9,8 +9,8 @@ use Chess\Variant\CapablancaFischer\StartPosition as CapablancaFischerStartPosit
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\StartPosition as Chess960StartPosition;
 use Chess\Variant\Classical\Board as ClassicalBoard;
-use Chess\Variant\Classical\PGN\AN\Color;
-use Chess\Variant\Classical\PGN\AN\Termination;
+use Chess\Variant\Classical\PGN\Color;
+use Chess\Variant\Classical\PGN\Termination;
 use Chess\Variant\Dunsany\Board as DunsanyBoard;
 use Chess\Variant\Losing\Board as LosingBoard;
 use Chess\Variant\RacingKings\Board as RacingKingsBoard;

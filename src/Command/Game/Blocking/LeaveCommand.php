@@ -2,7 +2,7 @@
 
 namespace ChessServer\Command\Game\Blocking;
 
-use Chess\Variant\Classical\PGN\AN\Color;
+use Chess\Variant\Classical\PGN\Color;
 use ChessServer\Command\AbstractBlockingCommand;
 use ChessServer\Command\Game\Blocking\UpdateEloTask;
 use ChessServer\Socket\AbstractSocket;
