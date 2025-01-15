@@ -3,7 +3,7 @@
 namespace ChessServer\Command\Game\Blocking;
 
 use Chess\FenToBoardFactory;
-use Chess\Function\CompleteFunction;
+use Chess\Eval\CompleteFunction;
 use Chess\Tutor\FenEvaluation;
 use Chess\Variant\Classical\Board;
 use ChessServer\Command\AbstractBlockingTask;

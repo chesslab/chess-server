@@ -4,7 +4,7 @@ namespace ChessServer\Command\Game\Blocking;
 
 use Chess\FenToBoardFactory;
 use Chess\SanPlotter;
-use Chess\Function\CompleteFunction;
+use Chess\Eval\CompleteFunction;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;

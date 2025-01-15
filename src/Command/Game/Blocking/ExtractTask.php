@@ -4,7 +4,7 @@ namespace ChessServer\Command\Game\Blocking;
 
 use Chess\FenToBoardFactory;
 use Chess\SanExtractor;
-use Chess\Function\CompleteFunction;
+use Chess\Eval\FastFunction;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
@@ -15,7 +15,7 @@ class ExtractTask extends AbstractBlockingTask
 {
     public function run()
     {
-        $f = new CompleteFunction();
+        $f = new FastFunction();
         
         if ($this->params['variant'] === Chess960Board::VARIANT) {
             $startPos = str_split($this->params['startPos']);
@@ -37,8 +37,10 @@ class ExtractTask extends AbstractBlockingTask
                 : new ClassicalBoard();
         }
 
+        $steinitz = SanExtractor::steinitz($f, $board->clone(), $this->params['movetext']);
+
         return [
-            'steinitz' => SanExtractor::steinitz($f, $board->clone(), $this->params['movetext']),
+            'steinitz' => FastFunction::normalize(-1, 1, $steinitz),
         ];
     }
 }
