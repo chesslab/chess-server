@@ -13,7 +13,6 @@ use ChessServer\Command\Game\Blocking\RecognizerCommand;
 use ChessServer\Command\Game\Blocking\ResignCommand;
 use ChessServer\Command\Game\Blocking\RestartCommand;
 use ChessServer\Command\Game\Blocking\StockfishCommand;
-use ChessServer\Command\Game\Blocking\TutorFenCommand;
 use ChessServer\Command\Game\NonBlocking\AcceptPlayRequestCommand;
 use ChessServer\Command\Game\NonBlocking\AsciiCommand;
 use ChessServer\Command\Game\NonBlocking\DrawCommand;
@@ -24,6 +23,7 @@ use ChessServer\Command\Game\NonBlocking\RandomizerCommand;
 use ChessServer\Command\Game\NonBlocking\RematchCommand;
 use ChessServer\Command\Game\NonBlocking\StartCommand;
 use ChessServer\Command\Game\NonBlocking\TakebackCommand;
+use ChessServer\Command\Game\NonBlocking\TutorFenCommand;
 use ChessServer\Command\Game\NonBlocking\UndoCommand;
 use Spatie\Async\Pool;
 
@@ -57,6 +57,6 @@ class Cli extends AbstractCli
         $this->commands->attach((new RestartCommand())->setPool($pool));
         $this->commands->attach(new StartCommand());
         $this->commands->attach((new StockfishCommand())->setPool($pool));
-        $this->commands->attach((new TutorFenCommand())->setPool($pool));
+        $this->commands->attach(new TutorFenCommand());
     }
 }
