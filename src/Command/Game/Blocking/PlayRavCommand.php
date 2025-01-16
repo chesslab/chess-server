@@ -23,7 +23,7 @@ class PlayRavCommand extends AbstractBlockingCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $params = json_decode(stripslashes($argv[1]), true);
+        $params = $this->params($argv[1]);
 
         $this->pool->add(new PlayRavTask($params), 128000)
             ->then(function ($result) use ($socket, $id) {

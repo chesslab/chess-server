@@ -21,6 +21,11 @@ abstract class AbstractCommand
         }
     }
 
+    protected function params(string $params)
+    {
+        return json_decode(stripslashes(str_replace(['\r', '\n'], '', $params)), true);
+    }
+
     abstract public function validate(array $command);
 
     abstract public function run(AbstractSocket $socket, array $argv, int $id);

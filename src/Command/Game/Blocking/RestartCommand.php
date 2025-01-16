@@ -28,7 +28,7 @@ class RestartCommand extends AbstractBlockingCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $params = json_decode(stripslashes($argv[1]), true);
+        $params = $this->params($argv[1]);
         $gameMode = $socket->getGameModeStorage()->getByJwt($params['jwt']);
 
         $this->pool->add(new RestartTask([
