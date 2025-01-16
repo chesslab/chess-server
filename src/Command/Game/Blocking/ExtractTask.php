@@ -39,8 +39,6 @@ class ExtractTask extends AbstractBlockingTask
 
         $steinitz = SanExtractor::steinitz($f, $board->clone(), $this->params['movetext']);
 
-        return [
-            'steinitz' => FastFunction::normalize(-1, 1, $steinitz),
-        ];
+        return FastFunction::normalize(-1, 1, $steinitz);
     }
 }
