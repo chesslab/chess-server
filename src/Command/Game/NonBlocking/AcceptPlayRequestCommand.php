@@ -1,7 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Game\NonBlocking
-;
+namespace ChessServer\Command\Game\NonBlocking;
 
 use Chess\Variant\Classical\PGN\Color;
 use ChessServer\Command\AbstractNonBlockingCommand;

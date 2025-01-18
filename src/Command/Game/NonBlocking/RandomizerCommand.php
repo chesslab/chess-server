@@ -1,7 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Game\NonBlocking
-;
+namespace ChessServer\Command\Game\NonBlocking;
 
 use Chess\Randomizer\Randomizer;
 use Chess\Randomizer\Checkmate\TwoBishopsRandomizer;

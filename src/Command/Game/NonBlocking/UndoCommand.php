@@ -1,7 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Game\NonBlocking
-;
+namespace ChessServer\Command\Game\NonBlocking;
 
 use ChessServer\Command\AbstractNonBlockingCommand;
 use ChessServer\Socket\AbstractSocket;

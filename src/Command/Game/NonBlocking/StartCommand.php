@@ -1,7 +1,6 @@
 <?php
 
-namespace ChessServer\Command\Game\NonBlocking
-;
+namespace ChessServer\Command\Game\NonBlocking;
 
 use Chess\FenToBoardFactory;
 use Chess\Play\SanPlay;
