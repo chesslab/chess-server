@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="https://chess-server.chesslablab.org/totp-signin/">
+        <link rel="canonical" href="https://chess-server.chesslablab.org/extract/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>/totp_signin - PHP Chess Server</title>
+        <title>/extract - PHP Chess Server</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -81,7 +81,7 @@
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">game <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -134,7 +134,7 @@
 </li>
             
 <li>
-    <a href="../extract/" class="dropdown-item">/extract</a>
+    <a href="./" class="dropdown-item active">/extract</a>
 </li>
             
 <li>
@@ -207,7 +207,7 @@
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">auth <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -230,7 +230,7 @@
 </li>
             
 <li>
-    <a href="./" class="dropdown-item active">/totp_signin</a>
+    <a href="../totp-signin/" class="dropdown-item">/totp_signin</a>
 </li>
     </ul>
   </li>
@@ -245,12 +245,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../totp-refresh/" class="nav-link">
+                                <a rel="prev" href="../accept/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" class="nav-link disabled">
+                                <a rel="next" href="../heuristic/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -272,13 +272,13 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#totp_signin" class="nav-link">/totp_signin</a>
+            <li class="nav-item" data-level="1"><a href="#extract" class="nav-link">/extract</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#username" class="nav-link">username</a>
+            <li class="nav-item" data-level="2"><a href="#variant" class="nav-link">variant</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#password" class="nav-link">password</a>
+            <li class="nav-item" data-level="2"><a href="#movetext" class="nav-link">movetext</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -289,30 +289,35 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="totp_signin">/totp_signin</h1>
-<p>TOTP sign in.</p>
-<h2 id="username"><code>username</code></h2>
-<p>The username.</p>
-<h2 id="password"><code>password</code></h2>
-<p>The password.</p>
+<h1 id="extract">/extract</h1>
+<p>Extracts knowledge from a game by using the Steinitz evaluation.</p>
+<h2 id="variant"><code>variant</code></h2>
+<p>The chess variant as per these options.</p>
+<ul>
+<li><code>classical</code> chess, also known as standard or slow chess.</li>
+<li><code>960</code> is the same as classical chess except that the starting position of the pieces is randomized.</li>
+<li><code>dunsany</code> is an asymmetric variant in which Black has the standard chess army and White has 32 pawns.</li>
+<li><code>losing</code> chess, the objective of each player is to lose all of their pieces or be stalemated.</li>
+<li><code>racing-kings</code> consists of being the first player to move their king to the eighth row.</li>
+<li><code>capablanca</code> incorporates two new pieces, the archbishop and the chancellor, and is played on a 10×8 board.</li>
+<li><code>capablanca-fischer</code> is a mix of Capablanca chess and Chess960.</li>
+</ul>
+<h2 id="movetext"><code>movetext</code></h2>
+<p>The sequence of moves played in the game.</p>
 <hr />
 <h3 id="usage">Usage</h3>
 <h4 id="example">Example</h4>
-<pre><code class="language-js">ws.send('/totp_signin &quot;{\\&quot;username\\&quot;:\\&quot;graceful_elephant\\&quot;,\\&quot;password\\&quot;:\\&quot;513967906\\&quot;}&quot;');
+<pre><code class="language-js">ws.send('/extract &quot;{\&quot;variant\&quot;:\&quot;classical\&quot;,\&quot;movetext\&quot;:\&quot;1.e4 e5 2.Nf3 Nc6 3.Bc4\&quot;}&quot;');
 </code></pre>
 <pre><code class="language-text">{
-  &quot;/totp_signin&quot;: {
-    &quot;access_token&quot;: &quot;eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhc3luYy5jaGVzc2xhYmxhYi5vcmciLCJpYXQiOjE3MjYxNjcwMDcsImV4cCI6MTcyNjE3MDYwNywidXNlcm5hbWUiOiJjb3VyYWdlb3VzX2FybWFkaWxsbyIsImVsbyI6MTQzMX0.X-IsxooRmsE6tiSZMX044k-vwonWc1AlCR5q9xUJiMs&quot;
-  }
-}
-</code></pre>
-<p>Decoded JWT:</p>
-<pre><code class="language-text">{
-  &quot;iss&quot;: &quot;async.chesslablab.org&quot;,
-  &quot;iat&quot;: 1726167007,
-  &quot;exp&quot;: 1726170607,
-  &quot;username&quot;: &quot;graceful_elephant&quot;,
-  &quot;elo&quot;: 1431
+  &quot;/extract&quot;: [
+    0,
+    0.5,
+    0,
+    1,
+    0.25,
+    1
+  ]
 }
 </code></pre></div>
             </div>
