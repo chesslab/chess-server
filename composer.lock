@@ -621,11 +621,11 @@
         },
         {
             "name": "chesslablab/php-chess",
-            "version": "1.5.10",
+            "version": "1.5.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chesslablab/php-chess.git",
-                "reference": "22830cc8e647a492a805a61a28e8ae9c03dd3893"
+                "reference": "6832e49a841ff6ac4936454194d3a55a9b1cd8cb"
             },
             "require": {
                 "imagine/imagine": "^1.2",
@@ -682,7 +682,7 @@
                 "validate",
                 "validator"
             ],
-            "time": "2025-01-28T14:55:51+00:00"
+            "time": "2025-01-28T15:56:13+00:00"
         },
         {
             "name": "evenement/evenement",
