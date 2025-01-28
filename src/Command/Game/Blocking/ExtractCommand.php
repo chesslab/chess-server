@@ -10,7 +10,7 @@ class ExtractCommand extends AbstractBlockingCommand
     public function __construct()
     {
         $this->name = '/extract';
-        $this->description = 'Extracts oscillations data from a game.';
+        $this->description = 'Extracts knowledge from a game by using the Steinitz evaluation.';
         $this->params = [
             'params' => '<string>',
         ];
