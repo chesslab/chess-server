@@ -621,11 +621,11 @@
         },
         {
             "name": "chesslablab/php-chess",
-            "version": "1.5.09",
+            "version": "1.5.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chesslablab/php-chess.git",
-                "reference": "e696d75468c2d7cbc6ad457234c04879a6d1aaca"
+                "reference": "22830cc8e647a492a805a61a28e8ae9c03dd3893"
             },
             "require": {
                 "imagine/imagine": "^1.2",
@@ -666,7 +666,7 @@
                     "homepage": "https://github.com/chesslablab"
                 }
             ],
-            "description": "A chess library for PHP.",
+            "description": "A chess library for PHP offering move validation, common formats, multiple variants, UCI engine support, explanation of chess positions, image recognition and knowledge extraction from games.",
             "keywords": [
                 "api",
                 "board",
@@ -682,7 +682,7 @@
                 "validate",
                 "validator"
             ],
-            "time": "2025-01-27T19:54:03+00:00"
+            "time": "2025-01-28T14:55:51+00:00"
         },
         {
             "name": "evenement/evenement",
