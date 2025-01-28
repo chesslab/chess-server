@@ -24,6 +24,7 @@ nav:
       - /takeback: takeback.md
     - Parameterized:
       - /accept: accept.md
+      - /extract: extract.md
       - /heuristic: heuristic.md
       - /leave: leave.md
       - /legal: legal.md
