@@ -40,7 +40,7 @@ class AcceptPlayRequestCommand extends AbstractNonBlockingCommand
 
         if ($gameMode->getStatus() === PlayMode::STATUS_PENDING) {
             $decoded = $gameMode->getJwtDecoded();
-            $color = (new Color())->opp($decoded->color);
+            $color = $decoded->color === Color::W ? Color::B : Color::W;
             $decoded->username->{$color} = $params['username'] ?? self::ANONYMOUS_USER;
             $decoded->elo->{$color} = $params['elo'];
             $ids = [...$gameMode->getResourceIds(), $id];
