@@ -621,11 +621,11 @@
         },
         {
             "name": "chesslablab/php-chess",
-            "version": "1.5.13",
+            "version": "1.5.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chesslablab/php-chess.git",
-                "reference": "0f1209ca4838765b4ff7b80f2dd903425762bda5"
+                "reference": "f8d8f28a2a88a81031808e2d71358a5f5488532d"
             },
             "require": {
                 "imagine/imagine": "^1.2",
@@ -682,7 +682,7 @@
                 "validate",
                 "validator"
             ],
-            "time": "2025-01-30T14:17:00+00:00"
+            "time": "2025-02-02T16:00:07+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -2498,16 +2498,16 @@
         },
         {
             "name": "spatie/async",
-            "version": "1.6.2",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/async.git",
-                "reference": "c0a578284c752cacfdbd2f1e6000dfec03b78cb1"
+                "reference": "318fed03bdaef5aa090cc08ee378e29c946ca38e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/async/zipball/c0a578284c752cacfdbd2f1e6000dfec03b78cb1",
-                "reference": "c0a578284c752cacfdbd2f1e6000dfec03b78cb1",
+                "url": "https://api.github.com/repos/spatie/async/zipball/318fed03bdaef5aa090cc08ee378e29c946ca38e",
+                "reference": "318fed03bdaef5aa090cc08ee378e29c946ca38e",
                 "shasum": ""
             },
             "require": {
@@ -2553,7 +2553,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/async/issues",
-                "source": "https://github.com/spatie/async/tree/1.6.2"
+                "source": "https://github.com/spatie/async/tree/1.7.0"
             },
             "funding": [
                 {
@@ -2561,7 +2561,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-16T15:31:12+00:00"
+            "time": "2025-01-31T14:59:30+00:00"
         },
         {
             "name": "spomky-labs/otphp",
