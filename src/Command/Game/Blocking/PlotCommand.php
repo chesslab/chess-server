@@ -5,12 +5,12 @@ namespace ChessServer\Command\Game\Blocking;
 use ChessServer\Command\AbstractBlockingCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class HeuristicCommand extends AbstractBlockingCommand
+class PlotCommand extends AbstractBlockingCommand
 {
     public function __construct()
     {
-        $this->name = '/heuristic';
-        $this->description = 'Balance of a chess heuristic.';
+        $this->name = '/plot';
+        $this->description = 'Plots the oscillations of an evaluation feature in the time domain.';
         $this->params = [
             'params' => '<string>',
         ];
@@ -25,7 +25,7 @@ class HeuristicCommand extends AbstractBlockingCommand
     {
         $params = $this->params($argv[1]);
 
-        $this->pool->add(new HeuristicTask($params))
+        $this->pool->add(new PlotTask($params))
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,

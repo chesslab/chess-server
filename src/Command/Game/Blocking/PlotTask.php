@@ -12,7 +12,7 @@ use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use ChessServer\Command\AbstractBlockingTask;
 
-class HeuristicTask extends AbstractBlockingTask
+class PlotTask extends AbstractBlockingTask
 {
     public function run()
     {
