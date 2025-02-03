@@ -1,139 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://chess-server.chesslablab.org/getting-started/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/annotations-game/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/ranking/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/autocomplete-black/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/autocomplete-event/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/autocomplete-white/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/opening/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/search/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/ascii/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/eval-names/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/online-games/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/undo/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/draw/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/rematch/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/takeback/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/accept/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/extract/</loc>
-     <lastmod>2025-01-28</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://chess-server.chesslablab.org/heuristic/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/leave/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/legal/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/play/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/play-lan/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/play-rav/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://chess-server.chesslablab.org/plot/</loc>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/randomizer/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/recognizer/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/resign/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/restart/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/start/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/stockfish/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/tutor-fen/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/image/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/totp-signup/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/totp-refresh/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/totp-signin/</loc>
-     <lastmod>2025-01-28</lastmod>
+     <lastmod>2025-02-03</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
