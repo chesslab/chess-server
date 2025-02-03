@@ -4,6 +4,7 @@ namespace ChessServer\Command\Game\Blocking;
 
 use Chess\FenToBoardFactory;
 use Chess\Play\RavPlay;
+use Chess\Variant\VariantType;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use ChessServer\Command\AbstractBlockingTask;
@@ -12,7 +13,7 @@ class PlayRavTask extends AbstractBlockingTask
 {
     public function run()
     {
-        if ($this->params['variant'] === Chess960Board::VARIANT) {
+        if ($this->params['variant'] === VariantType::CHESS_960) {
             $startPos = str_split($this->params['startPos']);
             $board = new Chess960Board($startPos);
             if (isset($this->params['fen'])) {
@@ -36,7 +37,7 @@ class PlayRavTask extends AbstractBlockingTask
             'movetext' => $ravPlay->ravMovetext->main(),
             'breakdown' => $ravPlay->ravMovetext->breakdown,
             'fen' => $ravPlay->fen,
-            ...($this->params['variant'] === Chess960Board::VARIANT
+            ...($this->params['variant'] === VariantType::CHESS_960
                 ? ['startPos' =>  $this->params['startPos']]
                 : []
             ),

@@ -5,6 +5,7 @@ namespace ChessServer\Command\Game\Blocking;
 use Chess\FenToBoardFactory;
 use Chess\SanPlotter;
 use Chess\Eval\CompleteFunction;
+use Chess\Variant\VariantType;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
@@ -15,21 +16,21 @@ class HeuristicTask extends AbstractBlockingTask
 {
     public function run()
     {
-        if ($this->params['variant'] === Chess960Board::VARIANT) {
+        if ($this->params['variant'] === VariantType::CHESS_960) {
             $startPos = str_split($this->params['startPos']);
             $board = isset($this->params['fen'])
                 ? FenToBoardFactory::create($this->params['fen'], new Chess960Board($startPos))
                 : new Chess960Board($startPos);
-        } elseif ($this->params['variant'] === CapablancaBoard::VARIANT) {
+        } elseif ($this->params['variant'] === VariantType::CAPABLANCA) {
             $board = isset($this->params['fen'])
                 ? FenToBoardFactory::create($this->params['fen'], new CapablancaBoard())
                 : new CapablancaBoard();
-        } elseif ($this->params['variant'] === CapablancaFischerBoard::VARIANT) {
+        } elseif ($this->params['variant'] === VariantType::CAPABLANCA_FISCHER) {
             $startPos = str_split($this->params['startPos']);
             $board = isset($this->params['fen'])
                 ? FenToBoardFactory::create($this->params['fen'], new CapablancaFischerBoard($startPos))
                 : new CapablancaFischerBoard($startPos);
-        } elseif ($this->params['variant'] === ClassicalBoard::VARIANT) {
+        } elseif ($this->params['variant'] === VariantType::CLASSICAL) {
             $board = isset($this->params['fen'])
                 ? FenToBoardFactory::create($this->params['fen'], new ClassicalBoard())
                 : new ClassicalBoard();

@@ -4,6 +4,7 @@ namespace ChessServer\Command\Game\NonBlocking;
 
 use Chess\FenToBoardFactory;
 use Chess\Play\SanPlay;
+use Chess\Variant\VariantType;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
 use Chess\Variant\CapablancaFischer\StartPosition as CapablancaFischerStartPosition;
@@ -44,7 +45,7 @@ class StartCommand extends AbstractNonBlockingCommand
 
         if (AnalysisMode::NAME === $params['mode']) {
             try {
-                if ($params['variant'] === Game::VARIANT_960) {
+                if ($params['variant'] === VariantType::CHESS_960) {
                     if (isset($params['settings']['startPos']) && isset($params['settings']['fen'])) {
                         $startPos = str_split($params['settings']['startPos']);
                         $board = FenToBoardFactory::create($params['settings']['fen'], new Chess960Board($startPos));
@@ -52,11 +53,11 @@ class StartCommand extends AbstractNonBlockingCommand
                         $startPos = (new Chess960StartPosition())->create();
                         $board = new Chess960Board($startPos);
                     }
-                } elseif ($params['variant'] === Game::VARIANT_CAPABLANCA) {
+                } elseif ($params['variant'] === VariantType::CAPABLANCA) {
                     $board = isset($params['settings']['fen'])
                         ? FenToBoardFactory::create($params['settings']['fen'], new CapablancaBoard())
                         : new CapablancaBoard();
-                } elseif ($params['variant'] === Game::VARIANT_CAPABLANCA_FISCHER) {
+                } elseif ($params['variant'] === VariantType::CAPABLANCA_FISCHER) {
                     if (isset($params['settings']['startPos']) && isset($params['settings']['fen'])) {
                         $startPos = str_split($params['settings']['startPos']);
                         $board = FenToBoardFactory::create($params['settings']['fen'], new CapablancaFischerBoard($startPos));
@@ -64,15 +65,15 @@ class StartCommand extends AbstractNonBlockingCommand
                         $startPos = (new CapablancaFischerStartPosition())->create();
                         $board = new CapablancaFischerBoard($startPos);
                     }
-                } elseif ($params['variant'] === Game::VARIANT_DUNSANY) {
+                } elseif ($params['variant'] === VariantType::DUNSANY) {
                     $board = isset($params['settings']['fen'])
                         ? FenToBoardFactory::create($params['settings']['fen'], new DunsanyBoard())
                         : new DunsanyBoard();
-                } elseif ($params['variant'] === Game::VARIANT_LOSING) {
+                } elseif ($params['variant'] === VariantType::LOSING) {
                     $board = isset($params['settings']['fen'])
                         ? FenToBoardFactory::create($params['settings']['fen'], new LosingBoard())
                         : new LosingBoard();
-                } elseif ($params['variant'] === Game::VARIANT_RACING_KINGS) {
+                } elseif ($params['variant'] === VariantType::RACING_KINGS) {
                     $board = isset($params['settings']['fen'])
                         ? FenToBoardFactory::create($params['settings']['fen'], new RacingKingsBoard())
                         : new RacingKingsBoard();
@@ -94,11 +95,11 @@ class StartCommand extends AbstractNonBlockingCommand
                         'turn' => $game->state()->turn,
                         'movetext' => $sanPlay->sanMovetext->validate(),
                         'fen' => $sanPlay->fen,
-                        ...($params['variant'] === Game::VARIANT_960
+                        ...($params['variant'] === VariantType::CHESS_960
                             ? ['startPos' =>  implode('', $startPos)]
                             : []
                         ),
-                        ...($params['variant'] === Game::VARIANT_CAPABLANCA_FISCHER
+                        ...($params['variant'] === VariantType::CAPABLANCA_FISCHER
                             ? ['startPos' =>  implode('', $startPos)]
                             : []
                         ),
@@ -113,7 +114,7 @@ class StartCommand extends AbstractNonBlockingCommand
             }
         } elseif (PlayMode::NAME === $params['mode']) {
             try {
-                if ($params['variant'] === Game::VARIANT_960) {
+                if ($params['variant'] === VariantType::CHESS_960) {
                     if (isset($params['settings']['startPos']) && isset($params['settings']['fen'])) {
                         $startPos = str_split($params['settings']['startPos']);
                         $board = FenToBoardFactory::create($params['settings']['fen'], new Chess960Board($startPos));
@@ -121,11 +122,11 @@ class StartCommand extends AbstractNonBlockingCommand
                         $startPos = (new Chess960StartPosition())->create();
                         $board = new Chess960Board($startPos);
                     }
-                } elseif ($params['variant'] === Game::VARIANT_CAPABLANCA) {
+                } elseif ($params['variant'] === VariantType::CAPABLANCA) {
                     $board = isset($params['settings']['fen'])
                         ? FenToBoardFactory::create($params['settings']['fen'], new CapablancaBoard())
                         : new CapablancaBoard();
-                } elseif ($params['variant'] === Game::VARIANT_CAPABLANCA_FISCHER) {
+                } elseif ($params['variant'] === VariantType::CAPABLANCA_FISCHER) {
                     if (isset($params['settings']['startPos']) && isset($params['settings']['fen'])) {
                         $startPos = str_split($params['settings']['startPos']);
                         $board = FenToBoardFactory::create($params['settings']['fen'], new CapablancaFischerBoard($startPos));
@@ -133,15 +134,15 @@ class StartCommand extends AbstractNonBlockingCommand
                         $startPos = (new CapablancaFischerStartPosition())->create();
                         $board = new CapablancaFischerBoard($startPos);
                     }
-                } elseif ($params['variant'] === Game::VARIANT_DUNSANY) {
+                } elseif ($params['variant'] === VariantType::DUNSANY) {
                     $board = isset($params['settings']['fen'])
                         ? FenToBoardFactory::create($params['settings']['fen'], new DunsanyBoard())
                         : new DunsanyBoard();
-                } elseif ($params['variant'] === Game::VARIANT_LOSING) {
+                } elseif ($params['variant'] === VariantType::LOSING) {
                     $board = isset($params['settings']['fen'])
                         ? FenToBoardFactory::create($params['settings']['fen'], new LosingBoard())
                         : new LosingBoard();
-                } elseif ($params['variant'] === Game::VARIANT_RACING_KINGS) {
+                } elseif ($params['variant'] === VariantType::RACING_KINGS) {
                     $board = isset($params['settings']['fen'])
                         ? FenToBoardFactory::create($params['settings']['fen'], new RacingKingsBoard())
                         : new RacingKingsBoard();
@@ -177,11 +178,11 @@ class StartCommand extends AbstractNonBlockingCommand
                     'min' => $params['settings']['min'],
                     'increment' => $params['settings']['increment'],
                     'fen' => $game->getBoard()->toFen(),
-                    ...($params['variant'] === Game::VARIANT_960
+                    ...($params['variant'] === VariantType::CHESS_960
                         ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
                         : []
                     ),
-                    ...($params['variant'] === Game::VARIANT_CAPABLANCA_FISCHER
+                    ...($params['variant'] === VariantType::CAPABLANCA_FISCHER
                         ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
                         : []
                     ),
@@ -212,11 +213,11 @@ class StartCommand extends AbstractNonBlockingCommand
                         'variant' => $game->getVariant(),
                         'mode' => $game->getMode(),
                         'fen' => $game->getBoard()->toFen(),
-                        ...($params['variant'] === Game::VARIANT_960
+                        ...($params['variant'] === VariantType::CHESS_960
                             ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
                             : []
                         ),
-                        ...($params['variant'] === Game::VARIANT_CAPABLANCA_FISCHER
+                        ...($params['variant'] === VariantType::CAPABLANCA_FISCHER
                             ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
                             : []
                         ),

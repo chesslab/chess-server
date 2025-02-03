@@ -3,6 +3,7 @@
 namespace ChessServer\Command\Game;
 
 use Chess\Variant\AbstractBoard;
+use Chess\Variant\VariantType;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
 use Chess\Variant\CapablancaFischer\StartPosition as CapablancaFischerStartPosition;
@@ -17,14 +18,6 @@ use Chess\Variant\RacingKings\Board as RacingKingsBoard;
 
 class Game
 {
-    const VARIANT_960 = Chess960Board::VARIANT;
-    const VARIANT_CAPABLANCA = CapablancaBoard::VARIANT;
-    const VARIANT_CAPABLANCA_FISCHER = CapablancaFischerBoard::VARIANT;
-    const VARIANT_CLASSICAL = ClassicalBoard::VARIANT;
-    const VARIANT_DUNSANY = DunsanyBoard::VARIANT;
-    const VARIANT_LOSING = LosingBoard::VARIANT;
-    const VARIANT_RACING_KINGS = RacingKingsBoard::VARIANT;
-
     const MODE_ANALYSIS = 'analysis';
     const MODE_PLAY = 'play';
     const MODE_STOCKFISH = 'stockfish';
@@ -44,21 +37,21 @@ class Game
         $this->variant = $variant;
         $this->mode = $mode;
 
-        if ($this->variant === self::VARIANT_960) {
+        if ($this->variant === VariantType::CHESS_960) {
             $startPos = (new Chess960StartPosition())->create();
             $this->board = new Chess960Board($startPos);
-        } elseif ($this->variant === self::VARIANT_CAPABLANCA) {
+        } elseif ($this->variant === VariantType::CAPABLANCA) {
             $this->board = new CapablancaBoard();
-        } elseif ($this->variant === self::VARIANT_CAPABLANCA_FISCHER) {
+        } elseif ($this->variant === VariantType::CAPABLANCA_FISCHER) {
             $startPos = (new CapablancaFischerStartPosition())->create();
             $this->board = new CapablancaFischerBoard($startPos);
-        } elseif ($this->variant === self::VARIANT_CLASSICAL) {
+        } elseif ($this->variant === VariantType::CLASSICAL) {
             $this->board = new ClassicalBoard();
-        } elseif ($this->variant === self::VARIANT_DUNSANY) {
+        } elseif ($this->variant === VariantType::DUNSANY) {
             $this->board = new DunsanyBoard();
-        } elseif ($this->variant === self::VARIANT_LOSING) {
+        } elseif ($this->variant === VariantType::LOSING) {
             $this->board = new LosingBoard();
-        } elseif ($this->variant === self::VARIANT_RACING_KINGS) {
+        } elseif ($this->variant === VariantType::RACING_KINGS) {
             $this->board = new RacingKingsBoard();
         }
     }

@@ -3,6 +3,7 @@
 namespace ChessServer\Command\Game\Blocking;
 
 use Chess\FenToBoardFactory;
+use Chess\Variant\VariantType;
 use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Classical\PGN\Color;
@@ -34,11 +35,11 @@ class RestartCommand extends AbstractBlockingCommand
         $this->pool->add(new RestartTask([
             'decoded' => $gameMode->getJwtDecoded(),
         ]))->then(function ($result) use ($socket, $gameMode) {
-            if ($result->variant === Game::VARIANT_960) {
+            if ($result->variant === VariantType::CHESS_960) {
                 $startPos = str_split($result->startPos);
                 $board = FenToBoardFactory::create($result->fen, new Chess960Board($startPos));
                 $game = (new Game($result->variant, Game::MODE_PLAY))->setBoard($board);
-            } elseif ($result->variant === Game::VARIANT_CAPABLANCA_FISCHER) {
+            } elseif ($result->variant === VariantType::CAPABLANCA_FISCHER) {
                 $startPos = str_split($result->startPos);
                 $board = FenToBoardFactory::create($result->fen, new CapablancaFischerBoard($startPos));
                 $game = (new Game($result->variant, Game::MODE_PLAY))->setBoard($board);
