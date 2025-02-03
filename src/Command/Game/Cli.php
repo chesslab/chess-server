@@ -4,11 +4,11 @@ namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCli;
 use ChessServer\Command\Game\Blocking\ExtractCommand;
-use ChessServer\Command\Game\Blocking\PlotCommand;
 use ChessServer\Command\Game\Blocking\LeaveCommand;
 use ChessServer\Command\Game\Blocking\PlayCommand;
 use ChessServer\Command\Game\Blocking\PlayLanCommand;
 use ChessServer\Command\Game\Blocking\PlayRavCommand;
+use ChessServer\Command\Game\Blocking\PlotCommand;
 use ChessServer\Command\Game\Blocking\RecognizerCommand;
 use ChessServer\Command\Game\Blocking\ResignCommand;
 use ChessServer\Command\Game\Blocking\RestartCommand;
@@ -45,12 +45,12 @@ class Cli extends AbstractCli
         // param-based commands
         $this->commands->attach(new AcceptPlayRequestCommand());
         $this->commands->attach((new ExtractCommand())->setPool($pool));
-        $this->commands->attach((new PlotCommand())->setPool($pool));
         $this->commands->attach((new LeaveCommand())->setPool($pool));
         $this->commands->attach(new LegalCommand());
         $this->commands->attach((new PlayCommand())->setPool($pool));
         $this->commands->attach((new PlayLanCommand())->setPool($pool));
         $this->commands->attach((new PlayRavCommand())->setPool($pool));
+        $this->commands->attach((new PlotCommand())->setPool($pool));
         $this->commands->attach(new RandomizerCommand());
         $this->commands->attach((new RecognizerCommand())->setPool($pool));
         $this->commands->attach((new ResignCommand())->setPool($pool));
