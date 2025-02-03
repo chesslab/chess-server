@@ -1,6 +1,6 @@
-# /heuristic
+# /plot
 
-Balance of a chess heuristic.
+Plots the oscillations of an evaluation feature in the time domain.
 
 ## `variant`
 
@@ -58,12 +58,12 @@ The name of the heuristic as per these options.
 #### Example
 
 ```js
-ws.send('/heuristic "{\\"variant\\":\\"classical\\",\\"movetext\\":\\"1.e4 e5 2.Nf3 Nc6 3.Bc4\\",\\"name\\":\\"Center\\"}"');
+ws.send('/plot "{\\"variant\\":\\"classical\\",\\"movetext\\":\\"1.e4 e5 2.Nf3 Nc6 3.Bc4\\",\\"name\\":\\"Center\\"}"');
 ```
 
 ```text
 {
-  "/heuristic": [
+  "/plot": [
     0,
     1,
     0,
