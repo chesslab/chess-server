@@ -9,7 +9,7 @@ use ChessServer\Command\Game\Blocking\PlayCommand;
 use ChessServer\Command\Game\Blocking\PlayLanCommand;
 use ChessServer\Command\Game\Blocking\PlayRavCommand;
 use ChessServer\Command\Game\Blocking\PlotCommand;
-use ChessServer\Command\Game\Blocking\RecognizerCommand;
+use ChessServer\Command\Game\Blocking\RecognizeCommand;
 use ChessServer\Command\Game\Blocking\ResignCommand;
 use ChessServer\Command\Game\Blocking\RestartCommand;
 use ChessServer\Command\Game\Blocking\StockfishCommand;
@@ -52,7 +52,7 @@ class Cli extends AbstractCli
         $this->commands->attach((new PlayRavCommand())->setPool($pool));
         $this->commands->attach((new PlotCommand())->setPool($pool));
         $this->commands->attach(new RandomizerCommand());
-        $this->commands->attach((new RecognizerCommand())->setPool($pool));
+        $this->commands->attach((new RecognizeCommand())->setPool($pool));
         $this->commands->attach((new ResignCommand())->setPool($pool));
         $this->commands->attach((new RestartCommand())->setPool($pool));
         $this->commands->attach(new StartCommand());
