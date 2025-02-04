@@ -5,11 +5,11 @@ namespace ChessServer\Command\Game\Blocking;
 use ChessServer\Command\AbstractBlockingCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class RecognizerCommand extends AbstractBlockingCommand
+class RecognizeCommand extends AbstractBlockingCommand
 {
     public function __construct()
     {
-        $this->name = '/recognizer';
+        $this->name = '/recognize';
         $this->description = 'Returns the piece placement in FEN format of a Base64 encoded image.';
         $this->params = [
             'params' => '<string>',
@@ -25,7 +25,7 @@ class RecognizerCommand extends AbstractBlockingCommand
     {
         $params = $this->params($argv[1]);
 
-        $this->pool->add(new RecognizerTask($params))
+        $this->pool->add(new RecognizeTask($params))
             ->then(function ($result) use ($socket, $id) {
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => $result,

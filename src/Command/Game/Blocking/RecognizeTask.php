@@ -5,7 +5,7 @@ namespace ChessServer\Command\Game\Blocking;
 use Chess\Media\ImgToPiecePlacement;
 use ChessServer\Command\AbstractBlockingTask;
 
-class RecognizerTask extends AbstractBlockingTask
+class RecognizeTask extends AbstractBlockingTask
 {
     public function run()
     {
