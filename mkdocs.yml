@@ -32,7 +32,7 @@ nav:
       - /play_rav: play-rav.md
       - /plot: plot.md
       - /randomizer: randomizer.md
-      - /recognizer: recognizer.md
+      - /recognize: recognize.md
       - /resign: resign.md
       - /restart: restart.md
       - /start: start.md
