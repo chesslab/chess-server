@@ -6,7 +6,7 @@ Returns the piece placement in FEN format of a Base64 encoded image.
 
 A Base64 encoded image representing a chessboard. For optimal use, it is recommended to make predictions on chessboard images using classical chess pieces like the Kaufman test attached below.
 
-![Figure 2](https://raw.githubusercontent.com/chesslablab/php-chess/main/docs/data-conversion_02.png)
+![Figure 2](https://raw.githubusercontent.com/chesslablab/php-chess/main/docs/recognize_01.png)
 
 ---
 
