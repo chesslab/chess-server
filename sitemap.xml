@@ -44,6 +44,10 @@
      <lastmod>2025-02-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
+     <loc>https://chess-server.chesslablab.org/tutor-good-pgn/</loc>
+     <lastmod>2025-02-07</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
      <loc>https://chess-server.chesslablab.org/undo/</loc>
      <lastmod>2025-02-07</lastmod>
      <changefreq>daily</changefreq>
@@ -117,10 +121,6 @@
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://chess-server.chesslablab.org/tutor-fen/</loc>
-     <lastmod>2025-02-07</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://chess-server.chesslablab.org/tutor-good-pgn/</loc>
      <lastmod>2025-02-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
