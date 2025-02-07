@@ -1,4 +1,4 @@
-# /randomizer
+# /randomize
 
 Starts a random position.
 
@@ -29,12 +29,12 @@ The piece composition string as per these options.
 Get a random position with white to move; King and queen and rook vs. king and rook.
 
 ```js
-ws.send('/randomizer "{\\"turn\\":\\"w\\",\\"items\\":{\\"w\\":\\"QR\\",\\"b\\":\\"R\\"}}"');
+ws.send('/randomize "{\\"turn\\":\\"w\\",\\"items\\":{\\"w\\":\\"QR\\",\\"b\\":\\"R\\"}}"');
 ```
 
 ```text
 {
-  "/randomizer": {
+  "/randomize": {
     "turn": "w",
     "fen": "1K1R4/8/4k3/8/3Q4/r7/8/8 w - -"
   }
