@@ -17,6 +17,7 @@ nav:
       - /ascii: ascii.md
       - /eval_names: eval-names.md
       - /online_games: online-games.md
+      - /tutor_good_pgn: tutor-good-pgn.md
       - /undo: undo.md
     - Action:
       - /draw: draw.md
@@ -38,7 +39,6 @@ nav:
       - /start: start.md
       - /stockfish: stockfish.md
       - /tutor_fen: tutor-fen.md
-      - /tutor_good_pgn: tutor-good-pgn.md
   - binary:
     - Parameterized:
       - /image: image.md
