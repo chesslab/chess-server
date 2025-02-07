@@ -46,9 +46,8 @@ class RandomizeCommand extends AbstractNonBlockingCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $params = $this->params($argv[1]);
-
         try {
+            $params = $this->params($argv[1]);
             if (count($params['items']) === 1) {
                 $color = array_key_first($params['items']);
                 $pieceIds = str_split(current($params['items']));
