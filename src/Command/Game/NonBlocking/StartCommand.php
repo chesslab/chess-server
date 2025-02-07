@@ -41,10 +41,9 @@ class StartCommand extends AbstractNonBlockingCommand
 
     public function run(AbstractSocket $socket, array $argv, int $id)
     {
-        $params = $this->params($argv[1]);
-
-        if (AnalysisMode::NAME === $params['mode']) {
-            try {
+        try {
+            $params = $this->params($argv[1]);
+            if (AnalysisMode::NAME === $params['mode']) {
                 if ($params['variant'] === VariantType::CHESS_960) {
                     if (isset($params['settings']['startPos']) && isset($params['settings']['fen'])) {
                         $startPos = str_split($params['settings']['startPos']);
@@ -105,15 +104,7 @@ class StartCommand extends AbstractNonBlockingCommand
                         ),
                     ],
                 ]);
-            } catch (\Throwable $e) {
-                return $socket->getClientStorage()->send([$id], [
-                    $this->name => [
-                        'message' => 'This game could not be created.',
-                    ],
-                ]);
-            }
-        } elseif (PlayMode::NAME === $params['mode']) {
-            try {
+            } elseif (PlayMode::NAME === $params['mode']) {
                 if ($params['variant'] === VariantType::CHESS_960) {
                     if (isset($params['settings']['startPos']) && isset($params['settings']['fen'])) {
                         $startPos = str_split($params['settings']['startPos']);
@@ -223,40 +214,40 @@ class StartCommand extends AbstractNonBlockingCommand
                         ),
                     ],
                 ]);
-            } catch (\Throwable $e) {
+            } elseif (StockfishMode::NAME === $params['mode']) {
+                if (isset($params['settings']['fen'])) {
+                    $board = FenToBoardFactory::create($params['settings']['fen'], new ClassicalBoard());
+                    $game = (new Game($params['variant'], $params['mode']))->setBoard($board);
+                } else {
+                    $game = new Game($params['variant'], $params['mode']);
+                }
+                $payload = [
+                    'iss' => $_ENV['JWT_ISS'],
+                    'iat' => time(),
+                    'exp' => time() + 3600, // one hour by default
+                    ...$params,
+                ];
+                $gameMode = new StockfishMode(
+                    $game,
+                    [$id],
+                    JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256')
+                );
+                $socket->getGameModeStorage()->set($gameMode);
                 return $socket->getClientStorage()->send([$id], [
                     $this->name => [
-                        'message' => 'This game could not be created.',
+                        'uid' => $gameMode->getUid(),
+                        'jwt' => $gameMode->getJwt(),
+                        'variant' => $game->getVariant(),
+                        'mode' => $game->getMode(),
+                        'color' => $params['settings']['color'],
+                        'fen' => $game->getBoard()->toFen(),
                     ],
                 ]);
             }
-        } elseif (StockfishMode::NAME === $params['mode']) {
-            if (isset($params['settings']['fen'])) {
-                $board = FenToBoardFactory::create($params['settings']['fen'], new ClassicalBoard());
-                $game = (new Game($params['variant'], $params['mode']))->setBoard($board);
-            } else {
-                $game = new Game($params['variant'], $params['mode']);
-            }
-            $payload = [
-                'iss' => $_ENV['JWT_ISS'],
-                'iat' => time(),
-                'exp' => time() + 3600, // one hour by default
-                ...$params,
-            ];
-            $gameMode = new StockfishMode(
-                $game,
-                [$id],
-                JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256')
-            );
-            $socket->getGameModeStorage()->set($gameMode);
+        } catch (\Throwable $e) {
             return $socket->getClientStorage()->send([$id], [
                 $this->name => [
-                    'uid' => $gameMode->getUid(),
-                    'jwt' => $gameMode->getJwt(),
-                    'variant' => $game->getVariant(),
-                    'mode' => $game->getMode(),
-                    'color' => $params['settings']['color'],
-                    'fen' => $game->getBoard()->toFen(),
+                    'message' => 'This game could not be started.',
                 ],
             ]);
         }
