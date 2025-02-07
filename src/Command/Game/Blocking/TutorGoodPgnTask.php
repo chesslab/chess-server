@@ -10,7 +10,7 @@ use Chess\Variant\Classical\Board;
 use ChessServer\Command\AbstractBlockingTask;
 use ChessServer\Socket\AbstractSocket;
 
-class GoodPgnTask extends AbstractBlockingTask
+class TutorGoodPgnTask extends AbstractBlockingTask
 {
     private Board $board;
 

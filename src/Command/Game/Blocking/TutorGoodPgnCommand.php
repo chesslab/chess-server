@@ -5,11 +5,11 @@ namespace ChessServer\Command\Game\Blocking;
 use ChessServer\Command\AbstractBlockingCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class GoodPgnCommand extends AbstractBlockingCommand
+class TutorGoodPgnCommand extends AbstractBlockingCommand
 {
     public function __construct()
     {
-        $this->name = '/good_pgn';
+        $this->name = '/tutor_good_pgn';
         $this->description = "Explains the why of a good move in terms of chess concepts.";
     }
 
@@ -23,7 +23,7 @@ class GoodPgnCommand extends AbstractBlockingCommand
         $game = $socket->getGameModeStorage()->getById($id)->getGame();
 
         if (!isset($game->state()->end)) {
-            $this->pool->add(new GoodPgnTask($game->getBoard()))
+            $this->pool->add(new TutorGoodPgnTask($game->getBoard()))
                 ->then(function ($result) use ($socket, $id, $game) {
                     return $socket->getClientStorage()->send([$id], [
                         $this->name => $result,
