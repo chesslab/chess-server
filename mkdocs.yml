@@ -38,6 +38,7 @@ nav:
       - /start: start.md
       - /stockfish: stockfish.md
       - /tutor_fen: tutor-fen.md
+      - /tutor_good_pgn: tutor-good-pgn.md
   - binary:
     - Parameterized:
       - /image: image.md
