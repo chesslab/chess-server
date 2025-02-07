@@ -4,6 +4,7 @@ namespace ChessServer\Command\Game;
 
 use ChessServer\Command\AbstractCli;
 use ChessServer\Command\Game\Blocking\ExtractCommand;
+use ChessServer\Command\Game\Blocking\GoodPgnCommand;
 use ChessServer\Command\Game\Blocking\LeaveCommand;
 use ChessServer\Command\Game\Blocking\PlayCommand;
 use ChessServer\Command\Game\Blocking\PlayLanCommand;
@@ -45,6 +46,7 @@ class Cli extends AbstractCli
         // param-based commands
         $this->commands->attach(new AcceptPlayRequestCommand());
         $this->commands->attach((new ExtractCommand())->setPool($pool));
+        $this->commands->attach((new GoodPgnCommand())->setPool($pool));
         $this->commands->attach((new LeaveCommand())->setPool($pool));
         $this->commands->attach(new LegalCommand());
         $this->commands->attach((new PlayCommand())->setPool($pool));
