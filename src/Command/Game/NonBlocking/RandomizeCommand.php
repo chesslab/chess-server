@@ -9,7 +9,7 @@ use Chess\Variant\Classical\PGN\Color;
 use ChessServer\Command\AbstractNonBlockingCommand;
 use ChessServer\Socket\AbstractSocket;
 
-class RandomizerCommand extends AbstractNonBlockingCommand
+class RandomizeCommand extends AbstractNonBlockingCommand
 {
     const TYPE_P    = 'P';
     const TYPE_Q    = 'Q';
@@ -20,7 +20,7 @@ class RandomizerCommand extends AbstractNonBlockingCommand
 
     public function __construct()
     {
-        $this->name = '/randomizer';
+        $this->name = '/randomize';
         $this->description = 'Starts a random position.';
         $this->params = [
             'params' => '<string>',
