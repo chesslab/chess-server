@@ -20,7 +20,7 @@ use ChessServer\Command\Game\NonBlocking\DrawCommand;
 use ChessServer\Command\Game\NonBlocking\EvalNamesCommand;
 use ChessServer\Command\Game\NonBlocking\LegalCommand;
 use ChessServer\Command\Game\NonBlocking\OnlineGamesCommand;
-use ChessServer\Command\Game\NonBlocking\RandomizerCommand;
+use ChessServer\Command\Game\NonBlocking\RandomizeCommand;
 use ChessServer\Command\Game\NonBlocking\RematchCommand;
 use ChessServer\Command\Game\NonBlocking\StartCommand;
 use ChessServer\Command\Game\NonBlocking\TakebackCommand;
@@ -52,7 +52,7 @@ class Cli extends AbstractCli
         $this->commands->attach((new PlayLanCommand())->setPool($pool));
         $this->commands->attach((new PlayRavCommand())->setPool($pool));
         $this->commands->attach((new PlotCommand())->setPool($pool));
-        $this->commands->attach(new RandomizerCommand());
+        $this->commands->attach(new RandomizeCommand());
         $this->commands->attach((new RecognizeCommand())->setPool($pool));
         $this->commands->attach((new ResignCommand())->setPool($pool));
         $this->commands->attach((new RestartCommand())->setPool($pool));
