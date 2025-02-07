@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="https://chess-server.chesslablab.org/stockfish/">
+        <link rel="canonical" href="https://chess-server.chesslablab.org/tutor-good-pgn/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>/stockfish - PHP Chess Server</title>
+        <title>/tutor_good_pgn - PHP Chess Server</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -182,7 +182,7 @@
 </li>
             
 <li>
-    <a href="./" class="dropdown-item active">/stockfish</a>
+    <a href="../stockfish/" class="dropdown-item">/stockfish</a>
 </li>
             
 <li>
@@ -190,7 +190,7 @@
 </li>
             
 <li>
-    <a href="../tutor-good-pgn/" class="dropdown-item">/tutor_good_pgn</a>
+    <a href="./" class="dropdown-item active">/tutor_good_pgn</a>
 </li>
     </ul>
   </li>
@@ -249,12 +249,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../start/" class="nav-link">
+                                <a rel="prev" href="../tutor-fen/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../tutor-fen/" class="nav-link">
+                                <a rel="next" href="../image/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -276,16 +276,8 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-light">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#stockfish" class="nav-link">/stockfish</a>
+            <li class="nav-item" data-level="1"><a href="#tutor_good_pgn" class="nav-link">/tutor_good_pgn</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#options" class="nav-link">options</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#params" class="nav-link">params</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
               </ul>
             </li>
         </ul>
@@ -293,32 +285,22 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="stockfish">/stockfish</h1>
-<p>Returns Stockfish's response to the current position.</p>
-<h2 id="options"><code>options</code></h2>
-<p>Stockfish options.</p>
-<ul>
-<li><code>Skill Level</code> is the skill level.</li>
-</ul>
-<h2 id="params"><code>params</code></h2>
-<p>Stockfish params.</p>
-<ul>
-<li><code>depth</code> is the number of half moves the engine looks ahead.</li>
-</ul>
+<h1 id="tutor_good_pgn">/tutor_good_pgn</h1>
+<p>Explains the why of a good move in terms of chess concepts.</p>
 <hr />
 <h3 id="usage">Usage</h3>
 <h4 id="example">Example</h4>
-<p>Start a classical game, play <code>e2e4</code> and use Stockfish to respond with a move.</p>
-<pre><code class="language-js">ws.send('/start &quot;{\\&quot;variant\\&quot;:\\&quot;classical\\&quot;,\\&quot;mode\\&quot;:\\&quot;stockfish\\&quot;,\\&quot;settings\\&quot;:{\\&quot;color\\&quot;:\\&quot;w\\&quot;}}&quot;');
+<p>Starts a classical game to play 1.e4 e5 2.f4 asking the chess tutor for a good move.</p>
+<pre><code class="language-js">ws.send('/start &quot;{\\&quot;variant\\&quot;:\\&quot;classical\\&quot;,\\&quot;mode\\&quot;:\\&quot;analysis\\&quot;}&quot;');
 ws.send('/play_lan &quot;{\\&quot;color\\&quot;:\\&quot;w\\&quot;,\\&quot;lan\\&quot;:\\&quot;e2e4\\&quot;}&quot;');
-ws.send('/stockfish &quot;{\\&quot;options\\&quot;:{\\&quot;Skill Level\\&quot;:\\&quot;20\\&quot;},\\&quot;params\\&quot;:{\\&quot;depth\\&quot;:12}}&quot;');
+ws.send('/play_lan &quot;{\\&quot;color\\&quot;:\\&quot;b\\&quot;,\\&quot;lan\\&quot;:\\&quot;e7e5\\&quot;}&quot;');
+ws.send('/play_lan &quot;{\\&quot;color\\&quot;:\\&quot;w\\&quot;,\\&quot;lan\\&quot;:\\&quot;f2f4\\&quot;}&quot;');
+ws.send('/tutor_good_pgn');
 </code></pre>
 <pre><code class="language-text">{
-  &quot;/stockfish&quot;: {
-    &quot;turn&quot;: &quot;w&quot;,
-    &quot;movetext&quot;: &quot;1.e4 c5&quot;,
-    &quot;fen&quot;: &quot;rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6&quot;,
-    &quot;variant&quot;: &quot;classical&quot;
+  &quot;/tutor_good_pgn&quot;: {
+    &quot;pgn&quot;: &quot;c5&quot;,
+    &quot;paragraph&quot;: &quot;White has a moderate control of the center. White has a slight space advantage. These pieces are hanging: The rook on a1, the rook on h1, the rook on a8, the rook on h8, the pawn on e4, the pawn on c5. Overall, 3 evaluation features are favoring White.&quot;
   }
 }
 </code></pre></div>
