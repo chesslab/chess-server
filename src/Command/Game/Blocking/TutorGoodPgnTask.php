@@ -32,7 +32,7 @@ class TutorGoodPgnTask extends AbstractBlockingTask
 
         return [
             'pgn' => $goodPgnEvaluation->pgn,
-            'paragraph' => implode(' ', $goodPgnEvaluation->paragraph),
+            'paragraph' => implode(' ', $goodPgnEvaluation->futurize()),
         ];
     }
 }
