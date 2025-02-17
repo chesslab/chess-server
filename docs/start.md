@@ -31,7 +31,6 @@ Additional optional parameters may be required depending on the mode selected as
 - `increment`
 - `min`
 - `movetext`
-- `shuffle`
 - `submode`
 
 ---
@@ -113,10 +112,10 @@ ws.send('/start "{\\"variant\\":\\"classical\\",\\"mode\\":\\"analysis\\",\\"set
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
-| `settings` | `movetext`<br/>`shuffle` | Yes |
+| `settings` | `movetext` | Yes |
 
 ```js
-ws.send('/start "{\"variant\":\"960\",\"mode\":\"analysis\",\"settings\":{\"fen\":\"bnrkqbrn/pppppppp/8/8/8/8/PPPPPPPP/BNRKQBRN w KQkq -\",\"movetext\":\"1.e4 Nc6 2.d4\",\"shuffle\":\"RBQKBNRN\"}}"');
+ws.send('/start "{\"variant\":\"960\",\"mode\":\"analysis\",\"settings\":{\"fen\":\"bnrkqbrn/pppppppp/8/8/8/8/PPPPPPPP/BNRKQBRN w KQkq -\",\"movetext\":\"1.e4 Nc6 2.d4\"}}"');
 ```
 
 ```text
