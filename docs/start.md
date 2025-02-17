@@ -31,7 +31,7 @@ Additional optional parameters may be required depending on the mode selected as
 - `increment`
 - `min`
 - `movetext`
-- `startPos`
+- `shuffle`
 - `submode`
 
 ---
@@ -113,10 +113,10 @@ ws.send('/start "{\\"variant\\":\\"classical\\",\\"mode\\":\\"analysis\\",\\"set
 
 | Name | Description | Required |
 | ---- | ----------- | -------- |
-| `settings` | `movetext`<br/>`startPos` | Yes |
+| `settings` | `movetext`<br/>`shuffle` | Yes |
 
 ```js
-ws.send('/start "{\"variant\":\"960\",\"mode\":\"analysis\",\"settings\":{\"fen\":\"bnrkqbrn/pppppppp/8/8/8/8/PPPPPPPP/BNRKQBRN w KQkq -\",\"movetext\":\"1.e4 Nc6 2.d4\",\"startPos\":\"RBQKBNRN\"}}"');
+ws.send('/start "{\"variant\":\"960\",\"mode\":\"analysis\",\"settings\":{\"fen\":\"bnrkqbrn/pppppppp/8/8/8/8/PPPPPPPP/BNRKQBRN w KQkq -\",\"movetext\":\"1.e4 Nc6 2.d4\",\"shuffle\":\"RBQKBNRN\"}}"');
 ```
 
 ```text
@@ -131,8 +131,7 @@ ws.send('/start "{\"variant\":\"960\",\"mode\":\"analysis\",\"settings\":{\"fen\
       "bnrkqbrn/pppppppp/8/8/4P3/8/PPPP1PPP/BNRKQBRN b KQkq e3",
       "b1rkqbrn/pppppppp/2n5/8/4P3/8/PPPP1PPP/BNRKQBRN w KQkq -",
       "b1rkqbrn/pppppppp/2n5/8/3PP3/8/PPP2PPP/BNRKQBRN b KQkq d3"
-    ],
-    "startPos": "RBQKBNRN"
+    ]
   }
 }
 ```
