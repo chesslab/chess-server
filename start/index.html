@@ -325,7 +325,6 @@
 <li><code>increment</code></li>
 <li><code>min</code></li>
 <li><code>movetext</code></li>
-<li><code>shuffle</code></li>
 <li><code>submode</code></li>
 </ul>
 <hr />
@@ -422,12 +421,12 @@
 <tbody>
 <tr>
 <td><code>settings</code></td>
-<td><code>movetext</code><br/><code>shuffle</code></td>
+<td><code>movetext</code></td>
 <td>Yes</td>
 </tr>
 </tbody>
 </table>
-<pre><code class="language-js">ws.send('/start &quot;{\&quot;variant\&quot;:\&quot;960\&quot;,\&quot;mode\&quot;:\&quot;analysis\&quot;,\&quot;settings\&quot;:{\&quot;fen\&quot;:\&quot;bnrkqbrn/pppppppp/8/8/8/8/PPPPPPPP/BNRKQBRN w KQkq -\&quot;,\&quot;movetext\&quot;:\&quot;1.e4 Nc6 2.d4\&quot;,\&quot;shuffle\&quot;:\&quot;RBQKBNRN\&quot;}}&quot;');
+<pre><code class="language-js">ws.send('/start &quot;{\&quot;variant\&quot;:\&quot;960\&quot;,\&quot;mode\&quot;:\&quot;analysis\&quot;,\&quot;settings\&quot;:{\&quot;fen\&quot;:\&quot;bnrkqbrn/pppppppp/8/8/8/8/PPPPPPPP/BNRKQBRN w KQkq -\&quot;,\&quot;movetext\&quot;:\&quot;1.e4 Nc6 2.d4\&quot;}}&quot;');
 </code></pre>
 <pre><code class="language-text">{
   &quot;/start&quot;: {
