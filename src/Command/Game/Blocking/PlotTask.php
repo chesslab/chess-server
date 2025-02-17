@@ -17,19 +17,19 @@ class PlotTask extends AbstractBlockingTask
     public function run()
     {
         if ($this->params['variant'] === VariantType::CHESS_960) {
-            $startPos = str_split($this->params['startPos']);
+            $shuffle = str_split($this->params['shuffle']);
             $board = isset($this->params['fen'])
-                ? FenToBoardFactory::create($this->params['fen'], new Chess960Board($startPos))
-                : new Chess960Board($startPos);
+                ? FenToBoardFactory::create($this->params['fen'], new Chess960Board($shuffle))
+                : new Chess960Board($shuffle);
         } elseif ($this->params['variant'] === VariantType::CAPABLANCA) {
             $board = isset($this->params['fen'])
                 ? FenToBoardFactory::create($this->params['fen'], new CapablancaBoard())
                 : new CapablancaBoard();
         } elseif ($this->params['variant'] === VariantType::CAPABLANCA_FISCHER) {
-            $startPos = str_split($this->params['startPos']);
+            $shuffle = str_split($this->params['shuffle']);
             $board = isset($this->params['fen'])
-                ? FenToBoardFactory::create($this->params['fen'], new CapablancaFischerBoard($startPos))
-                : new CapablancaFischerBoard($startPos);
+                ? FenToBoardFactory::create($this->params['fen'], new CapablancaFischerBoard($shuffle))
+                : new CapablancaFischerBoard($shuffle);
         } elseif ($this->params['variant'] === VariantType::CLASSICAL) {
             $board = isset($this->params['fen'])
                 ? FenToBoardFactory::create($this->params['fen'], new ClassicalBoard())

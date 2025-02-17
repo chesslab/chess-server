@@ -14,8 +14,8 @@ class PlayRavTask extends AbstractBlockingTask
     public function run()
     {
         if ($this->params['variant'] === VariantType::CHESS_960) {
-            $startPos = str_split($this->params['startPos']);
-            $board = new Chess960Board($startPos);
+            $shuffle = str_split($this->params['shuffle']);
+            $board = new Chess960Board($shuffle);
             if (isset($this->params['fen'])) {
                 $board = FenToBoardFactory::create($this->params['fen'], $board);
             }
@@ -37,10 +37,6 @@ class PlayRavTask extends AbstractBlockingTask
             'movetext' => $ravPlay->ravMovetext->main(),
             'breakdown' => $ravPlay->ravMovetext->breakdown,
             'fen' => $ravPlay->fen,
-            ...($this->params['variant'] === VariantType::CHESS_960
-                ? ['startPos' =>  $this->params['startPos']]
-                : []
-            ),
         ];
     }
 }

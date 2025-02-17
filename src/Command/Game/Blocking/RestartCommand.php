@@ -36,12 +36,12 @@ class RestartCommand extends AbstractBlockingCommand
             'decoded' => $gameMode->getJwtDecoded(),
         ]))->then(function ($result) use ($socket, $gameMode) {
             if ($result->variant === VariantType::CHESS_960) {
-                $startPos = str_split($result->startPos);
-                $board = FenToBoardFactory::create($result->fen, new Chess960Board($startPos));
+                $shuffle = str_split($result->shuffle);
+                $board = FenToBoardFactory::create($result->fen, new Chess960Board($shuffle));
                 $game = (new Game($result->variant, Game::MODE_PLAY))->setBoard($board);
             } elseif ($result->variant === VariantType::CAPABLANCA_FISCHER) {
-                $startPos = str_split($result->startPos);
-                $board = FenToBoardFactory::create($result->fen, new CapablancaFischerBoard($startPos));
+                $shuffle = str_split($result->shuffle);
+                $board = FenToBoardFactory::create($result->fen, new CapablancaFischerBoard($shuffle));
                 $game = (new Game($result->variant, Game::MODE_PLAY))->setBoard($board);
             } else {
                 $game = new Game($result->variant, Game::MODE_PLAY);
