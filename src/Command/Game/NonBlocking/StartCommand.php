@@ -169,14 +169,6 @@ class StartCommand extends AbstractNonBlockingCommand
                     'min' => $params['settings']['min'],
                     'increment' => $params['settings']['increment'],
                     'fen' => $game->getBoard()->toFen(),
-                    ...($params['variant'] === VariantType::CHESS_960
-                        ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
-                        : []
-                    ),
-                    ...($params['variant'] === VariantType::CAPABLANCA_FISCHER
-                        ? ['startPos' => implode('', $game->getBoard()->getStartPos())]
-                        : []
-                    ),
                     ...(isset($params['settings']['fen'])
                         ? ['fen' => $params['settings']['fen']]
                         : []
@@ -204,14 +196,6 @@ class StartCommand extends AbstractNonBlockingCommand
                         'variant' => $game->getVariant(),
                         'mode' => $game->getMode(),
                         'fen' => $game->getBoard()->toFen(),
-                        ...($params['variant'] === VariantType::CHESS_960
-                            ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
-                            : []
-                        ),
-                        ...($params['variant'] === VariantType::CAPABLANCA_FISCHER
-                            ? ['startPos' =>  implode('', $game->getBoard()->getStartPos())]
-                            : []
-                        ),
                     ],
                 ]);
             } elseif (StockfishMode::NAME === $params['mode']) {
