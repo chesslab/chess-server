@@ -6,9 +6,9 @@ use Chess\Variant\AbstractBoard;
 use Chess\Variant\VariantType;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
-use Chess\Variant\CapablancaFischer\StartPosition as CapablancaFischerStartPosition;
+use Chess\Variant\CapablancaFischer\Shuffle as CapablancaFischerShuffle;
 use Chess\Variant\Chess960\Board as Chess960Board;
-use Chess\Variant\Chess960\StartPosition as Chess960StartPosition;
+use Chess\Variant\Chess960\Shuffle as Chess960Shuffle;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\PGN\Color;
 use Chess\Variant\Classical\PGN\Termination;
@@ -38,12 +38,12 @@ class Game
         $this->mode = $mode;
 
         if ($this->variant === VariantType::CHESS_960) {
-            $shuffle = (new Chess960StartPosition())->create();
+            $shuffle = (new Chess960Shuffle())->create();
             $this->board = new Chess960Board($shuffle);
         } elseif ($this->variant === VariantType::CAPABLANCA) {
             $this->board = new CapablancaBoard();
         } elseif ($this->variant === VariantType::CAPABLANCA_FISCHER) {
-            $shuffle = (new CapablancaFischerStartPosition())->create();
+            $shuffle = (new CapablancaFischerShuffle())->create();
             $this->board = new CapablancaFischerBoard($shuffle);
         } elseif ($this->variant === VariantType::CLASSICAL) {
             $this->board = new ClassicalBoard();
