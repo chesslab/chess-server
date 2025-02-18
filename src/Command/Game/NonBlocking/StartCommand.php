@@ -2,19 +2,23 @@
 
 namespace ChessServer\Command\Game\NonBlocking;
 
-use Chess\FenToBoardFactory;
 use Chess\Play\SanPlay;
 use Chess\Variant\VariantType;
 use Chess\Variant\Capablanca\Board as CapablancaBoard;
+use Chess\Variant\Capablanca\FenToBoardFactory as CapablancaFenToBoardFactory;
 use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
-use Chess\Variant\CapablancaFischer\Shuffle as CapablancaFischerShuffle;
+use Chess\Variant\CapablancaFischer\FenToBoardFactory as CapablancaFischerFenToBoardFactory;
 use Chess\Variant\Chess960\Board as Chess960Board;
-use Chess\Variant\Chess960\Shuffle as Chess960Shuffle;
+use Chess\Variant\Chess960\FenToBoardFactory as Chess960FenToBoardFactory;
 use Chess\Variant\Classical\Board as ClassicalBoard;
+use Chess\Variant\Classical\FenToBoardFactory as ClassicalFenToBoardFactory;
 use Chess\Variant\Classical\PGN\Color;
 use Chess\Variant\Dunsany\Board as DunsanyBoard;
+use Chess\Variant\Dunsany\FenToBoardFactory as DunsanyFenToBoardFactory;
 use Chess\Variant\Losing\Board as LosingBoard;
+use Chess\Variant\Losing\FenToBoardFactory as LosingFenToBoardFactory;
 use Chess\Variant\RacingKings\Board as RacingKingsBoard;
+use Chess\Variant\RacingKings\FenToBoardFactory as RacingKingsFenToBoardFactory;
 use ChessServer\Command\AbstractNonBlockingCommand;
 use ChessServer\Command\Game\Game;
 use ChessServer\Command\Game\Mode\AnalysisMode;
@@ -45,40 +49,32 @@ class StartCommand extends AbstractNonBlockingCommand
             $params = $this->params($argv[1]);
             if (AnalysisMode::NAME === $params['mode']) {
                 if ($params['variant'] === VariantType::CHESS_960) {
-                    if (isset($params['settings']['shuffle']) && isset($params['settings']['fen'])) {
-                        $shuffle = str_split($params['settings']['shuffle']);
-                        $board = FenToBoardFactory::create($params['settings']['fen'], new Chess960Board($shuffle));
-                    } else {
-                        $shuffle = (new Chess960Shuffle())->create();
-                        $board = new Chess960Board($shuffle);
-                    }
+                    $board = isset($params['settings']['fen']) 
+                        ? Chess960FenToBoardFactory::create($params['settings']['fen'])
+                        : new Chess960Board();
                 } elseif ($params['variant'] === VariantType::CAPABLANCA) {
                     $board = isset($params['settings']['fen'])
-                        ? FenToBoardFactory::create($params['settings']['fen'], new CapablancaBoard())
+                        ? CapablancaFenToBoardFactory::create($params['settings']['fen'])
                         : new CapablancaBoard();
                 } elseif ($params['variant'] === VariantType::CAPABLANCA_FISCHER) {
-                    if (isset($params['settings']['shuffle']) && isset($params['settings']['fen'])) {
-                        $shuffle = str_split($params['settings']['shuffle']);
-                        $board = FenToBoardFactory::create($params['settings']['fen'], new CapablancaFischerBoard($shuffle));
-                    } else {
-                        $shuffle = (new CapablancaFischerShuffle())->create();
-                        $board = new CapablancaFischerBoard($shuffle);
-                    }
+                    $board = isset($params['settings']['fen'])
+                        ? CapablancaFischerFenToBoardFactory::create($params['settings']['fen'])
+                        : new CapablancaFischerBoard();
                 } elseif ($params['variant'] === VariantType::DUNSANY) {
                     $board = isset($params['settings']['fen'])
-                        ? FenToBoardFactory::create($params['settings']['fen'], new DunsanyBoard())
+                        ? DunsanyFenToBoardFactory::create($params['settings']['fen'])
                         : new DunsanyBoard();
                 } elseif ($params['variant'] === VariantType::LOSING) {
                     $board = isset($params['settings']['fen'])
-                        ? FenToBoardFactory::create($params['settings']['fen'], new LosingBoard())
+                        ? LosingFenToBoardFactory::create($params['settings']['fen'])
                         : new LosingBoard();
                 } elseif ($params['variant'] === VariantType::RACING_KINGS) {
                     $board = isset($params['settings']['fen'])
-                        ? FenToBoardFactory::create($params['settings']['fen'], new RacingKingsBoard())
+                        ? RacingKingsFenToBoardFactory::create($params['settings']['fen'])
                         : new RacingKingsBoard();
                 } else {
                     $board = isset($params['settings']['fen'])
-                        ? FenToBoardFactory::create($params['settings']['fen'], new ClassicalBoard())
+                        ? ClassicalFenToBoardFactory::create($params['settings']['fen'])
                         : new ClassicalBoard();
                 }
                 $sanPlay = new SanPlay($params['settings']['movetext'] ?? '', $board);
@@ -98,40 +94,32 @@ class StartCommand extends AbstractNonBlockingCommand
                 ]);
             } elseif (PlayMode::NAME === $params['mode']) {
                 if ($params['variant'] === VariantType::CHESS_960) {
-                    if (isset($params['settings']['shuffle']) && isset($params['settings']['fen'])) {
-                        $shuffle = str_split($params['settings']['shuffle']);
-                        $board = FenToBoardFactory::create($params['settings']['fen'], new Chess960Board($shuffle));
-                    } else {
-                        $shuffle = (new Chess960Shuffle())->create();
-                        $board = new Chess960Board($shuffle);
-                    }
+                    $board = isset($params['settings']['fen']) 
+                        ? Chess960FenToBoardFactory::create($params['settings']['fen'])
+                        : new Chess960Board();
                 } elseif ($params['variant'] === VariantType::CAPABLANCA) {
                     $board = isset($params['settings']['fen'])
-                        ? FenToBoardFactory::create($params['settings']['fen'], new CapablancaBoard())
+                        ? CapablancaFenToBoardFactory::create($params['settings']['fen'])
                         : new CapablancaBoard();
                 } elseif ($params['variant'] === VariantType::CAPABLANCA_FISCHER) {
-                    if (isset($params['settings']['shuffle']) && isset($params['settings']['fen'])) {
-                        $shuffle = str_split($params['settings']['shuffle']);
-                        $board = FenToBoardFactory::create($params['settings']['fen'], new CapablancaFischerBoard($shuffle));
-                    } else {
-                        $shuffle = (new CapablancaFischerShuffle())->create();
-                        $board = new CapablancaFischerBoard($shuffle);
-                    }
+                    $board = isset($params['settings']['fen'])
+                        ? CapablancaFischerFenToBoardFactory::create($params['settings']['fen'])
+                        : new CapablancaFischerBoard();
                 } elseif ($params['variant'] === VariantType::DUNSANY) {
                     $board = isset($params['settings']['fen'])
-                        ? FenToBoardFactory::create($params['settings']['fen'], new DunsanyBoard())
+                        ? DunsanyFenToBoardFactory::create($params['settings']['fen'])
                         : new DunsanyBoard();
                 } elseif ($params['variant'] === VariantType::LOSING) {
                     $board = isset($params['settings']['fen'])
-                        ? FenToBoardFactory::create($params['settings']['fen'], new LosingBoard())
+                        ? LosingFenToBoardFactory::create($params['settings']['fen'])
                         : new LosingBoard();
                 } elseif ($params['variant'] === VariantType::RACING_KINGS) {
                     $board = isset($params['settings']['fen'])
-                        ? FenToBoardFactory::create($params['settings']['fen'], new RacingKingsBoard())
+                        ? RacingKingsFenToBoardFactory::create($params['settings']['fen'])
                         : new RacingKingsBoard();
                 } else {
                     $board = isset($params['settings']['fen'])
-                        ? FenToBoardFactory::create($params['settings']['fen'], new ClassicalBoard())
+                        ? ClassicalFenToBoardFactory::create($params['settings']['fen'])
                         : new ClassicalBoard();
                 }
                 $game = (new Game($params['variant'], $params['mode']))->setBoard($board);

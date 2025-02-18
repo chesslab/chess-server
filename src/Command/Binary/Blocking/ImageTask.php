@@ -2,8 +2,8 @@
 
 namespace ChessServer\Command\Binary\Blocking;
 
-use Chess\FenToBoardFactory;
 use Chess\Media\BoardToPng;
+use Chess\Variant\Classical\FenToBoardFactory;
 use Chess\Variant\Classical\PGN\Color;
 use ChessServer\Command\AbstractBlockingTask;
 use ChessServer\Socket\AbstractSocket;

@@ -2,10 +2,9 @@
 
 namespace ChessServer\Command\Game\Blocking;
 
-use Chess\FenToBoardFactory;
 use Chess\Variant\VariantType;
-use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
-use Chess\Variant\Chess960\Board as Chess960Board;
+use Chess\Variant\CapablancaFischer\FenToBoardFactory as CapablancaFischerFenToBoardFactory;
+use Chess\Variant\Chess960\FenToBoardFactory as Chess960FenToBoardFactory;
 use Chess\Variant\Classical\PGN\Color;
 use ChessServer\Command\AbstractBlockingCommand;
 use ChessServer\Command\Game\Game;
@@ -36,12 +35,10 @@ class RestartCommand extends AbstractBlockingCommand
             'decoded' => $gameMode->getJwtDecoded(),
         ]))->then(function ($result) use ($socket, $gameMode) {
             if ($result->variant === VariantType::CHESS_960) {
-                $shuffle = str_split($result->shuffle);
-                $board = FenToBoardFactory::create($result->fen, new Chess960Board($shuffle));
+                $board = Chess960FenToBoardFactory::create($result->fen);
                 $game = (new Game($result->variant, Game::MODE_PLAY))->setBoard($board);
             } elseif ($result->variant === VariantType::CAPABLANCA_FISCHER) {
-                $shuffle = str_split($result->shuffle);
-                $board = FenToBoardFactory::create($result->fen, new CapablancaFischerBoard($shuffle));
+                $board = CapablancaFischerFenToBoardFactory::create($result->fen);
                 $game = (new Game($result->variant, Game::MODE_PLAY))->setBoard($board);
             } else {
                 $game = new Game($result->variant, Game::MODE_PLAY);

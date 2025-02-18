@@ -2,10 +2,9 @@
 
 namespace ChessServer\Command\Game\NonBlocking;
 
-use Chess\FenToBoardFactory;
 use Chess\Eval\CompleteFunction;
 use Chess\Tutor\FenEvaluation;
-use Chess\Variant\Classical\Board;
+use Chess\Variant\Classical\FenToBoardFactory as ClassicalFenToBoardFactory;
 use ChessServer\Command\AbstractNonBlockingCommand;
 use ChessServer\Socket\AbstractSocket;
 
@@ -29,7 +28,7 @@ class TutorFenCommand extends AbstractNonBlockingCommand
     {
         $params = $this->params($argv[1]);
 
-        $board = FenToBoardFactory::create($params['fen'], new Board());
+        $board = ClassicalFenToBoardFactory::create($params['fen']);
         $paragraph = (new FenEvaluation(new CompleteFunction(), $board))->paragraph;
 
         return $socket->getClientStorage()->send([$id], [
