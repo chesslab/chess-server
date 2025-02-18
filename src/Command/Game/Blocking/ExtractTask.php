@@ -37,7 +37,7 @@ class ExtractTask extends AbstractBlockingTask
                 : new CapablancaFischerBoard((new CapablancaFischerShuffle())->create());
         } elseif ($this->params['variant'] === VariantType::CLASSICAL) {
             $board = isset($this->params['fen'])
-                ? FenToBoardFactory::create($this->params['fen'])
+                ? ClassicalFenToBoardFactory::create($this->params['fen'])
                 : new ClassicalBoard();
         }
 

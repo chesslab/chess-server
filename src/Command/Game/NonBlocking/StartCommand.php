@@ -182,7 +182,7 @@ class StartCommand extends AbstractNonBlockingCommand
                 ]);
             } elseif (StockfishMode::NAME === $params['mode']) {
                 if (isset($params['settings']['fen'])) {
-                    $board = FenToBoardFactory::create($params['settings']['fen'], new ClassicalBoard());
+                    $board = ClassicalFenToBoardFactory::create($params['settings']['fen']);
                     $game = (new Game($params['variant'], $params['mode']))->setBoard($board);
                 } else {
                     $game = new Game($params['variant'], $params['mode']);
