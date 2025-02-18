@@ -9,8 +9,10 @@ use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\Capablanca\FenToBoardFactory as CapablancaFenToBoardFactory;
 use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
 use Chess\Variant\CapablancaFischer\FenToBoardFactory as CapablancaFischerFenToBoardFactory;
+use Chess\Variant\CapablancaFischer\Shuffle as CapablancaFischerShuffle;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\FenToBoardFactory as Chess960FenToBoardFactory;
+use Chess\Variant\Chess960\Shuffle as Chess960Shuffle;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FenToBoardFactory as ClassicalFenToBoardFactory;
 use ChessServer\Command\AbstractBlockingTask;
@@ -24,7 +26,7 @@ class ExtractTask extends AbstractBlockingTask
         if ($this->params['variant'] === VariantType::CHESS_960) {
             $board = isset($this->params['fen'])
                 ? Chess960FenToBoardFactory::create($this->params['fen'])
-                : new Chess960Board();
+                : new Chess960Board((new Chess960Shuffle())->create());
         } elseif ($this->params['variant'] === VariantType::CAPABLANCA) {
             $board = isset($this->params['fen'])
                 ? CapablancaFenToBoardFactory::create($this->params['fen'])
@@ -32,7 +34,7 @@ class ExtractTask extends AbstractBlockingTask
         } elseif ($this->params['variant'] === VariantType::CAPABLANCA_FISCHER) {
             $board = isset($this->params['fen'])
                 ? CapablancaFischerFenToBoardFactory::create($this->params['fen'])
-                : new CapablancaFischerBoard();
+                : new CapablancaFischerBoard((new CapablancaFischerShuffle())->create());
         } elseif ($this->params['variant'] === VariantType::CLASSICAL) {
             $board = isset($this->params['fen'])
                 ? FenToBoardFactory::create($this->params['fen'])

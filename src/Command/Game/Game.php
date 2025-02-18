@@ -38,13 +38,11 @@ class Game
         $this->mode = $mode;
 
         if ($this->variant === VariantType::CHESS_960) {
-            $shuffle = (new Chess960Shuffle())->create();
-            $this->board = new Chess960Board($shuffle);
+            $this->board = new Chess960Board((new Chess960Shuffle())->create());
         } elseif ($this->variant === VariantType::CAPABLANCA) {
             $this->board = new CapablancaBoard();
         } elseif ($this->variant === VariantType::CAPABLANCA_FISCHER) {
-            $shuffle = (new CapablancaFischerShuffle())->create();
-            $this->board = new CapablancaFischerBoard($shuffle);
+            $this->board = new CapablancaFischerBoard((new CapablancaFischerShuffle())->create());
         } elseif ($this->variant === VariantType::CLASSICAL) {
             $this->board = new ClassicalBoard();
         } elseif ($this->variant === VariantType::DUNSANY) {

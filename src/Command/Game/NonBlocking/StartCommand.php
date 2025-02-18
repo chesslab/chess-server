@@ -8,8 +8,10 @@ use Chess\Variant\Capablanca\Board as CapablancaBoard;
 use Chess\Variant\Capablanca\FenToBoardFactory as CapablancaFenToBoardFactory;
 use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
 use Chess\Variant\CapablancaFischer\FenToBoardFactory as CapablancaFischerFenToBoardFactory;
+use Chess\Variant\CapablancaFischer\Shuffle as CapablancaFischerShuffle;
 use Chess\Variant\Chess960\Board as Chess960Board;
 use Chess\Variant\Chess960\FenToBoardFactory as Chess960FenToBoardFactory;
+use Chess\Variant\Chess960\Shuffle as Chess960Shuffle;
 use Chess\Variant\Classical\Board as ClassicalBoard;
 use Chess\Variant\Classical\FenToBoardFactory as ClassicalFenToBoardFactory;
 use Chess\Variant\Classical\PGN\Color;
@@ -51,7 +53,7 @@ class StartCommand extends AbstractNonBlockingCommand
                 if ($params['variant'] === VariantType::CHESS_960) {
                     $board = isset($params['settings']['fen']) 
                         ? Chess960FenToBoardFactory::create($params['settings']['fen'])
-                        : new Chess960Board();
+                        : new Chess960Board((new Chess960Shuffle())->create());
                 } elseif ($params['variant'] === VariantType::CAPABLANCA) {
                     $board = isset($params['settings']['fen'])
                         ? CapablancaFenToBoardFactory::create($params['settings']['fen'])
@@ -59,7 +61,7 @@ class StartCommand extends AbstractNonBlockingCommand
                 } elseif ($params['variant'] === VariantType::CAPABLANCA_FISCHER) {
                     $board = isset($params['settings']['fen'])
                         ? CapablancaFischerFenToBoardFactory::create($params['settings']['fen'])
-                        : new CapablancaFischerBoard();
+                        : new CapablancaFischerBoard((new CapablancaFischerShuffle())->create());
                 } elseif ($params['variant'] === VariantType::DUNSANY) {
                     $board = isset($params['settings']['fen'])
                         ? DunsanyFenToBoardFactory::create($params['settings']['fen'])
@@ -96,7 +98,7 @@ class StartCommand extends AbstractNonBlockingCommand
                 if ($params['variant'] === VariantType::CHESS_960) {
                     $board = isset($params['settings']['fen']) 
                         ? Chess960FenToBoardFactory::create($params['settings']['fen'])
-                        : new Chess960Board();
+                        : new Chess960Board((new Chess960Shuffle())->create());
                 } elseif ($params['variant'] === VariantType::CAPABLANCA) {
                     $board = isset($params['settings']['fen'])
                         ? CapablancaFenToBoardFactory::create($params['settings']['fen'])
@@ -104,7 +106,7 @@ class StartCommand extends AbstractNonBlockingCommand
                 } elseif ($params['variant'] === VariantType::CAPABLANCA_FISCHER) {
                     $board = isset($params['settings']['fen'])
                         ? CapablancaFischerFenToBoardFactory::create($params['settings']['fen'])
-                        : new CapablancaFischerBoard();
+                        : new CapablancaFischerBoard((new CapablancaFischerShuffle())->create());
                 } elseif ($params['variant'] === VariantType::DUNSANY) {
                     $board = isset($params['settings']['fen'])
                         ? DunsanyFenToBoardFactory::create($params['settings']['fen'])
