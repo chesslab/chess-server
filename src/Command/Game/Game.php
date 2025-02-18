@@ -4,17 +4,15 @@ namespace ChessServer\Command\Game;
 
 use Chess\Variant\AbstractBoard;
 use Chess\Variant\VariantType;
-use Chess\Variant\Capablanca\Board as CapablancaBoard;
-use Chess\Variant\CapablancaFischer\Board as CapablancaFischerBoard;
-use Chess\Variant\CapablancaFischer\Shuffle as CapablancaFischerShuffle;
-use Chess\Variant\Chess960\Board as Chess960Board;
-use Chess\Variant\Chess960\Shuffle as Chess960Shuffle;
-use Chess\Variant\Classical\Board as ClassicalBoard;
+use Chess\Variant\Capablanca\FenToBoardFactory as CapablancaFenToBoardFactory;
+use Chess\Variant\CapablancaFischer\FenToBoardFactory as CapablancaFischerFenToBoardFactory;
+use Chess\Variant\Chess960\FenToBoardFactory as Chess960FenToBoardFactory;
+use Chess\Variant\Classical\FenToBoardFactory as ClassicalFenToBoardFactory;
 use Chess\Variant\Classical\PGN\Color;
 use Chess\Variant\Classical\PGN\Termination;
-use Chess\Variant\Dunsany\Board as DunsanyBoard;
-use Chess\Variant\Losing\Board as LosingBoard;
-use Chess\Variant\RacingKings\Board as RacingKingsBoard;
+use Chess\Variant\Dunsany\FenToBoardFactory as DunsanyFenToBoardFactory;
+use Chess\Variant\Losing\FenToBoardFactory as LosingFenToBoardFactory;
+use Chess\Variant\RacingKings\FenToBoardFactory as RacingKingsFenToBoardFactory;
 
 class Game
 {
@@ -38,19 +36,19 @@ class Game
         $this->mode = $mode;
 
         if ($this->variant === VariantType::CHESS_960) {
-            $this->board = new Chess960Board((new Chess960Shuffle())->create());
+            $this->board = Chess960FenToBoardFactory::create();
         } elseif ($this->variant === VariantType::CAPABLANCA) {
-            $this->board = new CapablancaBoard();
+            $this->board = CapablancaFenToBoardFactory::create();
         } elseif ($this->variant === VariantType::CAPABLANCA_FISCHER) {
-            $this->board = new CapablancaFischerBoard((new CapablancaFischerShuffle())->create());
+            $this->board = CapablancaFischerFenToBoardFactory::create();
         } elseif ($this->variant === VariantType::CLASSICAL) {
-            $this->board = new ClassicalBoard();
+            $this->board = ClassicalFenToBoardFactory::create();
         } elseif ($this->variant === VariantType::DUNSANY) {
-            $this->board = new DunsanyBoard();
+            $this->board = DunsanyFenToBoardFactory::create();
         } elseif ($this->variant === VariantType::LOSING) {
-            $this->board = new LosingBoard();
+            $this->board = LosingFenToBoardFactory::create();
         } elseif ($this->variant === VariantType::RACING_KINGS) {
-            $this->board = new RacingKingsBoard();
+            $this->board = RacingKingsFenToBoardFactory::create();
         }
     }
 
